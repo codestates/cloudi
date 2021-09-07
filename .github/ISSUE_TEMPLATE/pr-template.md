@@ -1,17 +1,17 @@
 ---
 name: PR Template
-about: Pull Request 템플릿 본문
-title: "[PR Template] 제목 설정하기"
+about: 풀리퀘스트 하기 전 어떤 내용을 작업했는지 기록하는 템플릿입니다.
+title: "[Client] / #이슈번호 / create: readme"
 labels: ''
 assignees: ''
 
 ---
 
 ### PR 타입(하나 이상의 PR 타입을 선택해주세요)
--[] 기능 추가
--[] 기능 삭제
--[] 버그 수정
--[] 의존성, 환경 변수, 빌드 관련 코드 업데이트
+-[ ] 기능 추가
+-[ ] 기능 삭제
+-[ ] 버그 수정
+-[ ] 의존성, 환경 변수, 빌드 관련 코드 업데이트
 
 ### 반영 브랜치
 ex) feat/login -> dev
