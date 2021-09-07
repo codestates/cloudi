@@ -1,8 +1,8 @@
 ---
-name: Dev-Log Template
+name: Dev Log Template
 about: 프로젝트 진행 상황을 꾸준하게 기록하는 템플릿입니다.
-title: ''
-labels: ''
+title: "[Dev log] dev log 제목"
+labels: Dev log
 assignees: ''
 
 ---
