@@ -2,7 +2,7 @@
 name: 'Task Card Template '
 about: 작업 시작 전 작업할 내용과 예상시간 등을 기록하는 템플릿입니다.
 title: "[Client] 작업 내용"
-labels: Client, High, Low, Middle, Server, SR
+labels: To-Do
 assignees: ''
 
 ---
