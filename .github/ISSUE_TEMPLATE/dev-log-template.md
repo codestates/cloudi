@@ -1,7 +1,7 @@
 ---
 name: Dev Log Template
 about: 프로젝트 진행 상황을 꾸준하게 기록하는 템플릿입니다.
-title: "[Dev log] dev log 제목"
+title: "[Dev log] 홍길동 / 2021-09-00"
 labels: Dev log
 assignees: ''
 
