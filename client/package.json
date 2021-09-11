@@ -17,10 +17,14 @@
     "semistandard": "^16.0.1",
     "styled-components": "^5.3.1"
   },
+
+  "devDependencies": {
+    "semistandard": "*"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "semistandard",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -37,6 +41,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {}
+  }
 }
