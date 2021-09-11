@@ -15,9 +15,9 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "semistandard": "^16.0.1",
-    "styled-components": "^5.3.1"
+    "styled-components": "^5.3.1",
+    "styled-reset": "^4.3.4"
   },
-
   "devDependencies": {
     "semistandard": "*"
   },
