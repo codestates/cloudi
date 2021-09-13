@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './modals/Header';
 import GlobalStyle from './GlobalStyle';
+import Header from './modals/Header';
 
 const App = () => {
   return (
