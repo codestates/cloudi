@@ -30,6 +30,8 @@ const NavMenu = styled.ul`
     height: auto;
     display: ${props =>
       props.menu ? 'block' : 'none'};
+    border-top: ${props =>
+      props.menu ? '2px solid' : 'none'};
   }
 `;
 
@@ -38,6 +40,7 @@ const MenuList = styled.li`
   font-size: 20px;
   line-height: 95px;
   font-weight: bold;
+  transition: all 0.8s ease-in-out;
   background: linear-gradient(270deg, rgba(222, 253, 179, 1), rgba(222, 253, 179, 1), rgba(222, 253, 179, 0), rgba(222, 253, 179, 0));
   background-size: 300% 300%;
   :hover {
