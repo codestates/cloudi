@@ -9,30 +9,50 @@ const NavBar = styled.nav`
   align-items: center;
   border-bottom: 2px solid;
   background-color: rgba(255, 255, 255, 0);
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const NavLogo = styled.div`
   flex: 1;
-  display: flex;
   align-items: center;
 `;
 
 const NavMenu = styled.ul`
   display: flex;
-  height: 90px;
+  height: 95px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const MenuList = styled.li`
   padding: 0 20px;
   font-size: 20px;
-  line-height: 90px;
+  line-height: 95px;
   font-weight: bold;
   transition: all 0.9s;
-  background: linear-gradient(270deg, rgba(251, 220, 163, 1), rgba(251, 220, 163, 1), rgba(251, 220, 163, 0), rgba(251, 220, 163, 0));
+  background: linear-gradient(270deg, rgba(222, 253, 179, 1), rgba(222, 253, 179, 1), rgba(222, 253, 179, 0), rgba(222, 253, 179, 0));
   background-size: 300% 300%;
   :hover {
     cursor: pointer;
     background-position: 100% 50%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    text-align: center;
+  }
+`;
+
+const MobileMenuList = styled(MenuList)`
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: block;
   }
 `;
 
@@ -60,6 +80,26 @@ const Icon = styled.img`
     transition: all 0.7s;
     filter: opacity(0.5) drop-shadow(0 0 0 rgba(99, 84, 58, 1));
   }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MenuIcon = styled.img`
+  display: none;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  right: 0px;
+  margin: 25px 25px 0 0;
+  :hover {
+    cursor: pointer;
+    transition: all 0.7s;
+    filter: opacity(0.5) drop-shadow(0 0 0 rgba(99, 84, 58, 1));
+  }
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;
 
 const Header = () => {
@@ -69,16 +109,21 @@ const Header = () => {
         <NavLogo>
           <CloudiLogo src='/images/cloudi.png' />
         </NavLogo>
+        <MenuIcon src='/images/menu.png' />
         <NavMenu>
+          <MobileMenuList>SIGN UP</MobileMenuList>
+          <MobileMenuList>LOG IN</MobileMenuList>
           <MenuList>INCENSE</MenuList>
           <MenuList>QUIZ</MenuList>
           <MenuList>CUSTOMIZE</MenuList>
+          <MobileMenuList>ORDER</MobileMenuList>
         </NavMenu>
         <IconContainer>
           <Icon src='/images/cart.png' />
           <Icon src='/images/user.png' />
         </IconContainer>
       </NavBar>
+      
     </>
   );
 };
