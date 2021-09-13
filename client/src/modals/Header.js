@@ -110,26 +110,24 @@ const Header = () => {
   };
 
   return (
-    <>
-      <NavBar>
-        <NavLogo>
-          <CloudiLogo src='/images/cloudi.png' />
-        </NavLogo>
-        <NavMenu menu={menu}>
-          <MobileMenuList>SIGN UP</MobileMenuList>
-          <MobileMenuList>LOG IN</MobileMenuList>
-          <MenuList>INCENSE</MenuList>
-          <MenuList>QUIZ</MenuList>
-          <MenuList>CUSTOMIZE</MenuList>
-          <MobileMenuList>ORDER</MobileMenuList>
-        </NavMenu>
-        <IconContainer>
-          <Icon src='/images/cart.png' />
-          <Icon src='/images/user.png' />
-        </IconContainer>
-        <MenuIcon src='/images/menu.png' onClick={handleClickMenu} />
-      </NavBar>
-    </>
+    <NavBar>
+      <NavLogo>
+        <CloudiLogo src='/images/cloudi.png' />
+      </NavLogo>
+      <NavMenu menu={menu}>
+        <MobileMenuList>SIGN UP</MobileMenuList>
+        <MobileMenuList>LOG IN</MobileMenuList>
+        <MenuList>INCENSE</MenuList>
+        <MenuList>QUIZ</MenuList>
+        <MenuList>CUSTOMIZE</MenuList>
+        <MobileMenuList>ORDER</MobileMenuList>
+      </NavMenu>
+      <IconContainer>
+        <Icon src='/images/cart.png' />
+        <Icon src='/images/user.png' />
+      </IconContainer>
+      <MenuIcon src='/images/menu.png' onClick={handleClickMenu} />
+    </NavBar>
   );
 };
 
