@@ -6,6 +6,20 @@ const GlobalStyle = createGlobalStyle`
   *{
     box-sizing: border-box;
     font-family: sans-serif;
+    overflow-x: clip;
+    ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(15, 117, 1, 0.5);
+    };
+    @media screen and (max-width: 1023px) {
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 `;
 
