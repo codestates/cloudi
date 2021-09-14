@@ -1,3 +1,12 @@
+---
+name:  Pull Request Template
+about: 풀리퀘스트 시 작성하는 템플릿입니다.
+title: "[Client] / #88 / update: readme"
+labels: 
+assignees: ''
+
+---
+
 ### PR 타입(하나 이상의 PR 타입을 선택해주세요)
 - [ ] 기능 추가
 - [ ] 기능 삭제
