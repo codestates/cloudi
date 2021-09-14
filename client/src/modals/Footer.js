@@ -5,7 +5,7 @@ const FooterContainer = styled.footer`
   display: flex;
   bottom: 0;
   width: 100%;
-  padding: 30px 0;
+  padding: 20px 0;
   background-color: rgb(183, 197, 139);
   justify-content: center;
   @media screen and (max-width: 1023px) {
