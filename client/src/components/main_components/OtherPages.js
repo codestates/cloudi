@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import MainFooter from './MainFooter';
 
-const OtherPagesContainer = styled.main`
+const OtherPagesContainer = styled.section`
   background-color: rgb(229, 232, 225);
 `;
 
@@ -9,6 +10,7 @@ const PageContainer = styled.section`
   display:flex ;
   height: 100vh;
   width: 100vw;
+  scroll-snap-align: start;
 `;
 
 const FirstPageContainer = styled(PageContainer)``;
@@ -29,7 +31,14 @@ const SecondPageContiner = styled(PageContainer)``;
 
 const ThirdPageContainer = styled(PageContainer)``;
 
-const LastPageContainer = styled(PageContainer)``;
+const LastPageContainer = styled(PageContainer)`
+  flex-direction: column;
+`;
+
+const LastPageContent = styled.article`
+  flex: 15;
+  background-color: white;
+`;
 
 const OtherPages = () => {
   return (
@@ -47,7 +56,10 @@ const OtherPages = () => {
         3
       </ThirdPageContainer>
       <LastPageContainer>
-        4
+        <LastPageContent>
+          4
+        </LastPageContent>
+        <MainFooter />
       </LastPageContainer>
     </OtherPagesContainer>
   );

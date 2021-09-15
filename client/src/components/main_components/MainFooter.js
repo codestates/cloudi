@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterContainer = styled.footer`
+  flex: 2;
+  position: relative;
   display: flex;
-  bottom: 0;
+  height: 100%;
   width: 100%;
   padding: 20px 0;
   background-color: rgb(183, 197, 139);
@@ -55,10 +57,7 @@ const Name = styled.a`
   }
 `;
 
-const Footer = () => {
-  if (window.location.pathname === '/') {
-    return null;
-  }
+const MainFooter = () => {
   return (
     <FooterContainer>
       <TeamMember>
@@ -80,4 +79,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default MainFooter;
