@@ -5,8 +5,8 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   *{
     box-sizing: border-box;
-    font-family: sans-serif;
     overflow-x: clip;
+
     ::-webkit-scrollbar {
       -webkit-appearance: none;
       width: 7px;
@@ -20,7 +20,9 @@ const GlobalStyle = createGlobalStyle`
         display: none;
       }
     }
+
   }
+
 `;
 
 export default GlobalStyle;
