@@ -6,8 +6,8 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 
-const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
-const HTTP_PORT = process.env.HTTP_PORT || 8080;
+const HTTPS_PORT = process.env.HTTPS_PORT || 443;
+const HTTP_PORT = process.env.HTTP_PORT || 80;
 
 app.use(express.json());
 //app.use(express.urlencoded({ extended: false }));
