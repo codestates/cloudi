@@ -7,7 +7,7 @@ const express = require('express');
 const app = express();
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 443;
-const HTTP_PORT = process.env.HTTP_PORT || 80;
+// const HTTP_PORT = process.env.HTTP_PORT || 80;
 
 app.use(express.json());
 //app.use(express.urlencoded({ extended: false }));
@@ -35,6 +35,6 @@ if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
   server = https.createServer(credentials, app);
   server.listen(HTTPS_PORT, () => console.log(`https server runnning on ${HTTPS_PORT} port`));
 } else {
-  server = app.listen(HTTP_PORT, () => console.log(`http server runnning on ${HTTP_PORT} port`));
+  server = app.listen(HTTPS_PORT, () => console.log(`http server runnning on ${HTTPS_PORT} port`));
 }
 module.exports = server;
