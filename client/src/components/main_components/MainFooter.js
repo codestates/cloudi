@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const MainFooterContainer = styled.footer`
-  flex: 2;
+  flex: 1;
   padding-top: 20px;
   padding-bottom: 20px;
   display: flex;
@@ -22,6 +22,14 @@ const ContentContainer = styled.div`
     margin: 0;
     padding: 0 20px;
   };
+  @media screen and (max-width: 460px) {
+    margin: 0;
+    padding: 0;
+  };
+`;
+
+const TeamContainer = styled(ContentContainer)`
+  text-align: left;
 `;
 
 const ContentTitle = styled.h3`
@@ -36,7 +44,7 @@ const ContentTitle = styled.h3`
 
 const LogoTitle = styled(ContentTitle)`
   @media screen and (max-width: 1023px) {
-    font-size: 25px;
+    font-size: 20px;
     display: block;
   };
 `;
@@ -55,6 +63,11 @@ const Content = styled.a`
     color: green;
     text-decoration: none;
   }
+`;
+
+const NameContent = styled(Content)`
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 25px;
 `;
 
 const WikiLink = styled(Content)`
@@ -88,8 +101,20 @@ const CloudiI = styled.img`
   height: 15px;
   width: 10px;
   @media screen and (max-width: 1023px) {
-    height: 19px;
-    width: 13px;
+    height: 15px;
+    width: 9px;
+  };
+`;
+
+const ProfileImg = styled.img`
+  height: 18px;
+  width: 18px;
+  border: 1px solid;
+  margin: 0 6px;
+  box-shadow: 1.3px 1.3px grey;
+  border-color: rgb(102, 47, 13);
+  @media screen and (max-width: 1023px) {
+    margin: 0 3px 0 1px;
   };
 `;
 
@@ -107,7 +132,7 @@ const MainFooter = () => {
           ABOUT PROJECT
         </ContentTitle>
         <WikiLink href='https://github.com/codestates/cloudi/wiki' target='_blank'>
-          Wiki Home
+          Wiki
         </WikiLink>
         <WikiLink href='https://app.cloudcraft.co/view/a5809d6d-266e-4f4c-a907-a8162934a902?key=WfP-idtOuMGlQSzLQddN_A&interactive=true&embed=true' target='_blank'>
           Architecture
@@ -116,20 +141,20 @@ const MainFooter = () => {
           Worklog
         </WikiLink>
       </ContentContainer>
-      <ContentContainer>
+      <TeamContainer>
         <ContentTitle>TEAM CHALLENGERS</ContentTitle>
         <Stack>Full Stack</Stack>
-        <Content href='https://github.com/spirited-hunger' target='_blank'>강성진</Content>
+        <NameContent href='https://github.com/spirited-hunger' target='_blank'><ProfileImg src='profiles/Kang.jpeg' />강성진</NameContent>
         <br />
         <Stack>Front End</Stack>
-        <Content href='https://github.com/KimMinchan95' target='_blank'>김민찬</Content>
+        <NameContent href='https://github.com/KimMinchan95' target='_blank'><ProfileImg src='profiles/Kim.jpg' />김민찬</NameContent>
         <br />
         <Stack>Front End</Stack>
-        <Content href='https://github.com/Lee-Duckwon' target='_blank'>이덕원</Content>
+        <NameContent href='https://github.com/Lee-Duckwon' target='_blank'><ProfileImg src='profiles/Lee.png' />이덕원</NameContent>
         <br />
         <Stack>Back End </Stack>
-        <Content href='https://github.com/dankhan102' target='_blank'>심상국</Content>
-      </ContentContainer>
+        <NameContent href='https://github.com/dankhan102' target='_blank'><ProfileImg src='profiles/Sim.png' />심상국</NameContent>
+      </TeamContainer>
     </MainFooterContainer>
   );
 };
