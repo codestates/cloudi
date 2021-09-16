@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const NavBar = styled.nav`
@@ -9,8 +9,11 @@ const NavBar = styled.nav`
   height: 95px;
   justify-content: space-between;
   align-items: center;
+  border-bottom: ${props => props.scrollLocation !== 0 ? '2px solid' : 'none'};
   transition-property: background-color;
   transition-duration: 0.5s;
+  background-color: ${props =>
+    props.menu || props.scrollLocation !== 0 ? 'white' : 'rgba(255, 255, 255, 0)'};
   :hover {
     background-color: white;
   };
@@ -27,7 +30,7 @@ const NavLogo = styled.div`
 
 const NavMenu = styled.ul`
   display: flex;
-  height: 95px;
+  height: ${props => props.scrollLocation !== 0 ? '93px' : '95px'};
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     align-items: center;
@@ -116,18 +119,27 @@ const MenuIcon = styled.img`
 
 const Header = () => {
   const [menu, setMenu] = useState(false);
+  const [scrollLocation, setScrollLocation] = useState(0);
 
   const handleClickMenu = () => {
     setMenu(!menu);
   };
 
+  const scrollLocationNow = () => {
+    setScrollLocation(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollLocationNow);
+  });
+
   return (
     <>
-      <NavBar menu={menu}>
+      <NavBar menu={menu} scrollLocation={scrollLocation}>
         <NavLogo>
           <CloudiLogo src='/images/cloudi.png' />
         </NavLogo>
-        <NavMenu menu={menu}>
+        <NavMenu menu={menu} scrollLocation={scrollLocation}>
           <MobileMenuList>SIGN UP</MobileMenuList>
           <MobileMenuList>LOG IN</MobileMenuList>
           <MobileMenuList>ORDER</MobileMenuList>

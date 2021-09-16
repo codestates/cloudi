@@ -21,7 +21,7 @@ const QuizVideo = styled.video`
   position: relative;
 `;
 
-const QuizDesc = styled.div`
+const QuizDesc = styled.p`
   flex: 1;
   position: relative;
   font-size: 20px;
@@ -37,7 +37,7 @@ const LastPageContainer = styled(PageContainer)`
 
 const LastPageContent = styled.article`
   flex: 15;
-  background-color: white;
+  background-color: rgb(229, 232, 225);
 `;
 
 const OtherPages = () => {
