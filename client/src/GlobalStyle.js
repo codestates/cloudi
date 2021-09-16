@@ -21,6 +21,9 @@ const GlobalStyle = createGlobalStyle`
       }
     }
   }
+  body {
+    font-family: 'Gowun Batang', serif;
+  }
 `;
 
 export default GlobalStyle;

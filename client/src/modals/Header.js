@@ -47,6 +47,7 @@ const MenuList = styled.li`
   padding: 0 20px;
   font-size: 20px;
   line-height: 95px;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
   transition-property: background;
   transition-duration: 0.8s;
@@ -131,7 +132,6 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener('scroll', scrollLocationNow);
   });
-
 
   return (
     <>
