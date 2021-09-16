@@ -9,11 +9,19 @@ const MainFooterContainer = styled.footer`
   width: 100vw;
   justify-content: center;
   background-color: rgb(183, 197, 139);
+  @media screen and (max-width: 1023px) {
+    padding: 10px;
+    justify-content: space-between; 
+  };
 `;
 
 const ContentContainer = styled.div`
   margin: 15px 70px 0 70px;
   text-align: center;
+  @media screen and (max-width: 1023px) {
+    margin: 0;
+    padding: 0 20px;
+  };
 `;
 
 const ContentTitle = styled.h3`
@@ -21,6 +29,16 @@ const ContentTitle = styled.h3`
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: bold;
+  @media screen and (max-width: 1023px) {
+    display: none;
+  };
+`;
+
+const LogoTitle = styled(ContentTitle)`
+  @media screen and (max-width: 1023px) {
+    font-size: 25px;
+    display: block;
+  };
 `;
 
 const Content = styled.a`
@@ -47,30 +65,39 @@ const WikiLink = styled(Content)`
   :hover {
     color: black;
   }
+  @media screen and (max-width: 1023px) {
+    display: none;
+  };
 `;
 
 const Stack = styled.span`
   font-size: 20px;
   font-weight: bold;
   margin-right: 10px;
+  @media screen and (max-width: 1023px) {
+    font-size: 15px;
+  };
 `;
 
 const CloudiLogo = styled.img`
-  height: 47px;
-  width: 150px;
+  height: 50px;
+  width: 157px;
 `;
 
 const CloudiI = styled.img`
   height: 15px;
   width: 10px;
+  @media screen and (max-width: 1023px) {
+    height: 19px;
+    width: 13px;
+  };
 `;
 
 const MainFooter = () => {
   return (
     <MainFooterContainer>
       <ContentContainer>
-        <ContentTitle>REPOS<CloudiI src='/images/i.png' />TORY</ContentTitle>
-
+        <LogoTitle>REPOS<CloudiI src='/images/i.png' />TORY</LogoTitle>
         <Content href='https://github.com/codestates/cloudi' rel='noreferrer' target='_blank'>
           <CloudiLogo src='/images/cloudiback.png' />
         </Content>

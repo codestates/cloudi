@@ -20,7 +20,7 @@ const NavBar = styled.nav`
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     align-items: flex-start;
-  }
+  };
 `;
 
 const NavLogo = styled.div`
@@ -63,6 +63,10 @@ const MenuList = styled.li`
     text-align: center;
     background-color: white;
   }
+  @media screen and (max-height: 665px) {
+    height: 14vh;
+    line-height: 14vh;
+  };
 `;
 
 const MobileMenuList = styled(MenuList)`
