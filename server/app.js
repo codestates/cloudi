@@ -6,8 +6,7 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 
-const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
-const HTTP_PORT = process.env.HTTP_PORT || 8080;
+const PORT = process.env.PORT || 80;
 
 app.use(express.json());
 //app.use(express.urlencoded({ extended: false }));
@@ -33,8 +32,8 @@ if (fs.existsSync('./key.pem') && fs.existsSync('./cert.pem')) {
   const credentials = { key: privateKey, cert: certificate };
 
   server = https.createServer(credentials, app);
-  server.listen(HTTPS_PORT, () => console.log(`https server runnning on ${HTTPS_PORT} port`));
+  server.listen(PORT, () => console.log(`https server runnning on ${PORT} port`));
 } else {
-  server = app.listen(HTTP_PORT, () => console.log(`http server runnning on ${HTTP_PORT} port`));
+  server = app.listen(PORT, () => console.log(`http server runnning on ${PORT} port`));
 }
 module.exports = server;
