@@ -56,6 +56,9 @@ const Name = styled.a`
 `;
 
 const Footer = () => {
+  if (window.location.pathname === '/') {
+    return null;
+  }
   return (
     <FooterContainer>
       <TeamMember>
