@@ -13,18 +13,49 @@ const PageContainer = styled.section`
   scroll-snap-align: start;
 `;
 
-const FirstPageContainer = styled(PageContainer)``;
-
-const QuizVideo = styled.video`
-  flex: 1;
-  background-color: white;
-  position: relative;
+const FirstPageContainer = styled(PageContainer)`
+  display: flex;
 `;
 
-const QuizDesc = styled.p`
-  flex: 1;
+const VideoContainer = styled.article`
+  flex: 1.4;
+  text-align: center;
+  padding: 0 2%;
+`;
+
+const Video = styled.video`
   position: relative;
-  font-size: 20px;
+  width: 90%;
+  height: auto;
+  border: 2px solid;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px 5px gray;
+  top: 30%;
+`;
+
+const DescContainerRight = styled.article`
+  flex: 1;
+  display: table;
+  padding: 0 2%;
+  text-align: left;
+`;
+
+const DescContainerLeft = styled(DescContainerRight)`
+  text-align: right;
+`;
+
+const Title = styled.h2`
+  display: table-cell;
+  vertical-align: middle;
+  position: relative;
+  font-size: 26.8px;
+  font-weight: bold;
+`;
+
+const Desc = styled.p`
+  margin-top: 10px;
+  font-size: 17.9px;
+  font-weight: normal;
 `;
 
 const SecondPageContiner = styled(PageContainer)``;
@@ -36,28 +67,84 @@ const LastPageContainer = styled(PageContainer)`
 `;
 
 const LastPageContent = styled.article`
+  display: flex;
   flex: 15;
   background-color: rgb(229, 232, 225);
+`;
+
+const Button = styled.button`
+`;
+
+const LastPagePictureContainer = styled.article`
+  flex: 2;
+`;
+
+const LastPageDescContainer = styled.article`
+  flex: 3;
 `;
 
 const OtherPages = () => {
   return (
     <OtherPagesContainer>
       <FirstPageContainer>
-        <QuizVideo />
-        <QuizDesc>
-          제임스웍스는 세계 유명<br />향수에 버금가는<br />프리미엄급 향료를<br />사용하여 의류 전체에서<br />깊고 은은한 향을 그윽하게<br />풍겨줍니다
-        </QuizDesc>
+        <VideoContainer>
+          <Video autoPlay muted loop>
+            <source src='/videos/sample.mp4' type='video/mp4' />
+          </Video>
+        </VideoContainer>
+        <DescContainerRight>
+          <Title>
+            여러분의 인센스 취향을 알아보세요
+            <Desc>
+              인센스 스틱 퀴즈를 풀어보면서 여러분의 취향을 알아<br />
+              갈 수 있습니다.
+            </Desc>
+            <Button>퀴즈풀러가기</Button>
+          </Title>
+        </DescContainerRight>
       </FirstPageContainer>
       <SecondPageContiner>
-        2
+        <DescContainerLeft>
+          <Title>
+            여러분의 인센스 취향을 알아보세요
+            <Desc>
+              인센스 스틱 퀴즈를 풀어보면서 여러분의 취향을 알아<br />
+              갈 수 있습니다.
+            </Desc>
+            <Button>커스텀하러가기</Button>
+          </Title>
+        </DescContainerLeft>
+        <VideoContainer>
+          <Video autoPlay muted loop>
+            <source src='/videos/sample.mp4' type='video/mp4' />
+          </Video>
+        </VideoContainer>
       </SecondPageContiner>
       <ThirdPageContainer>
-        3
+        <VideoContainer>
+          <Video autoPlay muted loop>
+            <source src='/videos/sample.mp4' type='video/mp4' />
+          </Video>
+        </VideoContainer>
+        <DescContainerRight>
+          <Title>
+            여러분의 인센스 취향을 알아보세요
+            <Desc>
+              인센스 스틱 퀴즈를 풀어보면서 여러분의 취향을 알아<br />
+              갈 수 있습니다.
+            </Desc>
+            <Button>주문하러가기</Button>
+          </Title>
+        </DescContainerRight>
       </ThirdPageContainer>
       <LastPageContainer>
         <LastPageContent>
-          4
+          <LastPagePictureContainer>
+            1
+          </LastPagePictureContainer>
+          <LastPageDescContainer>
+            2
+          </LastPageDescContainer>
         </LastPageContent>
         <MainFooter />
       </LastPageContainer>
