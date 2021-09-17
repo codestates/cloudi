@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const NavBar = styled.nav`
   position: fixed;
   display: flex;
+  z-index: 1000;
   width: 100vw;
+  height: 95px;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid;
-  background-color: rgba(255, 255, 255, 0);
+  border-bottom: ${props => props.scrollLocation !== 0 ? '2px solid' : 'none'};
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  background-color: ${props =>
+    props.menu || props.scrollLocation !== 0 ? 'white' : 'rgba(255, 255, 255, 0)'};
+  :hover {
+    background-color: white;
+  };
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     align-items: flex-start;
@@ -22,7 +30,7 @@ const NavLogo = styled.div`
 
 const NavMenu = styled.ul`
   display: flex;
-  height: 95px;
+  height: ${props => props.scrollLocation !== 0 ? '93px' : '95px'};
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     align-items: center;
@@ -39,9 +47,12 @@ const MenuList = styled.li`
   padding: 0 20px;
   font-size: 20px;
   line-height: 95px;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
-  transition: all 0.8s ease-in-out;
-  background: linear-gradient(270deg, rgba(222, 253, 179, 1), rgba(222, 253, 179, 1), rgba(222, 253, 179, 0), rgba(222, 253, 179, 0));
+  transition-property: background;
+  transition-duration: 0.8s;
+  transition-timing-function: ease-out;
+  background: linear-gradient(270deg, rgba(92, 112, 5, 1), rgba(92, 112, 5, 1), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
   background-size: 300% 300%;
   :hover {
     cursor: pointer;
@@ -50,11 +61,12 @@ const MenuList = styled.li`
   @media screen and (max-width: 1023px) {
     width: 100%;
     text-align: center;
+    background-color: white;
   }
 `;
 
 const MobileMenuList = styled(MenuList)`
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1023px) {
     display: none;
   }
 `;
@@ -65,7 +77,7 @@ const CloudiLogo = styled.img`
   margin: 20px 0 20px 30px;
   :hover {
     cursor: pointer;
-    transition: all 0.7s;
+    transition: all 0.8s;
     filter: opacity(0.5) drop-shadow(0 0 0 rgba(99, 84, 58, 1));
   }
 `;
@@ -107,30 +119,41 @@ const MenuIcon = styled.img`
 
 const Header = () => {
   const [menu, setMenu] = useState(false);
+  const [scrollLocation, setScrollLocation] = useState(0);
 
   const handleClickMenu = () => {
     setMenu(!menu);
   };
 
+  const scrollLocationNow = () => {
+    setScrollLocation(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollLocationNow);
+  });
+
   return (
-    <NavBar>
-      <NavLogo>
-        <CloudiLogo src='/images/cloudi.png' />
-      </NavLogo>
-      <NavMenu menu={menu}>
-        <MobileMenuList>SIGN UP</MobileMenuList>
-        <MobileMenuList>LOG IN</MobileMenuList>
-        <MenuList>INCENSE</MenuList>
-        <MenuList>QUIZ</MenuList>
-        <MenuList>CUSTOMIZE</MenuList>
-        <MobileMenuList>ORDER</MobileMenuList>
-      </NavMenu>
-      <IconContainer>
-        <Icon src='/images/cart.png' />
-        <Icon src='/images/user.png' />
-      </IconContainer>
-      <MenuIcon src='/images/menu.png' onClick={handleClickMenu} />
-    </NavBar>
+    <>
+      <NavBar menu={menu} scrollLocation={scrollLocation}>
+        <NavLogo>
+          <CloudiLogo src='/images/cloudi.png' />
+        </NavLogo>
+        <NavMenu menu={menu} scrollLocation={scrollLocation}>
+          <MobileMenuList>SIGN UP</MobileMenuList>
+          <MobileMenuList>LOG IN</MobileMenuList>
+          <MobileMenuList>ORDER</MobileMenuList>
+          <MenuList>INCENSE</MenuList>
+          <MenuList>QUIZ</MenuList>
+          <MenuList>CUSTOMIZE</MenuList>
+        </NavMenu>
+        <IconContainer>
+          <Icon src='/images/cart.png' />
+          <Icon src='/images/user.png' />
+        </IconContainer>
+        <MenuIcon src='/images/menu.png' onClick={handleClickMenu} />
+      </NavBar>
+    </>
   );
 };
 
