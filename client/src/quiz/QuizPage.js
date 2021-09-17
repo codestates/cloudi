@@ -1,28 +1,16 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-
+import QuizPageFirst from './QuizPageFirst';
 
 const QuizContainer = styled.div`
   padding-top: 95px;
+  height: 100vh;
   display: flex;
+  align-items: center;
 `;
 
-const QuizeBackLeft = styled.div`
-flex: 1;
-flex-shrink: 1;
-//background-color: gray;
-`;
-
-const QuizeBackRight = styled.div`
-flex: 1;
-flex-shrink: 1;
-//background-color: gray;
-
-`;
-
-const QuizeBackCenter = styled.div`
-  //background-color: darkgreen;
-  padding-top: 340px;
-  color: #787887;
+const QuizContent = styled.div`
+  //border: 2px solid darkgreen;
   flex: 1;
   flex-shrink: 0;
   display: flex;
@@ -30,69 +18,88 @@ const QuizeBackCenter = styled.div`
   flex-direction: column;
 `;
 
+const QuizHeadline = styled.div`
+  color: #92929c;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+`;
+
 const SequenceContainer = styled.div`
-  padding-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-
-`;
-
-const QuizTitle = styled.div`
-  padding-top: 45px;
-  font-size: 1.3rem;
 `;
 
 const SequenceBox = styled.div`
   margin: 5px;
   width: 150px;
-  height: 15px;
+  height: 10px;
   background-color: #b7c58b;
 `;
 
-const QuizBtnBox = styled.div`
-  padding-top: 25px;
-  display: flex;
+const QuizTitle = styled.div`
+  margin: 100px 0 40px 0;
+  font-size: 1.3rem;
+  color: #787887;
 `;
-const QuizBtnContent = styled.div`
-  //background-color: darkolivegreen;
-  margin: 15px;
-  background-image: url(${(props) => props.url[0]});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 130px;
-  height: 140px;
+
+const ContinueBox = styled.div`
+  color: white;
+  background-color: #b7c58b;
+  width: 5%;
+  padding: 0.5%;
+  text-align: center;
+  margin-top: 100px;
   :hover {
-    background-image: url(${(props) => props.url[1]});
+    cursor: pointer;
+    background-color: #97a371;
   }
+
 `;
 const QuizPage = () => {
-  return(
-  <QuizContainer>
-    <QuizeBackLeft />
+  const [image, setImage] = useState({
+    spring: '/images/spring_black.png',
+    summer: '/images/summer_black.png',
+    fall: '/images/fall_black.png',
+    winter: '/images/winter_black.png'
+  });
+  const quizImageHandler = (key) => (e) => {
+    const image = {
+      spring: '/images/spring_black.png',
+      summer: '/images/summer_black.png',
+      fall: '/images/fall_black.png',
+      winter: '/images/winter_black.png'
+    };
+    if (key === 'spring') {
+      setImage({ ...image, [key]: '/images/spring_green.png' });
+    } else if (key === 'summer') {
+      setImage({ ...image, [key]: '/images/summer_green.png' });
+    } else if (key === 'fall') {
+      setImage({ ...image, [key]: '/images/fall_green.png' });
+    } else if (key === 'winter') {
+      setImage({ ...image, [key]: '/images/winter_green.png' });
+    }
+  };
 
-    <QuizeBackCenter>
-      INCENSE QUIZ
-
-      <SequenceContainer>
-        <SequenceBox />
-        <SequenceBox />
-        <SequenceBox />
-        <SequenceBox />
-      </SequenceContainer>
-
-      <QuizTitle>좋아하는 계절을 선택해주세요</QuizTitle> 
-      <QuizBtnBox>
-        <QuizBtnContent url={['/images/spring_black.png', '/images/spring_green.png']}/>
-        <QuizBtnContent url={['/images/summer_black.png', '/images/summer_green.png']}/>
-        <QuizBtnContent url={['/images/fall_black.png', '/images/fall_green.png']}/>
-        <QuizBtnContent url={['/images/snow_black.png', '/images/snow_green.png']}/>
-      </QuizBtnBox>
-    </QuizeBackCenter>
-
-    <QuizeBackRight />
-  </QuizContainer>
-  )
+  return (
+    <QuizContainer>
+      <QuizContent>
+        <QuizHeadline>INCENSE QUIZ</QuizHeadline>
+        <SequenceContainer>
+          <SequenceBox />
+          <SequenceBox />
+          <SequenceBox />
+          <SequenceBox />
+        </SequenceContainer>
+        <QuizTitle>좋아하는 계절을 선택해주세요</QuizTitle>
+        <QuizPageFirst
+          image={image}
+          quizImageHandler={quizImageHandler}
+        />
+        <ContinueBox>CONTINUE</ContinueBox>
+      </QuizContent>
+    </QuizContainer>
+  );
 };
 
 export default QuizPage;
