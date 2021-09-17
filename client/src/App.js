@@ -3,7 +3,6 @@ import GlobalStyle from './GlobalStyle';
 import Header from './modals/Header';
 import Main from './pages/Main';
 import Customize from './pages/Costomize';
-import Footer from './modals/Footer';
 import { Route, Switch } from 'react-router-dom';
 
 const App = () => {
@@ -20,7 +19,6 @@ const App = () => {
           <Customize />
         </Route>
       </Switch>
-      <Footer />
     </>
   );
 };

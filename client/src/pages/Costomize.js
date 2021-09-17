@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
-
 import MaterialPage from '../components/customize_components/MaterialPage';
 import HolderPage from '../components/customize_components/HolderPage';
 import TextPage from '../components/customize_components/TextPage';
@@ -24,10 +23,7 @@ const StyledCustomizePage = styled.nav`
   }
 `;
 
-
 const Customize = () => {
-
-  
   return (
     <StyledCustomizePage>
       <CustomizeHeader title='CUSTOMIZE' />
@@ -42,8 +38,7 @@ const Customize = () => {
           <TextPage />
         </Route>
       </Switch>
-      <Footer/>
-
+      <Footer />
     </StyledCustomizePage>
   );
 };
