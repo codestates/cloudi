@@ -16,6 +16,7 @@ const MainSaying = styled.h3`
   top: 20%;
   left: 50%;
   color: white;
+  cursor: default;
   font-size: 2rem;
   writing-mode: vertical-rl;
   text-orientation: upright;

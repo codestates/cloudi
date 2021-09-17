@@ -1,12 +1,3 @@
----
-name: PR Template
-about: 풀리퀘스트 하기 전 어떤 내용을 작업했는지 기록하는 템플릿입니다.
-title: "[Client] / #이슈번호 / create: readme"
-labels: Client, Server
-assignees: ''
-
----
-
 ### PR 타입(하나 이상의 PR 타입을 선택해주세요)
 - [ ] 기능 추가
 - [ ] 기능 삭제
