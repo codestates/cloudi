@@ -59,11 +59,11 @@ const MenuList = styled.li`
     width: 100%;
     text-align: center;
     background-color: white;
+      @media screen and (max-height: 665px) {
+      height: 14vh;
+      line-height: 14vh;
+    };
   }
-  @media screen and (max-height: 665px) {
-    height: 14vh;
-    line-height: 14vh;
-  };
 `;
 
 const MobileMenuList = styled(MenuList)`

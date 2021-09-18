@@ -144,16 +144,16 @@ const MainFooter = () => {
       <TeamContainer>
         <ContentTitle>TEAM CHALLENGERS</ContentTitle>
         <Stack>Full Stack</Stack>
-        <NameContent href='https://github.com/spirited-hunger' target='_blank'><ProfileImg src='profiles/Kang.jpeg' />강성진</NameContent>
+        <NameContent href='https://github.com/spirited-hunger' target='_blank'><ProfileImg src='https://avatars.githubusercontent.com/u/79678662?v=4' />강성진</NameContent>
         <br />
         <Stack>Front End</Stack>
-        <NameContent href='https://github.com/KimMinchan95' target='_blank'><ProfileImg src='profiles/Kim.jpg' />김민찬</NameContent>
+        <NameContent href='https://github.com/KimMinchan95' target='_blank'><ProfileImg src='https://avatars.githubusercontent.com/u/83770790?v=4' />김민찬</NameContent>
         <br />
         <Stack>Front End</Stack>
-        <NameContent href='https://github.com/Lee-Duckwon' target='_blank'><ProfileImg src='profiles/Lee.png' />이덕원</NameContent>
+        <NameContent href='https://github.com/Lee-Duckwon' target='_blank'><ProfileImg src='https://avatars.githubusercontent.com/u/78307480?v=4' />이덕원</NameContent>
         <br />
         <Stack>Back End </Stack>
-        <NameContent href='https://github.com/dankhan102' target='_blank'><ProfileImg src='profiles/Sim.png' />심상국</NameContent>
+        <NameContent href='https://github.com/dankhan102' target='_blank'><ProfileImg src='https://avatars.githubusercontent.com/u/81903014?v=4' />심상국</NameContent>
       </TeamContainer>
     </MainFooterContainer>
   );
