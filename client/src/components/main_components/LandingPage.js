@@ -13,13 +13,17 @@ const MainSaying = styled.h3`
   position: relative;
   z-index: 10;
   font-family: 'Nanum Pen Script', cursive;
+  letter-spacing: -3px;
   top: 20%;
   left: 50%;
   color: white;
   cursor: default;
-  font-size: 2rem;
+  font-size: 34px;
   writing-mode: vertical-rl;
   text-orientation: upright;
+  @media screen and (max-width: 1023px) {
+    font-size: 25px;
+  };
 `;
 
 const Arrow = styled.img`
@@ -30,8 +34,8 @@ const Arrow = styled.img`
   animation-direction : alternate;
   animation-duration: 2s;
   @keyframes arrow{
-    from {transform: translateY(20px);}
-    to {transform: translateY(35px);}
+    from {transform: translateY(15px);}
+    to {transform: translateY(25px);}
   };
 `;
 

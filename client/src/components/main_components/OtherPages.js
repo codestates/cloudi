@@ -11,10 +11,13 @@ const PageContainer = styled.section`
   height: 100vh;
   width: 100vw;
   scroll-snap-align: start;
+  @media screen and (max-width: 1023px) {
+    display: block;
+    padding-top: 120px;
+  }
 `;
 
 const FirstPageContainer = styled(PageContainer)`
-  display: flex;
 `;
 
 const VideoContainer = styled.article`
@@ -35,9 +38,12 @@ const Video = styled.video`
 const DescContainerRight = styled.article`
   flex: 1;
   display: table;
-  padding-left: 10px;
   padding: 0 2%;
   text-align: left;
+  @media screen and (max-width: 1023px) {
+    display: block;
+    padding: 40px 0 0 0;
+  };
 `;
 
 const DescContainerLeft = styled(DescContainerRight)`
@@ -48,22 +54,37 @@ const Title = styled.h2`
   display: table-cell;
   vertical-align: middle;
   position: relative;
-  font-size: 26.8px;
+  font-size: 25px;
   font-weight: bold;
+  @media screen and (max-width: 1023px) {
+    text-align: center;
+    display: grid;
+    place-content: center;
+  };
 `;
 
 const Desc = styled.p`
   margin-top: 10px;
-  font-size: 17.9px;
+  font-size: 16.7px;
   font-weight: normal;
 `;
 
-const SecondPageContiner = styled(PageContainer)``;
+const SecondPageContiner = styled(PageContainer)`
+  flex-direction: row-reverse;
+  @media screen and (max-width: 1023px) {
+    display: block;
+  };
+`;
 
-const ThirdPageContainer = styled(PageContainer)``;
+const ThirdPageContainer = styled(PageContainer)`
+`;
 
 const LastPageContainer = styled(PageContainer)`
+  padding-top: 95px;
   flex-direction: column;
+  @media screen and (max-width: 1023px) {
+    display: flex;
+  }
 `;
 
 const LastPageContent = styled.article`
@@ -93,6 +114,10 @@ const Button = styled.button`
   :active {
     box-shadow: inset 5px 5px 5px rgb(150, 160, 120);
   }
+  @media screen and (max-width: 1023px) {
+    margin: 40px;
+    width: 80vw;
+  }
 `;
 
 const NumberLeft = styled.p`
@@ -103,10 +128,13 @@ const NumberLeft = styled.p`
   color: green;
   top: 24.5%;
   left: 7.5%;
+  @media screen and (max-width: 1023px) {
+    display: none;
+  };
 `;
 
 const NumberRight = styled(NumberLeft)`
-  left: 49%;
+  left: -51%;
 `;
 
 const LastPagePictureContainer = styled.article`
@@ -140,21 +168,21 @@ const OtherPages = () => {
       </FirstPageContainer>
       <SecondPageContiner>
         <NumberRight>02</NumberRight>
-        <DescContainerLeft>
-          <Title>
-            여러분만의 홀더를 커스텀 해보세요.
-            <Desc>
-              다양한 커스텀을 통해 여러분 만의 홀더를 제작할 수<br />
-              있습니다
-            </Desc>
-            <Button>커스텀하러가기</Button>
-          </Title>
-        </DescContainerLeft>
         <VideoContainer>
           <Video autoPlay muted loop>
             <source src='/videos/sample.mp4' type='video/mp4' />
           </Video>
         </VideoContainer>
+        <DescContainerLeft>
+          <Title>
+            여러분만의 홀더를 커스텀 해보세요
+            <Desc>
+              다양한 커스텀을 통해 여러분 만의 홀더를 제작할 수<br />
+              있습니다.
+            </Desc>
+            <Button>커스텀하러가기</Button>
+          </Title>
+        </DescContainerLeft>
       </SecondPageContiner>
       <ThirdPageContainer>
         <NumberLeft>03</NumberLeft>
