@@ -7,14 +7,14 @@ const OtherPagesContainer = styled.section`
 `;
 
 const PageContainer = styled.section`
-  display:flex ;
+  display: flex ;
   height: 100vh;
   width: 100vw;
   scroll-snap-align: start;
+  padding-top: 95px;
   @media screen and (max-width: 1023px) {
     display: block;
-    padding-top: 120px;
-  }
+  };
 `;
 
 const FirstPageContainer = styled(PageContainer)`
@@ -24,15 +24,25 @@ const VideoContainer = styled.article`
   flex: 1.4;
   text-align: center;
   padding: 0 2%;
+  @media screen and (max-width: 1023px) {
+    padding-top: 20vh;
+    @media screen and (max-height: 800px) {
+      padding-top: 10vh;
+    };
+  };
 `;
 
 const Video = styled.video`
   position: relative;
-  width: 90%;
+  width: 80%;
   height: auto;
   border: 2px solid;
   box-shadow: 5px 5px 5px 5px gray;
   top: 30%;
+  @media screen and (max-height: 800px) {
+    height: 30vh;
+    width: auto;
+  };
 `;
 
 const DescContainerRight = styled.article`
@@ -42,7 +52,7 @@ const DescContainerRight = styled.article`
   text-align: left;
   @media screen and (max-width: 1023px) {
     display: block;
-    padding: 40px 0 0 0;
+    padding: 3vh 0 0 0;
   };
 `;
 
@@ -61,12 +71,21 @@ const Title = styled.h2`
     display: grid;
     place-content: center;
   };
+  @media screen and (max-height: 800px) {
+    font-size: 3.5vh;
+  };
 `;
 
 const Desc = styled.p`
   margin-top: 10px;
   font-size: 16.7px;
   font-weight: normal;
+  @media screen and (max-height: 800px) {
+    font-size: 2.3vh;
+  };
+  @media screen and (max-width: 1023px) {
+      text-align: left;
+  };
 `;
 
 const SecondPageContiner = styled(PageContainer)`
@@ -84,7 +103,7 @@ const LastPageContainer = styled(PageContainer)`
   flex-direction: column;
   @media screen and (max-width: 1023px) {
     display: flex;
-  }
+  };
 `;
 
 const LastPageContent = styled.article`
@@ -101,29 +120,35 @@ const Button = styled.button`
   color: rgb(183, 197, 139);
   font-size: 30px;
   font-weight: bold;
-  margin: 20px 5px 0 5px;
-  transition-duration: 0.7s;
-  padding: 3px 7px;
+  margin-top: 20px;
   :hover {
     cursor: pointer;
     background-color: rgb(183, 197, 139);
     color: white;
     box-shadow: -5px -5px -5px rgb(100, 100, 100);
     box-shadow: 2px 2px 2px gray;
-  }
+  };
   :active {
     box-shadow: inset 5px 5px 5px rgb(150, 160, 120);
-  }
+  };
   @media screen and (max-width: 1023px) {
     margin: 40px;
-    width: 80vw;
-  }
+    font-size: 2.5vh;
+    width: 40vw;
+    margin: 2vh auto;
+  };
+  @media screen and (max-height: 800px) {
+    font-size: 3vh;
+    height: 7vh;
+    width: 30vh;
+    margin: 2vh auto;
+  };
 `;
 
 const NumberLeft = styled.p`
   position: relative;
   font-family: 'Nanum Pen Script', cursive;
-  font-size: 4.5vw;
+  font-size: 8vh;
   z-index: 10;
   color: green;
   top: 24.5%;
@@ -145,6 +170,12 @@ const LastPageDescContainer = styled.article`
   flex: 3;
 `;
 
+const IncenseGrass = styled.img`
+  width: 100%;
+  height: auto;
+  padding: 10%;
+`;
+
 const OtherPages = () => {
   return (
     <OtherPagesContainer>
@@ -160,7 +191,9 @@ const OtherPages = () => {
             여러분의 인센스 취향을 알아보세요
             <Desc>
               인센스 스틱 퀴즈를 풀어보면서 여러분의 취향을 알아<br />
-              갈 수 있습니다.
+              갈 수 있습니다. <br />
+              다양한 인센스 스틱중에서 오직 여러분을 위한 인센스<br />
+              스틱을 찾아보세요.
             </Desc>
             <Button>퀴즈풀러가기</Button>
           </Title>
@@ -205,7 +238,7 @@ const OtherPages = () => {
       <LastPageContainer>
         <LastPageContent>
           <LastPagePictureContainer>
-            1
+            <IncenseGrass src='/images/incenseGrass.jpg' />
           </LastPagePictureContainer>
           <LastPageDescContainer>
             2

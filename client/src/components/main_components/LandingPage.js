@@ -21,8 +21,9 @@ const MainSaying = styled.h3`
   font-size: 34px;
   writing-mode: vertical-rl;
   text-orientation: upright;
-  @media screen and (max-width: 1023px) {
-    font-size: 25px;
+  @media screen and (max-height: 800px) {
+    margin-top: 95;
+    font-size: 3vh;
   };
 `;
 
@@ -36,6 +37,10 @@ const Arrow = styled.img`
   @keyframes arrow{
     from {transform: translateY(15px);}
     to {transform: translateY(25px);}
+  };
+  @media screen and (max-height: 800px) {
+    height: 2vh;
+    width: 1.5vw;
   };
 `;
 
