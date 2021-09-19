@@ -16,7 +16,7 @@ const App = () => {
         </Route>
         <Route path='/incense'>
           <QuizPage />
-        </Route>        
+        </Route>
         <Route path='/quiz'>
           <QuizPage />
         </Route>
@@ -24,7 +24,7 @@ const App = () => {
           <Customize />
         </Route>
         <Route path='/'>
-          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
           <div><center>페이지를 찾을 수 없습니다.</center></div>
         </Route>
       </Switch>
