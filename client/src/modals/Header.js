@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { Link, NavLink } from 'react-router-dom';
+
 const NavBar = styled.nav`
   position: fixed;
   display: flex;
@@ -12,6 +14,9 @@ const NavBar = styled.nav`
   border-bottom: 2px solid;
   background-color: ${props =>
     props.menu ? 'white' : 'rgba(255, 255, 255, 0)'};
+  .active {
+    background-color: rgb(183, 197, 139);
+  }
   :hover {
     background-color: white;
   };
@@ -43,9 +48,10 @@ const NavMenu = styled.ul`
 
 const MenuList = styled.li`
   padding: 0 20px;
-  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
   line-height: 93px;
-  font-weight: bold;
+  font-weight: 600;
   transition-property: background;
   transition-duration: 0.8s;
   transition-timing-function: ease-out;
@@ -128,15 +134,21 @@ const Header = () => {
   return (
     <NavBar menu={menu}>
       <NavLogo>
-        <CloudiLogo src='/images/cloudi.png' />
+        <Link to='/'><CloudiLogo src='/images/cloudi.png' /></Link>
       </NavLogo>
       <NavMenu menu={menu}>
         <MobileMenuList>SIGN UP</MobileMenuList>
         <MobileMenuList>LOG IN</MobileMenuList>
         <MobileMenuList>ORDER</MobileMenuList>
-        <MenuList>INCENSE</MenuList>
-        <MenuList>QUIZ</MenuList>
-        <MenuList>CUSTOMIZE</MenuList>
+        <NavLink to='/incense' style={{ textDecoration: 'none', color: 'black' }}>
+          <MenuList>INCENSE</MenuList>
+        </NavLink>
+        <NavLink to='/quiz' style={{ textDecoration: 'none', color: 'black' }}>
+          <MenuList>QUIZ</MenuList>
+        </NavLink>
+        <NavLink to='/customize' style={{ textDecoration: 'none', color: 'black' }}>
+          <MenuList>CUSTOMIZE</MenuList>
+        </NavLink>
       </NavMenu>
       <IconContainer>
         <Icon src='/images/cart.png' />
