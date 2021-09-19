@@ -23,6 +23,7 @@ const NavBar = styled.nav`
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     align-items: flex-start;
+    height: 64px;
   };
 `;
 
@@ -43,7 +44,10 @@ const NavMenu = styled.ul`
       props.menu ? 'block' : 'none'};
     border-top: ${props =>
       props.menu ? '2px solid' : 'none'};
-  }
+  };
+  @media screen and (max-width: 1023px) {
+    height: 50px;
+  };
 `;
 
 const MenuList = styled.li`
@@ -55,7 +59,7 @@ const MenuList = styled.li`
   transition-property: background;
   transition-duration: 0.8s;
   transition-timing-function: ease-out;
-  background: linear-gradient(270deg, rgba(92, 112, 5, 1), rgba(92, 112, 5, 1), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+  background: linear-gradient(270deg, rgba(183, 197, 139, 1), rgba(183, 197, 139, 1), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
   background-size: 300% 300%;
   :hover {
     cursor: pointer;
@@ -65,10 +69,8 @@ const MenuList = styled.li`
     width: 100%;
     text-align: center;
     background-color: white;
-      @media screen and (max-height: 665px) {
-      height: 14vh;
-      line-height: 14vh;
-    };
+    font-size: 2vh;
+    line-height: 8vh;
   }
 `;
 
@@ -86,6 +88,11 @@ const CloudiLogo = styled.img`
     cursor: pointer;
     transition: all 0.8s;
     filter: opacity(0.5) drop-shadow(0 0 0 rgba(99, 84, 58, 1));
+  };
+  @media screen and (max-width: 1023px) {
+    height: 40px;
+    width: 105px;
+    margin: 10px 0 10px 20px;
   }
 `;
 
@@ -121,6 +128,9 @@ const MenuIcon = styled.img`
   }
   @media screen and (max-width: 1023px) {
     display: block;
+    height: 45px;
+    width: 45px;
+    margin: 8px 15px 0 0;
   }
 `;
 
