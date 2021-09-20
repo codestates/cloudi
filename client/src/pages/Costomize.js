@@ -14,10 +14,10 @@ const StyledCustomizePage = styled.nav`
   display: flex;
   width: 100%;
   height: 100vh;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  /* border: 2px solid;
-  background-color: grey; */
+  border: 2px solid;
+  background-color: grey;
   @media screen and (max-width: 1023px) {
 
   }
