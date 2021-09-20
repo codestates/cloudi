@@ -1,10 +1,10 @@
 import React from 'react';
 
-const MaterialPage = () => {
+const MaterialEditor = () => {
   return (
     <>
     </>
   );
 };
 
-export default MaterialPage;
+export default MaterialEditor;

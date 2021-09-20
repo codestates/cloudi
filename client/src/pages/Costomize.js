@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import MaterialPage from '../components/customize_components/MaterialPage';
-import HolderPage from '../components/customize_components/HolderPage';
-import TextPage from '../components/customize_components/TextPage';
+import MaterialEditor from '../components/customize_components/MaterialEditor';
+import HolderEditor from '../components/customize_components/HolderEditor';
+import TextEditor from '../components/customize_components/TextEditor';
 import CustomizeHeader from '../components/customize_components/CustomizeHeader';
 
 import Footer from '../modals/Footer';
@@ -29,13 +29,13 @@ const Customize = () => {
       <CustomizeHeader title='CUSTOMIZE' />
       <Switch>
         <Route exact path='/customize/material'>
-          <MaterialPage />
+          <MaterialEditor />
         </Route>
         <Route exact path='/customize/holder'>
-          <HolderPage />
+          <HolderEditor />
         </Route>
         <Route path='/customize/text'>
-          <TextPage />
+          <TextEditor />
         </Route>
       </Switch>
       <Footer />
@@ -44,3 +44,11 @@ const Customize = () => {
 };
 
 export default Customize;
+
+// TODO
+// consider deleting customize Header props
+
+// ! semistandard disable commands
+// eslint-disable-line
+/* eslint-disable no-use-before-define */
+/* eslint-enable no-use-before-define */

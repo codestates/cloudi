@@ -14,7 +14,7 @@ const NavBar = styled.nav`
   border-bottom: 2px solid;
   background-color: ${props =>
     props.menu ? 'white' : 'rgba(255, 255, 255, 0)'};
-  .active {
+  .active li {
     background-color: rgb(183, 197, 139);
   }
   :hover {
