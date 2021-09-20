@@ -16,8 +16,8 @@ const StyledCustomizePage = styled.nav`
   height: 100vh;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid;
-  background-color: grey;
+  /* border: 2px solid;
+  background-color: grey; */
   @media screen and (max-width: 1023px) {
 
   }
