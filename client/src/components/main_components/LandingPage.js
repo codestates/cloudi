@@ -10,12 +10,8 @@ const LandingPageContiner = styled.section`
 `;
 
 const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  };
-  to {
-    opacity: 1;
-  };
+  from { opacity: 0;}
+  to { opacity: 1;}
 `;
 
 const MainSaying = styled.h3`
@@ -32,8 +28,12 @@ const MainSaying = styled.h3`
   text-orientation: upright;
   animation-duration: 4s;
   animation-timing-function: ease-out;
-  animation-name: ${fadeIn};
+  animation-name: ${fadeIn}, slideDown;
   animation-fill-mode: forward;
+  @keyframes slideDown{
+    from {transform: translateY(-30px);}
+    to {transform: translateY(0px);}
+  };
   @media screen and (max-height: 800px) {
     margin-top: 95;
     font-size: 3vh;

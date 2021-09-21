@@ -98,14 +98,6 @@ const SecondPageContiner = styled(PageContainer)`
 const ThirdPageContainer = styled(PageContainer)`
 `;
 
-const LastPageContainer = styled(PageContainer)`
-  padding-top: 95px;
-  flex-direction: column;
-  @media screen and (max-width: 1023px) {
-    display: flex;
-  };
-`;
-
 const Button = styled.button`
   border-radius: 5px; 
   border: 3px solid;
@@ -156,6 +148,15 @@ const NumberRight = styled(NumberLeft)`
   left: -51%;
 `;
 
+const LastPageContainer = styled(PageContainer)`
+  padding-top: 95px;
+  flex-direction: column;
+  scroll-snap-align: end;
+  @media screen and (max-width: 1023px) {
+    display: flex;
+  };
+`;
+
 const LastPageContent = styled.article`
   display: flex;
   flex: 15;
@@ -193,7 +194,7 @@ const IncenseGrass = styled.img`
 
 const CloudiSaying = styled.h2`
   font-weight: bold;
-  font-size: 1.8vw;
+  font-size: 1.6vw;
   line-height: 40px;
   @media screen and (max-width: 1023px) {
     font-size: 3vh;
@@ -203,7 +204,7 @@ const CloudiSaying = styled.h2`
 
 const CloudiDesc = styled.p`
   padding: 1vw 0 2vw 0;
-  font-size: 1.3vw;
+  font-size: 1.2vw;
   line-height: 1.5vw;
   @media screen and (max-width: 1023px) {
     font-size: 2vh;
@@ -248,7 +249,7 @@ const OtherPages = () => {
               다양한 커스텀을 통해 여러분 만의 홀더를 제작할 수<br />
               있습니다.<br />
               cloudi에서 투박한 홀더 디자인에서 벗어나 독창적인<br />
-              여러분만의 홀더를 제작할 수 있습니다.
+              여러분만의 홀더를 제작할 해보세요.
             </Desc>
             <Button>커스텀하러가기</Button>
           </Title>
