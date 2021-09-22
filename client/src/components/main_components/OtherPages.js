@@ -111,7 +111,6 @@ const Button = styled.button`
     cursor: pointer;
     background-color: rgb(183, 197, 139);
     color: white;
-    box-shadow: -5px -5px -5px rgb(100, 100, 100);
     box-shadow: 2px 2px 2px gray;
   };
   :active {

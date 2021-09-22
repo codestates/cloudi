@@ -161,7 +161,9 @@ const Header = () => {
         </NavLink>
       </NavMenu>
       <IconContainer>
-        <Icon src='/images/cart.png' />
+        <Link to='/order'>
+          <Icon src='/images/cart.png' />
+        </Link>
         <Icon src='/images/user.png' />
       </IconContainer>
       <MenuIcon src='/images/menu.png' onClick={handleClickMenu} />
