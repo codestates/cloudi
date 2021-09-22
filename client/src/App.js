@@ -3,6 +3,7 @@ import GlobalStyle from './GlobalStyle';
 import Header from './modals/Header';
 import Main from './pages/Main';
 import Customize from './pages/Costomize';
+import Order from './pages/Order';
 import { Route, Switch } from 'react-router-dom';
 import QuizPage from './quiz/QuizPage';
 const App = () => {
@@ -22,6 +23,9 @@ const App = () => {
         </Route>
         <Route path='/customize'>
           <Customize />
+        </Route>
+        <Route path='/order'>
+          <Order />
         </Route>
         <Route path='/'>
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
