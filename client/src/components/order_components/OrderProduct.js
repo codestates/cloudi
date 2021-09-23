@@ -31,7 +31,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-  margin-top: 30px;
+  margin-top: 90px;
   font-size: 20px;
   padding: 10px 30px;
   color: white;
@@ -46,6 +46,53 @@ const Button = styled.button`
   };
 `;
 
+const ProductCal = styled.article`
+  display: flex;
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  border-top: 2px solid;
+`;
+
+const CalDesc = styled.div`
+  flex: 5;
+  text-align: right;
+  font-weight: bold;
+`;
+
+const Price = styled.div`
+  flex: 1;
+  text-align: center;
+`;
+
+const ShippingFeeCal = styled(ProductCal)`
+  margin-left: auto;
+  width: 50%;
+  margin-top: 0;
+  border-top: none;
+  border-bottom: 2px solid;
+`;
+
+const FeeDesc = styled(CalDesc)`
+  flex: 2;
+  padding-right: 12px;
+`;
+
+const PriceSumContainer = styled(ProductCal)`
+  border-top: none;
+`;
+
+const SumDesc = styled(CalDesc)`
+  font-family: 'Roboto', sans-serif;
+  font-size: 17px;
+  padding-right: 14px;
+`;
+
+const Sum = styled(Price)`
+  font-size: 17px;
+  font-weight: bold;
+`;
+
 const OrderProduct = () => {
   return (
     <OrderProductContainer>
@@ -55,6 +102,23 @@ const OrderProduct = () => {
         <ProductDesc>가격</ProductDesc>
         <ProductDesc>배송비</ProductDesc>
       </ProductExplanation>
+      장바구니에 상품이 없습니다.
+      <ProductCal>
+        <CalDesc>상품 합계</CalDesc>
+        <Price>57,000원</Price>
+      </ProductCal>
+      <ShippingFeeCal>
+        <FeeDesc>배송비</FeeDesc>
+        <Price>0원</Price>
+      </ShippingFeeCal>
+      <PriceSumContainer>
+        <SumDesc>
+          합 계
+        </SumDesc>
+        <Sum>
+          57,000원
+        </Sum>
+      </PriceSumContainer>
       <ButtonContainer>
         <Button>ORDER</Button>
       </ButtonContainer>

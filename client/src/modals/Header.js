@@ -12,8 +12,7 @@ const NavBar = styled.nav`
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid;
-  background-color: ${props =>
-    props.menu ? 'white' : 'rgba(255, 255, 255, 0)'};
+  background-color: white;
   .active li {
     background-color: rgb(183, 197, 139);
   }
@@ -149,7 +148,9 @@ const Header = () => {
       <NavMenu menu={menu}>
         <MobileMenuList>SIGN UP</MobileMenuList>
         <MobileMenuList>LOG IN</MobileMenuList>
-        <MobileMenuList>ORDER</MobileMenuList>
+        <NavLink to='/order' style={{ textDecoration: 'none', color: 'black' }}>
+          <MobileMenuList>ORDER</MobileMenuList>
+        </NavLink>
         <NavLink to='/incense' style={{ textDecoration: 'none', color: 'black' }}>
           <MenuList>INCENSE</MenuList>
         </NavLink>
