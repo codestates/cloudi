@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import MainFooter from './MainFooter';
 
 const OtherPagesContainer = styled.section`
-  background-color: rgb(229, 232, 225);
+  background-color: rgba(229, 232, 225, 0.7);
 `;
 
 const PageContainer = styled.section`
