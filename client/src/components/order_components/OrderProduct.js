@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const OrderProductContainer = styled.section`
-  padding: 0 2.5vw;
+  padding: 0 5vw;
 `;
 
 const ProductExplanation = styled.article`
@@ -12,6 +12,9 @@ const ProductExplanation = styled.article`
   height: 50px;
   line-height: 50px;
   border-bottom: 2px solid;
+  @media screen and (max-width: 1023px) {
+    display: none;
+  };
 `;
 
 const ProductInfo = styled.div`
@@ -58,11 +61,20 @@ const CalDesc = styled.div`
   flex: 5;
   text-align: right;
   font-weight: bold;
+  @media screen and (max-width: 1023px) {
+    flex: 1;
+    text-align: left;
+    margin-left: 20px;
+  };
 `;
 
 const Price = styled.div`
   flex: 1;
   text-align: center;
+  @media screen and (max-width: 1023px) {
+    text-align: right;
+    margin-right: 20px;
+  };
 `;
 
 const ShippingFeeCal = styled(ProductCal)`
@@ -71,6 +83,9 @@ const ShippingFeeCal = styled(ProductCal)`
   margin-top: 0;
   border-top: none;
   border-bottom: 2px solid;
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+  };
 `;
 
 const FeeDesc = styled(CalDesc)`

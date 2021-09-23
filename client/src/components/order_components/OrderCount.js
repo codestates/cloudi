@@ -20,7 +20,7 @@ const OrderNumber = styled.h2`
   letter-spacing: 10px;
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
-    width: 95%;
+    width: 90%;
     font-size: 25px;
     letter-spacing: 7px;
     border-bottom: 2px solid;
