@@ -71,7 +71,7 @@ const MainImg = styled.div`
 
 const LandingPage = () => {
   return (
-    <LandingPageContiner>
+    <LandingPageContiner id='landing'>
       <MainImg>
         <MainSaying>
           오늘,당신의기분은어떤향인가요?
