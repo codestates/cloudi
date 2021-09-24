@@ -15,9 +15,6 @@ const App = () => {
         <Route exact path='/'>
           <Main />
         </Route>
-        <Route path='/incense'>
-          <QuizPage />
-        </Route>
         <Route path='/quiz'>
           <QuizPage />
         </Route>
