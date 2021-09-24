@@ -133,6 +133,11 @@ const MenuIcon = styled.img`
   }
 `;
 
+const LinkElem = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+`;
+
 const Header = () => {
   const [menu, setMenu] = useState(false);
 
@@ -148,18 +153,18 @@ const Header = () => {
       <NavMenu menu={menu}>
         <MobileMenuList>SIGN UP</MobileMenuList>
         <MobileMenuList>LOG IN</MobileMenuList>
-        <NavLink to='/order' style={{ textDecoration: 'none', color: 'black' }}>
+        <LinkElem to='/order'>
           <MobileMenuList>ORDER</MobileMenuList>
-        </NavLink>
-        <NavLink to='/incense' style={{ textDecoration: 'none', color: 'black' }}>
+        </LinkElem>
+        <LinkElem to='/incense'>
           <MenuList>INCENSE</MenuList>
-        </NavLink>
-        <NavLink to='/quiz' style={{ textDecoration: 'none', color: 'black' }}>
+        </LinkElem>
+        <LinkElem to='/quiz'>
           <MenuList>QUIZ</MenuList>
-        </NavLink>
-        <NavLink to='/customize' style={{ textDecoration: 'none', color: 'black' }}>
+        </LinkElem>
+        <LinkElem to='/customize'>
           <MenuList>CUSTOMIZE</MenuList>
-        </NavLink>
+        </LinkElem>
       </NavMenu>
       <IconContainer>
         <Link to='/order'>
