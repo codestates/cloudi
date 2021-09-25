@@ -80,3 +80,10 @@ export const QUIZ_LIST = [
     ]
   }
 ];
+
+export const QUIZ_IMAGE = {
+  spring: '/images/spring_black.png',
+  summer: '/images/summer_black.png',
+  fall: '/images/fall_black.png',
+  winter: '/images/winter_black.png'
+};

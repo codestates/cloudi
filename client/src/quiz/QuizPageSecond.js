@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { QUIZ_LIST } from './quizList';
+import { QUIZ_LIST } from './quizItem';
 
 const SecondContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -21,8 +21,6 @@ const SecondContainer = styled.div`
   }
 `;
 
-const DoneMessage = styled.div``;
-
 const BtnContent = styled.div`
   width: ${(props) => props.width || '130'}px;
   color: ${(props) => (props.disable ? '#a9a9ab' : '#3e3e4d')};
@@ -34,14 +32,14 @@ const BtnContent = styled.div`
   border-color: ${(props) => (props.disable ? '#a9a9ab' : '#787887')};
   :hover {
     border-color: ${(props) => (props.disable ? '#787887' : '#b7c58b')};
+    cursor: pointer;
   }
   @media screen and (max-width: 1023px) {
   }
 `;
 
-const QuizPageSecond = ({ visible }) => {
+const QuizPageSecond = ({ visible, setImageClick }) => {
   const [btnDisable, setBtnDisable] = useState(false);
-  const [doneMessage, setDoneMessage] = useState('');
   const [activeBtn, setActiveBtn] = useState({
     joy: false,
     anger: false,
@@ -61,21 +59,16 @@ const QuizPageSecond = ({ visible }) => {
   ).length;
 
   useEffect(() => {
-    // * 유즈이펙트 // true가 몇개인지 알아야함.
     if (clickCount === 3) {
       setBtnDisable(true);
+      setImageClick(true);
     } else {
       setBtnDisable(false);
+      setImageClick(false);
     }
   }, [activeBtn]);
 
   const clickHandler = (text) => {
-    // *  버튼 클릭하면 실행되는 함수.
-
-    // const clickCount = Object.values(activeBtn).filter(
-    //   (el) => el === true
-    // ).length;
-
     if (clickCount === 3) {
       if (activeBtn[text]) {
         setActiveBtn({ ...activeBtn, [text]: !activeBtn[text] });
@@ -112,7 +105,6 @@ const QuizPageSecond = ({ visible }) => {
           </SecondContainer>
         );
       })}
-      <DoneMessage>{doneMessage}</DoneMessage>
     </>
   );
 };

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import QuizPageFirst from './QuizPageFirst';
 import QuizPageSecond from './QuizPageSecond';
+import QuizPageThird from './QuizPageThird';
+import { QUIZ_IMAGE } from './quizItem';
 
 const QuizContainer = styled.div`
   //padding-top: 95px;
@@ -58,43 +60,39 @@ const ContinueBox = styled.div`
   margin-top: 100px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
+  pointer-events: ${(props) => (props.click ? 'auto' : 'none')};
   :hover {
     cursor: pointer;
     background-color: #97a371;
   }
 `;
 
-const QuizPage = () => {
+const Quiz = () => {
   const [visible, setVisible] = useState({
     firstPage: true,
-    secondPage: false
+    secondPage: false,
+    thirdPage: false
   });
-
   const [imageClick, setImageClick] = useState(false);
-
-  const [image, setImage] = useState({
-    spring: '/images/spring_black.png',
-    summer: '/images/summer_black.png',
-    fall: '/images/fall_black.png',
-    winter: '/images/winter_black.png'
-  });
-
+  const [image, setImage] = useState(QUIZ_IMAGE);
   const [title, setTitle] = useState('좋아하는 계절을 선택해주세요');
   const quizImageHandler = (key) => {
-    const image = {
-      spring: '/images/spring_black.png',
-      summer: '/images/summer_black.png',
-      fall: '/images/fall_black.png',
-      winter: '/images/winter_black.png'
-    };
-    if (key === 'spring') {
-      setImage({ ...image, [key]: '/images/spring_green.png' });
-    } else if (key === 'summer') {
-      setImage({ ...image, [key]: '/images/summer_green.png' });
-    } else if (key === 'fall') {
-      setImage({ ...image, [key]: '/images/fall_green.png' });
-    } else if (key === 'winter') {
-      setImage({ ...image, [key]: '/images/winter_green.png' });
+    const image = QUIZ_IMAGE;
+    switch (key) {
+      case 'spring':
+        setImage({ ...image, [key]: '/images/spring_green.png' });
+        break;
+      case 'summer':
+        setImage({ ...image, [key]: '/images/summer_green.png' });
+        break;
+      case 'fall':
+        setImage({ ...image, [key]: '/images/fall_green.png' });
+        break;
+      case 'winter':
+        setImage({ ...image, [key]: '/images/winter_green.png' });
+        break;
+      default:
+        break;
     }
   };
 
@@ -103,9 +101,19 @@ const QuizPage = () => {
       case visible.firstPage:
         setVisible({
           firstPage: false,
-          secondPage: true
+          secondPage: true,
+          thirdPage: false
         });
+        setImageClick(false);
         setTitle('오늘의 기분 3가지를 골라주세요');
+        break;
+      case visible.secondPage:
+        setVisible({
+          firstPage: false,
+          secondPage: false,
+          thirdPage: true
+        });
+        setTitle('세번째다');
         break;
 
       default:
@@ -129,7 +137,14 @@ const QuizPage = () => {
         quizImageHandler={quizImageHandler}
         setImageClick={setImageClick}
       />
-      <QuizPageSecond visible={visible.secondPage} />
+      <QuizPageSecond
+        visible={visible.secondPage}
+        setImageClick={setImageClick}
+      />
+      <QuizPageThird
+        visible={visible.thirdPage}
+        setImageClick={setImageClick}
+      />
       <ContinueBox click={imageClick} onClick={continueBtnHandler}>
         CONTINUE
       </ContinueBox>
@@ -137,4 +152,4 @@ const QuizPage = () => {
   );
 };
 
-export default QuizPage;
+export default Quiz;
