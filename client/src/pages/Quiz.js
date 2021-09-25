@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import QuizPageFirst from './QuizPageFirst';
-import QuizPageSecond from './QuizPageSecond';
-import QuizPageThird from './QuizPageThird';
-import { QUIZ_IMAGE } from './quizItem';
+import QuizPageFirst from '../components/quiz_components/QuizPageFirst';
+import QuizPageSecond from '../components/quiz_components/QuizPageSecond';
+import QuizPageThird from '../components/quiz_components/QuizPageThird';
+import { QUIZ_IMAGE as IMAGE } from '../components/quiz_components/quizItem';
 
 const QuizContainer = styled.div`
   //padding-top: 95px;
@@ -74,10 +74,10 @@ const Quiz = () => {
     thirdPage: false
   });
   const [imageClick, setImageClick] = useState(false);
-  const [image, setImage] = useState(QUIZ_IMAGE);
+  const [image, setImage] = useState(IMAGE);
   const [title, setTitle] = useState('좋아하는 계절을 선택해주세요');
   const quizImageHandler = (key) => {
-    const image = QUIZ_IMAGE;
+    const image = IMAGE;
     switch (key) {
       case 'spring':
         setImage({ ...image, [key]: '/images/spring_green.png' });
