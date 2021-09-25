@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const LandingPageContiner = styled.section`
   display: flex;
@@ -9,16 +9,35 @@ const LandingPageContiner = styled.section`
   scroll-snap-align: start;
 `;
 
+const fadeIn = keyframes`
+  from { opacity: 0;}
+  to { opacity: 1;}
+`;
+
 const MainSaying = styled.h3`
   position: relative;
   z-index: 10;
   font-family: 'Nanum Pen Script', cursive;
+  letter-spacing: -3px;
   top: 20%;
   left: 50%;
   color: white;
-  font-size: 2rem;
+  cursor: default;
+  font-size: 34px;
   writing-mode: vertical-rl;
   text-orientation: upright;
+  animation-duration: 4s;
+  animation-timing-function: ease-out;
+  animation-name: ${fadeIn}, slideDown;
+  animation-fill-mode: forward;
+  @keyframes slideDown{
+    from {transform: translateY(-30px);}
+    to {transform: translateY(0px);}
+  };
+  @media screen and (max-height: 800px) {
+    margin-top: 95;
+    font-size: 3vh;
+  };
 `;
 
 const Arrow = styled.img`
@@ -29,8 +48,12 @@ const Arrow = styled.img`
   animation-direction : alternate;
   animation-duration: 2s;
   @keyframes arrow{
-    from {transform: translateY(20px);}
-    to {transform: translateY(35px);}
+    from {transform: translateY(15px);}
+    to {transform: translateY(25px);}
+  };
+  @media screen and (max-height: 800px) {
+    height: 2vh;
+    width: 1.5vw;
   };
 `;
 
@@ -40,11 +63,15 @@ const MainImg = styled.div`
   height: 100%;
   width: 100%;
   background-position: 100% 100%;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-name: ${fadeIn};
+  animation-fill-mode: foward;
 `;
 
 const LandingPage = () => {
   return (
-    <LandingPageContiner>
+    <LandingPageContiner id='landing'>
       <MainImg>
         <MainSaying>
           오늘,당신의기분은어떤향인가요?
