@@ -6,6 +6,7 @@ import Customize from './pages/Costomize';
 import Order from './pages/Order';
 import { Route, Switch } from 'react-router-dom';
 import Quiz from './pages/Quiz';
+
 const App = () => {
   return (
     <>
