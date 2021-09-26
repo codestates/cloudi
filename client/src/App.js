@@ -12,8 +12,8 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Header />
       <SideBar />
+      <Header />
       <Switch>
         <Route exact path='/'>
           <Main />
