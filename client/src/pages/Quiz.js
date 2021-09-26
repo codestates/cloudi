@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import QuizPageFirst from '../components/quiz_components/QuizPageFirst';
 import QuizPageSecond from '../components/quiz_components/QuizPageSecond';
 import QuizPageThird from '../components/quiz_components/QuizPageThird';
-import { QUIZ_IMAGE as IMAGE } from '../components/quiz_components/quizItem';
+import { IMAGE, SEQUENCE } from '../components/quiz_components/quizItem';
 
 const QuizContainer = styled.div`
   //padding-top: 95px;
@@ -21,8 +21,8 @@ const QuizContainer = styled.div`
       opacity: 1;
     }
   }
-  @media screen and (max-height: 768px) {
-    height: 800px;
+  @media screen and (max-height: 830px) {
+    height: 850px;
   }
 `;
 
@@ -48,7 +48,11 @@ const SequenceBox = styled.div`
   margin: 5px;
   width: 150px;
   height: 10px;
-  background-color: #b7c58b;
+  background-color: ${(props) => (props.progress ? '#b7c58b' : '#787887')};
+  @media screen and (max-width: 768px) {
+    width: 70px;
+    height: 8px;
+  }
 `;
 
 const ContinueBox = styled.div`
@@ -68,14 +72,12 @@ const ContinueBox = styled.div`
 `;
 
 const Quiz = () => {
-  const [visible, setVisible] = useState({
-    firstPage: true,
-    secondPage: false,
-    thirdPage: false
-  });
+  const [visible, setVisible] = useState(SEQUENCE);
+  const [sequence, setSequence] = useState(SEQUENCE);
   const [imageClick, setImageClick] = useState(false);
   const [image, setImage] = useState(IMAGE);
   const [title, setTitle] = useState('좋아하는 계절을 선택해주세요');
+  const progress = ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'];
   const quizImageHandler = (key) => {
     const image = IMAGE;
     switch (key) {
@@ -100,20 +102,23 @@ const Quiz = () => {
     switch (true) {
       case visible.firstPage:
         setVisible({
+          ...visible,
           firstPage: false,
-          secondPage: true,
-          thirdPage: false
+          secondPage: true
         });
+        setSequence({ ...sequence, secondPage: true });
         setImageClick(false);
         setTitle('오늘의 기분 3가지를 골라주세요');
         break;
       case visible.secondPage:
         setVisible({
-          firstPage: false,
+          ...visible,
           secondPage: false,
           thirdPage: true
         });
-        setTitle('세번째다');
+        setSequence({ ...sequence, thirdPage: true });
+        setImageClick(false);
+        setTitle('내가 생각하기에 나의 성향은..');
         break;
 
       default:
@@ -125,10 +130,9 @@ const Quiz = () => {
     <QuizContainer>
       <QuizHeadline>INCENSE QUIZ</QuizHeadline>
       <SequenceContainer>
-        <SequenceBox />
-        <SequenceBox />
-        <SequenceBox />
-        <SequenceBox />
+        {progress.map((el) => {
+          return <SequenceBox key={el} progress={sequence[el]} />;
+        })}
       </SequenceContainer>
       <QuizTitle>{title}</QuizTitle>
       <QuizPageFirst

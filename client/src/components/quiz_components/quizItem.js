@@ -81,9 +81,16 @@ export const QUIZ_LIST = [
   }
 ];
 
-export const QUIZ_IMAGE = {
+export const IMAGE = {
   spring: '/images/spring_black.png',
   summer: '/images/summer_black.png',
   fall: '/images/fall_black.png',
   winter: '/images/winter_black.png'
+};
+
+export const SEQUENCE = {
+  firstPage: true,
+  secondPage: false,
+  thirdPage: false,
+  fourthPage: false
 };
