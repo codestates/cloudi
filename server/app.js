@@ -8,6 +8,9 @@ const app = express();
 
 const PORT = process.env.PORT || 80;
 
+//! image test
+const imageRouter = require('./routes/image');
+
 app.use(express.json());
 //app.use(express.urlencoded({ extended: false }));
 app.use(
@@ -18,6 +21,9 @@ app.use(
   }*/)
 );
 app.use(cookieParser());
+
+//! image test
+app.use('/image', imageRouter);
 
 app.get('/', (req, res) => {
   res.send('WELCOME! CLOUDI SERVER!')
