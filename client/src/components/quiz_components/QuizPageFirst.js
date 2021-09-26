@@ -13,6 +13,11 @@ const QuizFirstContent = styled.div`
   width: 130px;
   height: 140px;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    margin: 5px;
+    width: 100px;
+    height: 110px;
+  }
 `;
 
 const QuizPageFirst = ({ visible, image, quizImageHandler, setImageClick }) => {
