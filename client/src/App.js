@@ -19,7 +19,7 @@ const App = () => {
           <Main />
         </Route>
         <Route path='/quiz'>
-          <QuizPage />
+          <Quiz />
         </Route>
         <Route path='/customize'>
           <Customize />
