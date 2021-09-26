@@ -1,7 +1,8 @@
 import React from 'react';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import { Route, Switch, NavLink, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import Editor from '../components/customize_components/Editor';
 import MaterialEditor from '../components/customize_components/MaterialEditor';
 import HolderEditor from '../components/customize_components/HolderEditor';
 import TextEditor from '../components/customize_components/TextEditor';
@@ -25,10 +26,10 @@ const CustomizePage = styled.section`
 
 const Title = styled.section`
   text-align: center;
-  font-family: 'Roboto';
   font-weight: 300;
-  font-size: 1.2rem;
-  letter-spacing: 0.5em;
+  font-size: 1rem;
+  color: #787887;
+  letter-spacing: 0;
   width: 50vmax;
   margin-top: 100px;
   margin-bottom: 10px;
@@ -72,21 +73,59 @@ const MainButton = styled.section`
   }
 `;
 
-// const customizeCategories = [
-//   {
-//     id: 1,
-//     type: 'buttons',
-//     name: 'material',
-//     options: {
-//       wood: 'blob',
-//       steel: 'blob',
-//       ceramic: 'blob'
-//     }
-//   },
-
-// ]
-
 const Customize = () => {
+  const categories = [
+    {
+      id: 1,
+      type: 'buttons',
+      name: 'material',
+      options: [
+        {
+          id: 1,
+          option: 'wood',
+          price: 10000
+        }, {
+          id: 2,
+          option: 'ceramic',
+          price: 12000
+        }, {
+          id: 3,
+          option: 'steel',
+          price: 14000
+        }
+      ]
+    }, {
+      id: 2,
+      type: 'buttons',
+      name: 'holder',
+      options: [
+        {
+          id: 1,
+          option: 'none',
+          price: 0
+        }, {
+          id: 2,
+          option: 'cat',
+          price: 5000
+        }, {
+          id: 3,
+          option: 'pinoccio',
+          price: 3000
+        }, {
+          id: 4,
+          option: 'fisher',
+          price: 4000
+        }
+      ]
+    }, {
+      id: 3,
+      type: 'text',
+      name: 'material'
+    }    
+  ]
+
+
+
   return (
     <CustomizePage>
       <NavLink to='/customize'>
@@ -94,36 +133,48 @@ const Customize = () => {
       </NavLink>
       <Indicator />
       <Switch>
+        {/* categories.map(el => {
+          return (
+            <Route key={el.id} path='/customize/material'>
+            <MaterialEditor />
+            <MainButton>
+              <Link to='/customize/holder'>
+                <input type='button' value='NEXT' />
+              </Link>
+            </MainButton>
+            </Route>
+          )
+        })*/}
         <Route path='/customize/material'>
           <MaterialEditor />
           <MainButton>
-            <a href='/customize/holder'>
+            <Link to='/customize/holder'>
               <input type='button' value='NEXT' />
-            </a>
+            </Link>
           </MainButton>
         </Route>
         <Route path='/customize/holder'>
           <HolderEditor />
           <MainButton>
-            <a href='/customize/text'>
+            <Link to='/customize/text'>
               <input type='button' value='NEXT' />
-            </a>
+            </Link>
           </MainButton>
         </Route>
         <Route path='/customize/text'>
           <TextEditor />
           <MainButton>
-            <a href='/order'>
+            <Link to='/order'>
               <input type='button' value='ADD TO CART' />
-            </a>
+            </Link>
           </MainButton>
         </Route>
         <Route path='/customize'>
           <InitialMsg />
           <MainButton>
-            <a href='/customize/material'>
+            <Link to='/customize/material'>
               <input type='button' value='START' />
-            </a>
+            </Link>
           </MainButton>
         </Route>
       </Switch>
