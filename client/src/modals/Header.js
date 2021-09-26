@@ -53,7 +53,7 @@ const MenuList = styled.li`
   padding: 0 20px;
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
-  line-height: 93px;
+  line-height: 94px;
   font-weight: 600;
   transition-property: background;
   transition-duration: 0.8s;

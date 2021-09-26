@@ -5,12 +5,15 @@ import Main from './pages/Main';
 import Customize from './pages/Costomize';
 import Order from './pages/Order';
 import { Route, Switch } from 'react-router-dom';
-import Quiz from './pages/Quiz';
+import QuizPage from './quiz/QuizPage';
+import SideBar from './modals/SideBar';
+
 const App = () => {
   return (
     <>
       <GlobalStyle />
       <Header />
+      <SideBar />
       <Switch>
         <Route exact path='/'>
           <Main />
