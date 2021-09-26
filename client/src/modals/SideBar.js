@@ -53,7 +53,7 @@ const XButton = styled.img`
 const PlayButtonContainer = styled.div`
   text-align: center;
   border-bottom: 1px solid;
-  margin: 0 5px
+  margin: 0 5px;
 `;
 
 const AudioButton = styled.img`

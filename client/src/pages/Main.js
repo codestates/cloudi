@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import LandingPage from '../components/main_components/LandingPage';
 import OtherPages from '../components/main_components/OtherPages';
-import SideBar from '../modals/SideBar';
 
 const MainContainer = styled.main`
   width: 100vw;
@@ -15,7 +14,6 @@ const MainContainer = styled.main`
 const Main = () => {
   return (
     <MainContainer>
-      <SideBar />
       <LandingPage />
       <OtherPages />
     </MainContainer>
