@@ -36,7 +36,14 @@ const Video = styled.video`
   height: auto;
   border: 2px solid;
   box-shadow: 5px 5px 5px 5px gray;
-  top: 30%;
+  top: 33%;
+  :hover{
+    z-index: 1000;
+    transition: 0.5s;
+    transform: scale(1.2);
+    border: 3px solid rgb(45, 109, 22);
+    border-radius: 10px;
+  };
   @media screen and (max-height: 800px) {
     height: 30vh;
     width: auto;
@@ -50,7 +57,7 @@ const DescContainerRight = styled.article`
   text-align: left;
   @media screen and (max-width: 1023px) {
     display: block;
-    padding: 3vh 0 0 0;
+    padding: 7vh 0 0 0;
   };
 `;
 
@@ -62,7 +69,7 @@ const Title = styled.h2`
   display: table-cell;
   vertical-align: middle;
   position: relative;
-  font-size: 2vw;
+  font-size: 1.77vw;
   font-weight: bold;
   @media screen and (max-height: 800px) {
     font-size: 3.5vh;
@@ -101,7 +108,7 @@ const Button = styled.button`
   background-color: rgba(255, 255, 255, 0);
   border-color: rgb(183, 197, 139);
   color: rgb(183, 197, 139);
-  font-size: 40px;
+  font-size: 1.8vw;
   font-weight: bold;
   margin-top: 20px;
   :hover {
@@ -130,22 +137,22 @@ const Button = styled.button`
 const NumberLeft = styled.p`
   position: relative;
   font-family: 'Nanum Pen Script', cursive;
-  font-size: 8vh;
+  font-size: 4vw;
   z-index: 10;
   color: green;
-  top: 24.5%;
-  left: 7.5%;
+  top: 26.8%;
+  left: 9%;
   @media screen and (max-width: 1023px) {
     display: none;
   };
 `;
 
 const NumberRight = styled(NumberLeft)`
-  left: -51%;
+  left: -49.2%;
 `;
 
 const LastPageContainer = styled(PageContainer)`
-  padding-top: 95px;
+  margin-top: 95px;
   flex-direction: column;
   scroll-snap-align: end;
   @media screen and (max-width: 1023px) {
@@ -164,7 +171,7 @@ const LastPageContent = styled.article`
 const LastPagePictureContainer = styled.article`
   flex: 3;
   text-align: center;
-  padding-top: 5%;
+  padding-top: 10vh;
   @media screen and (max-width: 1023px) {
     padding-top: 0;
     flex: 2;
@@ -173,7 +180,7 @@ const LastPagePictureContainer = styled.article`
 
 const LastPageDescContainer = styled.article`
   flex: 2;
-  margin-top: 5vw;
+  margin-top: 13vh;
   @media screen and (max-width: 1023px) {
     text-align: center;
     margin: 2vw 0;
@@ -212,7 +219,7 @@ const CloudiDesc = styled.p`
 const NavContainer = styled.section`
   flex: 2;
   text-align: center;
-  padding-top: 7%;
+  padding-top: 13vh;
   @media screen and (max-width: 1023px) {
     display: none;
   };
@@ -220,11 +227,12 @@ const NavContainer = styled.section`
 
 const NavBox = styled.div`
   width: 50%;
-  border: 1px solid;
+  border: 3px inset;
   border-radius: 10px;
   margin: 0 auto;
   background-color: rgb(183, 197, 139);
   height: 16vw;
+  box-shadow: inset 10px 10px 20px rgb(150, 160, 120);
 `;
 
 const PageLink = styled.a`
