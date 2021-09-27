@@ -1,24 +1,51 @@
 import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { QUIZ_LIST } from './quizItem';
 
+const boxFadeOut = keyframes`
+  0% {
+      opacity: 1;
+      transform: translateX(-100px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-200px);
+    }
+`;
+
+const boxFadeIn = keyframes`
+  0% {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateX(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const SecondContainer = styled.div`
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
+  display: flex;
   flex-direction: column;
   flex-flow: wrap;
   justify-content: center;
   width: ${(props) => props.width}px;
-  animation: 0.7s ease-in-out second;
-  @keyframes second {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  @media screen and (max-width: 1023px) {
-  }
+
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-name: ${(props) =>
+    props.animation === 'boxFadeIn' ? boxFadeIn : boxFadeOut};
+  animation-fill-mode: forwards;
 `;
 
 const BtnContent = styled.div`
@@ -38,7 +65,7 @@ const BtnContent = styled.div`
   }
 `;
 
-const QuizPageSecond = ({ visible, setImageClick }) => {
+const QuizPageSecond = ({ visible, setImageClick, firstPageVisible }) => {
   const [btnDisable, setBtnDisable] = useState(false);
   const [activeBtn, setActiveBtn] = useState({
     joy: false,
@@ -80,33 +107,49 @@ const QuizPageSecond = ({ visible, setImageClick }) => {
     }
   };
 
-  return (
-    <>
-      {QUIZ_LIST.map((el) => {
-        return (
-          <SecondContainer
-            key={el.width.toString()}
-            width={el.width}
-            visible={visible}
-          >
-            {el.btn.map((item) => {
-              return (
-                <BtnContent
-                  key={item.text.toString()}
-                  disable={btnDisable && !activeBtn[item.id]}
-                  color={activeBtn[item.id]}
-                  width={item.width}
-                  onClick={() => clickHandler(item.id)}
-                >
-                  {item.text}
-                </BtnContent>
-              );
-            })}
-          </SecondContainer>
-        );
-      })}
-    </>
-  );
+  const [localVisible, setLocalVisible] = useState(visible);
+  const [animateType, setAnimateType] = useState('boxFadeIn');
+  const [endAnimateTime, setEndAnimateTime] = useState(false);
+
+  useEffect(() => {
+    if (!visible && !firstPageVisible) {
+      setAnimateType('boxFadeOut');
+      setEndAnimateTime(true);
+      setTimeout(() => setEndAnimateTime(false), 250);
+    }
+    setLocalVisible(visible);
+  }, [visible]);
+
+  return !endAnimateTime && !localVisible
+    ? null
+    : (
+      <Wrapper>
+        {QUIZ_LIST.map((el) => {
+          return (
+            <SecondContainer
+              key={el.width.toString()}
+              width={el.width}
+              visible={visible}
+              animation={animateType}
+            >
+              {el.btn.map((item) => {
+                return (
+                  <BtnContent
+                    key={item.text.toString()}
+                    disable={btnDisable && !activeBtn[item.id]}
+                    color={activeBtn[item.id]}
+                    width={item.width}
+                    onClick={() => clickHandler(item.id)}
+                  >
+                    {item.text}
+                  </BtnContent>
+                );
+              })}
+            </SecondContainer>
+          );
+        })}
+      </Wrapper>
+      );
 };
 
 export default QuizPageSecond;
