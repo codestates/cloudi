@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import QuizPageFirst from '../components/quiz_components/QuizPageFirst';
 import QuizPageSecond from '../components/quiz_components/QuizPageSecond';
 import QuizPageThird from '../components/quiz_components/QuizPageThird';
+import QuizPageFourth from '../components/quiz_components/QuizPageFourth';
 import { IMAGE, SEQUENCE } from '../components/quiz_components/quizItem';
 
 const QuizContainer = styled.div`
@@ -12,8 +13,8 @@ const QuizContainer = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  animation: 0.8s ease-in-out second;
-  @keyframes second {
+  animation: 0.8s ease-in-out loadEffect;
+  @keyframes loadEffect {
     0% {
       opacity: 0;
     }
@@ -62,6 +63,12 @@ const ContinueBox = styled.div`
   padding: 12px;
   text-align: center;
   margin-top: 100px;
+  ${({ quizBtn }) => {
+    return quizBtn === 'SUBMIT'
+      ? `position: relative;
+  top: 150px;`
+      : null;
+  }};
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease 0s;
   pointer-events: ${(props) => (props.click ? 'auto' : 'none')};
@@ -71,11 +78,18 @@ const ContinueBox = styled.div`
   }
 `;
 
+const ContentWrapper = styled.div`
+  height: 200px;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Quiz = () => {
   const [visible, setVisible] = useState(SEQUENCE);
   const [sequence, setSequence] = useState(SEQUENCE);
   const [imageClick, setImageClick] = useState(false);
   const [image, setImage] = useState(IMAGE);
+  const [quizBtn, setQuizBtn] = useState('CONTINUE');
   const [title, setTitle] = useState('좋아하는 계절을 선택해주세요');
   const progress = ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'];
   const quizImageHandler = (key) => {
@@ -103,22 +117,53 @@ const Quiz = () => {
       case visible.firstPage:
         setVisible({
           ...visible,
-          firstPage: false,
-          secondPage: true
+          firstPage: false
         });
-        setSequence({ ...sequence, secondPage: true });
-        setImageClick(false);
-        setTitle('오늘의 기분 3가지를 골라주세요');
+        setTimeout(() => {
+          setVisible({
+            ...visible,
+            firstPage: false,
+            secondPage: true
+          });
+          setSequence({ ...sequence, secondPage: true });
+          setImageClick(false);
+          setTitle('오늘의 기분 3가지를 골라주세요');
+        }, 250);
+
         break;
       case visible.secondPage:
         setVisible({
           ...visible,
-          secondPage: false,
-          thirdPage: true
+          secondPage: false
         });
-        setSequence({ ...sequence, thirdPage: true });
-        setImageClick(false);
-        setTitle('내가 생각하기에 나의 성향은..');
+        setTimeout(() => {
+          setVisible({
+            ...visible,
+            secondPage: false,
+            thirdPage: true
+          });
+          setSequence({ ...sequence, thirdPage: true });
+          setImageClick(false);
+          setTitle('내가 생각하기에 나의 성향은..');
+        }, 250);
+
+        break;
+      case visible.thirdPage:
+        setVisible({
+          ...visible,
+          thirdPage: false
+        });
+        setTimeout(() => {
+          setVisible({
+            ...visible,
+            thirdPage: false,
+            fourthPage: true
+          });
+          setSequence({ ...sequence, fourthPage: true });
+          setImageClick(false);
+          setTitle('오늘의 날씨를 골라주세요');
+          setQuizBtn('SUBMIT');
+        }, 250);
         break;
 
       default:
@@ -135,22 +180,35 @@ const Quiz = () => {
         })}
       </SequenceContainer>
       <QuizTitle>{title}</QuizTitle>
-      <QuizPageFirst
-        visible={visible.firstPage}
-        image={image}
-        quizImageHandler={quizImageHandler}
-        setImageClick={setImageClick}
-      />
-      <QuizPageSecond
-        visible={visible.secondPage}
-        setImageClick={setImageClick}
-      />
-      <QuizPageThird
-        visible={visible.thirdPage}
-        setImageClick={setImageClick}
-      />
-      <ContinueBox click={imageClick} onClick={continueBtnHandler}>
-        CONTINUE
+
+      <ContentWrapper>
+        <QuizPageFirst
+          visible={visible.firstPage}
+          image={image}
+          quizImageHandler={quizImageHandler}
+          setImageClick={setImageClick}
+        />
+        <QuizPageSecond
+          firstPageVisible={visible.firstPage}
+          visible={visible.secondPage}
+          setImageClick={setImageClick}
+        />
+        <QuizPageThird
+          secondPageVisible={visible.firstPage}
+          visible={visible.thirdPage}
+          setImageClick={setImageClick}
+        />
+        <QuizPageFourth
+          visible={visible.fourthPage}
+          setImageClick={setImageClick}
+        />
+      </ContentWrapper>
+      <ContinueBox
+        click={imageClick}
+        onClick={continueBtnHandler}
+        quizBtn={quizBtn}
+      >
+        {quizBtn}
       </ContinueBox>
     </QuizContainer>
   );
