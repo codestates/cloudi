@@ -22,10 +22,7 @@ const StyledCanvas = styled.canvas`
   justify-content: space-between;
   align-items: center;
   background-color: none;
-  border: 2px yellow solid;
-  @media screen and (max-width: 1023px) {
-
-  }
+  border: 2px white solid;
 `;
 
 const Canvas = (props) => {

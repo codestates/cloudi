@@ -24,7 +24,7 @@ const IndicatorBar = styled.section`
   }
 `;
 
-const Indicator = () => {
+const Indicator = ({ curOp }) => {
   return (
     <IndicatorContainer>
       <NavLink to='/customize/material'>
