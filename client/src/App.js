@@ -6,11 +6,13 @@ import Customize from './pages/Costomize';
 import Order from './pages/Order';
 import { Route, Switch } from 'react-router-dom';
 import Quiz from './pages/Quiz';
+import SideBar from './modals/SideBar';
 
 const App = () => {
   return (
     <>
       <GlobalStyle />
+      <SideBar />
       <Header />
       <Switch>
         <Route exact path='/'>

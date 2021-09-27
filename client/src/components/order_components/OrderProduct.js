@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import Construction from '../../modals/Construction';
 
 const OrderProductContainer = styled.section`
   padding: 0 5vw;
@@ -109,6 +110,18 @@ const Sum = styled(Price)`
 `;
 
 const OrderProduct = () => {
+  const [modal, setModal] = useState(0);
+
+  const handleModal = () => {
+    setModal(prevState => {
+      if (prevState === 1) {
+        return 0;
+      } else {
+        return 1;
+      }
+    });
+  };
+
   return (
     <OrderProductContainer>
       <ProductExplanation>
@@ -135,8 +148,9 @@ const OrderProduct = () => {
         </Sum>
       </PriceSumContainer>
       <ButtonContainer>
-        <Button>ORDER</Button>
+        <Button onClick={handleModal}>ORDER</Button>
       </ButtonContainer>
+      <Construction modal={modal} handleModal={handleModal} />
     </OrderProductContainer>
   );
 };
