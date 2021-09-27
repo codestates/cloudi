@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-
+import { IMAGE } from './quizItem';
 const boxFade = keyframes`
   0% {
       opacity: 1;
@@ -39,14 +39,13 @@ const QuizFirstContent = styled.div`
 
 const QuizPageFirst = ({
   visible,
-  image,
-  quizImageHandler,
   setImageClick,
   animation
 }) => {
   const SEASON = ['spring', 'summer', 'fall', 'winter'];
   const [localVisible, setLocalVisible] = useState(visible);
   const [animate, setAnimate] = useState(animation);
+  const [image, setImage] = useState(IMAGE);
 
   useEffect(() => {
     if (!visible) {
@@ -55,7 +54,26 @@ const QuizPageFirst = ({
     }
     setLocalVisible(visible);
   }, [visible]);
-
+  
+  const quizImageHandler = (key) => {
+    const image = IMAGE;
+    switch (key) {
+      case 'spring':
+        setImage({ ...image, [key]: '/images/spring_green.png' });
+        break;
+      case 'summer':
+        setImage({ ...image, [key]: '/images/summer_green.png' });
+        break;
+      case 'fall':
+        setImage({ ...image, [key]: '/images/fall_green.png' });
+        break;
+      case 'winter':
+        setImage({ ...image, [key]: '/images/winter_green.png' });
+        break;
+      default:
+        break;
+    }
+  };
   const imageClickHandler = (season) => {
     quizImageHandler(season);
     setImageClick(true);

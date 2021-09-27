@@ -4,7 +4,7 @@ import QuizPageFirst from '../components/quiz_components/QuizPageFirst';
 import QuizPageSecond from '../components/quiz_components/QuizPageSecond';
 import QuizPageThird from '../components/quiz_components/QuizPageThird';
 import QuizPageFourth from '../components/quiz_components/QuizPageFourth';
-import { IMAGE, SEQUENCE } from '../components/quiz_components/quizItem';
+import { SEQUENCE } from '../components/quiz_components/quizItem';
 
 const QuizContainer = styled.div`
   //padding-top: 95px;
@@ -88,29 +88,9 @@ const Quiz = () => {
   const [visible, setVisible] = useState(SEQUENCE);
   const [sequence, setSequence] = useState(SEQUENCE);
   const [imageClick, setImageClick] = useState(false);
-  const [image, setImage] = useState(IMAGE);
   const [quizBtn, setQuizBtn] = useState('CONTINUE');
   const [title, setTitle] = useState('좋아하는 계절을 선택해주세요');
   const progress = ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'];
-  const quizImageHandler = (key) => {
-    const image = IMAGE;
-    switch (key) {
-      case 'spring':
-        setImage({ ...image, [key]: '/images/spring_green.png' });
-        break;
-      case 'summer':
-        setImage({ ...image, [key]: '/images/summer_green.png' });
-        break;
-      case 'fall':
-        setImage({ ...image, [key]: '/images/fall_green.png' });
-        break;
-      case 'winter':
-        setImage({ ...image, [key]: '/images/winter_green.png' });
-        break;
-      default:
-        break;
-    }
-  };
 
   const continueBtnHandler = () => {
     switch (true) {
@@ -129,8 +109,8 @@ const Quiz = () => {
           setImageClick(false);
           setTitle('오늘의 기분 3가지를 골라주세요');
         }, 250);
-
         break;
+
       case visible.secondPage:
         setVisible({
           ...visible,
@@ -146,8 +126,8 @@ const Quiz = () => {
           setImageClick(false);
           setTitle('내가 생각하기에 나의 성향은..');
         }, 250);
-
         break;
+        
       case visible.thirdPage:
         setVisible({
           ...visible,
@@ -184,8 +164,6 @@ const Quiz = () => {
       <ContentWrapper>
         <QuizPageFirst
           visible={visible.firstPage}
-          image={image}
-          quizImageHandler={quizImageHandler}
           setImageClick={setImageClick}
         />
         <QuizPageSecond
