@@ -36,6 +36,7 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   margin-top: 90px;
+  margin-bottom: 50px;
   font-size: 20px;
   padding: 10px 30px;
   color: white;
@@ -109,6 +110,99 @@ const Sum = styled(Price)`
   font-weight: bold;
 `;
 
+const ShoppingBasket = styled.section`
+  display: flex;
+  @media screen and (max-width: 1023px) {
+    flex-direction: column;
+  }
+`;
+
+const ProductContainer = styled.div`
+  flex: 5;
+  flex-direction: column;
+`;
+
+const ShippingFeeContainer = styled.div`
+  margin: 10px 0;
+  flex: 1;
+  text-align: center;
+  display:table;
+  @media screen and (max-width: 1023px) {
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+`;
+
+const Fee = styled.div`
+  display:table-cell;
+  vertical-align:middle;
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
+`;
+
+const ShippingFeeDesc = styled.p`
+  margin-top: 10px;
+  color: red;
+`;
+
+const ShippingContainer = styled.div`
+  display: none;
+  text-align: left;
+  border-top: 2px solid;
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
+`;
+
+const Shipping = styled.p`
+  margin: 10px 0 0 20px;
+  font-weight: bold;
+`;
+
+const SingleStick = styled.article`
+  display: flex;
+  width: 100%;
+  height: 200px;
+  border-top: 2px solid;
+`;
+
+const SingleStand = styled(SingleStick)`
+`;
+
+const ContainerOne = styled.div`
+  flex: 1;
+  background-color: blue;
+`;
+
+const ContainerTwo = styled.p`
+  flex: 2;
+  background-color: yellow;
+`;
+
+const props = {
+  sticks: [
+    {
+      id: 2,
+      stickName: '귤피',
+      stickPrice: 2000,
+      stickQuantity: 2,
+      createdAt: '2019-04-28T19:01:07.660Z'
+    }
+  ],
+  stands: [
+    {
+      id: 3,
+      standPlate: 'ceramic',
+      standHolder: 'pinoccio',
+      standText: 'min guk lee',
+      standPrice: 37000,
+      standQuantity: 1,
+      createdAt: '2019-04-28T19:01:07.660Z'
+    }
+  ]
+};
+
 const OrderProduct = () => {
   const [modal, setModal] = useState(0);
 
@@ -130,21 +224,44 @@ const OrderProduct = () => {
         <ProductDesc>가격</ProductDesc>
         <ProductDesc>배송비</ProductDesc>
       </ProductExplanation>
-      장바구니에 상품이 없습니다.
+      <ShoppingBasket>
+        <ProductContainer>
+          <SingleStick>
+            <ContainerOne/>
+            <ContainerTwo />
+            <ContainerOne />
+            <ContainerOne />
+          </SingleStick>
+          <SingleStand />
+        </ProductContainer>
+        <ShippingFeeContainer>
+          <ShippingContainer>
+            <Shipping>
+              배송비
+            </Shipping>
+          </ShippingContainer>
+          <Fee>
+            3,000 원
+            <ShippingFeeDesc>
+              50,000원 이상 구매시 무료
+            </ShippingFeeDesc>
+          </Fee>
+        </ShippingFeeContainer>
+      </ShoppingBasket>
       <ProductCal>
         <CalDesc>상품 합계</CalDesc>
-        <Price>57,000원</Price>
+        <Price>57,000 원</Price>
       </ProductCal>
       <ShippingFeeCal>
         <FeeDesc>배송비</FeeDesc>
-        <Price>0원</Price>
+        <Price>0 원</Price>
       </ShippingFeeCal>
       <PriceSumContainer>
         <SumDesc>
           합 계
         </SumDesc>
         <Sum>
-          57,000원
+          57,000 원
         </Sum>
       </PriceSumContainer>
       <ButtonContainer>
