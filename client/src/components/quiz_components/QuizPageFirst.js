@@ -1,7 +1,25 @@
-import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
+
+const boxFade = keyframes`
+  0% {
+      opacity: 1;
+      transform: translateX(-100px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-200px);
+    }
+`;
 
 const QuizFirstContainer = styled.div`
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
+  animation-duration: 0.18s;
+  animation-timing-function: ease-out;
+  animation-name: ${(props) => props.animation && boxFade};
+  animation-fill-mode: forwards;
+  display: flex;
+  align-items: center;
+  height: 100%;
 `;
 
 const QuizFirstContent = styled.div`
@@ -9,7 +27,6 @@ const QuizFirstContent = styled.div`
   background-image: url(${(props) => props.url});
   background-size: contain;
   background-repeat: no-repeat;
-  transition: all 0.3s ease 0s;
   width: 130px;
   height: 140px;
   cursor: pointer;
@@ -20,25 +37,45 @@ const QuizFirstContent = styled.div`
   }
 `;
 
-const QuizPageFirst = ({ visible, image, quizImageHandler, setImageClick }) => {
+const QuizPageFirst = ({
+  visible,
+  image,
+  quizImageHandler,
+  setImageClick,
+  animation
+}) => {
   const SEASON = ['spring', 'summer', 'fall', 'winter'];
+  const [localVisible, setLocalVisible] = useState(visible);
+  const [animate, setAnimate] = useState(animation);
+
+  useEffect(() => {
+    if (!visible) {
+      setAnimate(true);
+      setTimeout(() => setAnimate(false), 250);
+    }
+    setLocalVisible(visible);
+  }, [visible]);
+
   const imageClickHandler = (season) => {
     quizImageHandler(season);
     setImageClick(true);
   };
-  return (
-    <QuizFirstContainer visible={visible}>
-      {SEASON.map((el) => {
-        return (
-          <QuizFirstContent
-            key={el}
-            url={image[el]}
-            onClick={() => imageClickHandler(el)}
-          />
-        );
-      })}
-    </QuizFirstContainer>
-  );
+
+  return !animate && !localVisible
+    ? null
+    : (
+      <QuizFirstContainer visible={visible} animation={animate}>
+        {SEASON.map((el) => {
+          return (
+            <QuizFirstContent
+              key={el}
+              url={image[el]}
+              onClick={() => imageClickHandler(el)}
+            />
+          );
+        })}
+      </QuizFirstContainer>
+      );
 };
 
 export default QuizPageFirst;

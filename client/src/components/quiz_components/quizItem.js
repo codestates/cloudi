@@ -94,3 +94,10 @@ export const SEQUENCE = {
   thirdPage: false,
   fourthPage: false
 };
+
+export const WEATHER_IMAGE = {
+  rainy: '/images/rainy.jpg',
+  snow: '/images/snow.png',
+  sunny: '/images/sunny.png',
+  cloudy: '/images/cloudy.png'
+};
