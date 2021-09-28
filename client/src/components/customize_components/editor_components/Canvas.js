@@ -39,7 +39,7 @@ const Canvas = ({
     ctx.clearRect(0, 0, 700, 700);
 
     // drawing plate with current state
-    if (!!selectedOps.plate) {
+    if (!!selectedOps.plate) { // eslint-disable-line
       const plateImage = new Image(); // eslint-disable-line
 
       plateImage.src = plate[selectedOps.plate.toLowerCase()];
@@ -54,7 +54,7 @@ const Canvas = ({
 
       // drawing holder with current state
       if (
-        !!selectedOps.holder  &&
+        !!selectedOps.holder &&
         selectedOps.holder !== 'NONE'
       ) {
         const holderImage = new Image(); // eslint-disable-line
@@ -66,7 +66,7 @@ const Canvas = ({
           ctx.drawImage(holderImage, 0, 0);
         };
         holderImage.onerror = function () {
-        console.log('holder image loading error');
+          console.log('holder image loading error');
         };
       }
     } else {
@@ -79,12 +79,12 @@ const Canvas = ({
         ctx.drawImage(defaultImage, 0, 0);
       };
       defaultImage.onerror = function () {
-      console.log('default image loading error');
+        console.log('default image loading error');
       };
     }
   }, [
-    selectedOps.plate, 
-    selectedOps.holder, 
+    selectedOps.plate,
+    selectedOps.holder,
     selectedOps.text
   ]);
   return (

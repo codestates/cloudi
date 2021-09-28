@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 // import styled from 'styled-components';
 
 import Controller from './editor_components/Controller';
@@ -16,7 +16,7 @@ const Editor = ({
 }) => {
   return (
     <>
-      <Indicator 
+      <Indicator
         stages={stages}
         stage={stage}
       />
@@ -24,14 +24,15 @@ const Editor = ({
         curStage={stage}
         selectedOps={selectedOps}
       />
-      <Controller 
+      <Controller
         curStage={stage}
         message={message}
         handleBtnClick={handleBtnClick}
         handleTextInput={handleTextInput}
       />
-      <MainButton 
-        curStage={stage} 
+      <MainButton
+        curStage={stage}
+        selectedOps={selectedOps}
       />
     </>
   );

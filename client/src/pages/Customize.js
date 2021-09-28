@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -49,7 +49,7 @@ const Customize = () => {
       stage: 'finish',
       message: ''
     }
-  ]
+  ];
 
   const [selectedOps, setSelectedOps] = useState({
     plate: '',
@@ -64,21 +64,21 @@ const Customize = () => {
         holder: '',
         text: ''
       }
-    )
-  }
+    );
+  };
 
   const handleBtnClick = (clickedBtn) => {
-    if(clickedBtn.type === 'holder') {
-      setSelectedOps({...selectedOps, ...{holder: clickedBtn.option}});
+    if (clickedBtn.type === 'holder') {
+      setSelectedOps({ ...selectedOps, ...{ holder: clickedBtn.option } });
     }
-    if(clickedBtn.type === 'plate') {
-      setSelectedOps({...selectedOps, ...{plate: clickedBtn.option}});
+    if (clickedBtn.type === 'plate') {
+      setSelectedOps({ ...selectedOps, ...{ plate: clickedBtn.option } });
     }
-  }
+  };
 
   const handleTextInput = (text) => {
     console.log(text);
-  }
+  };
 
   return (
     <CustomizePage>
@@ -93,18 +93,20 @@ const Customize = () => {
               path={`/customize/${el.stage}`}
             >
               <Editor
-                stages={stages.map(el=>el.stage)}
+                stages={stages.map(el => el.stage)}
                 stage={el.stage}
-                message={stages.map(el=>el.message)}
+                message={stages.map(el => el.message)}
                 handleBtnClick={handleBtnClick}
                 handleTextInput={handleTextInput}
                 selectedOps={selectedOps}
               />
             </Route>
-          )
+          );
         })}
         <Route path='/customize'>
-          <InitialMsg />
+          <InitialMsg
+            selectedOps={selectedOps}
+          />
         </Route>
       </Switch>
       {/* <Footer /> */}

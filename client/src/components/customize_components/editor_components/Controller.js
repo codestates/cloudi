@@ -34,33 +34,33 @@ const Message = styled.section`
   height: 15vmin;
 `;
 
-const Controller = ( {
+const Controller = ({
   curStage,
   message,
   handleBtnClick,
   handleTextInput
-} ) => {
+}) => {
   return (
     <StyledController>
       <Message>{message}</Message>
       <ButtonContainer>
-      {
-        curStage !== 'text'
-        ? buttons[curStage].map(el => {
-          return (
-            <OptionButton
-              key={el.option}
-              type={el.type}
-              option={el.option}
-              onClick={handleBtnClick}
-            />
-          )
-        })
-        : <div>text</div>
-      }
+        {
+          curStage !== 'text'
+            ? buttons[curStage].map(el => {
+              return (
+                <OptionButton
+                  key={el.option}
+                  type={el.type}
+                  option={el.option}
+                  onClick={handleBtnClick}
+                />
+              );
+            })
+            : <div>text</div>
+        }
       </ButtonContainer>
     </StyledController>
-  )
-}
+  );
+};
 
 export default Controller;

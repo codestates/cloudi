@@ -21,16 +21,16 @@ const Indicator = ({ stages, stage }) => {
   const curIdx = stages.indexOf(stage);
   return (
     <IndicatorContainer>
-        {
-          stages.map((el, idx) => {
-            return (
-              <IndicatorBar 
-                key={`${idx}${el}`}
-                done={curIdx < idx}
-              />
-            )
-          })
-        }
+      {
+        stages.map((el, idx) => {
+          return (
+            <IndicatorBar
+              key={`${idx}${el}`}
+              done={curIdx < idx}
+            />
+          );
+        })
+      }
     </IndicatorContainer>
   );
 };

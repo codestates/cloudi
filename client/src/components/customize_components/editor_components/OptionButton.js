@@ -22,11 +22,14 @@ const Button = styled.input`
 const OptionButton = (props) => {
   return (
     <>
-      <Button type='button' value={props.option} onClick={() => props.onClick({
-        type: props.type,
-        option: props.option
-      }
-      )} />
+      <Button
+        type='button'
+        value={props.option}
+        onClick={() => props.onClick({
+          type: props.type,
+          option: props.option
+        })}
+      />
     </>
   );
 };

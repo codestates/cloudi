@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ModalContainer = styled.main`
-  display: ${props => 
+  display: ${props =>
     props.modal ? 'block' : 'none'};
   position: fixed;
   z-index: 1001;
