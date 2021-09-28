@@ -31,7 +31,7 @@ const OrderCount = () => {
   return (
     <OrderCountContainer>
       <OrderNumber>
-        ORDER (2)
+        ORDER
       </OrderNumber>
     </OrderCountContainer>
   );

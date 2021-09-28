@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ModalContainer = styled.main`
-  display: ${props => 
+  display: ${props =>
     props.modal ? 'block' : 'none'};
   position: fixed;
   z-index: 1001;
@@ -35,7 +35,7 @@ const ModalTitleHighlight = styled.span`
   font-weight: bold;
 `;
 
-const ModalDesc = styled.h3`
+const ModalDesc = styled.p`
   margin-top: 3vw;
   font-size: 1.5vw;
   margin-bottom: 10vh;
@@ -47,17 +47,17 @@ const XButtonContainer = styled.div`
 
 const XButton = styled.img`
   margin: 10px 10px 0 0;
-  width: 1.5vw;
+  width: 30px;
   height: auto;
   cursor: pointer;
 `;
 
 const Construction = ({ modal, handleModal }) => {
   return (
-    <ModalContainer modal={modal} onClick={handleModal}>
+    <ModalContainer modal={modal}>
       <ModalContent>
         <XButtonContainer>
-          <XButton src='/images/modalX.png' />
+          <XButton src='/images/modalX.png' onClick={handleModal} />
         </XButtonContainer>
         <Img src='/images/construction.png' />
         <ModalTitle>
