@@ -54,7 +54,7 @@ const QuizPageFirst = ({
     }
     setLocalVisible(visible);
   }, [visible]);
-  
+
   const quizImageHandler = (key) => {
     const image = IMAGE;
     switch (key) {

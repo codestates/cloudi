@@ -127,7 +127,7 @@ const Quiz = () => {
           setTitle('내가 생각하기에 나의 성향은..');
         }, 250);
         break;
-        
+
       case visible.thirdPage:
         setVisible({
           ...visible,

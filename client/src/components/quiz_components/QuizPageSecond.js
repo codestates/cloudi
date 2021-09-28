@@ -81,6 +81,9 @@ const QuizPageSecond = ({ visible, setImageClick, firstPageVisible }) => {
     ecstasy: false,
     comfort: false
   });
+  const [localVisible, setLocalVisible] = useState(visible);
+  const [animateType, setAnimateType] = useState('boxFadeIn');
+  const [endAnimateTime, setEndAnimateTime] = useState(false);
   const clickCount = Object.values(activeBtn).filter(
     (el) => el === true
   ).length;
@@ -106,11 +109,6 @@ const QuizPageSecond = ({ visible, setImageClick, firstPageVisible }) => {
       setActiveBtn({ ...activeBtn, [text]: !activeBtn[text] });
     }
   };
-
-  const [localVisible, setLocalVisible] = useState(visible);
-  const [animateType, setAnimateType] = useState('boxFadeIn');
-  const [endAnimateTime, setEndAnimateTime] = useState(false);
-
   useEffect(() => {
     if (!visible && !firstPageVisible) {
       setAnimateType('boxFadeOut');
@@ -137,7 +135,7 @@ const QuizPageSecond = ({ visible, setImageClick, firstPageVisible }) => {
                   <BtnContent
                     key={item.text.toString()}
                     disable={btnDisable && !activeBtn[item.id]}
-                    color={activeBtn[item.id] ? '#b7c58b' : 'white'}
+                    color={activeBtn[item.id] ? '#b7c58b' : '#ffffff'}
                     width={item.width}
                     onClick={() => clickHandler(item.id)}
                   >
