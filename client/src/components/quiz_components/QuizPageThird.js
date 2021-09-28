@@ -1,18 +1,40 @@
-import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 
-const QuizThirdContainer = styled.div`
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
-  flex-direction: column;
-  align-items: center;
-  animation: 0.7s ease-in-out second;
-  @keyframes second {
-    0% {
+const boxFadeOut = keyframes`
+  0% {
+      opacity: 1;
+      transform: translateX(-100px);
+    }
+    100% {
       opacity: 0;
+      transform: translateX(-200px);
+    }
+`;
+
+const boxFadeIn = keyframes`
+  0% {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateX(-30px);
     }
     100% {
       opacity: 1;
+      transform: translateX(0px);
     }
-  }
+`;
+const QuizThirdContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-name: ${(props) =>
+    props.animation === 'boxFadeIn' ? boxFadeIn : boxFadeOut};
+  animation-fill-mode: forwards;
 `;
 
 const Image = styled.div`
@@ -33,22 +55,62 @@ const BtnContainer = styled.div`
 const BtnContent = styled.div`
   padding: 13px;
   border: 2px solid;
-  border-color: #787887;
+  border-color: ${(props) => (props.color ? '#f09490' : '#787887')};
   :hover {
     border-color: #f09490;
   }
 `;
 
-const QuizPageThird = ({ visible, setImageClick }) => {
-  return (
-    <QuizThirdContainer visible={visible}>
-      <Image />
-      <BtnContainer>
-        <BtnContent>감성적인 편이다</BtnContent>
-        <BtnContent>이성적인 편이다</BtnContent>
-      </BtnContainer>
-    </QuizThirdContainer>
-  );
+const QuizPageThird = ({ visible, setImageClick, secondPageVisible }) => {
+  const [localVisible, setLocalVisible] = useState(visible);
+  const [animateType, setAnimateType] = useState('boxFadeIn');
+  const [endAnimateTime, setEndAnimateTime] = useState(false);
+  const [image, setImage] = useState('/images/prs.png');
+  const [color, setColor] = useState({
+    image_A: false,
+    image_B: false
+  });
+  useEffect(() => {
+    if (!visible && !secondPageVisible) {
+      setAnimateType('boxFadeOut');
+      setEndAnimateTime(true);
+      setTimeout(() => setEndAnimateTime(false), 250);
+    }
+    setLocalVisible(visible);
+  }, [visible]);
+
+  const btnClickHanlder = (key) => {
+    if (key === 'B') {
+      setImage('/images/prsB.png');
+      setColor({
+        image_A: false,
+        image_B: true
+      });
+    } else {
+      setImage('/images/prsA.png');
+      setColor({
+        image_A: true,
+        image_B: false
+      });
+    }
+    setImageClick(true);
+  };
+
+  return !endAnimateTime && !localVisible
+    ? null
+    : (
+      <QuizThirdContainer animation={animateType}>
+        <Image url={image} />
+        <BtnContainer>
+          <BtnContent color={color.image_A} onClick={btnClickHanlder}>
+            감성적인 편이다
+          </BtnContent>
+          <BtnContent color={color.image_B} onClick={() => btnClickHanlder('B')}>
+            이성적인 편이다
+          </BtnContent>
+        </BtnContainer>
+      </QuizThirdContainer>
+      );
 };
 
 export default QuizPageThird;
