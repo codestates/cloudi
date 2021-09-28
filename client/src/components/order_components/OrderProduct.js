@@ -91,7 +91,7 @@ const ShippingFeeCal = styled(ProductCal)`
 
 const FeeDesc = styled(CalDesc)`
   flex: 2;
-  padding-right: 12px;
+  padding-right: 14px;
 `;
 
 const PriceSumContainer = styled(ProductCal)`
@@ -247,6 +247,9 @@ const QuantityContainer = styled.button`
   border: 1px solid;
   background-color: white;
   display: inline-block;
+  @media screen and (max-width: 1023px) {
+    margin-top: 20px;
+  }
 `;
 
 const QuantityButton = styled(QuantityContainer)`
@@ -298,7 +301,7 @@ const OrderProduct = () => {
         <ProductInfo>&emsp;&emsp;상품 정보</ProductInfo>
         <ProductDesc>수량</ProductDesc>
         <ProductDesc>가격</ProductDesc>
-        <ProductDesc>배송비</ProductDesc>
+        <ProductDesc>배송금액</ProductDesc>
       </ProductExplanation>
       <ShoppingBasket>
         <ProductContainer>
@@ -352,7 +355,7 @@ const OrderProduct = () => {
         <ShippingFeeContainer>
           <ShippingContainer>
             <Shipping>
-              배송비
+              배송금액
             </Shipping>
           </ShippingContainer>
           <Fee>
