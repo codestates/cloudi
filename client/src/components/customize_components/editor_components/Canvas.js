@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { plate, holder } from './standImages';
+import { plate, holder } from './standImages'; // eslint-disable-line
 
 // const CanvasContainer = styled.section`
 //   display: flex;

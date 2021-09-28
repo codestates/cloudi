@@ -52,8 +52,8 @@ const getNextUrl = function (option) {
   }
 };
 
-const MainButton = ({ curOp }) => {
-  const { nextUrl, buttonText } = getNextUrl(curOp);
+const MainButton = ({ curStage }) => {
+  const { nextUrl, buttonText } = getNextUrl(curStage);
   return (
     <MainButtonContainer>
       <Link to={nextUrl}>

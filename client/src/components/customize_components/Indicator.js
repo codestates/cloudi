@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const IndicatorContainer = styled.section`
@@ -9,33 +8,29 @@ const IndicatorContainer = styled.section`
   align-items: center;
   background-color: white;
   width: 50vmax;
-  .active section {
-    background-color: #b7c58b;
-  }
 `;
 
 const IndicatorBar = styled.section`
   width: 14vmax;
   height: 10px;
   margin: 5px;
-  background-color: #C4C4C4;
-  @media screen and (max-width: 1023px) {
-
-  }
+  background-color: ${props => props.done ? '#787887' : '#b7c58b'};
 `;
 
-const Indicator = ({ curOp }) => {
+const Indicator = ({ stages, stage }) => {
+  const curIdx = stages.indexOf(stage);
   return (
     <IndicatorContainer>
-      <NavLink to='/customize/material'>
-        <IndicatorBar />
-      </NavLink>
-      <NavLink to='/customize/holder'>
-        <IndicatorBar />
-      </NavLink>
-      <NavLink to='/customize/text'>
-        <IndicatorBar />
-      </NavLink>
+        {
+          stages.map((el, idx) => {
+            return (
+              <IndicatorBar 
+                key={`${idx}${el}`}
+                done={curIdx < idx}
+              />
+            )
+          })
+        }
     </IndicatorContainer>
   );
 };

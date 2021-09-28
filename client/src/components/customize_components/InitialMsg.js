@@ -32,7 +32,7 @@ const InitialMsg = () => {
         <div>취향에 딱 맞는 인센스를 고르셨나요?</div>
         <div>나만의 특별한 스탠드도 제작해 보세요!</div>
       </StyledInitialMsg>
-      <MainButton curOp='' />
+      <MainButton curStage='' />
     </>
   );
 };

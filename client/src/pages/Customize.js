@@ -1,5 +1,5 @@
-import React, { useState } from 'react'; // eslint-disable-line
-import { Route, Switch, NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Editor from '../components/customize_components/Editor';
@@ -35,24 +35,47 @@ const Title = styled.section`
 `;
 
 const Customize = () => {
+  const stages = ['material', 'holder', 'text', 'finish']
+
+  const [selectedOps, setSelectedOps] = useState({
+    plate: '',
+    holder: '',
+    text: ''
+  });
+
+  const handleBtnClick = (clickedBtn) => {
+
+    console.log(clickedBtn)
+
+    if(clickedBtn.type === 'holder') {
+      setSelectedOps({...selectedOps, ...{holder: clickedBtn.option}})
+    }
+    if(clickedBtn.type === 'plate') {
+      setSelectedOps({...selectedOps, ...{plate: clickedBtn.option}})
+    }
+  }
+
   return (
     <CustomizePage>
-      <NavLink to='/customize'>
-        <Title>COSTOMIZE</Title>
-      </NavLink>
+      <Link to='/customize'>
+        <Title>CUSTOMIZE</Title>
+      </Link>
       <Switch>
-        <Route path='/customize/material'>
-          <Editor name='material' />
-        </Route>
-        <Route path='/customize/holder'>
-          <Editor name='holder' />
-        </Route>
-        <Route path='/customize/text'>
-          <Editor name='text' />
-        </Route>
-        <Route path='/customize/finish'>
-          <Editor name='finish' />
-        </Route>
+        {stages.map((el, idx) => {
+          return (
+            <Route
+              key={el}
+              path={`/customize/${el}`}
+            >
+              <Editor
+                stages={stages}
+                stage={el}
+                handleBtnClick={handleBtnClick}
+                selectedOps={selectedOps}
+              />
+            </Route>
+          )
+        })}
         <Route path='/customize'>
           <InitialMsg />
         </Route>

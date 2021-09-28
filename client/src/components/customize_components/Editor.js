@@ -18,53 +18,61 @@ const Controller = styled.section`
   height: 15vmin;
 `;
 
-const Editor = ({ name }) => {
+const Editor = ({
+  stages,
+  stage,
+  selectedOps,
+  handleBtnClick
+}) => {
   const [buttons, setButtons] = useState([]);
-  const [selectedOps, setSelectedOps] = useState({
-    plate: '',
-    holder: ''
-  });
-
-  const handleBtnClick = (clickedBtn) => {
-    console.log(clickedBtn)
-    if(clickedBtn.type === 'holder') {
-      setSelectedOps({})
-    }
-    console.log(selectedOps)
-  }
 
   useEffect(() => {
-    if (name === 'material') {
+
+    console.log(`stage : ${stage}`)
+
+    if (stage === 'material') {
       setButtons(materialButtons);
-    } else if (name === 'holder') {
+    } else if (stage === 'holder') {
       setButtons(holderButtons);
-    } else if (name === 'text') {
+    } else if (stage === 'text') {
       setButtons([]);
-    } else if (name === 'finish') {
+    } else if (stage === 'finish') {
       setButtons([]);
     }
-  }, [name]);
+  }, []); // eslint-disable-line
 
   return (
     <>
-      <Indicator curOp={name} />
-      <Canvas curOp={name} selectedOps={selectedOps} />
+      <Indicator 
+        stages={stages}
+        stage={stage}
+      />
+      <Canvas
+        curStage={stage}
+        selectedOps={selectedOps}
+      />
       <Controller>
-        {name === 'material' || name === 'holder'
+        {stage === 'material' || 
+          stage === 'holder'
           ? buttons.map(el => {
             return (
-              <OptionButton key={el.key} option={el.option} type={el.type} onClick={handleBtnClick} />
+              <OptionButton 
+                key={el.option} 
+                option={el.option} 
+                type={el.type} 
+                onClick={handleBtnClick} 
+              />
             );
           })
           : null}
-        {name === 'text'
+        {stage === 'text'
           ? <input type='text' placeholder='텍스트를 입력해 주세요' />
           : null}
-        {name === 'finish'
+        {stage === 'finish'
           ? <div>완성! 카트에 담겼습니다.</div>
           : null}
       </Controller>
-      <MainButton curOp={name} />
+      <MainButton curStage={stage} />
     </>
   );
 };
