@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
+import { plate, holder } from './standImages';
+
 // const CanvasContainer = styled.section`
 //   display: flex;
 //   flex-direction: row;
@@ -35,7 +37,9 @@ const Canvas = (props) => {
   useEffect(() => {
     const ctx = canvas.current.getContext('2d');
     const image = new Image(); // eslint-disable-line
-    image.src = '/images/wood_pinoccio.png';
+
+
+    image.src = holder['wood']['pinoccio'];
 
     image.onload = function () {
       ctx.drawImage(image, 0, 0);
@@ -47,7 +51,7 @@ const Canvas = (props) => {
   return (
     <>
       <StyledCanvas ref={canvas} width='700' height='700'>
-        Your browser dosen't support canvas tag.
+        Sorry, your browser dosen't support canvas tags.
       </StyledCanvas>
     </>
   );

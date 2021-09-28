@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import { materialButtons, holderButtons } from './editor_components/options';
 import OptionButton from './editor_components/OptionButton';
 import Canvas from './editor_components/Canvas';
 import Indicator from './Indicator';
@@ -19,45 +20,27 @@ const Controller = styled.section`
 
 const Editor = ({ name }) => {
   const [buttons, setButtons] = useState([]);
+  const [selectedOps, setSelectedOps] = useState({
+    plate: '',
+    holder: ''
+  });
+
+  const handleBtnClick = (clickedBtn) => {
+    console.log(clickedBtn)
+    if(clickedBtn.type === 'holder') {
+      setSelectedOps({})
+    }
+    console.log(selectedOps)
+  }
 
   useEffect(() => {
     if (name === 'material') {
-      setButtons([
-        {
-          id: 1,
-          option: 'wood',
-          price: 10000
-        }, {
-          id: 2,
-          option: 'ceramic',
-          price: 12000
-        }, {
-          id: 3,
-          option: 'steel',
-          price: 14000
-        }
-      ]);
+      setButtons(materialButtons);
     } else if (name === 'holder') {
-      setButtons([
-        {
-          id: 1,
-          option: 'none',
-          price: 0
-        }, {
-          id: 2,
-          option: 'cat',
-          price: 5000
-        }, {
-          id: 3,
-          option: 'pinoccio',
-          price: 3000
-        }, {
-          id: 4,
-          option: 'fisher',
-          price: 4000
-        }
-      ]);
+      setButtons(holderButtons);
     } else if (name === 'text') {
+      setButtons([]);
+    } else if (name === 'finish') {
       setButtons([]);
     }
   }, [name]);
@@ -65,12 +48,12 @@ const Editor = ({ name }) => {
   return (
     <>
       <Indicator curOp={name} />
-      <Canvas />
+      <Canvas curOp={name} selectedOps={selectedOps} />
       <Controller>
         {name === 'material' || name === 'holder'
           ? buttons.map(el => {
             return (
-              <OptionButton key={el.key} option={el.option} />
+              <OptionButton key={el.key} option={el.option} type={el.type} onClick={handleBtnClick} />
             );
           })
           : null}
