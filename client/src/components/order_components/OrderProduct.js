@@ -20,7 +20,6 @@ const ProductExplanation = styled.article`
 
 const ProductInfo = styled.div`
   flex: 3;
-  padding-left: 20px;
   font-weight: bold;
 `;
 
@@ -36,6 +35,7 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   margin-top: 90px;
+  margin-bottom: 50px;
   font-size: 20px;
   padding: 10px 30px;
   color: white;
@@ -91,7 +91,7 @@ const ShippingFeeCal = styled(ProductCal)`
 
 const FeeDesc = styled(CalDesc)`
   flex: 2;
-  padding-right: 12px;
+  padding-right: 14px;
 `;
 
 const PriceSumContainer = styled(ProductCal)`
@@ -109,6 +109,179 @@ const Sum = styled(Price)`
   font-weight: bold;
 `;
 
+const ShoppingBasket = styled.section`
+  display: flex;
+  @media screen and (max-width: 1023px) {
+    flex-direction: column;
+  }
+`;
+
+const ProductContainer = styled.div`
+  flex: 5;
+  flex-direction: column;
+`;
+
+const ShippingFeeContainer = styled.div`
+  margin: 10px 0;
+  flex: 1;
+  text-align: center;
+  display:table;
+  @media screen and (max-width: 1023px) {
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+`;
+
+const Fee = styled.div`
+  display:table-cell;
+  vertical-align:middle;
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
+`;
+
+const ShippingFeeDesc = styled.p`
+  margin-top: 10px;
+  color: red;
+`;
+
+const ShippingContainer = styled.div`
+  display: none;
+  text-align: left;
+  border-top: 2px solid;
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
+`;
+
+const Shipping = styled.p`
+  margin: 10px 0 0 20px;
+  font-weight: bold;
+`;
+
+const SingleStick = styled.article`
+  display: flex;
+  width: 100%;
+  height: 200px;
+  border-top: 1px solid;
+  @media screen and (max-width: 1023px) {
+    flex-direction: column;
+    height: auto;
+  }
+`;
+
+const SingleStand = styled(SingleStick)`
+`;
+
+const ContainerOne = styled.div`
+  flex: 1;
+  line-height: 200px;
+  text-align: center;
+  @media screen and (max-width: 1023px) {
+    line-height: 50px;
+    text-align: left;
+  }
+`;
+
+const ContainerTwo = styled.div`
+  flex: 1.5;
+  @media screen and (max-width: 1023px) {
+    font-weight: bold;
+  }
+`;
+
+const ContainerPicture = styled(ContainerTwo)`
+  line-height: 200px;
+  text-align: center;
+`;
+
+const StickImg = styled.img`
+  height: 150px;
+  vertical-align: middle;
+`;
+
+const StandImg = styled.img`
+  height: 130px;
+  vertical-align: middle;
+  @media screen and (max-width: 1023px) {
+    height: 160px;
+  }
+`;
+
+const SingleDesc = styled.p`
+  margin-top: 80px;
+`;
+
+const Delete = styled.p`
+  margin-top: 15px;
+  display: inline-block;
+  font-weight: bold;
+  cursor: pointer;
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
+`;
+
+const MobileDesc = styled.article`
+  margin-top: 20px;
+  display: none;
+  font-weight: bold;
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
+`;
+
+const MyProduct = styled.span`
+  display: inline-block;
+`;
+
+const DeleteX = styled.img`
+  height: 16px;
+  float: right;
+  cursor: pointer;
+`;
+
+const QuantityContainer = styled.button`
+  height: 30px;
+  width: 30px;
+  border: 1px solid;
+  background-color: white;
+  display: inline-block;
+  @media screen and (max-width: 1023px) {
+    margin-top: 20px;
+  }
+`;
+
+const QuantityButton = styled(QuantityContainer)`
+  cursor: pointer;
+  :hover {
+    background-color: rgb(0, 0, 0, 0.1);
+  }
+`;
+
+const props = {
+  sticks: [
+    {
+      id: 2,
+      stickName: '귤피',
+      stickPrice: 2000,
+      stickQuantity: 2,
+      createdAt: '2019-04-28T19:01:07.660Z'
+    }
+  ],
+  stands: [
+    {
+      id: 3,
+      standPlate: 'ceramic',
+      standHolder: 'pinoccio',
+      standText: 'min guk lee',
+      standPrice: 37000,
+      standQuantity: 1,
+      createdAt: '2019-04-28T19:01:07.660Z'
+    }
+  ]
+};
+
 const OrderProduct = () => {
   const [modal, setModal] = useState(0);
 
@@ -125,26 +298,88 @@ const OrderProduct = () => {
   return (
     <OrderProductContainer>
       <ProductExplanation>
-        <ProductInfo>상품 정보</ProductInfo>
+        <ProductInfo>&emsp;&emsp;상품 정보</ProductInfo>
         <ProductDesc>수량</ProductDesc>
         <ProductDesc>가격</ProductDesc>
-        <ProductDesc>배송비</ProductDesc>
+        <ProductDesc>배송금액</ProductDesc>
       </ProductExplanation>
-      장바구니에 상품이 없습니다.
+      <ShoppingBasket>
+        <ProductContainer>
+          <SingleStick>
+            <MobileDesc>
+              <MyProduct>My Incense</MyProduct>
+              <DeleteX src='/images/modalX.png' />
+            </MobileDesc>
+            <ContainerPicture>
+              <StickImg src='/images/stickSample.png' />
+            </ContainerPicture>
+            <ContainerTwo>
+              <SingleDesc>
+                INCENSE STICKS / {props.sticks[0].stickName} / 12"
+              </SingleDesc>
+              <Delete>삭제하기</Delete>
+            </ContainerTwo>
+            <ContainerOne>
+              <QuantityButton>-</QuantityButton>
+              <QuantityContainer>1</QuantityContainer>
+              <QuantityButton>+</QuantityButton>
+            </ContainerOne>
+            <ContainerOne>
+              {props.sticks[0].stickPrice}원
+            </ContainerOne>
+          </SingleStick>
+          <SingleStand>
+            <MobileDesc>
+              <MyProduct>My Holder</MyProduct>
+              <DeleteX src='/images/modalX.png' />
+            </MobileDesc>
+            <ContainerPicture>
+              <StandImg src='/images/standSample.png' />
+            </ContainerPicture>
+            <ContainerTwo>
+              <SingleDesc>
+                {props.stands[0].standPlate} / {props.stands[0].standHolder} / {props.stands[0].standText}
+              </SingleDesc>
+              <Delete>삭제하기</Delete>
+            </ContainerTwo>
+            <ContainerOne>
+              <QuantityButton>-</QuantityButton>
+              <QuantityContainer>1</QuantityContainer>
+              <QuantityButton>+</QuantityButton>
+            </ContainerOne>
+            <ContainerOne>
+              {props.stands[0].standPrice}원
+            </ContainerOne>
+          </SingleStand>
+        </ProductContainer>
+        <ShippingFeeContainer>
+          <ShippingContainer>
+            <Shipping>
+              배송금액
+            </Shipping>
+          </ShippingContainer>
+          <Fee>
+            3,000 원
+            <ShippingFeeDesc>
+              50,000원 이상 구매시 무료
+            </ShippingFeeDesc>
+          </Fee>
+        </ShippingFeeContainer>
+      </ShoppingBasket>
       <ProductCal>
         <CalDesc>상품 합계</CalDesc>
-        <Price>57,000원</Price>
+        <Price>39000 원</Price>
       </ProductCal>
       <ShippingFeeCal>
         <FeeDesc>배송비</FeeDesc>
-        <Price>0원</Price>
+        <Price>3000 원</Price>
       </ShippingFeeCal>
       <PriceSumContainer>
         <SumDesc>
           합 계
         </SumDesc>
         <Sum>
-          57,000원
+          42000 원
         </Sum>
       </PriceSumContainer>
       <ButtonContainer>
