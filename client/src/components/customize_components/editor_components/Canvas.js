@@ -24,30 +24,69 @@ const StyledCanvas = styled.canvas`
   justify-content: space-between;
   align-items: center;
   background-color: none;
-  border: 2px white solid;
 `;
 
-const Canvas = (props) => {
+const Canvas = ({
+  selectedOps,
+  curStage
+}) => {
   const canvas = useRef();
-  // const ctx = canvas.getContext('2d');
-  // const image = new Image(300,300);
-  // image.src = 'images/stands/steelcat.png';
-  // image.onload = drawImageActualSize;
 
   useEffect(() => {
     const ctx = canvas.current.getContext('2d');
-    const image = new Image(); // eslint-disable-line
 
+    // reset canvas
+    ctx.clearRect(0, 0, 700, 700);
 
-    image.src = holder['wood']['pinoccio'];
+    // drawing plate with current state
+    if (!!selectedOps.plate) {
+      const plateImage = new Image(); // eslint-disable-line
 
-    image.onload = function () {
-      ctx.drawImage(image, 0, 0);
-    };
-    image.onerror = function () {
-      console.log('error');
-    };
-  }, []);
+      plateImage.src = plate[selectedOps.plate.toLowerCase()];
+
+      // error handling
+      plateImage.onload = function () {
+        ctx.drawImage(plateImage, 0, 0);
+      };
+      plateImage.onerror = function () {
+        console.log('plate image loading error');
+      };
+
+      // drawing holder with current state
+      if (
+        !!selectedOps.holder  &&
+        selectedOps.holder !== 'NONE'
+      ) {
+        const holderImage = new Image(); // eslint-disable-line
+
+        holderImage.src = holder[selectedOps.plate.toLowerCase()][selectedOps.holder.toLowerCase()];
+
+        // error handling
+        holderImage.onload = function () {
+          ctx.drawImage(holderImage, 0, 0);
+        };
+        holderImage.onerror = function () {
+        console.log('holder image loading error');
+        };
+      }
+    } else {
+      const defaultImage = new Image(); // eslint-disable-line
+
+      defaultImage.src = '/images/defaultplate.png';
+
+      // error handling
+      defaultImage.onload = function () {
+        ctx.drawImage(defaultImage, 0, 0);
+      };
+      defaultImage.onerror = function () {
+      console.log('default image loading error');
+      };
+    }
+  }, [
+    selectedOps.plate, 
+    selectedOps.holder, 
+    selectedOps.text
+  ]);
   return (
     <>
       <StyledCanvas ref={canvas} width='700' height='700'>

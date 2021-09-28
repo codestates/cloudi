@@ -1,43 +1,58 @@
 module.exports = {
-  materialButtons: [
+  material: [
     {
       id: 1,
       type: 'plate',
-      option: 'wood',
+      option: 'WOOD',
       price: 10000
     }, {
       id: 2,
       type: 'plate',
-      option: 'ceramic',
+      option: 'CERAMIC',
       price: 12000
     }, {
       id: 3,
       type: 'plate',
-      option: 'steel',
+      option: 'STEEL',
       price: 14000
     }
   ],
-  holderButtons: [
+  holder: [
     {
       id: 1,
       type: 'holder',
-      option: 'none',
+      option: 'NONE',
       price: 0
     }, {
       id: 2,
       type: 'holder',
-      option: 'cat',
+      option: 'CAT',
       price: 5000
     }, {
       id: 3,
       type: 'holder',
-      option: 'pinoccio',
+      option: 'PINOCCIO',
       price: 3000
     }, {
       id: 4,
       type: 'holder',
-      option: 'fisher',
+      option: 'FISHER',
       price: 4000
+    }
+  ],
+  finish: [
+    {
+      id: 1,
+      type: 'finish',
+      option: 'ADD TO CART'
+    }, {
+      id: 2,
+      type: 'finish',
+      option: 'REDO'
+    }, {
+      id: 3,
+      type: 'finish',
+      option: 'HOME'
     }
   ]
 }

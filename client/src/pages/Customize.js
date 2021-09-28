@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -35,7 +35,21 @@ const Title = styled.section`
 `;
 
 const Customize = () => {
-  const stages = ['material', 'holder', 'text', 'finish']
+  const stages = [
+    {
+      stage: 'material',
+      message: '스탠드의 재질을 선택해 주세요.'
+    }, {
+      stage: 'holder',
+      message: ''
+    }, {
+      stage: 'text',
+      message: ''
+    }, {
+      stage: 'finish',
+      message: ''
+    }
+  ]
 
   const [selectedOps, setSelectedOps] = useState({
     plate: '',
@@ -43,34 +57,47 @@ const Customize = () => {
     text: ''
   });
 
+  const handleReset = () => {
+    setSelectedOps(
+      {
+        plate: '',
+        holder: '',
+        text: ''
+      }
+    )
+  }
+
   const handleBtnClick = (clickedBtn) => {
-
-    console.log(clickedBtn)
-
     if(clickedBtn.type === 'holder') {
-      setSelectedOps({...selectedOps, ...{holder: clickedBtn.option}})
+      setSelectedOps({...selectedOps, ...{holder: clickedBtn.option}});
     }
     if(clickedBtn.type === 'plate') {
-      setSelectedOps({...selectedOps, ...{plate: clickedBtn.option}})
+      setSelectedOps({...selectedOps, ...{plate: clickedBtn.option}});
     }
+  }
+
+  const handleTextInput = (text) => {
+    console.log(text);
   }
 
   return (
     <CustomizePage>
       <Link to='/customize'>
-        <Title>CUSTOMIZE</Title>
+        <Title onClick={() => handleReset()}>CUSTOMIZE</Title>
       </Link>
       <Switch>
         {stages.map((el, idx) => {
           return (
             <Route
-              key={el}
-              path={`/customize/${el}`}
+              key={el.stage}
+              path={`/customize/${el.stage}`}
             >
               <Editor
-                stages={stages}
-                stage={el}
+                stages={stages.map(el=>el.stage)}
+                stage={el.stage}
+                message={stages.map(el=>el.message)}
                 handleBtnClick={handleBtnClick}
+                handleTextInput={handleTextInput}
                 selectedOps={selectedOps}
               />
             </Route>

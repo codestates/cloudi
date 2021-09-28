@@ -13,7 +13,7 @@ import styled from 'styled-components';
 
 const Button = styled.input`
   flex: 1;
-  height: 80px;
+  height: 50px;
   margin: 5px;
   background-color: none;
   border: 3px black solid;
