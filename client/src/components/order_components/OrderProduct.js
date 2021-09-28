@@ -20,7 +20,6 @@ const ProductExplanation = styled.article`
 
 const ProductInfo = styled.div`
   flex: 3;
-  padding-left: 20px;
   font-weight: bold;
 `;
 
@@ -164,7 +163,11 @@ const SingleStick = styled.article`
   display: flex;
   width: 100%;
   height: 200px;
-  border-top: 2px solid;
+  border-top: 1px solid;
+  @media screen and (max-width: 1023px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const SingleStand = styled(SingleStick)`
@@ -172,12 +175,85 @@ const SingleStand = styled(SingleStick)`
 
 const ContainerOne = styled.div`
   flex: 1;
-  background-color: blue;
+  line-height: 200px;
+  text-align: center;
+  @media screen and (max-width: 1023px) {
+    line-height: 50px;
+    text-align: left;
+  }
 `;
 
-const ContainerTwo = styled.p`
-  flex: 2;
-  background-color: yellow;
+const ContainerTwo = styled.div`
+  flex: 1.5;
+  @media screen and (max-width: 1023px) {
+    font-weight: bold;
+  }
+`;
+
+const ContainerPicture = styled(ContainerTwo)`
+  line-height: 200px;
+  text-align: center;
+`;
+
+const StickImg = styled.img`
+  height: 150px;
+  vertical-align: middle;
+`;
+
+const StandImg = styled.img`
+  height: 130px;
+  vertical-align: middle;
+  @media screen and (max-width: 1023px) {
+    height: 160px;
+  }
+`;
+
+const SingleDesc = styled.p`
+  margin-top: 80px;
+`;
+
+const Delete = styled.p`
+  margin-top: 15px;
+  display: inline-block;
+  font-weight: bold;
+  cursor: pointer;
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
+`;
+
+const MobileDesc = styled.article`
+  margin-top: 20px;
+  display: none;
+  font-weight: bold;
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
+`;
+
+const MyProduct = styled.span`
+  display: inline-block;
+`;
+
+const DeleteX = styled.img`
+  height: 16px;
+  float: right;
+  cursor: pointer;
+`;
+
+const QuantityContainer = styled.button`
+  height: 30px;
+  width: 30px;
+  border: 1px solid;
+  background-color: white;
+  display: inline-block;
+`;
+
+const QuantityButton = styled(QuantityContainer)`
+  cursor: pointer;
+  :hover {
+    background-color: rgb(0, 0, 0, 0.1);
+  }
 `;
 
 const props = {
@@ -219,7 +295,7 @@ const OrderProduct = () => {
   return (
     <OrderProductContainer>
       <ProductExplanation>
-        <ProductInfo>상품 정보</ProductInfo>
+        <ProductInfo>&emsp;&emsp;상품 정보</ProductInfo>
         <ProductDesc>수량</ProductDesc>
         <ProductDesc>가격</ProductDesc>
         <ProductDesc>배송비</ProductDesc>
@@ -227,12 +303,51 @@ const OrderProduct = () => {
       <ShoppingBasket>
         <ProductContainer>
           <SingleStick>
-            <ContainerOne/>
-            <ContainerTwo />
-            <ContainerOne />
-            <ContainerOne />
+            <MobileDesc>
+              <MyProduct>My Incense</MyProduct>
+              <DeleteX src='/images/modalX.png' />
+            </MobileDesc>
+            <ContainerPicture>
+              <StickImg src='/images/stickSample.png' />
+            </ContainerPicture>
+            <ContainerTwo>
+              <SingleDesc>
+                INCENSE STICKS / {props.sticks[0].stickName} / 12"
+              </SingleDesc>
+              <Delete>삭제하기</Delete>
+            </ContainerTwo>
+            <ContainerOne>
+              <QuantityButton>-</QuantityButton>
+              <QuantityContainer>1</QuantityContainer>
+              <QuantityButton>+</QuantityButton>
+            </ContainerOne>
+            <ContainerOne>
+              {props.sticks[0].stickPrice}원
+            </ContainerOne>
           </SingleStick>
-          <SingleStand />
+          <SingleStand>
+            <MobileDesc>
+              <MyProduct>My Holder</MyProduct>
+              <DeleteX src='/images/modalX.png' />
+            </MobileDesc>
+            <ContainerPicture>
+              <StandImg src='/images/standSample.png' />
+            </ContainerPicture>
+            <ContainerTwo>
+              <SingleDesc>
+                {props.stands[0].standPlate} / {props.stands[0].standHolder} / {props.stands[0].standText}
+              </SingleDesc>
+              <Delete>삭제하기</Delete>
+            </ContainerTwo>
+            <ContainerOne>
+              <QuantityButton>-</QuantityButton>
+              <QuantityContainer>1</QuantityContainer>
+              <QuantityButton>+</QuantityButton>
+            </ContainerOne>
+            <ContainerOne>
+              {props.stands[0].standPrice}원
+            </ContainerOne>
+          </SingleStand>
         </ProductContainer>
         <ShippingFeeContainer>
           <ShippingContainer>
@@ -250,18 +365,18 @@ const OrderProduct = () => {
       </ShoppingBasket>
       <ProductCal>
         <CalDesc>상품 합계</CalDesc>
-        <Price>57,000 원</Price>
+        <Price>39000 원</Price>
       </ProductCal>
       <ShippingFeeCal>
         <FeeDesc>배송비</FeeDesc>
-        <Price>0 원</Price>
+        <Price>3000 원</Price>
       </ShippingFeeCal>
       <PriceSumContainer>
         <SumDesc>
           합 계
         </SumDesc>
         <Sum>
-          57,000 원
+          42000 원
         </Sum>
       </PriceSumContainer>
       <ButtonContainer>
