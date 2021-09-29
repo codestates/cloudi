@@ -56,33 +56,31 @@ const Indicator = ({ stage, selectedOps }) => {
       finished: false
     }
   ]);
-  
+
   useEffect(() => {
     const { plate, holder, text } = selectedOps;
-    
-      setFinishedStages([
-        {
-          stage: 'material',
-          finished: !!plate
-        }, {
-          stage: 'holder',
-          finished: !!holder
-        }, {
-          stage: 'text',
-          finished: !!text
-        }
-      ])
-    
 
-    return () => {}
+    setFinishedStages([
+      {
+        stage: 'material',
+        finished: !!plate
+      }, {
+        stage: 'holder',
+        finished: !!holder
+      }, {
+        stage: 'text',
+        finished: !!text
+      }
+    ]);
+    return () => {};
   }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]); // eslint-disable-line
 
   return (
     <IndicatorContainer>
       {
         stage === 'finish'
-        ? null
-        : finishedStages.map((el, idx) => {
+          ? null
+          : finishedStages.map((el, idx) => {
             if (finishedStages[idx].finished || el.stage === stage) {
               return (
                 <NavLink
@@ -90,7 +88,6 @@ const Indicator = ({ stage, selectedOps }) => {
                   key={`${idx}${el.stage}`}
                 >
                   <IndicatorBar
-                    
                     done={el.finished}
                   >
                     {el.stage.toUpperCase()}
@@ -105,11 +102,10 @@ const Indicator = ({ stage, selectedOps }) => {
                 >
                   {el.stage.toUpperCase()}
                 </IndicatorBar>
-              )
+              );
             }
-          
-        })
-      }
+          })
+    }
     </IndicatorContainer>
   );
 };

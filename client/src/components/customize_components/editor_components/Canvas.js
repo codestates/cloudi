@@ -85,10 +85,10 @@ const Canvas = ({
       };
     }
 
-      // drawing holder with current state
+    // drawing holder with current state
     if (!!plate && !!holder && holder !== 'NONE') {
       const holderImage = new Image(); // eslint-disable-line
-      
+
       holderImage.src = holderImg[plate.toLowerCase()][holder.toLowerCase()];
 
       // error handling

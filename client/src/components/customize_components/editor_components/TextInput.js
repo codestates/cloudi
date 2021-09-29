@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const ApplyButton = styled.input`
   background-color: ${props => props.disabled ? '#d1d1d1' : '#b7c58b'};
-  border: ${props => props.disabled ? '3px #d1d1d1 solid' : '3px #b7c58b solid' };
+  border: ${props => props.disabled ? '3px #d1d1d1 solid' : '3px #b7c58b solid'};
   border-radius: 30px;
   color: ${props => props.disabled ? '#dfdfdf' : 'white'};
   padding: 10px 20px;
@@ -25,7 +25,7 @@ const ApplyButton = styled.input`
 
 const TextBox = styled.input`
   background-color: ${props => props.disabled ? '#d1d1d1' : 'whitesmoke'};
-  border: ${props => props.disabled ? '3px #d1d1d1 solid' : '3px #b7c58b solid' };
+  border: ${props => props.disabled ? '3px #d1d1d1 solid' : '3px #b7c58b solid'};
   padding: 10px 20px;
   border-radius: 30px;
   text-decoration: none;
@@ -87,9 +87,9 @@ const TextInput = ({ handleTextInput }) => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIsVisible(true), 10000)
-    return () => {}
-  }, [])
+    setTimeout(() => setIsVisible(true), 10000);
+    return () => {};
+  }, []);
 
   return (
     <div>
@@ -106,7 +106,7 @@ const TextInput = ({ handleTextInput }) => {
         onClick={() => handleTextInput(text)}
         disabled={isDisabled}
       />
-      {
+      {/* eslint-disable */
         isVisible
           ? <NoTextButton
             type='button'
@@ -118,7 +118,7 @@ const TextInput = ({ handleTextInput }) => {
             }}
           />
           : null
-      }
+      /* eslint-disable */}
     </div>
   );
 };

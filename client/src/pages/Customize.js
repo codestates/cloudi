@@ -28,25 +28,26 @@ const Title = styled.button`
   width: 160px;
   transform: translate(-50%, -50%);
   z-index: 800;
-
   background: none;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-  
-  text-align: center;
+  border: none;
+  padding: 0;
+
   color: #787887;
   letter-spacing: 0;
   transition: all 0.4s;
+
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  text-align: center;
+
   :focus {
     background: rgba(228, 242, 184, 1);
   }
 `;
 
 const Customize = () => {
-  const titleRef = useRef()
+  const titleRef = useRef();
   const stages = [
     {
       stage: 'material',

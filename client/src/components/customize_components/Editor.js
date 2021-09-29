@@ -28,7 +28,7 @@ const Editor = ({
 }) => {
   return (
     <>
-      {// 잘못된 경로로 접근 
+      {/* eslint-disable */
         stage !== 'material' && selectedOps.plate === ''
           ? <ErrorMsg
             handleErrorMsg={handleErrorMsg}
@@ -54,7 +54,7 @@ const Editor = ({
               handleTextInput={handleTextInput}
             />
           </>
-      }
+      /* eslint-enable */}
       <MainButton
         curStage={stage}
         selectedOps={selectedOps}

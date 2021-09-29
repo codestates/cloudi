@@ -27,7 +27,7 @@ const StyledErrorMsg = styled.section`
 const ErrorMsg = ({ handleErrorMsg }) => {
   useEffect(() => {
     handleErrorMsg();
-    return () => {}
+    return () => {};
   }, []) // eslint-disable-line
   return (
     <>
