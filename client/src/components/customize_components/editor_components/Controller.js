@@ -18,6 +18,7 @@ const StyledController = styled.section`
 
 const Controller = ({
   curStage,
+  selectedOps,
   handleBtnClick,
   handleTextInput
 }) => {
@@ -45,7 +46,7 @@ const Controller = ({
       }
       {
         curStage === 'finish'
-          ? <FinishButtons />
+          ? <FinishButtons selectedOps={selectedOps} />
           : null
       }
     </StyledController>

@@ -16,30 +16,28 @@ const ApplyButton = styled.input`
   };
 `;
 
-const TextBox = styled.span`
-  input {
-    background-color: white;
-    border: 0;
+const TextBox = styled.input`
+  background-color: white;
+  border: 0;
+  border: 3px #b7c58b solid ;
+  color: black;
+  padding: 10px 20px;
+  text-decoration: none;
+  margin: 4px 10px;
+  cursor: pointer;
+  :focus {
+    outline: none;
+    background-color: rgba(235, 235, 235, 1);
     border: 3px #b7c58b solid ;
-    color: black;
-    padding: 10px 20px;
-    text-decoration: none;
-    margin: 4px 10px;
-    cursor: pointer;
-    :focus {
-      outline: none;
-      background-color: rgba(235, 235, 235, 1);
-      border: 3px #b7c58b solid ;
-    }
-    :active {
-      background-color: rgba(235, 235, 235, 1);
-      border: 0;
-    }
-    :hover {
-      cursor: pointer;
-      background-color: rgba(235, 235, 235, 1);
-    };
   }
+  :active {
+    background-color: rgba(235, 235, 235, 1);
+    border: 0;
+  }
+  :hover {
+    cursor: pointer;
+    background-color: rgba(235, 235, 235, 1);
+  };
 `;
 
 const TextInput = ({ handleTextInput }) => {
@@ -48,14 +46,12 @@ const TextInput = ({ handleTextInput }) => {
   return (
     <div>
       <form>
-        <TextBox>
-          <input
-            type='text'
-            placeholder='10자 이내로 작성해 주세요.'
-            onChange={(e) => setText(e.target.value)}
-            maxlength='10'
-          />
-        </TextBox>
+        <TextBox
+          type='text'
+          placeholder='10자 이내로 작성해 주세요.'
+          onChange={(e) => setText(e.target.value)}
+          maxLength='10'
+        />
         <ApplyButton
           type='button'
           value='적용하기'
