@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import IncenseSlider from '../components/incense_components/IncenseSlider';
 
@@ -25,12 +25,13 @@ const Wrapper = styled.div`
   }
 `;
 
-const Test1 = styled.div`
+const IncenseContainer = styled.div`
   height: 260px;
+  z-index: 3;
 `;
 
-const Container = styled.div`
-  background-color: white;
+const IncenseContent = styled.div`
+  background-color: rgba(255, 255, 255, 0.8);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
@@ -78,9 +79,40 @@ const SliderBtnRight = styled.div`
   }
 `;
 
+const CartBtn = styled.div`
+  padding: 20px;
+  background-color: ${(props) => (props.count === 1 ? '#f09490' : 'white')};
+  opacity: 0.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 25px;
+  pointer-events: ${(props) => (props.count === 1 ? 'auto' : 'none')};
+  cursor: pointer;
+  :hover {
+    opacity: 1;
+  }
+`;
+
+const Sequence = styled.div`
+  color: #66667a;
+  display: flex;
+  justify-content: end;
+  position: relative;
+  right: 14px;
+  top: 2px;
+`;
+
 const TOTAL_SLIDES = 2;
 const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [clickCount, setClickCount] = useState(0);
+  const [click, setClick] = useState({
+    one: false,
+    two: false,
+    three: false
+  });
   const slideRef = useRef(null);
   const data = [
     {
@@ -120,33 +152,34 @@ const Incense = () => {
     }
   };
 
-  useEffect(() => {
-    slideRef.current.style.transition = 'all 0.5s ease-in-out';
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
-  }, [currentSlide]);
-
+  const clickHandler = (id) => {
+    // * id를 얻어서 cart add btn 누를때 사용
+  };
   return (
     <Wrapper>
-      <Test1>
-        <Container>
-          {currentSlide}
+      <IncenseContainer>
+        <IncenseContent>
+          <Sequence>{currentSlide + 1}/3</Sequence>
           <SliderBox ref={slideRef}>
             {data.map((el) => {
               return (
                 <IncenseSlider
-                  img={el.url}
                   key={el.id}
-                  title={el.title}
-                  name={el.stickName}
-                  price={el.stickPrice}
+                  data={el}
+                  clickHandler={clickHandler}
+                  clickCount={clickCount}
+                  setClickCount={setClickCount}
+                  click={click}
+                  setClick={setClick}
                 />
               );
             })}
           </SliderBox>
-        </Container>
+        </IncenseContent>
         <SliderBtnLeft onClick={prevSlide} />
         <SliderBtnRight onClick={nextSlide} />
-      </Test1>
+        <CartBtn count={clickCount}>Add to cart</CartBtn>
+      </IncenseContainer>
     </Wrapper>
   );
 };
