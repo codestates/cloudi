@@ -11,13 +11,13 @@ const StyledController = styled.section`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: white;
   width: 50vmax;
   height: 100px;
 `;
 
 const Controller = ({
   curStage,
+  selectedOps,
   handleBtnClick,
   handleTextInput
 }) => {
@@ -45,7 +45,7 @@ const Controller = ({
       }
       {
         curStage === 'finish'
-          ? <FinishButtons />
+          ? <FinishButtons selectedOps={selectedOps} />
           : null
       }
     </StyledController>

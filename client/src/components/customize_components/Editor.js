@@ -31,6 +31,7 @@ const Editor = ({
       />
       <Controller
         curStage={stage}
+        selectedOps={selectedOps}
         handleBtnClick={handleBtnClick}
         handleTextInput={handleTextInput}
       />
