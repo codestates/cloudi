@@ -7,6 +7,7 @@ import Order from './pages/Order';
 import { Route, Switch } from 'react-router-dom';
 import Quiz from './pages/Quiz';
 import SideBar from './modals/SideBar';
+import Incense from './pages/Incense';
 
 const App = () => {
   return (
@@ -26,6 +27,9 @@ const App = () => {
         </Route>
         <Route path='/order'>
           <Order />
+        </Route>
+        <Route path='/incense'>
+          <Incense />
         </Route>
         <Route path='/'>
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />

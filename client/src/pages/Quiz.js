@@ -4,10 +4,12 @@ import QuizPageFirst from '../components/quiz_components/QuizPageFirst';
 import QuizPageSecond from '../components/quiz_components/QuizPageSecond';
 import QuizPageThird from '../components/quiz_components/QuizPageThird';
 import QuizPageFourth from '../components/quiz_components/QuizPageFourth';
-import { IMAGE, SEQUENCE } from '../components/quiz_components/quizItem';
+import QuizPageResult from '../components/quiz_components/QuizPageResult';
+import { SEQUENCE } from '../components/quiz_components/quizItem';
 
 const QuizContainer = styled.div`
   //padding-top: 95px;
+  background-color: rgba(0, 0, 0, 0.2);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -28,6 +30,7 @@ const QuizContainer = styled.div`
 `;
 
 const QuizHeadline = styled.div`
+  display: ${(props) => (props.visible === 'A' ? 'none' : 'auto')};
   color: #92929c;
   font-size: 0.9rem;
   margin-bottom: 20px;
@@ -40,7 +43,7 @@ const QuizTitle = styled.div`
 `;
 
 const SequenceContainer = styled.div`
-  display: flex;
+  display: ${(props) => (props.visible === 'A' ? 'none' : 'flex')};
   flex-direction: row;
   justify-content: space-around;
 `;
@@ -57,6 +60,7 @@ const SequenceBox = styled.div`
 `;
 
 const ContinueBox = styled.div`
+  display: ${(props) => (props.visible === 'A' ? 'none' : 'auto')};
   color: white;
   background-color: ${(props) => (props.click ? '#b7c58b' : '#787887')};
   width: 8rem;
@@ -79,6 +83,7 @@ const ContinueBox = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  display: ${(props) => (props.visible === 'A' ? 'none' : 'auto')};
   height: 200px;
   justify-content: center;
   align-items: center;
@@ -88,28 +93,18 @@ const Quiz = () => {
   const [visible, setVisible] = useState(SEQUENCE);
   const [sequence, setSequence] = useState(SEQUENCE);
   const [imageClick, setImageClick] = useState(false);
-  const [image, setImage] = useState(IMAGE);
+  const [resultVisible, setResultVisible] = useState(false);
   const [quizBtn, setQuizBtn] = useState('CONTINUE');
   const [title, setTitle] = useState('좋아하는 계절을 선택해주세요');
   const progress = ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'];
-  const quizImageHandler = (key) => {
-    const image = IMAGE;
-    switch (key) {
-      case 'spring':
-        setImage({ ...image, [key]: '/images/spring_green.png' });
-        break;
-      case 'summer':
-        setImage({ ...image, [key]: '/images/summer_green.png' });
-        break;
-      case 'fall':
-        setImage({ ...image, [key]: '/images/fall_green.png' });
-        break;
-      case 'winter':
-        setImage({ ...image, [key]: '/images/winter_green.png' });
-        break;
-      default:
-        break;
-    }
+
+  const submitBtnHandler = () => {
+    setVisible({
+      ...visible,
+      fourthPage: false
+    });
+    setTitle('');
+    setResultVisible(true);
   };
 
   const continueBtnHandler = () => {
@@ -129,8 +124,8 @@ const Quiz = () => {
           setImageClick(false);
           setTitle('오늘의 기분 3가지를 골라주세요');
         }, 250);
-
         break;
+
       case visible.secondPage:
         setVisible({
           ...visible,
@@ -146,8 +141,8 @@ const Quiz = () => {
           setImageClick(false);
           setTitle('내가 생각하기에 나의 성향은..');
         }, 250);
-
         break;
+
       case visible.thirdPage:
         setVisible({
           ...visible,
@@ -166,6 +161,10 @@ const Quiz = () => {
         }, 250);
         break;
 
+      case visible.fourthPage:
+        submitBtnHandler();
+        break;
+
       default:
         break;
     }
@@ -173,19 +172,17 @@ const Quiz = () => {
 
   return (
     <QuizContainer>
-      <QuizHeadline>INCENSE QUIZ</QuizHeadline>
-      <SequenceContainer>
+      <QuizHeadline visible={resultVisible && 'A'}>INCENSE QUIZ</QuizHeadline>
+      <SequenceContainer visible={resultVisible && 'A'}>
         {progress.map((el) => {
           return <SequenceBox key={el} progress={sequence[el]} />;
         })}
       </SequenceContainer>
       <QuizTitle>{title}</QuizTitle>
 
-      <ContentWrapper>
+      <ContentWrapper visible={resultVisible && 'A'}>
         <QuizPageFirst
           visible={visible.firstPage}
-          image={image}
-          quizImageHandler={quizImageHandler}
           setImageClick={setImageClick}
         />
         <QuizPageSecond
@@ -207,9 +204,11 @@ const Quiz = () => {
         click={imageClick}
         onClick={continueBtnHandler}
         quizBtn={quizBtn}
+        visible={resultVisible && 'A'}
       >
         {quizBtn}
       </ContinueBox>
+      <QuizPageResult resultVisible={resultVisible} />
     </QuizContainer>
   );
 };
