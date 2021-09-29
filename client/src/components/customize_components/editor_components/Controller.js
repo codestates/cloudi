@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import buttons from './buttons';
 import OptionButton from './OptionButton';
 import TextInput from './TextInput';
+import FinishButtons from './FinishButtons';
 
 const StyledController = styled.section`
   display: flex;
@@ -23,7 +24,8 @@ const Controller = ({
   return (
     <StyledController>
       {
-        curStage !== 'text'
+        curStage === 'material' ||
+        curStage === 'holder'
           ? buttons[curStage].map(el => {
             return (
               <OptionButton
@@ -34,7 +36,17 @@ const Controller = ({
               />
             );
           })
-          : <TextInput handleTextInput={handleTextInput} />
+          : null
+      }
+      {
+        curStage === 'text'
+          ? <TextInput handleTextInput={handleTextInput} />
+          : null
+      }
+      {
+        curStage === 'finish'
+          ? <FinishButtons />
+          : null
       }
     </StyledController>
   );
