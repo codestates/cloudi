@@ -87,9 +87,9 @@ const QuizPageResult = ({ resultVisible }) => {
       <ResultContainer>
         <ContentImage img={incense.stickImage} />
         <TextContainer>
-          <TextContent color='#3f3f4a'>incense.stickName</TextContent>
+          <TextContent color='#3f3f4a'>{incense.stickName}</TextContent>
           <TextContent>귤 냄새 가득 가득가득다그</TextContent>
-          <TextContent>incense.stickPrice 원</TextContent>
+          <TextContent>{incense.stickPrice} 원</TextContent>
         </TextContainer>
       </ResultContainer>
       <IncenseBtn onClick={rightClickHandler}>더 많은 제품 보러가기</IncenseBtn>
