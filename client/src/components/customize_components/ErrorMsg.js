@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import MainButton from './MainButton';
 
-const StyledInitialMsg = styled.section`
+const StyledErrorMsg = styled.section`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -25,21 +24,21 @@ const StyledInitialMsg = styled.section`
   width: 600px;
 `;
 
-const InitialMsg = ({ selectedOps, curStage = 'main' }) => {
+const ErrorMsg = ({ handleErrorMsg }) => {
+  useEffect(() => {
+    handleErrorMsg();
+    return () => {}
+  }, []) // eslint-disable-line
   return (
     <>
-      <StyledInitialMsg>
+      <StyledErrorMsg>
         <img src='/images/incensestands.png' alt='incensestand' width='500' height='350' />
-        <h2>나만의 인센스 스탠드 만들기</h2>
-        <div>취향에 딱 맞는 인센스를 고르셨나요?</div>
-        <div>나만의 특별한 스탠드도 제작해 보세요!</div>
-      </StyledInitialMsg>
-      <MainButton
-        selectedOps={selectedOps}
-        curStage={curStage}
-      />
+        <h2>뭔가가 잘못되었습니다.</h2>
+        <div>'CUSTOMIZE' 글자를 눌러 처음부터 다시 시작해주세요.</div>
+        <div>불편을 드려 죄송합니다.</div>
+      </StyledErrorMsg>
     </>
   );
 };
 
-export default InitialMsg;
+export default ErrorMsg;

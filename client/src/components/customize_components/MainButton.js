@@ -3,6 +3,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const MainButtonContainer = styled.section`
+  position: fixed;
+  bottom: 12%;
+  left: 50%;
+  transform: translate(-50%, 0);
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,10 +75,13 @@ const MainButton = ({
       setIsDisabled(!selectedOps.holder);
     }
 
-    return () => {
-    };
+    if (curStage === 'text') {
+      setIsDisabled(!selectedOps.text);
+    }
+
+    return () => {};
     // eslint-disable-next-line
-  }, [ selectedOps.plate, selectedOps.holder ]);
+  }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]);
 
   return (
     <MainButtonContainer>

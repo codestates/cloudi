@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -20,21 +20,33 @@ const CustomizePage = styled.section`
   }
 `;
 
-const Title = styled.section`
+const Title = styled.button`
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  height: 40px;
+  width: 160px;
+  transform: translate(-50%, -50%);
+  z-index: 800;
+
+  background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  
   text-align: center;
-  font-weight: 300;
-  font-size: 1rem;
   color: #787887;
   letter-spacing: 0;
-  width: 50vmax;
-  margin-top: 100px;
-  margin-bottom: 10px;
-  @media screen and (max-width: 1023px) {
-
+  transition: all 0.4s;
+  :focus {
+    background: rgba(228, 242, 184, 1);
   }
 `;
 
 const Customize = () => {
+  const titleRef = useRef()
   const stages = [
     {
       stage: 'material',
@@ -80,10 +92,14 @@ const Customize = () => {
     setSelectedOps({ ...selectedOps, ...{ text: text } });
   };
 
+  const handleErrorMsg = () => {
+    titleRef.current.focus();
+  };
+
   return (
     <CustomizePage>
       <Link to='/customize'>
-        <Title onClick={() => handleReset()}>CUSTOMIZE</Title>
+        <Title ref={titleRef} onClick={() => handleReset()}>CUSTOMIZE</Title>
       </Link>
       <Switch>
         {stages.map((el, idx) => {
@@ -98,6 +114,7 @@ const Customize = () => {
                 message={el.message}
                 handleBtnClick={handleBtnClick}
                 handleTextInput={handleTextInput}
+                handleErrorMsg={handleErrorMsg}
                 selectedOps={selectedOps}
               />
             </Route>

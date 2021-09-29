@@ -1,11 +1,16 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { plate, holder } from './standImages'; // eslint-disable-line
+import { plateImg, holderImg } from './standImages'; // eslint-disable-line
 
 const StyledCanvas = styled.canvas`
-  width: 400px;
-  height: 400px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+
+  width: 500px;
+  height: 500px;
   justify-content: space-between;
   align-items: center;
   background-color: none;
@@ -28,7 +33,7 @@ const writeText = (ctx, text, material) => {
   const chars = text.toUpperCase().split('');
 
   for (let i = 0; i < chars.length; i++) {
-    ctx.fillText(chars[i], 219 + (i * 16), yStart - (i * 6));
+    ctx.fillText(chars[i], 190 + (i * 16), yStart - (i * 6));
   }
 };
 
@@ -39,46 +44,29 @@ const Canvas = ({
 
   useEffect(() => {
     const ctx = canvas.current.getContext('2d');
+    const { plate, holder, text } = selectedOps;
 
     // reset canvas
     ctx.clearRect(0, 0, 700, 700);
 
     // drawing plate with current state
-    if (!!selectedOps.plate) { // eslint-disable-line
+    if (!!plate) { // eslint-disable-line
       const plateImage = new Image(); // eslint-disable-line
 
-      plateImage.src = plate[selectedOps.plate.toLowerCase()];
+      plateImage.src = plateImg[plate.toLowerCase()];
 
       // error handling
       plateImage.onload = function () {
-        ctx.drawImage(plateImage, 0, 0);
+        ctx.drawImage(plateImage, -30, 0);
+
+        // drawing text
+        if (!!text && text !== 'empty input!') { // eslint-disable-line
+          writeText(ctx, text, plate);
+        }
       };
       plateImage.onerror = function () {
         console.log('plate image loading error');
       };
-
-      // drawing holder with current state
-      if (
-        !!selectedOps.holder &&
-        selectedOps.holder !== 'NONE'
-      ) {
-        const holderImage = new Image(); // eslint-disable-line
-
-        holderImage.src = holder[selectedOps.plate.toLowerCase()][selectedOps.holder.toLowerCase()];
-
-        // error handling
-        holderImage.onload = function () {
-          ctx.drawImage(holderImage, 0, 0);
-
-          // drawing text
-          if (!!selectedOps.text) { // eslint-disable-line
-            writeText(ctx, selectedOps.text, selectedOps.plate);
-          }
-        };
-        holderImage.onerror = function () {
-          console.log('holder image loading error');
-        };
-      }
     } else {
       const defaultImage = new Image(); // eslint-disable-line
 
@@ -86,20 +74,40 @@ const Canvas = ({
 
       // error handling
       defaultImage.onload = function () {
-        ctx.drawImage(defaultImage, 0, 0);
+        ctx.drawImage(defaultImage, -30, 0);
+        // drawing text
+        if (!!text && text !== 'empty input!') { // eslint-disable-line
+          writeText(ctx, text, plate);
+        }
       };
       defaultImage.onerror = function () {
         console.log('default image loading error');
       };
     }
-  }, [
-    selectedOps.plate,
-    selectedOps.holder,
-    selectedOps.text
-  ]);
+
+      // drawing holder with current state
+    if (!!plate && !!holder && holder !== 'NONE') {
+      const holderImage = new Image(); // eslint-disable-line
+      
+      holderImage.src = holderImg[plate.toLowerCase()][holder.toLowerCase()];
+
+      // error handling
+      holderImage.onload = function () {
+        ctx.drawImage(holderImage, -30, 0);
+
+        // drawing text
+        if (!!text && text !== 'empty input!') { // eslint-disable-line
+          writeText(ctx, text, plate);
+        }
+      };
+      holderImage.onerror = function () {
+        console.log('holder image loading error');
+      };
+    }
+  }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]); // eslint-disable-line
   return (
     <>
-      <StyledCanvas ref={canvas} width='700' height='700'>
+      <StyledCanvas ref={canvas} width='650' height='650'>
         Sorry, your browser dosen't support canvas tags.
       </StyledCanvas>
     </>
