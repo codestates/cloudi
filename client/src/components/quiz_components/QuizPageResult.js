@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-
+import { NavLink } from 'react-router-dom';
 const ResultWrapper = styled.div`
   display: ${(props) => (props.visible === 'A' ? 'flex' : 'none')};
   flex-direction: column;
@@ -53,7 +53,7 @@ const TextContent = styled.div`
   color: ${(props) => props.color || '#787887'};
 `;
 
-const IncenseBtn = styled.div`
+const IncenseBtn = styled(NavLink)`
   position: relative;
   display: flex;
   justify-content: center;
@@ -65,6 +65,7 @@ const IncenseBtn = styled.div`
   color: white;
   font-size: 1.1rem;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
   cursor: pointer;
   :hover {
     background-color: #88965c;
@@ -92,7 +93,9 @@ const QuizPageResult = ({ resultVisible }) => {
           <TextContent>{incense.stickPrice} 원</TextContent>
         </TextContainer>
       </ResultContainer>
-      <IncenseBtn onClick={rightClickHandler}>더 많은 제품 보러가기</IncenseBtn>
+      <IncenseBtn to='/incense' onClick={rightClickHandler}>
+        더 많은 제품 보러가기
+      </IncenseBtn>
     </ResultWrapper>
   );
 };
