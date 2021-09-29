@@ -6,10 +6,12 @@ import OtherPages from '../components/main_components/OtherPages';
 const MainContainer = styled.main`
   width: 100vw;
   height: 100vh;
-  overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  ::-webkit-scrollbar {
+    display: none;
+  };
 `;
 
 const Main = () => {
