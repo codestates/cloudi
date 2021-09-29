@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { Link, NavLink } from 'react-router-dom';
-
 const NavBar = styled.nav`
   position: fixed;
   display: flex;
@@ -12,17 +10,14 @@ const NavBar = styled.nav`
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid;
-  background-color: white;
-  .active li {
-    background-color: rgb(183, 197, 139);
-  }
+  background-color: ${props =>
+    props.menu ? 'white' : 'rgba(255, 255, 255, 0)'};
   :hover {
     background-color: white;
   };
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     align-items: flex-start;
-    height: 64px;
   };
 `;
 
@@ -43,22 +38,18 @@ const NavMenu = styled.ul`
       props.menu ? 'block' : 'none'};
     border-top: ${props =>
       props.menu ? '2px solid' : 'none'};
-  };
-  @media screen and (max-width: 1023px) {
-    height: 50px;
-  };
+  }
 `;
 
 const MenuList = styled.li`
   padding: 0 20px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 93px;
-  font-weight: 600;
+  font-weight: bold;
   transition-property: background;
   transition-duration: 0.8s;
   transition-timing-function: ease-out;
-  background: linear-gradient(270deg, rgba(183, 197, 139, 1), rgba(183, 197, 139, 1), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+  background: linear-gradient(270deg, rgba(92, 112, 5, 1), rgba(92, 112, 5, 1), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
   background-size: 300% 300%;
   :hover {
     cursor: pointer;
@@ -68,9 +59,11 @@ const MenuList = styled.li`
     width: 100%;
     text-align: center;
     background-color: white;
-    font-size: 2vh;
-    line-height: 8vh;
   }
+  @media screen and (max-height: 665px) {
+    height: 14vh;
+    line-height: 14vh;
+  };
 `;
 
 const MobileMenuList = styled(MenuList)`
@@ -87,11 +80,6 @@ const CloudiLogo = styled.img`
     cursor: pointer;
     transition: all 0.8s;
     filter: opacity(0.5) drop-shadow(0 0 0 rgba(99, 84, 58, 1));
-  };
-  @media screen and (max-width: 1023px) {
-    height: 40px;
-    width: 105px;
-    margin: 10px 0 10px 20px;
   }
 `;
 
@@ -127,15 +115,7 @@ const MenuIcon = styled.img`
   }
   @media screen and (max-width: 1023px) {
     display: block;
-    height: 45px;
-    width: 45px;
-    margin: 8px 15px 0 0;
   }
-`;
-
-const LinkElem = styled(NavLink)`
-  text-decoration: none;
-  color: black;
 `;
 
 const Header = () => {
@@ -148,28 +128,18 @@ const Header = () => {
   return (
     <NavBar menu={menu}>
       <NavLogo>
-        <Link to='/'><CloudiLogo src='/images/cloudi.png' /></Link>
+        <CloudiLogo src='/images/cloudi.png' />
       </NavLogo>
       <NavMenu menu={menu}>
         <MobileMenuList>SIGN UP</MobileMenuList>
         <MobileMenuList>LOG IN</MobileMenuList>
-        <LinkElem to='/order'>
-          <MobileMenuList>ORDER</MobileMenuList>
-        </LinkElem>
-        <LinkElem to='/incense'>
-          <MenuList>INCENSE</MenuList>
-        </LinkElem>
-        <LinkElem to='/quiz'>
-          <MenuList>QUIZ</MenuList>
-        </LinkElem>
-        <LinkElem to='/customize'>
-          <MenuList>CUSTOMIZE</MenuList>
-        </LinkElem>
+        <MobileMenuList>ORDER</MobileMenuList>
+        <MenuList>INCENSE</MenuList>
+        <MenuList>QUIZ</MenuList>
+        <MenuList>CUSTOMIZE</MenuList>
       </NavMenu>
       <IconContainer>
-        <Link to='/order'>
-          <Icon src='/images/cart.png' />
-        </Link>
+        <Icon src='/images/cart.png' />
         <Icon src='/images/user.png' />
       </IconContainer>
       <MenuIcon src='/images/menu.png' onClick={handleClickMenu} />
