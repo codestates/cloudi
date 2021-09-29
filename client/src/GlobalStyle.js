@@ -5,8 +5,6 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   *{
     box-sizing: border-box;
-    overflow-x: clip;
-
     ::-webkit-scrollbar {
       -webkit-appearance: none;
       width: 7px;
