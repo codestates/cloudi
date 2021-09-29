@@ -9,7 +9,6 @@ const MainContainer = styled.main`
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  overflow-x: hidden;
 `;
 
 const Main = () => {
