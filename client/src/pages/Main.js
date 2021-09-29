@@ -9,9 +9,6 @@ const MainContainer = styled.main`
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   overflow-x: hidden;
-  ::-webkit-scrollbar {
-    display: none;
-  };
 `;
 
 const Main = () => {
