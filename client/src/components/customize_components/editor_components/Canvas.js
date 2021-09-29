@@ -3,22 +3,7 @@ import styled from 'styled-components';
 
 import { plate, holder } from './standImages'; // eslint-disable-line
 
-// const CanvasContainer = styled.section`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-//   align-items: center;
-//   background-color: none;
-//   border: 2px green solid;
-//   width: 50vmax;
-//   @media screen and (max-width: 1023px) {
-
-//   }
-// `;
-
 const StyledCanvas = styled.canvas`
-  display: flex;
-  flex-direction: row;
   width: 400px;
   height: 400px;
   justify-content: space-between;
@@ -26,9 +11,29 @@ const StyledCanvas = styled.canvas`
   background-color: none;
 `;
 
+const writeText = (ctx, text, material) => {
+  let fontSize = '14px';
+  let yStart = 582;
+  if (material === 'CERAMIC') {
+    fontSize = '18px';
+    yStart = 587;
+  } else if (material === 'WOOD') {
+    fontSize = '22px';
+    yStart = 592;
+  }
+
+  ctx.font = `bold ${fontSize} Helvetica`;
+  ctx.fillStyle = 'black';
+
+  const chars = text.toUpperCase().split('');
+
+  for (let i = 0; i < chars.length; i++) {
+    ctx.fillText(chars[i], 219 + (i * 16), yStart - (i * 6));
+  }
+};
+
 const Canvas = ({
-  selectedOps,
-  curStage
+  selectedOps
 }) => {
   const canvas = useRef();
 
@@ -64,6 +69,11 @@ const Canvas = ({
         // error handling
         holderImage.onload = function () {
           ctx.drawImage(holderImage, 0, 0);
+
+          // drawing text
+          if (!!selectedOps.text) { // eslint-disable-line
+            writeText(ctx, selectedOps.text, selectedOps.plate);
+          }
         };
         holderImage.onerror = function () {
           console.log('holder image loading error');

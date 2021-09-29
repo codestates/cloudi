@@ -41,13 +41,13 @@ const Customize = () => {
       message: '스탠드의 재질을 선택해 주세요.'
     }, {
       stage: 'holder',
-      message: ''
+      message: '인센스 스틱 홀더를 선택해 주세요.'
     }, {
       stage: 'text',
-      message: ''
+      message: '받침에 새길 텍스트를 작성해 주세요.'
     }, {
       stage: 'finish',
-      message: ''
+      message: '축하합니다! 나만의 인센스 스탠드가 완성되었습니다.'
     }
   ];
 
@@ -77,7 +77,7 @@ const Customize = () => {
   };
 
   const handleTextInput = (text) => {
-    console.log(text);
+    setSelectedOps({ ...selectedOps, ...{ text: text } });
   };
 
   return (
@@ -95,7 +95,7 @@ const Customize = () => {
               <Editor
                 stages={stages.map(el => el.stage)}
                 stage={el.stage}
-                message={stages.map(el => el.message)}
+                message={el.message}
                 handleBtnClick={handleBtnClick}
                 handleTextInput={handleTextInput}
                 selectedOps={selectedOps}

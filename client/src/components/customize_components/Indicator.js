@@ -6,7 +6,7 @@ const IndicatorContainer = styled.section`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: none;
   width: 50vmax;
 `;
 
