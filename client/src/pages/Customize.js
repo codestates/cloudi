@@ -14,7 +14,7 @@ const CustomizePage = styled.section`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background: linear-gradient(315deg, #ffffff, #F0F4F8);
   a {
     text-decoration: none;
   }

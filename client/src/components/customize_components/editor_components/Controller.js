@@ -11,7 +11,6 @@ const StyledController = styled.section`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: white;
   width: 50vmax;
   height: 100px;
 `;
