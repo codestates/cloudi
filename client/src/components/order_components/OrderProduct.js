@@ -48,6 +48,9 @@ const Button = styled.button`
   :active {
     box-shadow: inset 5px 5px 5px rgb(70, 110, 75);
   };
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+  }
 `;
 
 const ProductCal = styled.article`
