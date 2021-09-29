@@ -26,6 +26,7 @@ const boxFadeIn = keyframes`
       transform: translateX(0px);
     }
 `;
+
 const QuizThirdContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -56,6 +57,7 @@ const BtnContent = styled.div`
   padding: 13px;
   border: 2px solid;
   border-color: ${(props) => (props.color === 'A' ? '#f09490' : '#787887')};
+  cursor: pointer;
   :hover {
     border-color: #f09490;
   }
@@ -103,13 +105,13 @@ const QuizPageThird = ({ visible, setImageClick, secondPageVisible }) => {
         <Image url={image} />
         <BtnContainer>
           <BtnContent
-            color={color.image_A ? 'A' : 'B'}
+            color={color.image_A && 'A'}
             onClick={btnClickHanlder}
           >
             감성적인 편이다
           </BtnContent>
           <BtnContent
-            color={color.image_B ? 'A' : 'B'}
+            color={color.image_B && 'A'}
             onClick={() => btnClickHanlder('B')}
           >
             이성적인 편이다

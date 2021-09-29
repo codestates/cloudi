@@ -9,7 +9,6 @@ import { SEQUENCE } from '../components/quiz_components/quizItem';
 
 const QuizContainer = styled.div`
   //padding-top: 95px;
-  background-color: rgba(0, 0, 0, 0.2);
   height: 100vh;
   display: flex;
   align-items: center;
