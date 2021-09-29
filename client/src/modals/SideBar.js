@@ -83,7 +83,7 @@ const TimerContainer = styled.section`
   width: 120px;
   height: 30px;
   line-height: 30px;
-  background-color: ${props => 
+  background-color: ${props =>
     props.min ? 'gray' : 'red'
   };
   text-align: center;
