@@ -7,7 +7,7 @@ const StyledInitialMsg = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #F2F2F2;
+  background: rgba(211, 211, 211, 0.3);
   border: none;
   padding-top: 0px;
   padding-bottom: 30px;

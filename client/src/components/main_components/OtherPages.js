@@ -4,7 +4,7 @@ import MainFooter from './MainFooter';
 import { Link } from 'react-router-dom';
 
 const OtherPagesContainer = styled.section`
-  background-color: rgba(229, 232, 225, 0.8);
+  background-color: rgba(229, 232, 225, 1);
 `;
 
 const PageContainer = styled.section`
@@ -13,6 +13,9 @@ const PageContainer = styled.section`
   width: 100vw;
   scroll-snap-align: start;
   padding-top: 95px;
+  :nth-child(2n-1) {
+    background-color: rgba(214, 204, 195, 0.3);
+  };
   @media screen and (max-width: 1023px) {
     display: block;
   };
