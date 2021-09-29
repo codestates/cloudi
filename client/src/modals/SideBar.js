@@ -162,6 +162,14 @@ const SideBar = () => {
     setSec(parseInt(0));
   };
 
+  useEffect(() => {
+    if (timer === 1) {
+      sec < 10 ? document.title = `${min} : 0${sec} - cloudi` : document.title = `${min} : ${sec} - cloudi`
+    } else {
+      document.title = 'cloudi';
+    }
+  }, [min, sec, timer])
+
   return (
     <>
       <Icon btn={btn} onClick={handleBtn} />
