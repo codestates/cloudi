@@ -3,18 +3,30 @@ import styled from 'styled-components';
 import IncenseSlider from '../components/incense_components/IncenseSlider';
 
 const Wrapper = styled.div`
-  background-color: rgba(0, 0, 0, 0.2);
+  background-image: url('/images/room.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: 0.8s ease-in-out IncensePage;
+  @keyframes IncensePage {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @media screen and (max-height: 500px) {
     height: 500px;
   }
 `;
 
 const Test1 = styled.div`
-  height: 320px;
+  height: 260px;
 `;
 
 const Container = styled.div`
@@ -112,6 +124,7 @@ const Incense = () => {
     slideRef.current.style.transition = 'all 0.5s ease-in-out';
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
+
   return (
     <Wrapper>
       <Test1>
