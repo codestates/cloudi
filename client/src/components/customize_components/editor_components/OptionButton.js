@@ -1,28 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// const ButtonContainer = styled.section`
-//   flex: 1;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   margin: 5px;
-//   background-color: white;
-//   border: 2px red solid;
-// `;
-
 const Button = styled.input`
-  flex: 1;
-  height: 80px;
-  margin: 5px;
-  background-color: none;
-  border: 3px black solid;
+  background-color: #787878;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  text-decoration: none;
+  margin: 4px 10px;
+  cursor: pointer;
+  :focus {
+    background-color: #b7c58b;
+  }
+  :hover {
+    cursor: pointer;
+    background-color: #b7c58b;
+  };
 `;
 
-const OptionButton = (props) => {
+const OptionButton = ({ option, type, onClick }) => {
   return (
     <>
-      <Button type='button' value={props.option} />
+      <Button
+        type='button'
+        value={option}
+        onClick={() => onClick({
+          type: type,
+          option: option
+        })}
+      />
     </>
   );
 };

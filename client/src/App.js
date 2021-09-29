@@ -2,7 +2,7 @@ import React from 'react';
 import GlobalStyle from './GlobalStyle';
 import Header from './modals/Header';
 import Main from './pages/Main';
-import Customize from './pages/Costomize';
+import Customize from './pages/Customize';
 import Order from './pages/Order';
 import { Route, Switch } from 'react-router-dom';
 import Quiz from './pages/Quiz';
