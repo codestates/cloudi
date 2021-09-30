@@ -4,13 +4,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   stands: [
     {
-      id : 1,
-      standPlate : "CERAMIC",
-      standHolder : "PINOCCIO",
-      standText : "CLOUDI",
-      standPrice : 37000,
-      standQuantity : 1,
-      standImage : '/images/defaultplate.png'
+      id: 1,
+      standPlate: 'CERAMIC',
+      standHolder: 'PINOCCIO',
+      standText: 'CLOUDI',
+      standPrice: 37000,
+      standQuantity: 1,
+      standImage: '/images/defaultplate.png'
     }
   ]
 };
@@ -22,32 +22,29 @@ export const standSlice = createSlice({
   initialState,
   reducers: {
     increaseStandQuantity: (state, { payload: id }) => {
-      
       const index = state.stands.findIndex(stand => stand.id === id);
-      state.stands[index].standQuantity ++;
-
+      state.stands[index].standQuantity++;
     },
     decreaseStandQuantity: (state, { payload: id }) => {
-      
       const index = state.stands.findIndex(stand => stand.id === id);
-      state.stands[index].standQuantity ++;
-
+      if (state.stands[index].standQuantity > 1) {
+        state.stands[index].standQuantity--;
+      }
+    },
+    insertStand: (state, action) => {
+      const stand = {
+        id: id++,
+        standText: action.payload.text,
+      };
+      state.stands.push(stand);
+    },
+    removeStand: (state, { payload: id }) => {
+      const index = state.stands.findIndex(stand => stand.id === id);
+      state.stands.splice(index, 1);
     }
-    // insert: (state, action) => {
-    //   const todo = {
-    //     id: id++,
-    //     text: action.payload,
-    //     done: false
-    //   };
-    //   state.todos.push(todo);
-    // },
-    // remove: (state, { payload: id }) => {
-    //   const index = state.todos.findIndex(todo => todo.id === id);
-    //   state.todos.splice(index, 1);
-    // }
   }
 });
 
-export const { changeInput, insert, toggle, remove } = standSlice.actions;
+export const { increaseStandQuantity, decreaseStandQuantity, insertStand, removeStand } = standSlice.actions;
 
 export default standSlice.reducer;

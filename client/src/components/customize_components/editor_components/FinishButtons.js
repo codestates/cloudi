@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { insertStand } from '../../../app/modules/stand';
+import { standsSelector } from '../../../app/modules/hooks';
 
 import styled from 'styled-components';
 
@@ -104,14 +107,23 @@ const ButtonWrapper = styled.div`
 
 const FinishButtons = ({ selectedOps }) => {
   const [isAddedInCart, setIsAddedInCart] = useState(false);
+  const dispatch = useDispatch();
+  const stand = useSelector(standsSelector);
 
   const handleCartBtnClick = () => {
     setIsAddedInCart(true);
+    dispatch(insertStand({ text: selectedOps.text }));
   };
 
   useEffect(() => {
-    // 여기서 store 장바구니와 중복 확인
-
+    const alreadyInCart = stand.stands.filter(el => {
+      return (
+        el.standPlate === selectedOps.plate ||
+        el.standHolder === selectedOps.holder ||
+        el.standText === selectedOps.text
+      );
+    }).length === 0
+    setIsAddedInCart(alreadyInCart);
   }, [
     selectedOps.plate,
     selectedOps.holder,
