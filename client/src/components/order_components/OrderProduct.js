@@ -346,7 +346,7 @@ const OrderProduct = () => {
               <Delete>삭제하기</Delete>
             </ContainerTwo>
             <ContainerOne>
-              <QuantityButton sdfdsaf >-</QuantityButton>
+              <QuantityButton>-</QuantityButton>
               <QuantityContainer>1</QuantityContainer>
               <QuantityButton>+</QuantityButton>
             </ContainerOne>
