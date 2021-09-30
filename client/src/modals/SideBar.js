@@ -164,11 +164,11 @@ const SideBar = () => {
 
   useEffect(() => {
     if (timer === 1) {
-      sec < 10 ? document.title = `${min} : 0${sec} - cloudi` : document.title = `${min} : ${sec} - cloudi`
+      sec < 10 ? document.title = `${min} : 0${sec} - cloudi` : document.title = `${min} : ${sec} - cloudi`;
     } else {
       document.title = 'cloudi';
     }
-  }, [min, sec, timer])
+  }, [min, sec, timer]);
 
   return (
     <>

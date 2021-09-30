@@ -34,6 +34,8 @@ const ButtonWrapper = styled.div`
   }
 
   .tooltip {
+    font-family: 'Roboto';
+    font-weight: 600;
     position: absolute;
     top: 0;
     font-size: 14px;
@@ -91,6 +93,13 @@ const ButtonWrapper = styled.div`
     background-color: #B4BF92;
     color: #ffffff;
   }
+
+  .save:hover,
+  .save:hover .tooltip,
+  .save:hover .tooltip::before {
+    background-color: #B4BF92;
+    color: #ffffff;
+  }
 `;
 
 const FinishButtons = ({ selectedOps }) => {
@@ -103,10 +112,6 @@ const FinishButtons = ({ selectedOps }) => {
   useEffect(() => {
     // 여기서 store 장바구니와 중복 확인
 
-    // 아무것도 안선택한 경우 장바구니 클릭 못함 (뒤로가기/강제url로 들어온 경우)
-    if (!selectedOps.plate) { // eslint-disable-line
-      setIsAddedInCart(true);
-    }
   }, [
     selectedOps.plate,
     selectedOps.holder,
@@ -143,16 +148,25 @@ const FinishButtons = ({ selectedOps }) => {
           </div>
           /* eslint-enable */
         }
+
         <Link to='/customize/material'>
           <div className='icon redo'>
             <div className='tooltip'>
               REDO
             </div>
             <span>
-              <img src='/images/redo.png' alt='cartIcon' />
+              <img src='/images/redo.png' alt='redoIcon' />
             </span>
           </div>
         </Link>
+        <div className='icon save'>
+          <div className='tooltip'>
+            SAVE&nbsp;FILE
+          </div>
+          <span>
+            <img src='/images/savefile.png' alt='saveIcon' />
+          </span>
+        </div>
       </ButtonWrapper>
     </>
   );
