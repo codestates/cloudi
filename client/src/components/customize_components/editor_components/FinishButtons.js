@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { insertStand } from '../../../app/modules/stand';
+import { standsSelector } from '../../../app/modules/hooks';
 
 import styled from 'styled-components';
 
@@ -34,6 +37,8 @@ const ButtonWrapper = styled.div`
   }
 
   .tooltip {
+    font-family: 'Roboto';
+    font-weight: 600;
     position: absolute;
     top: 0;
     font-size: 14px;
@@ -88,25 +93,37 @@ const ButtonWrapper = styled.div`
   .redo:hover,
   .redo:hover .tooltip,
   .redo:hover .tooltip::before {
-    background-color: #B4BF92;
+    background-color: #69955E ;
+    color: #ffffff;
+  }
+
+  .save:hover,
+  .save:hover .tooltip,
+  .save:hover .tooltip::before {
+    background-color: #404AA8;
     color: #ffffff;
   }
 `;
 
 const FinishButtons = ({ selectedOps }) => {
   const [isAddedInCart, setIsAddedInCart] = useState(false);
+  const dispatch = useDispatch();
+  const stand = useSelector(standsSelector);
 
   const handleCartBtnClick = () => {
     setIsAddedInCart(true);
+    dispatch(insertStand({ text: selectedOps.text }));
   };
 
   useEffect(() => {
-    // 여기서 store 장바구니와 중복 확인
-
-    // 아무것도 안선택한 경우 장바구니 클릭 못함 (뒤로가기/강제url로 들어온 경우)
-    if (!selectedOps.plate) { // eslint-disable-line
-      setIsAddedInCart(true);
-    }
+    const alreadyInCart = stand.stands.filter(el => {
+      return (
+        el.standPlate === selectedOps.plate ||
+        el.standHolder === selectedOps.holder ||
+        el.standText === selectedOps.text
+      );
+    }).length === 0;
+    setIsAddedInCart(alreadyInCart);
   }, [
     selectedOps.plate,
     selectedOps.holder,
@@ -143,16 +160,25 @@ const FinishButtons = ({ selectedOps }) => {
           </div>
           /* eslint-enable */
         }
+
         <Link to='/customize/material'>
           <div className='icon redo'>
             <div className='tooltip'>
               REDO
             </div>
             <span>
-              <img src='/images/redo.png' alt='cartIcon' />
+              <img src='/images/redo.png' alt='redoIcon' />
             </span>
           </div>
         </Link>
+        <div className='icon save'>
+          <div className='tooltip'>
+            SAVE&nbsp;FILE
+          </div>
+          <span>
+            <img src='/images/savefile.png' alt='saveIcon' />
+          </span>
+        </div>
       </ButtonWrapper>
     </>
   );

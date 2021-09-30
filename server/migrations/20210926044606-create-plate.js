@@ -1,33 +1,21 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('stands', {
+    await queryInterface.createTable('plates', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      plateMaterial: {
+        type: Sequelize.STRING
+      },
+      platePrice: {
         type: Sequelize.INTEGER
       },
-      standQuantity: {
-        type: Sequelize.INTEGER
-      },
-      standPrice: {
-        type: Sequelize.INTEGER
-      },
-      standImage: {
+      plateImage: {
         type: Sequelize.BLOB('long')
-      },
-      standPlate: {
-        type: Sequelize.STRING
-      },
-      standHolder: {
-        type: Sequelize.STRING
-      },
-      standText: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +28,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('stands');
+    await queryInterface.dropTable('plates');
   }
 };

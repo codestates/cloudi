@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { increaseStandQuantity, decreaseStandQuantity, removeStand } from '../../app/modules/stand';
+import { standsSelector } from '../../app/modules/hooks';
 import Construction from '../../modals/Construction';
 
 const OrderProductContainer = styled.section`
@@ -271,22 +274,13 @@ const props = {
       stickQuantity: 2,
       createdAt: '2019-04-28T19:01:07.660Z'
     }
-  ],
-  stands: [
-    {
-      id: 3,
-      standPlate: 'ceramic',
-      standHolder: 'pinoccio',
-      standText: 'min guk lee',
-      standPrice: 37000,
-      standQuantity: 1,
-      createdAt: '2019-04-28T19:01:07.660Z'
-    }
   ]
 };
 
 const OrderProduct = () => {
   const [modal, setModal] = useState(0);
+  const stand = useSelector(standsSelector);
+  const dispatch = useDispatch();
 
   const handleModal = () => {
     setModal(prevState => {
@@ -331,29 +325,33 @@ const OrderProduct = () => {
               {props.sticks[0].stickPrice}원
             </ContainerOne>
           </SingleStick>
-          <SingleStand>
-            <MobileDesc>
-              <MyProduct>My Holder</MyProduct>
-              <DeleteX src='/images/modalX.png' />
-            </MobileDesc>
-            <ContainerPicture>
-              <StandImg src='/images/standSample.png' />
-            </ContainerPicture>
-            <ContainerTwo>
-              <SingleDesc>
-                {props.stands[0].standPlate} / {props.stands[0].standHolder} / {props.stands[0].standText}
-              </SingleDesc>
-              <Delete>삭제하기</Delete>
-            </ContainerTwo>
-            <ContainerOne>
-              <QuantityButton>-</QuantityButton>
-              <QuantityContainer>1</QuantityContainer>
-              <QuantityButton>+</QuantityButton>
-            </ContainerOne>
-            <ContainerOne>
-              {props.stands[0].standPrice}원
-            </ContainerOne>
-          </SingleStand>
+          {stand.stands.map((stand, idx) => {
+            return (
+              <SingleStand key={stand.id}>
+                <MobileDesc>
+                  <MyProduct>My Holder</MyProduct>
+                  <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStand(stand.id)); }} />
+                </MobileDesc>
+                <ContainerPicture>
+                  <StandImg src='/images/standSample.png' />
+                </ContainerPicture>
+                <ContainerTwo>
+                  <SingleDesc>
+                    {stand.standPlate} / {stand.standHolder} / {stand.standText}
+                  </SingleDesc>
+                  <Delete onClick={() => { dispatch(removeStand(stand.id)); }}>삭제하기</Delete>
+                </ContainerTwo>
+                <ContainerOne>
+                  <QuantityButton onClick={() => { dispatch(decreaseStandQuantity(stand.id)); }}>-</QuantityButton>
+                  <QuantityContainer>{stand.standQuantity}</QuantityContainer>
+                  <QuantityButton onClick={() => { dispatch(increaseStandQuantity(stand.id)); }}>+</QuantityButton>
+                </ContainerOne>
+                <ContainerOne>
+                  {stand.standPrice}원
+                </ContainerOne>
+              </SingleStand>
+            );
+          })}
         </ProductContainer>
         <ShippingFeeContainer>
           <ShippingContainer>

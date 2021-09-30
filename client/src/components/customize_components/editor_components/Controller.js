@@ -7,6 +7,11 @@ import TextInput from './TextInput';
 import FinishButtons from './FinishButtons';
 
 const StyledController = styled.section`
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -3,6 +3,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const MainButtonContainer = styled.section`
+  position: fixed;
+  bottom: 12%;
+  left: 50%;
+  transform: translate(-50%, 0);
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,13 +16,14 @@ const MainButtonContainer = styled.section`
 const Input = styled.input`
   width: 8rem;
   padding: 12px;
-  font-size: 15px;
   color: white;
-  background-color: ${props => props.disabled ? '#787887' : '#69955E'};
   border: none;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  background-color: ${(props) => (props.disabled ? '#787887' : '#b7c58b')};
   :hover {
     cursor: pointer;
-    color: ${props => props.disabled ? 'white' : 'black'};
+    background-color: ${props => props.disabled ? '#787887' : '#97a371'};
   };
   :active {
     box-shadow: inset 5px 5px 5px rgb(70, 110, 75);
@@ -51,6 +57,11 @@ const getNextUrl = function (option) {
       nextUrl: '/order',
       buttonValue: 'ORDER'
     };
+  } else if (option === 'error') {
+    return {
+      nextUrl: '/customize',
+      buttonValue: 'CUSTOMIZE'
+    };
   }
 };
 
@@ -70,10 +81,16 @@ const MainButton = ({
       setIsDisabled(!selectedOps.holder);
     }
 
-    return () => {
-    };
+    if (curStage === 'text') {
+      setIsDisabled(!selectedOps.text);
+    }
+
+    if (curStage === 'error') {
+      setIsDisabled(false);
+    }
+    return () => {};
     // eslint-disable-next-line
-  }, [ selectedOps.plate, selectedOps.holder ]);
+  }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]);
 
   return (
     <MainButtonContainer>
