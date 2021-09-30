@@ -8,8 +8,13 @@ const app = express();
 
 const PORT = process.env.PORT || 80;
 
-//! image test
-const imageRouter = require('./routes/image');
+// routes path
+const rootRouter = require('./routes/root');
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
+const incenseRouter = require('./routes/incense');
+const standRouter = require('./routes/stand');
+const orderRouter = require('./routes/order');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,13 +27,13 @@ app.use(
 );
 app.use(cookieParser());
 
-//! image test
-app.use('/image', imageRouter);
-
-app.get('/', (req, res) => {
-  res.send('WELCOME! CLOUDI SERVER!')
-})
-
+// routes
+app.use('/', rootRouter);
+app.use('/auth', authRouter);
+app.use('/user', userRouter);
+app.use('/incense', incenseRouter);
+app.use('/stand', standRouter);
+app.use('/order', orderRouter);
 
 
 let server;
