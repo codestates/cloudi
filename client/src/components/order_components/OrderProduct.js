@@ -274,17 +274,6 @@ const props = {
       stickQuantity: 2,
       createdAt: '2019-04-28T19:01:07.660Z'
     }
-  ],
-  stands: [
-    {
-      id: 3,
-      standPlate: 'ceramic',
-      standHolder: 'pinoccio',
-      standText: 'min guk lee',
-      standPrice: 37000,
-      standQuantity: 1,
-      createdAt: '2019-04-28T19:01:07.660Z'
-    }
   ]
 };
 
@@ -336,29 +325,33 @@ const OrderProduct = () => {
               {props.sticks[0].stickPrice}원
             </ContainerOne>
           </SingleStick>
-          <SingleStand>
-            <MobileDesc>
-              <MyProduct>My Holder</MyProduct>
-              <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStand(stand.stands[0].id)); }} />
-            </MobileDesc>
-            <ContainerPicture>
-              <StandImg src='/images/standSample.png' />
-            </ContainerPicture>
-            <ContainerTwo>
-              <SingleDesc>
-                {props.stands[0].standPlate} / {props.stands[0].standHolder} / {props.stands[0].standText}
-              </SingleDesc>
-              <Delete onClick={() => { dispatch(removeStand(stand.stands[0].id)); }}>삭제하기</Delete>
-            </ContainerTwo>
-            <ContainerOne>
-              <QuantityButton onClick={() => { dispatch(decreaseStandQuantity(stand.stands[0].id)); }}>-</QuantityButton>
-              <QuantityContainer>{stand.stands[0].standQuantity}</QuantityContainer>
-              <QuantityButton onClick={() => { dispatch(increaseStandQuantity(stand.stands[0].id)); }}>+</QuantityButton>
-            </ContainerOne>
-            <ContainerOne>
-              {props.stands[0].standPrice}원
-            </ContainerOne>
-          </SingleStand>
+          {stand.stands.map((stand, idx) => {
+            return (
+              <SingleStand key={stand.id}>
+                <MobileDesc>
+                  <MyProduct>My Holder</MyProduct>
+                  <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStand(stand.id)); }} />
+                </MobileDesc>
+                <ContainerPicture>
+                  <StandImg src='/images/standSample.png' />
+                </ContainerPicture>
+                <ContainerTwo>
+                  <SingleDesc>
+                    {stand.standPlate} / {stand.standHolder} / {stand.standText}
+                  </SingleDesc>
+                  <Delete onClick={() => { dispatch(removeStand(stand.id)); }}>삭제하기</Delete>
+                </ContainerTwo>
+                <ContainerOne>
+                  <QuantityButton onClick={() => { dispatch(decreaseStandQuantity(stand.id)); }}>-</QuantityButton>
+                  <QuantityContainer>{stand.standQuantity}</QuantityContainer>
+                  <QuantityButton onClick={() => { dispatch(increaseStandQuantity(stand.id)); }}>+</QuantityButton>
+                </ContainerOne>
+                <ContainerOne>
+                  {stand.standPrice}원
+                </ContainerOne>
+              </SingleStand>
+            );
+          })}
         </ProductContainer>
         <ShippingFeeContainer>
           <ShippingContainer>
