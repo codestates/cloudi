@@ -7,7 +7,7 @@ const IndicatorContainer = styled.section`
   top: 25%;
   left: 50%;
   transform: translate(-50%, 0);
-  z-index: 1000;
+  z-index: 800;
 
   display: flex;
   flex-direction: row;

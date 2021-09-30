@@ -12,7 +12,7 @@ const Message = styled.section`
   top: ${props => props.stage === 'finish' ? '30%' : '35%'};
   left: 50%;
   transform: translate(-50%, 0);
-  z-index: 1000;
+  z-index: 800;
 
   font-size: 1.2rem;
 `;
