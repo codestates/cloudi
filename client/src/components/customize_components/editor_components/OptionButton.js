@@ -78,13 +78,7 @@ const ButtonWrapper = styled.div`
     color: #ffffff;
   }
 
-  .WOOD:focus {
-    background-color: #AD7542;
-    color: #ffffff;
-  }
-
   .CERAMIC:hover,
-  .CERAMIC:focus,
   .CERAMIC:hover .tooltip,
   .CERAMIC:hover .tooltip::before {
     background-color: #AED682;
