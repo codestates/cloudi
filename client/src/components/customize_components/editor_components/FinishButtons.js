@@ -122,7 +122,7 @@ const FinishButtons = ({ selectedOps }) => {
         el.standHolder === selectedOps.holder ||
         el.standText === selectedOps.text
       );
-    }).length === 0
+    }).length === 0;
     setIsAddedInCart(alreadyInCart);
   }, [
     selectedOps.plate,
