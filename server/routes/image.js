@@ -5,5 +5,6 @@ const router = express.Router();
 
 //  get /image
 router.get('/', imageController.get);
+router.post('/', imageController.post);
 
 module.exports = router;

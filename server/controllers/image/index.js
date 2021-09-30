@@ -13,5 +13,9 @@ module.exports = {
       result.stickImage = data[0].stickImage.toString();
       res.status(200).json(result)
     })
+  },
+  post: (req, res) => {
+    console.log(req.body)
+    res.status(200).json('test');
   }
 }
