@@ -88,7 +88,6 @@ const TextInput = ({ handleTextInput }) => {
 
   useEffect(() => {
     setTimeout(() => setIsVisible(true), 10000);
-    return () => {};
   }, []);
 
   return (

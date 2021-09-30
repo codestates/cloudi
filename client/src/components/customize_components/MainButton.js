@@ -56,6 +56,11 @@ const getNextUrl = function (option) {
       nextUrl: '/order',
       buttonValue: 'ORDER'
     };
+  } else if (option === 'error') {
+    return {
+      nextUrl: '/customize',
+      buttonValue: 'CUSTOMIZE'
+    };
   }
 };
 
@@ -79,6 +84,9 @@ const MainButton = ({
       setIsDisabled(!selectedOps.text);
     }
 
+    if (curStage === 'error') {
+      setIsDisabled(false);
+    }
     return () => {};
     // eslint-disable-next-line
   }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]);

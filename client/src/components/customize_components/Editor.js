@@ -30,9 +30,15 @@ const Editor = ({
     <>
       {/* eslint-disable */
         stage !== 'material' && selectedOps.plate === ''
-          ? <ErrorMsg
+          ? <> 
+          <ErrorMsg
             handleErrorMsg={handleErrorMsg}
           />
+          <MainButton
+            curStage='error'
+            selectedOps={selectedOps}
+          />
+          </>
           : <>
             <Indicator
               stages={stages.slice(0,3)}
@@ -53,12 +59,12 @@ const Editor = ({
               handleBtnClick={handleBtnClick}
               handleTextInput={handleTextInput}
             />
+            <MainButton
+              curStage={stage}
+              selectedOps={selectedOps}
+            />
           </>
       /* eslint-enable */}
-      <MainButton
-        curStage={stage}
-        selectedOps={selectedOps}
-      />
     </>
   );
 };
