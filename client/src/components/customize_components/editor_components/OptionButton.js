@@ -141,7 +141,7 @@ const OptionButton = ({ option, type, onClick }) => {
           {option}
         </div>
         <span>
-          <img 
+          <img
             src={`/images/buttons/${option}.png`}
             alt={option}
           />
