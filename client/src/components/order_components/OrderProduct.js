@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { increaseStandQuantity, decreaseStandQuantity, removeStand } from '../../app/modules/stand';
+import { standsSelector } from '../../app/modules/hooks';
 import Construction from '../../modals/Construction';
 
 const OrderProductContainer = styled.section`
@@ -287,6 +290,8 @@ const props = {
 
 const OrderProduct = () => {
   const [modal, setModal] = useState(0);
+  const stand = useSelector(standsSelector);
+  const dispatch = useDispatch();
 
   const handleModal = () => {
     setModal(prevState => {
@@ -334,7 +339,7 @@ const OrderProduct = () => {
           <SingleStand>
             <MobileDesc>
               <MyProduct>My Holder</MyProduct>
-              <DeleteX src='/images/modalX.png' />
+              <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStand(stand.stands[0].id)); }} />
             </MobileDesc>
             <ContainerPicture>
               <StandImg src='/images/standSample.png' />
@@ -343,12 +348,12 @@ const OrderProduct = () => {
               <SingleDesc>
                 {props.stands[0].standPlate} / {props.stands[0].standHolder} / {props.stands[0].standText}
               </SingleDesc>
-              <Delete>삭제하기</Delete>
+              <Delete onClick={() => { dispatch(removeStand(stand.stands[0].id)); }}>삭제하기</Delete>
             </ContainerTwo>
             <ContainerOne>
-              <QuantityButton>-</QuantityButton>
-              <QuantityContainer>1</QuantityContainer>
-              <QuantityButton>+</QuantityButton>
+              <QuantityButton onClick={() => { dispatch(decreaseStandQuantity(stand.stands[0].id)); }}>-</QuantityButton>
+              <QuantityContainer>{stand.stands[0].standQuantity}</QuantityContainer>
+              <QuantityButton onClick={() => { dispatch(increaseStandQuantity(stand.stands[0].id)); }}>+</QuantityButton>
             </ContainerOne>
             <ContainerOne>
               {props.stands[0].standPrice}원
