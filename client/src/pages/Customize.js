@@ -15,6 +15,7 @@ const CustomizePage = styled.section`
   justify-content: center;
   align-items: center;
   background: linear-gradient(315deg, #ffffff, #F0F4F8);
+
   a {
     text-decoration: none;
   }

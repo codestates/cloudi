@@ -10,6 +10,7 @@ const ApplyButton = styled.input`
   text-decoration: none;
   margin: 4px 10px;
   cursor: pointer;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
 
   :hover {
@@ -31,6 +32,7 @@ const TextBox = styled.input`
   text-decoration: none;
   margin: 4px 10px;
   cursor: pointer;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
 
   :focus {
@@ -64,6 +66,7 @@ const NoTextButton = styled.input`
   padding: 10px 20px;
   text-decoration: none;
   cursor: pointer;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
   transition: 1s;
 
   :hover {
@@ -87,7 +90,7 @@ const TextInput = ({ handleTextInput }) => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIsVisible(true), 10000);
+    setTimeout(() => setIsVisible(true), 7000);
   }, []);
 
   return (

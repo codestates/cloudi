@@ -90,14 +90,14 @@ const ButtonWrapper = styled.div`
   .redo:hover,
   .redo:hover .tooltip,
   .redo:hover .tooltip::before {
-    background-color: #B4BF92;
+    background-color: #69955E ;
     color: #ffffff;
   }
 
   .save:hover,
   .save:hover .tooltip,
   .save:hover .tooltip::before {
-    background-color: #B4BF92;
+    background-color: #404AA8;
     color: #ffffff;
   }
 `;

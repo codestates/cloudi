@@ -5,7 +5,7 @@ const ModalContainer = styled.main`
   display: ${props =>
     props.modal ? 'block' : 'none'};
   position: fixed;
-  z-index: 1001;
+  z-index: 800;
   left: 0;
   top: 0;
   height: 100vh;
