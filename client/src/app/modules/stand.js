@@ -34,7 +34,7 @@ export const standSlice = createSlice({
     insertStand: (state, action) => {
       const stand = {
         id: id++,
-        standText: action.payload.text,
+        standText: action.payload.text
       };
       state.stands.push(stand);
     },
