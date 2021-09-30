@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 80;
 const imageRouter = require('./routes/image');
 
 app.use(express.json());
-//app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(
   cors(/*{
     origin: ['https://localhost:3000'],
