@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const SliderContainer = styled.div`
@@ -15,17 +16,18 @@ const CheckImg = styled.div`
   width: 30px;
   height: 30px;
   position: relative;
-  left: 140px;
-  bottom: 180px;
+  left: 238px;
+  bottom: 280px;
   @media screen and (max-width: 768px) {
-    left: 80px;
-    bottom: 180px;
+    left: 128px;
+    bottom: 280px;
   }
 `;
 
 const Img = styled.div`
-  flex: 70%;
+  flex: 1;
   flex-shrink: 0;
+  //background-color: #b7c58b;
   background-image: url(${(props) => props.img});
   background-size: contain;
   background-repeat: no-repeat;
@@ -33,35 +35,62 @@ const Img = styled.div`
 `;
 
 const TextContainer = styled.div`
-  flex: 30%;
+  flex: 1;
   flex-shrink: 0;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
 const Text = styled.div`
-  color: #66667a;
+  color: #dbdbdb;
+  text-align: center;
+  line-height: 30px;
 `;
 
 const IncenseSlider = ({
   data,
   clickHandler,
-  clickCount,
   setClickCount,
   click,
   setClick
 }) => {
-  //* clickHandler -> id넘겨주면 활용해서 장바구니
-  //* clickCount -> 0과 1로 상품을 클릭했는지 구분
-  //* setClickCount -> set
-  //* setClick -> data false
+  const [scope] = useState(data.stickScope);
+  const [num, setNum] = useState(null);
+  const RATE = [1, 2, 3, 4, 5];
+  const SCOPE_DATA = ['citrus', 'green', 'fruity', 'fresh', 'floral'];
+  useEffect(() => {
+    const dividedNum = SCOPE_DATA.map((item) => {
+      const a = scope[item] / 2;
+      return a;
+    });
+    setNum(dividedNum);
+  }, [data]);
+  const changeToStr = (score) => {
+    const circles = [];
+    const isHalf = score % 1 === 0 ? false : true;
+    const parsedNum = Math.ceil(score);
+    RATE.forEach((el) => {
+      if (parsedNum >= el) {
+        if (el === parsedNum && isHalf) {
+          circles.push('◐');
+        } else {
+          circles.push('●');
+        }
+      } else {
+        circles.push('○');
+      }
+    });
+    return circles.join('');
+  };
 
   const sliderClickHandler = (id) => {
     const data = {
       one: false,
       two: false,
-      three: false
+      three: false,
+      four: false
     };
     if (click[id] === true) {
       setClick({ ...data, [id]: false });
@@ -72,6 +101,7 @@ const IncenseSlider = ({
       clickHandler(id);
     }
   };
+
   return (
     <SliderContainer onClick={() => sliderClickHandler(data.id)}>
       <Img img={data.url} />
@@ -79,7 +109,14 @@ const IncenseSlider = ({
         <Text>{data.stickName}</Text>
         <Text>{data.title}</Text>
         <Text>{data.stickPrice} KRW</Text>
-        <CheckImg click={click[data.id] && '/images/check2.png'} />
+        {SCOPE_DATA.map((el, idx) => {
+          return (
+            <Text key={el}>
+              {el}: {num && changeToStr(num[idx])}
+            </Text>
+          );
+        })}
+        <CheckImg click={click[data.id] && '/images/check.png'} />
       </TextContainer>
     </SliderContainer>
   );
