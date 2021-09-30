@@ -130,22 +130,23 @@ const Sequence = styled.div`
   }
 `;
 
-const TOTAL_SLIDES = 2;
+const TOTAL_SLIDES = 3;
 const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [clickCount, setClickCount] = useState(0);
-  const [addToCart, setAddToCart] = useState(false);
+
   const [click, setClick] = useState({
     one: false,
     two: false,
-    three: false
+    three: false,
+    four: false
   });
   const slideRef = useRef(null);
   const data = [
     {
       id: 'one',
       title: 'Sad Romance Incense',
-      url: '/images/product.png',
+      url: '/images/incense_2.png',
       stickName: '세이지',
       stickPrice: 2000,
       stickScope: {
@@ -159,7 +160,7 @@ const Incense = () => {
     {
       id: 'two',
       title: 'Lorem ipsum Incense',
-      url: '/images/product.png',
+      url: '/images/incense_0.png',
       stickName: '오크모스',
       stickPrice: 2000,
       stickScope: {
@@ -173,7 +174,7 @@ const Incense = () => {
     {
       id: 'three',
       title: 'On the beach Insence',
-      url: '/images/product.png',
+      url: '/images/incense_1.png',
       stickName: '새벽',
       stickPrice: 2000,
       stickScope: {
@@ -182,6 +183,20 @@ const Incense = () => {
         fruity: 6,
         fresh: 5,
         floral: 3
+      }
+    },
+    {
+      id: 'four',
+      title: 'Hi Ho Hu',
+      url: '/images/incense_3.png',
+      stickName: '시라민스',
+      stickPrice: 2000,
+      stickScope: {
+        citrus: 7,
+        green: 4,
+        fruity: 2,
+        fresh: 2,
+        floral: 5
       }
     }
   ];
@@ -212,7 +227,7 @@ const Incense = () => {
     <Wrapper>
       <IncenseContainer>
         <IncenseContent>
-          <Sequence>{currentSlide + 1}/3</Sequence>
+          <Sequence>{currentSlide + 1}/4</Sequence>
           <SliderBox ref={slideRef}>
             {data.map((el) => {
               return (
@@ -231,7 +246,9 @@ const Incense = () => {
         </IncenseContent>
         <SliderBtnLeft onClick={prevSlide} />
         <SliderBtnRight onClick={nextSlide} />
-        <CartBtn count={clickCount}>Add to cart</CartBtn>
+        <CartBtn count={clickCount} onClick={clickHandler}>
+          Add to cart
+        </CartBtn>
       </IncenseContainer>
       <Cloud />
     </Wrapper>

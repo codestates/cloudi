@@ -68,8 +68,8 @@ const IncenseSlider = ({
     setNum(dividedNum);
   }, [data]);
   const changeToStr = (score) => {
-    let circles = [];
-    let isHalf = score % 1 === 0 ? false : true;
+    const circles = [];
+    const isHalf = score % 1 === 0 ? false : true;
     const parsedNum = Math.ceil(score);
     RATE.forEach((el) => {
       if (parsedNum >= el) {
@@ -89,7 +89,8 @@ const IncenseSlider = ({
     const data = {
       one: false,
       two: false,
-      three: false
+      three: false,
+      four: false
     };
     if (click[id] === true) {
       setClick({ ...data, [id]: false });
