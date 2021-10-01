@@ -35,13 +35,20 @@ const QuizContent = styled.div`
   cursor: pointer;
 `;
 
-const QuizPageFourth = ({ visible, setImageClick }) => {
+const QuizPageFourth = ({ visible, setImageClick, answer, setAnswer }) => {
   const [image, setImage] = useState({
     rainy: false,
     snow: false,
     sunny: false,
     cloudy: false
   });
+  const score = {
+    rainy: -1,
+    snow: -1,
+    sunny: 1,
+    cloudy: 1
+  };
+
   const WEATHER = ['rainy', 'snow', 'sunny', 'cloudy'];
 
   const imageClickHandler = (key) => {
@@ -53,6 +60,7 @@ const QuizPageFourth = ({ visible, setImageClick }) => {
     };
     setImage({ ...imageClick, [key]: true });
     setImageClick(true);
+    setAnswer({ ...answer, fourthScore: score[key] });
   };
 
   return (

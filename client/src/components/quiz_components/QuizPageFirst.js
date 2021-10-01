@@ -40,7 +40,9 @@ const QuizFirstContent = styled.div`
 const QuizPageFirst = ({
   visible,
   setImageClick,
-  animation
+  animation,
+  answer,
+  setAnswer
 }) => {
   const SEASON = ['spring', 'summer', 'fall', 'winter'];
   const [localVisible, setLocalVisible] = useState(visible);
@@ -60,15 +62,19 @@ const QuizPageFirst = ({
     switch (key) {
       case 'spring':
         setImage({ ...image, [key]: '/images/spring_green.png' });
+        setAnswer({ ...answer, firstScore: -1 });
         break;
       case 'summer':
         setImage({ ...image, [key]: '/images/summer_green.png' });
+        setAnswer({ ...answer, firstScore: 1 });
         break;
       case 'fall':
         setImage({ ...image, [key]: '/images/fall_green.png' });
+        setAnswer({ ...answer, firstScore: 1 });
         break;
       case 'winter':
         setImage({ ...image, [key]: '/images/winter_green.png' });
+        setAnswer({ ...answer, firstScore: -1 });
         break;
       default:
         break;
