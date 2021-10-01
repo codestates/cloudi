@@ -130,7 +130,7 @@ const FinishButtons = ({ selectedOps }) => {
   };
 
   useEffect(() => {
-    const itemMatched = stand.stands.filter(el => {
+    const Matching = stand.stands.filter(el => {
       return (
         el.standPlate === selectedOps.plate &&
         el.standHolder === selectedOps.holder &&
@@ -138,7 +138,7 @@ const FinishButtons = ({ selectedOps }) => {
       );
     }).length !== 0;
 
-    if (itemMatched && stand.stands.length !== 0) {
+    if (Matching && stand.stands.length !== 0) {
       setIsAddedInCart(true);
     }
   }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]); // eslint-disable-line

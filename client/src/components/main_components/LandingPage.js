@@ -59,7 +59,7 @@ const Arrow = styled.img`
 `;
 
 const MainImg = styled.div`
-  background-image: url('./images/mainIncense.png');
+  background-image: url('./images/mainIncense.gif');
   background-size: cover;
   height: 100%;
   width: 100%;

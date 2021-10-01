@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { standsSelector, sticksSelector } from '../app/modules/hooks';
+import { useSelector } from 'react-redux';
 
 import { Link, NavLink } from 'react-router-dom';
 import Modal from './Modal';
@@ -146,11 +148,35 @@ const LinkElem = styled(NavLink)`
   color: black;
 `;
 
+const CartCount = styled.div`
+  position: absolute;
+  border-radius: 30px;
+  height: 25px;
+  min-width: 25px;
+  top: 15px;
+  right: 90px;
+  line-height: 25px;
+  text-align: center;
+  background-color: rgb(183, 197, 139);
+  font-weight: bold;
+  color: black;
+  border: 1px solid black;
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
+`;
+
 const Header = () => {
   const [menu, setMenu] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
+  const stand = useSelector(standsSelector);
+  const stick = useSelector(sticksSelector);
+
+  const totalStandQuantity = stand.stands.reduce((acc, cur) => acc + cur.standQuantity, 0);
+  const totalStickQuantity = stick.sticks.reduce((acc, cur) => acc + cur.stickQuantity, 0);
+  const totalQuantity = totalStandQuantity + totalStickQuantity;
 
   const handleClickMenu = () => {
     setMenu(!menu);
@@ -184,6 +210,7 @@ const Header = () => {
       <IconContainer>
         <Link to='/order'>
           <Icon src='/images/cart.png' />
+          {totalQuantity >= 1 ? <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount> : null}
         </Link>
         <Icon src='/images/user.png' onClick={clickHandler} />
       </IconContainer>
