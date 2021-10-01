@@ -5,6 +5,7 @@ const ButtonWrapper = styled.div`
   margin: 0;
   padding: 0;
   outline: none;
+  text-align: center;
 
   display: inline-flex;
 
@@ -36,11 +37,11 @@ const ButtonWrapper = styled.div`
     font-weight: 600;
     position: absolute;
     top: 0;
-    font-size: 14px;
+    font-size: 15px;
     background-color: #787878;
     color: #787878;
-    padding: 5px 8px;
-    border-radius: 5px;
+    padding: 7px 10px;
+    border-radius: 10px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
     opacity: 0;
     pointer-events: none;
@@ -59,8 +60,29 @@ const ButtonWrapper = styled.div`
     transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
+  .price {
+    font-family: 'Roboto';
+    font-weight: 400;
+    position: absolute;
+    top: 0;
+    font-size: 16px;
+    color: #787878;
+    padding: 5px 8px;
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
   .icon:hover .tooltip {
-    top: -45px;
+    top: -40px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }  
+  
+  .icon:hover .price {
+    top: -70px;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -121,19 +143,20 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const OptionButton = ({ option, type, onClick }) => {
+const OptionButton = ({ option, type, price, onClick }) => {
   return (
-
     <ButtonWrapper
       onClick={() => onClick({
         type: type,
-        option: option
+        option: option,
+        price: price
       })}
     >
       <div className={`icon ${option}`}>
         <div className='tooltip'>
           {option}
         </div>
+        <div className='price'>+{price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}&nbsp;₩</div>
         <span>
           <img
             src={`/images/buttons/${option}.png`}

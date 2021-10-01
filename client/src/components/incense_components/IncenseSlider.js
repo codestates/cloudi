@@ -69,7 +69,7 @@ const IncenseSlider = ({
   }, [data]);
   const changeToStr = (score) => {
     const circles = [];
-    const isHalf = score % 1 === 0 ? false : true;
+    const isHalf = score % 1 !== 0;
     const parsedNum = Math.ceil(score);
     RATE.forEach((el) => {
       if (parsedNum >= el) {
