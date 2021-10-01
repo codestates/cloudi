@@ -94,7 +94,7 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
-const Container = styled.div`
+const InputContainer = styled.div`
   display: flex;
   width: 75%;
   justify-content: space-between;
@@ -142,7 +142,7 @@ const Delete = ({ visible, setDeleteModalVisible }) => {
           아래에 '회원탈퇴'를 입력해 주세요
         </DeleteText>
         <BorderBottom />
-        <Container>
+        <InputContainer>
           <InputBox
             type='text'
             name='deleteInputBox'
@@ -152,7 +152,7 @@ const Delete = ({ visible, setDeleteModalVisible }) => {
           />
           <ErrMessage>{errorMessage}</ErrMessage>
           <DeleteBtn onClick={checkDeleteValue}>회원탈퇴</DeleteBtn>
-        </Container>
+        </InputContainer>
       </DeleteBack>
     </DeleteContainer>
   );
