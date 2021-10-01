@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -14,7 +14,7 @@ const CustomizePage = styled.section`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(315deg, #ffffff, #F0F4F8);
+  background: linear-gradient(315deg, #ffffff, #E1E7EF);
 
   a {
     text-decoration: none;
@@ -49,6 +49,7 @@ const Title = styled.button`
 
 const Customize = () => {
   const titleRef = useRef();
+  // 나중에 버튼도 통합하기.
   const stages = [
     {
       stage: 'material',
@@ -68,15 +69,28 @@ const Customize = () => {
   const [selectedOps, setSelectedOps] = useState({
     plate: '',
     holder: '',
-    text: ''
+    text: '',
+    price: 0
   });
+
+  const [platePrice, setPlatePrice] = useState(0);
+
+  const [holderPrice, setHolderPrice] = useState(0);
+
+  const [textPrice, setTextPrice] = useState(0);
+
+  useEffect(() => {
+    const newPrice = platePrice + holderPrice + textPrice;
+    setSelectedOps({ ...selectedOps, ...{ price: newPrice } });
+  }, [platePrice, holderPrice, textPrice]); // eslint-disable-line
 
   const handleReset = () => {
     setSelectedOps(
       {
         plate: '',
         holder: '',
-        text: ''
+        text: '',
+        price: 0
       }
     );
   };
@@ -84,14 +98,16 @@ const Customize = () => {
   const handleBtnClick = (clickedBtn) => {
     if (clickedBtn.type === 'holder') {
       setSelectedOps({ ...selectedOps, ...{ holder: clickedBtn.option } });
+      setPlatePrice(clickedBtn.price);
     }
     if (clickedBtn.type === 'plate') {
       setSelectedOps({ ...selectedOps, ...{ plate: clickedBtn.option } });
+      setHolderPrice(clickedBtn.price);
     }
-  };
-
-  const handleTextInput = (text) => {
-    setSelectedOps({ ...selectedOps, ...{ text: text } });
+    if (clickedBtn.type === 'text') {
+      setSelectedOps({ ...selectedOps, ...{ text: clickedBtn.option } });
+      setTextPrice(clickedBtn.price);
+    }
   };
 
   const handleErrorMsg = () => {
@@ -115,7 +131,6 @@ const Customize = () => {
                 stage={el.stage}
                 message={el.message}
                 handleBtnClick={handleBtnClick}
-                handleTextInput={handleTextInput}
                 handleErrorMsg={handleErrorMsg}
                 selectedOps={selectedOps}
               />

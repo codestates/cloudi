@@ -26,7 +26,6 @@ const Input = styled.input`
     background-color: ${props => props.disabled ? '#787887' : '#97a371'};
   };
   :active {
-    box-shadow: inset 5px 5px 5px rgb(70, 110, 75);
     background-color: '#b7c58b';
   };
 `;
@@ -67,7 +66,8 @@ const getNextUrl = function (option) {
 
 const MainButton = ({
   curStage,
-  selectedOps
+  selectedOps,
+  handleFinishBtnClick
 }) => {
   const { nextUrl, buttonValue } = getNextUrl(curStage);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -94,9 +94,15 @@ const MainButton = ({
 
   return (
     <MainButtonContainer>
-      <Link to={nextUrl}>
-        <Input type='button' value={buttonValue} disabled={isDisabled} />
-      </Link>
+      {/* eslint-disable */
+        curStage !== 'text'
+          ? <Link to={nextUrl}>
+            <Input type='button' value={buttonValue} disabled={isDisabled} />
+          </Link>
+          : <Link to={nextUrl}>
+          <Input type='button' value={buttonValue} disabled={isDisabled} onClick={() => handleFinishBtnClick()} />
+        </Link>
+      /* eslint-enable */}
     </MainButtonContainer>
   );
 };
