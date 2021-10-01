@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Controller from './editor_components/Controller';
@@ -25,10 +25,6 @@ const Editor = ({
   handleBtnClick,
   handleErrorMsg
 }) => {
-  const [isFinished, setIsFinished] = useState(false);
-  const handleFinishBtnClick = () => {
-    setIsFinished(true);
-  };
   return (
     <>
       {/* eslint-disable */
@@ -55,7 +51,6 @@ const Editor = ({
             </Message>
             <Canvas
               selectedOps={selectedOps}
-              isFinished={isFinished}
             />
             <Controller
               curStage={stage}
@@ -65,7 +60,6 @@ const Editor = ({
             <MainButton
               curStage={stage}
               selectedOps={selectedOps}
-              handleFinishBtnClick={handleFinishBtnClick}
             />
           </>
       /* eslint-enable */}
