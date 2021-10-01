@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import IncenseSlider from '../components/incense_components/IncenseSlider';
+import { useSelector, useDispatch } from 'react-redux';
+import { insertStick } from '../app/modules/stick';
+import { sticksSelector } from '../app/modules/hooks';
 
 const Wrapper = styled.div`
   background-image: url('/images/room.png');
@@ -134,6 +137,9 @@ const TOTAL_SLIDES = 3;
 const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [clickCount, setClickCount] = useState(0);
+  const [stickData, setStickData] = useState(null);
+  const dispatch = useDispatch();
+  const stick = useSelector(sticksSelector); //* 검사할때쓴다.
 
   const [click, setClick] = useState({
     one: false,
@@ -144,10 +150,10 @@ const Incense = () => {
   const slideRef = useRef(null);
   const data = [
     {
-      id: 'one',
-      title: 'Sad Romance Incense',
-      url: '/images/incense_2.png',
-      stickName: '세이지',
+      stickId: 'one',
+      stickDesc: '시트러스 계열 과일 껍질의 상큼한 향',
+      stickImage: '/images/incense_2.png',
+      stickName: 'Tangerinepeel',
       stickPrice: 2000,
       stickScope: {
         citrus: 2,
@@ -158,9 +164,9 @@ const Incense = () => {
       }
     },
     {
-      id: 'two',
-      title: 'Lorem ipsum Incense',
-      url: '/images/incense_0.png',
+      stickId: 'two',
+      stickDesc: 'Lorem ipsum Incense',
+      stickImage: '/images/incense_0.png',
       stickName: '오크모스',
       stickPrice: 2000,
       stickScope: {
@@ -172,9 +178,9 @@ const Incense = () => {
       }
     },
     {
-      id: 'three',
-      title: 'On the beach Insence',
-      url: '/images/incense_1.png',
+      stickId: 'three',
+      stickDesc: 'On the beach Insence',
+      stickImage: '/images/incense_1.png',
       stickName: '새벽',
       stickPrice: 2000,
       stickScope: {
@@ -186,9 +192,9 @@ const Incense = () => {
       }
     },
     {
-      id: 'four',
-      title: 'Hi Ho Hu',
-      url: '/images/incense_3.png',
+      stickId: 'four',
+      stickDesc: 'Hi Ho Hu',
+      stickImage: '/images/incense_3.png',
       stickName: '시라민스',
       stickPrice: 2000,
       stickScope: {
@@ -220,8 +226,14 @@ const Incense = () => {
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
 
-  const clickHandler = (id) => {
-    // * id를 얻어서 cart add btn 누를때 사용
+  const clickHandler = () => {
+    dispatch(
+      insertStick({
+        stickId: stickData.stickId,
+        stickName: stickData.stickName,
+        stickImage: stickData.stickImage
+      })
+    );
   };
   return (
     <Wrapper>
@@ -232,9 +244,9 @@ const Incense = () => {
             {data.map((el) => {
               return (
                 <IncenseSlider
-                  key={el.id}
+                  key={el.stickId}
                   data={el}
-                  clickHandler={clickHandler}
+                  setStickData={setStickData}
                   clickCount={clickCount}
                   setClickCount={setClickCount}
                   click={click}

@@ -35,7 +35,7 @@ export const stickSlice = createSlice({
       }
     },
     decreaseStickQuantity: (state, { payload: id }) => {
-      const index = state.sticks.findIndex(stick => stick.id === id);
+      const index = state.sticks.findIndex((stick) => stick.id === id);
       if (state.sticks[index].stickQuantity > 1) {
         state.sticks[index].stickQuantity--;
       }
@@ -43,17 +43,26 @@ export const stickSlice = createSlice({
     insertStick: (state, action) => {
       const stick = {
         id: id++,
-        stickText: action.payload.text
+        stickId: action.payload.stickId,
+        stickName: action.payload.stickName,
+        stickPrice: 2000,
+        stickQuantity: 1,
+        stickImage: action.payload.stickImage
       };
       state.sticks.push(stick);
     },
     removeStick: (state, { payload: id }) => {
-      const index = state.sticks.findIndex(stick => stick.id === id);
+      const index = state.sticks.findIndex((stick) => stick.id === id);
       state.sticks.splice(index, 1);
     }
   }
 });
 
-export const { increaseStickQuantity, decreaseStickQuantity, insertStick, removeStick } = stickSlice.actions;
+export const {
+  increaseStickQuantity,
+  decreaseStickQuantity,
+  insertStick,
+  removeStick
+} = stickSlice.actions;
 
 export default stickSlice.reducer;

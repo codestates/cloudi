@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import Delete from './mypage/Delete';
+import Delete from './Delete';
 
 const MyinfoContainer = styled.div`
   height: 100%;
@@ -24,32 +24,29 @@ const MyinfoContent = styled.div`
   align-items: center;
   position: relative;
   width: 450px;
-  height: 480px;
+  height: 530px;
   padding-top: 70px;
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
   border-radius: 0.8rem;
   transition: all 0.2s ease;
   @media screen and (max-width: 468px) {
-    width: 380px;
-    height: 390px;
-    padding-top: 40px;
+    width: 360px;
+    height: 410px;
+    padding-top: 30px;
   }
 `;
 
-const CloseModal = styled.div`
+const CloseBtn = styled.div`
   font-size: 30px;
   color: rgba(0, 0, 0, 0.7);
-  margin: 9px 0 0 410px;
   position: absolute;
-  border-radius: 50%;
-  top: 0;
+  border-radius: 15px;
+  top: 5px;
+  right: 15px;
   cursor: pointer;
   :hover {
     opacity: 0.7;
-  }
-  @media screen and (max-width: 468px) {
-    margin-right: 60px;
   }
 `;
 
@@ -116,13 +113,14 @@ const MyinfoChangeBtn = styled.div`
     opacity: 0.8;
   }
   @media screen and (max-width: 468px) {
-    width: 190px;
+    width: 180px;
     height: 30px;
     top: 0px;
   }
 `;
+
 const ProfileData = styled.div`
-  width: 53%;
+  width: 137px;
   margin-top: 27px;
   font-size: 17px;
   color: rgb(0, 0, 0);
@@ -140,18 +138,18 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
-const MyinfoModal = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
-  const [userInfo] = useState({
-    username: 'Cloudi',
-    useremail: 'aaa00@naver.com'
-  });
+const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [userInfo] = useState({
+    userName: 'Cloudi',
+    userEmail: 'aaa00@naver.com'
+  });
   const [newUserInfo, setNewUserInfo] = useState({
     currPassword: '',
     newPassword: '',
     newPasswordMatch: ''
   });
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputValue = (key) => (e) => {
     if (key === 'currPassword') {
@@ -197,14 +195,14 @@ const MyinfoModal = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
           <MyinfoTitle>
             <MyinfoText>MY INFO</MyinfoText>
           </MyinfoTitle>
-          <CloseModal onClick={closeModalHandler}>&times;</CloseModal>
+          <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
           <ProfileContainer>
             <InputTitle>User name</InputTitle>
-            <ProfileData>{userInfo.username}</ProfileData>
+            <ProfileData>{userInfo.userName}</ProfileData>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>User email</InputTitle>
-            <ProfileData>{userInfo.useremail}</ProfileData>
+            <ProfileData>{userInfo.userEmail}</ProfileData>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>Password</InputTitle>
@@ -257,4 +255,4 @@ const MyinfoModal = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
   );
 };
 
-export default MyinfoModal;
+export default Myinfo;
