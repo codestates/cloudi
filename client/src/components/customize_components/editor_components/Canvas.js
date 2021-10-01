@@ -1,4 +1,6 @@
 import React, { useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeCurStandImg } from '../../../app/modules/stand';
 import styled from 'styled-components';
 
 import { plateImg, holderImg } from './standImages'; // eslint-disable-line
@@ -30,7 +32,7 @@ const writeText = (ctx, text, material) => {
   ctx.font = `bold ${fontSize} Helvetica`;
   ctx.fillStyle = 'black';
 
-  const chars = text.toUpperCase().split('');
+  const chars = text.split('');
 
   for (let i = 0; i < chars.length; i++) {
     ctx.fillText(chars[i], 190 + (i * 16), yStart - (i * 6));
@@ -41,64 +43,59 @@ const Canvas = ({
   selectedOps
 }) => {
   const canvas = useRef();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const ctx = canvas.current.getContext('2d');
     const { plate, holder, text } = selectedOps;
 
-    // reset canvas
+    // 옵션 바뀔때마다 캔버스 초기화
     ctx.clearRect(0, 0, 700, 700);
 
-    // drawing plate with current state
+    // 우선 받침대 선택했는지 확인
     if (!!plate) { // eslint-disable-line
+      // 선택했다면, 선택한 이미지 그리기
       const plateImage = new Image(); // eslint-disable-line
 
       plateImage.src = plateImg[plate.toLowerCase()];
 
-      // error handling
       plateImage.onload = function () {
         ctx.drawImage(plateImage, -30, 0);
-
-        // drawing text
-        if (!!text && text !== 'empty input!') { // eslint-disable-line
-          writeText(ctx, text, plate);
-        }
       };
       plateImage.onerror = function () {
         console.log('plate image loading error');
       };
     } else {
+      // 아직 선택하지 않은 상태라면, 선택 전 디폴트 이미지 그리기
       const defaultImage = new Image(); // eslint-disable-line
 
       defaultImage.src = '/images/defaultplate.png';
 
-      // error handling
       defaultImage.onload = function () {
         ctx.drawImage(defaultImage, -30, 0);
-        // drawing text
-        if (!!text && text !== 'empty input!') { // eslint-disable-line
-          writeText(ctx, text, plate);
-        }
       };
+      // error handling
       defaultImage.onerror = function () {
         console.log('default image loading error');
       };
     }
 
-    // drawing holder with current state
+    // 받침대, 홀더 둘 다 선택되었는지 확인(NONE 도 선택한것임)
     if (!!plate && !!holder && holder !== 'NONE') {
       const holderImage = new Image(); // eslint-disable-line
 
       holderImage.src = holderImg[plate.toLowerCase()][holder.toLowerCase()];
 
-      // error handling
       holderImage.onload = function () {
         ctx.drawImage(holderImage, -30, 0);
 
-        // drawing text
+        // 텍스트 선택했다면 그리고 이미지 생성
         if (!!text && text !== 'empty input!') { // eslint-disable-line
           writeText(ctx, text, plate);
         }
+
+        // ! 이미지 생성
+        const curStandImg = canvas.current.toDataURL();
+        dispatch(changeCurStandImg(curStandImg));
       };
       holderImage.onerror = function () {
         console.log('holder image loading error');

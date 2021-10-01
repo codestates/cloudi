@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import Controller from './editor_components/Controller';
@@ -23,21 +23,24 @@ const Editor = ({
   message,
   selectedOps,
   handleBtnClick,
-  handleTextInput,
   handleErrorMsg
 }) => {
+  const [isFinished, setIsFinished] = useState(false);
+  const handleFinishBtnClick = () => {
+    setIsFinished(true);
+  };
   return (
     <>
       {/* eslint-disable */
         stage !== 'material' && selectedOps.plate === ''
           ? <> 
-          <ErrorMsg
-            handleErrorMsg={handleErrorMsg}
-          />
-          <MainButton
-            curStage='error'
-            selectedOps={selectedOps}
-          />
+            <ErrorMsg
+              handleErrorMsg={handleErrorMsg}
+            />
+            <MainButton
+              curStage='error'
+              selectedOps={selectedOps}
+            />
           </>
           : <>
             <Indicator
@@ -52,16 +55,17 @@ const Editor = ({
             </Message>
             <Canvas
               selectedOps={selectedOps}
+              isFinished={isFinished}
             />
             <Controller
               curStage={stage}
               selectedOps={selectedOps}
               handleBtnClick={handleBtnClick}
-              handleTextInput={handleTextInput}
             />
             <MainButton
               curStage={stage}
               selectedOps={selectedOps}
+              handleFinishBtnClick={handleFinishBtnClick}
             />
           </>
       /* eslint-enable */}
