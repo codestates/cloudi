@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { Link, NavLink } from 'react-router-dom';
+import Modal from './Modal';
+import Login from './Login';
+import Signup from './Signup';
 
 const NavBar = styled.nav`
   position: fixed;
@@ -18,12 +21,12 @@ const NavBar = styled.nav`
   }
   :hover {
     background-color: white;
-  };
+  }
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     align-items: flex-start;
     height: 64px;
-  };
+  } ;
 `;
 
 const NavLogo = styled.div`
@@ -39,14 +42,12 @@ const NavMenu = styled.ul`
     align-items: center;
     width: 100%;
     height: auto;
-    display: ${props =>
-      props.menu ? 'block' : 'none'};
-    border-top: ${props =>
-      props.menu ? '2px solid' : 'none'};
-  };
+    display: ${(props) => (props.menu ? 'block' : 'none')};
+    border-top: ${(props) => (props.menu ? '2px solid' : 'none')};
+  }
   @media screen and (max-width: 1023px) {
     height: 50px;
-  };
+  } ;
 `;
 
 const MenuList = styled.li`
@@ -59,7 +60,13 @@ const MenuList = styled.li`
   transition-property: background;
   transition-duration: 0.8s;
   transition-timing-function: ease-out;
-  background: linear-gradient(270deg, rgba(183, 197, 139, 1), rgba(183, 197, 139, 1), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+  background: linear-gradient(
+    270deg,
+    rgba(183, 197, 139, 1),
+    rgba(183, 197, 139, 1),
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0)
+  );
   background-size: 300% 300%;
   :hover {
     cursor: pointer;
@@ -88,7 +95,7 @@ const CloudiLogo = styled.img`
     cursor: pointer;
     transition: all 0.8s;
     filter: opacity(0.5) drop-shadow(0 0 0 rgba(99, 84, 58, 1));
-  };
+  }
   @media screen and (max-width: 1023px) {
     height: 40px;
     width: 105px;
@@ -100,7 +107,7 @@ const IconContainer = styled.div`
   padding: 0 20px 0 20px;
 `;
 
-const Icon = styled.img`  
+const Icon = styled.img`
   margin: 0 15px;
   height: 35px;
   width: 35px;
@@ -141,15 +148,22 @@ const LinkElem = styled(NavLink)`
 
 const Header = () => {
   const [menu, setMenu] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [loginModal, setLoginModal] = useState(false);
+  const [signupOpen, setSignupOpen] = useState(false);
 
   const handleClickMenu = () => {
     setMenu(!menu);
   };
-
+  const clickHandler = () => {
+    setModalOpen(!modalOpen);
+  };
   return (
     <NavBar menu={menu}>
       <NavLogo>
-        <Link to='/'><CloudiLogo src='/images/cloudi.png' /></Link>
+        <Link to='/'>
+          <CloudiLogo src='/images/cloudi.png' />
+        </Link>
       </NavLogo>
       <NavMenu menu={menu}>
         <MobileMenuList>SIGN UP</MobileMenuList>
@@ -171,9 +185,17 @@ const Header = () => {
         <Link to='/order'>
           <Icon src='/images/cart.png' />
         </Link>
-        <Icon src='/images/user.png' />
+        <Icon src='/images/user.png' onClick={clickHandler} />
       </IconContainer>
       <MenuIcon src='/images/menu.png' onClick={handleClickMenu} />
+      <Modal
+        visible={modalOpen}
+        setVisible={setModalOpen}
+        setLoginModal={setLoginModal}
+        setSignupOpen={setSignupOpen}
+      />
+      <Login visible={loginModal} setVisible={setLoginModal} />
+      <Signup visible={signupOpen} setVisible={setSignupOpen} />
     </NavBar>
   );
 };

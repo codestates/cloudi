@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { IMAGE } from './quizItem';
+
 const boxFade = keyframes`
   0% {
       opacity: 1;
