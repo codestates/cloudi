@@ -210,8 +210,7 @@ const StickImg = styled.img`
 `;
 
 const StandImg = styled.img`
-  height: 130px;
-  vertical-align: middle;
+  height: 180px;
   @media screen and (max-width: 1023px) {
     height: 160px;
   }
@@ -390,7 +389,7 @@ const OrderProduct = () => {
             <Button onClick={handleModal}>ORDER</Button>
           </ButtonContainer>
           <Construction modal={modal} handleModal={handleModal} />
-        </>}
+        </>/*eslint-disable-line*/}
     </OrderProductContainer>
   );
 };

@@ -14,7 +14,9 @@ export const standSlice = createSlice({
   reducers: {
     increaseStandQuantity: (state, { payload: id }) => {
       const index = state.stands.findIndex(stand => stand.id === id);
-      state.stands[index].standQuantity++;
+      if (state.stands[index].standQuantity < 99) {
+        state.stands[index].standQuantity++;
+      }
     },
     decreaseStandQuantity: (state, { payload: id }) => {
       const index = state.stands.findIndex(stand => stand.id === id);
