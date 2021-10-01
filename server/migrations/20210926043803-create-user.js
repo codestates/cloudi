@@ -15,6 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       isAdmin: {
+        defaultValue : false,
         type: Sequelize.BOOLEAN
       },
       userEmail: {
