@@ -9,7 +9,6 @@ import { SEQUENCE } from '../components/quiz_components/quizItem';
 
 const QuizContainer = styled.div`
   //padding-top: 95px;
-  background-color: rgba(0, 0, 0, 0.2);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -70,7 +69,7 @@ const ContinueBox = styled.div`
   ${({ quizBtn }) => {
     return quizBtn === 'SUBMIT'
       ? `position: relative;
-  top: 150px;`
+        top: 150px;`
       : null;
   }};
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);

@@ -50,11 +50,12 @@ const NavMenu = styled.ul`
 `;
 
 const MenuList = styled.li`
-  padding: 0 20px;
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
   line-height: 93px;
   font-weight: 600;
+  width: 130px;
+  text-align: center;
   transition-property: background;
   transition-duration: 0.8s;
   transition-timing-function: ease-out;
@@ -96,7 +97,7 @@ const CloudiLogo = styled.img`
 `;
 
 const IconContainer = styled.div`
-  padding: 0 10px 0 5px;
+  padding: 0 20px 0 20px;
 `;
 
 const Icon = styled.img`  

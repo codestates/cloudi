@@ -1,41 +1,111 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const IndicatorContainer = styled.section`
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 800;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: none;
   width: 50vmax;
-  .active section {
+  color: whitesmoke;
+
+  a { color: inherit; }
+
+  a section:hover {
+    background-color: #69955E;
+  }
+  section:active {
     background-color: #b7c58b;
+  }
+  .active section {
+    background-color: #69955E;
   }
 `;
 
 const IndicatorBar = styled.section`
-  width: 14vmax;
-  height: 10px;
-  margin: 5px;
-  background-color: #C4C4C4;
-  @media screen and (max-width: 1023px) {
-
-  }
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  width: 120px;
+  height: 30px;
+  padding: 10px;
+  text-align: center;
+  margin: 2.5px;
+  background-color: ${props => props.done ? '#b7c58b' : '#d1d1d1'};
+  transition: all 0.4s;
 `;
 
-const Indicator = () => {
+const Indicator = ({ stage, selectedOps }) => {
+  const [finishedStages, setFinishedStages] = useState([
+    {
+      stage: 'material',
+      finished: false
+    }, {
+      stage: 'holder',
+      finished: false
+    }, {
+      stage: 'text',
+      finished: false
+    }
+  ]);
+
+  useEffect(() => {
+    const { plate, holder, text } = selectedOps;
+
+    setFinishedStages([
+      {
+        stage: 'material',
+        finished: !!plate
+      }, {
+        stage: 'holder',
+        finished: !!holder
+      }, {
+        stage: 'text',
+        finished: !!text
+      }
+    ]);
+    return () => {};
+  }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]); // eslint-disable-line
+
   return (
     <IndicatorContainer>
-      <NavLink to='/customize/material'>
-        <IndicatorBar />
-      </NavLink>
-      <NavLink to='/customize/holder'>
-        <IndicatorBar />
-      </NavLink>
-      <NavLink to='/customize/text'>
-        <IndicatorBar />
-      </NavLink>
+      {
+        stage === 'finish'
+          ? null
+          : finishedStages.map((el, idx) => {
+            if (finishedStages[idx].finished || el.stage === stage) {
+              return (
+                <NavLink
+                  to={`/customize/${el.stage}`}
+                  key={`${idx}${el.stage}`}
+                >
+                  <IndicatorBar
+                    done={el.finished}
+                  >
+                    {el.stage.toUpperCase()}
+                  </IndicatorBar>
+                </NavLink>
+              );
+            } else {
+              return (
+                <IndicatorBar
+                  key={`${idx}${el.stage}`}
+                  done={el.finished}
+                >
+                  {el.stage.toUpperCase()}
+                </IndicatorBar>
+              );
+            }
+          })
+    }
     </IndicatorContainer>
   );
 };

@@ -7,6 +7,7 @@ const LandingPageContiner = styled.section`
   width: 100vw;
   overflow: hidden;
   scroll-snap-align: start;
+  z-index: 1;
 `;
 
 const fadeIn = keyframes`

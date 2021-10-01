@@ -11,14 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.stand.hasMany(models.user_stand);
+      models.stand.belongsTo(models.user);
     }
   };
   stand.init({
-    standMaterial: DataTypes.STRING,
-    standHolder: DataTypes.STRING,
+    userId: DataTypes.INTEGER,
+    standQuantity: DataTypes.INTEGER,
     standPrice: DataTypes.INTEGER,
-    standImage: DataTypes.BLOB('long')
+    standImage: DataTypes.BLOB('long'),
+    standPlate: DataTypes.STRING,
+    standHolder: DataTypes.STRING,
+    standText: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'stand',

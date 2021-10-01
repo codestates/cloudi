@@ -8,17 +8,26 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      standMaterial: {
-        type: Sequelize.STRING
+      userId: {
+        type: Sequelize.INTEGER
       },
-      standHolder: {
-        type: Sequelize.STRING
+      standQuantity: {
+        type: Sequelize.INTEGER
       },
       standPrice: {
         type: Sequelize.INTEGER
       },
       standImage: {
         type: Sequelize.BLOB('long')
+      },
+      standPlate: {
+        type: Sequelize.STRING
+      },
+      standHolder: {
+        type: Sequelize.STRING
+      },
+      standText: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
