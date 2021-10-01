@@ -2,23 +2,26 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 const ModalContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
+  height: 100%;
+  width: 100%;
+  top: 0;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
-  display: ${(props) => (props.visible ? 'auto' : 'none')};
+  justify-content: center;
+  align-items: center;
   pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
-  z-index: 9999;
+  z-index: 999;
+  @media screen and (max-height: 700px) {
+    height: 700px;
+  }
 `;
 
 const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   width: 28rem;
   height: 25rem;
   padding-top: 70px;
@@ -26,18 +29,24 @@ const ModalContent = styled.div`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
   border-radius: 0.8rem;
   transition: all 0.2s ease;
+  @media screen and (max-width: 460px) {
+    width: 400px;
+  }
 `;
 
 const CloseModal = styled.div`
   font-size: 30px;
   color: rgba(0, 0, 0, 0.7);
-  margin: 9px 0 0 25rem;
+  margin: 9px 0 0 400px;
   position: absolute;
   border-radius: 50%;
   top: 0;
   cursor: pointer;
   :hover {
     opacity: 0.7;
+  }
+  @media screen and (max-width: 460px) {
+    margin-left: 350px;
   }
 `;
 

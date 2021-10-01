@@ -2,24 +2,27 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Delete from './mypage/Delete';
 
-const ModalContainer = styled.div`
+const MyinfoContainer = styled.div`
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
-  display: ${(props) => (props.visible ? 'auto' : 'none')};
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
   pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
   z-index: 9999;
+  @media screen and (max-height: 700px) {
+    height: 700px;
+  }
 `;
 
-const ModalContent = styled.div`
+const MyinfoContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   width: 450px;
   height: 480px;
   padding-top: 70px;
@@ -27,18 +30,26 @@ const ModalContent = styled.div`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
   border-radius: 0.8rem;
   transition: all 0.2s ease;
+  @media screen and (max-width: 468px) {
+    width: 380px;
+    height: 390px;
+    padding-top: 40px;
+  }
 `;
 
 const CloseModal = styled.div`
   font-size: 30px;
   color: rgba(0, 0, 0, 0.7);
-  margin: 9px 0 0 25rem;
+  margin: 9px 0 0 410px;
   position: absolute;
   border-radius: 50%;
   top: 0;
   cursor: pointer;
   :hover {
     opacity: 0.7;
+  }
+  @media screen and (max-width: 468px) {
+    margin-right: 60px;
   }
 `;
 
@@ -47,6 +58,10 @@ const InputBox = styled.input`
   margin-top: 18px;
   width: 140px;
   height: 32px;
+  @media screen and (max-width: 468px) {
+    width: 100px;
+    padding-left: 0px;
+  }
 `;
 
 const ProfileContainer = styled.div`
@@ -54,6 +69,10 @@ const ProfileContainer = styled.div`
   display: flex;
   width: 64%;
   justify-content: space-between;
+  @media screen and (max-width: 468px) {
+    margin-top: 5px;
+    width: 55%;
+  }
 `;
 
 const InputTitle = styled.div`
@@ -63,7 +82,7 @@ const InputTitle = styled.div`
   text-align: center;
 `;
 
-const LoginTitle = styled.div`
+const MyinfoTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,12 +95,13 @@ const LoginTitle = styled.div`
   border-top-right-radius: 0.8rem;
   color: rgba(255, 255, 255, 0.9);
 `;
-const LoginText = styled.div`
+
+const MyinfoText = styled.div`
   font-size: 25px;
   color: rgba(255, 255, 255, 0.8);
 `;
 
-const UserInfoChangeBtn = styled.div`
+const MyinfoChangeBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,12 +115,21 @@ const UserInfoChangeBtn = styled.div`
   :hover {
     opacity: 0.8;
   }
+  @media screen and (max-width: 468px) {
+    width: 190px;
+    height: 30px;
+    top: 0px;
+  }
 `;
 const ProfileData = styled.div`
   width: 53%;
   margin-top: 27px;
   font-size: 17px;
   color: rgb(0, 0, 0);
+  @media screen and (max-width: 468px) {
+    width: 103px;
+    font-size: 15px;
+  }
 `;
 
 const ErrMessage = styled.div`
@@ -161,14 +190,13 @@ const MyinfoModal = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
     });
     setErrorMessage('');
   };
-  console.log(newUserInfo);
   return (
     <>
-      <ModalContainer visible={myinfoModalVisible}>
-        <ModalContent>
-          <LoginTitle>
-            <LoginText>MY INFO</LoginText>
-          </LoginTitle>
+      <MyinfoContainer visible={myinfoModalVisible}>
+        <MyinfoContent>
+          <MyinfoTitle>
+            <MyinfoText>MY INFO</MyinfoText>
+          </MyinfoTitle>
           <CloseModal onClick={closeModalHandler}>&times;</CloseModal>
           <ProfileContainer>
             <InputTitle>User name</InputTitle>
@@ -185,7 +213,7 @@ const MyinfoModal = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
               type='password'
               value={newUserInfo.currPassword}
               onChange={handleInputValue('currPassword')}
-              placeholder='Current Password'
+              placeholder='Password'
             />
           </ProfileContainer>
           <ProfileContainer>
@@ -213,14 +241,14 @@ const MyinfoModal = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
             />
             <ErrMessage>{errorMessage}</ErrMessage>
           </ProfileContainer>
-          <UserInfoChangeBtn color='#b7c58b' onClick={onClickHandler('Change')}>
+          <MyinfoChangeBtn color='#b7c58b' onClick={onClickHandler('Change')}>
             Change
-          </UserInfoChangeBtn>
-          <UserInfoChangeBtn color='#a0a0a8' onClick={onClickHandler('Delete')}>
+          </MyinfoChangeBtn>
+          <MyinfoChangeBtn color='#a0a0a8' onClick={onClickHandler('Delete')}>
             Delete User
-          </UserInfoChangeBtn>
-        </ModalContent>
-      </ModalContainer>
+          </MyinfoChangeBtn>
+        </MyinfoContent>
+      </MyinfoContainer>
       <Delete
         visible={deleteModalVisible}
         setDeleteModalVisible={setDeleteModalVisible}
