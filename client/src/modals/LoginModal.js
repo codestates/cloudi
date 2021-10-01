@@ -6,35 +6,40 @@ import google from '../components/image/google.png';
 import kakao from '../components/image/kakao.png';
 
 const ModalContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
-  display: ${(props) => (props.visible ? 'auto' : 'none')};
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
+  justify-content: center;
+  align-items: center;
+  top: 0;
   pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
   z-index: 9999;
+  @media screen and (max-height: 700px) {
+    height: 700px;
+  }
 `;
 
 const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   width: 28rem;
-  height: 22rem;
-  padding-top: 70px;
+  height: 430px;
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
   border-radius: 0.8rem;
+  @media screen and (max-width: 468px) {
+    width: 400px;
+  }
 `;
 
 const CloseModal = styled.div`
   font-size: 30px;
   color: rgba(0, 0, 0, 0.7);
-  margin: 9px 0 0 25rem;
+  margin: 9px 0 0 410px;
   position: absolute;
   border-radius: 50%;
   top: 0;
@@ -42,12 +47,18 @@ const CloseModal = styled.div`
   :hover {
     opacity: 0.7;
   }
+  @media screen and (max-width: 468px) {
+    margin-left: 360px;
+  }
 `;
 
 const InputBox = styled.input`
   margin-top: 18px;
   width: 200px;
   height: 32px;
+  @media screen and (max-width: 468px) {
+    width: 160px;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -69,8 +80,7 @@ const LoginTitle = styled.div`
   width: 100%;
   height: 16%;
   background-color: rgba(0, 0, 0, 0.15);
-  position: absolute;
-  top: 0%;
+  position: relative;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
   color: rgba(255, 255, 255, 0.9);
@@ -101,7 +111,7 @@ const BorderBottom = styled.div`
   color: rgba(0, 0, 0, 0.35);
   font-size: 12px;
   position: absolute;
-  margin-top: 40%;
+  top: 245px;
   width: 69.5%;
   ::before,
   ::after {
@@ -113,6 +123,9 @@ const BorderBottom = styled.div`
     line-height: 0px;
     margin: 0px 16px;
   }
+  @media screen and (max-width: 214px) {
+    top: 258px;
+  }
 `;
 
 const SocialLoginBtn = styled.div`
@@ -122,7 +135,7 @@ const SocialLoginBtn = styled.div`
   background-color: ${(props) => props.color};
   position: relative;
   margin-top: 15px;
-  top: 25px;
+  top: 20px;
   width: 290px;
   height: 40px;
   cursor: pointer;
