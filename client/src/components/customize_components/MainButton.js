@@ -77,15 +77,15 @@ const MainButton = ({
   const stand = useSelector(standsSelector);
 
   const handleOrderBtnClick = () => {
-    const itemMatched = stand.stands.filter(el => {
+    const noMatching = stand.stands.filter(el => {
       return (
         el.standPlate === selectedOps.plate &&
         el.standHolder === selectedOps.holder &&
         el.standText === selectedOps.text
       );
-    }).length !== 0;
+    }).length === 0;
 
-    if (!itemMatched && stand.stands.length !== 0) {
+    if (noMatching || stand.stands.length === 0) {
       dispatch(insertStand({
         plate: selectedOps.plate,
         holder: selectedOps.holder,
