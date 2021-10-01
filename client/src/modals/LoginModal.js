@@ -156,6 +156,7 @@ const LoginModal = ({ visible, setVisible }) => {
     email: '',
     password: ''
   });
+
   const [myinfoModalVisible, setMyinfoModalVisible] = useState(false);
   const [signupModalVisible, setSignupModalVisible] = useState(false);
   const handleLogin = () => {};
