@@ -94,7 +94,7 @@ const MainButton = ({
         image: stand.curStandImg
       }));
     }
-  }
+  };
 
   useEffect(() => {
     if (curStage === 'material') {
