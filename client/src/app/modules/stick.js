@@ -30,7 +30,9 @@ export const stickSlice = createSlice({
   reducers: {
     increaseStickQuantity: (state, { payload: id }) => {
       const index = state.sticks.findIndex(stick => stick.id === id);
-      state.sticks[index].stickQuantity++;
+      if (state.sticks[index].stickQuantity < 99) {
+        state.sticks[index].stickQuantity++;
+      }
     },
     decreaseStickQuantity: (state, { payload: id }) => {
       const index = state.sticks.findIndex(stick => stick.id === id);
