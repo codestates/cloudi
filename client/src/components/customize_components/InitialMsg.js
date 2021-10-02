@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from 'react';
 import styled from 'styled-components';
 import MainButton from './MainButton';
@@ -28,16 +29,22 @@ const StyledInitialMsg = styled.section`
 const InitialMsg = ({ selectedOps, curStage = 'main' }) => {
   return (
     <>
-      <StyledInitialMsg>
-        <img src='/images/incensestands.png' alt='incensestand' width='500' height='350' />
-        <h2>나만의 인센스 스탠드 만들기</h2>
-        <div>취향에 딱 맞는 인센스를 고르셨나요?</div>
-        <div>나만의 특별한 스탠드도 제작해 보세요!</div>
-      </StyledInitialMsg>
-      <MainButton
-        selectedOps={selectedOps}
-        curStage={curStage}
-      />
+      <motion.div
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        exit={{opacity: 0}}
+      >
+        <StyledInitialMsg>
+          <img src='/images/incensestands.png' alt='incensestand' width='500' height='350' />
+          <h2>나만의 인센스 스탠드 만들기</h2>
+          <div>취향에 딱 맞는 인센스를 고르셨나요?</div>
+          <div>나만의 특별한 스탠드도 제작해 보세요!</div>
+        </StyledInitialMsg>
+      </motion.div>
+        <MainButton
+          selectedOps={selectedOps}
+          curStage={curStage}
+        />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 
 import Editor from '../components/customize_components/Editor';
@@ -84,6 +85,8 @@ const Customize = () => {
     setSelectedOps({ ...selectedOps, ...{ price: newPrice } });
   }, [platePrice, holderPrice, textPrice]); // eslint-disable-line
 
+  const location = useLocation();
+
   const handleReset = () => {
     setSelectedOps(
       {
@@ -119,30 +122,32 @@ const Customize = () => {
       <Link to='/customize'>
         <Title ref={titleRef} onClick={() => handleReset()}>CUSTOMIZE</Title>
       </Link>
-      <Switch>
-        {stages.map((el, idx) => {
-          return (
-            <Route
-              key={el.stage}
-              path={`/customize/${el.stage}`}
-            >
-              <Editor
-                stages={stages.map(el => el.stage)}
-                stage={el.stage}
-                message={el.message}
-                handleBtnClick={handleBtnClick}
-                handleErrorMsg={handleErrorMsg}
-                selectedOps={selectedOps}
-              />
-            </Route>
-          );
-        })}
-        <Route path='/customize'>
-          <InitialMsg
-            selectedOps={selectedOps}
-          />
-        </Route>
-      </Switch>
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.pathname}>
+          {stages.map((el, idx) => {
+            return (
+              <Route
+                key={el.stage}
+                path={`/customize/${el.stage}`}
+              >
+                <Editor
+                  stages={stages.map(el => el.stage)}
+                  stage={el.stage}
+                  message={el.message}
+                  handleBtnClick={handleBtnClick}
+                  handleErrorMsg={handleErrorMsg}
+                  selectedOps={selectedOps}
+                />
+              </Route>
+            );
+          })}
+          <Route path='/customize'>
+            <InitialMsg
+              selectedOps={selectedOps}
+            />
+          </Route>
+        </Switch>
+      </AnimatePresence>
       {/* <Footer /> */}
     </CustomizePage>
   );
