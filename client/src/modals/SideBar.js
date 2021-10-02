@@ -26,7 +26,7 @@ const Aside = styled.aside`
   z-index: 100;
   position: fixed;
   background-color: white;
-  height: 170px;
+  height: 172px;
   width: 100px;
   top: 95px;
   border-right: 1px solid;
@@ -53,6 +53,7 @@ const XButton = styled.img`
 `;
 
 const Desc = styled.div`
+  margin-bottom: 5px;
 `;
 
 const PlayButtonContainer = styled.div`
@@ -69,7 +70,7 @@ const AudioButton = styled.img`
 `;
 
 const TimerButton = styled(AudioButton)`
-  margin-top: 18px;
+  margin-top: 15px;
 `;
 
 const TimerContainer = styled.section`
