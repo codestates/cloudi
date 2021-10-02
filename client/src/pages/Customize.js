@@ -44,7 +44,9 @@ const Title = styled.button`
   text-align: center;
 
   :focus {
-    background: rgba(228, 242, 184, 1);
+    background: #E4F2D8;
+    height:20px;
+    border-radius: 10px;
   }
 `;
 
@@ -80,11 +82,6 @@ const Customize = () => {
 
   const [textPrice, setTextPrice] = useState(0);
 
-  useEffect(() => {
-    const newPrice = platePrice + holderPrice + textPrice;
-    setSelectedOps({ ...selectedOps, ...{ price: newPrice } });
-  }, [platePrice, holderPrice, textPrice]); // eslint-disable-line
-
   const location = useLocation();
 
   const handleReset = () => {
@@ -96,7 +93,15 @@ const Customize = () => {
         price: 0
       }
     );
+    setPlatePrice(0);
+    setHolderPrice(0);
+    setTextPrice(0);
   };
+
+  useEffect(() => {
+    const newPrice = platePrice + holderPrice + textPrice;
+    setSelectedOps({ ...selectedOps, ...{ price: newPrice } });
+  }, [platePrice, holderPrice, textPrice]); // eslint-disable-line
 
   const handleBtnClick = (clickedBtn) => {
     if (clickedBtn.type === 'holder') {
@@ -124,7 +129,7 @@ const Customize = () => {
       </Link>
       <AnimatePresence exitBeforeEnter>
         <Switch location={location} key={location.pathname}>
-          {stages.map((el, idx) => {
+          {stages.map((el) => {
             return (
               <Route
                 key={el.stage}

@@ -16,6 +16,7 @@ const StyledInitialMsg = styled.section`
   padding-bottom: 60px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
   h2 {
+    font-weight: bold;
     font-size: 1.7rem;
     margin-top: 50px;
     margin-bottom: 20px;
@@ -30,9 +31,9 @@ const InitialMsg = ({ selectedOps, curStage = 'main' }) => {
   return (
     <>
       <motion.div
-        initial={{opacity: 0}}
-        animate={{opacity: 1}}
-        exit={{opacity: 0}}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
       >
         <StyledInitialMsg>
           <img src='/images/incensestands.png' alt='incensestand' width='500' height='350' />
@@ -41,10 +42,10 @@ const InitialMsg = ({ selectedOps, curStage = 'main' }) => {
           <div>나만의 특별한 스탠드도 제작해 보세요!</div>
         </StyledInitialMsg>
       </motion.div>
-        <MainButton
-          selectedOps={selectedOps}
-          curStage={curStage}
-        />
+      <MainButton
+        selectedOps={selectedOps}
+        curStage={curStage}
+      />
     </>
   );
 };
