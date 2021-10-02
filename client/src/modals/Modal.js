@@ -13,6 +13,7 @@ const modal = keyframes`
 const ModalContainer = styled.div`
   position: absolute;
   display: ${(props) => (props.visible ? 'flex' : 'none')};
+  font-family: 'Roboto', sans-serif;
   flex-direction: column;
   animation-duration: 0.2s;
   animation-timing-function: ease-out;
@@ -50,20 +51,20 @@ const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen }) => {
   };
   return (
     <ModalContainer visible={visible} onClick={visibleHandler}>
-      {isLogin
-        ? 'My info'
-        : (
-          <ModalContent top='10' onClick={() => setSignupOpen(true)}>
-            Sign up
-          </ModalContent>
-          )}
-      {isLogin
-        ? 'Log out'
-        : (
-          <ModalContent bottom='10' onClick={() => setLoginModal(true)}>
-            Log in
-          </ModalContent>
-          )}
+      {isLogin ? (
+        'My info'
+      ) : (
+        <ModalContent top='10' onClick={() => setSignupOpen(true)}>
+          Sign up
+        </ModalContent>
+      )}
+      {isLogin ? (
+        'Log out'
+      ) : (
+        <ModalContent bottom='10' onClick={() => setLoginModal(true)}>
+          Log in
+        </ModalContent>
+      )}
     </ModalContainer>
   );
 };

@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 const DeleteContainer = styled.div`
   display: ${(props) => (props.isvisible ? 'flex' : 'none')};
+  font-family: 'Roboto', sans-serif;
   justify-content: center;
   align-items: center;
   top: 0;
@@ -127,6 +128,7 @@ const Delete = ({ visible, setDeleteModalVisible }) => {
     if (InputCheck === '회원탈퇴') {
       setDeleteModalVisible(false);
       setInputCheck('');
+      setErrorMessage('');
     } else {
       setErrorMessage('`회원탈퇴` 입력을 다시 확인해주세요');
     }

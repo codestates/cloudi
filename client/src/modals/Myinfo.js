@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Delete from './Delete';
 
 const MyinfoContainer = styled.div`
+  font-family: 'Roboto', sans-serif;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
@@ -143,7 +144,7 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [userInfo] = useState({
     userName: 'Cloudi',
-    userEmail: 'aaa00@naver.com'
+    userEmail: 'abcabcabcabc@naver.com'
   });
   const [newUserInfo, setNewUserInfo] = useState({
     currPassword: '',
@@ -240,10 +241,10 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
             <ErrMessage>{errorMessage}</ErrMessage>
           </ProfileContainer>
           <MyinfoChangeBtn color='#b7c58b' onClick={onClickHandler('Change')}>
-            Change
+            CHANGE
           </MyinfoChangeBtn>
           <MyinfoChangeBtn color='#a0a0a8' onClick={onClickHandler('Delete')}>
-            Delete User
+            DELETE USER
           </MyinfoChangeBtn>
         </MyinfoContent>
       </MyinfoContainer>

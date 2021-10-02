@@ -4,6 +4,7 @@ import Myinfo from './Myinfo';
 import Signup from './Signup';
 
 const LoginContainer = styled.div`
+  font-family: 'Roboto', sans-serif;
   overflow: scroll;
   height: 100%;
   width: 100%;
@@ -88,6 +89,7 @@ const LoginText = styled.div`
 `;
 
 const LoginBtn = styled.button`
+  font-size: 15px;
   margin-top: 20px;
   background-color: #b7c58b;
   text-decoration: none;
@@ -125,6 +127,8 @@ const BorderBottom = styled.div`
 `;
 
 const SocialLoginBtn = styled.div`
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -196,7 +200,7 @@ const Login = ({ visible, setVisible }) => {
             />
           </InputContainer>
           <LoginBtn onClick={handleLogin}>로그인</LoginBtn>
-          <BorderBottom> 또는</BorderBottom>
+          <BorderBottom>또는</BorderBottom>
           <SocialLoginBtn color='#f7e600' onClick={myinfoHandler}>
             <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />
             카카오 로그인
