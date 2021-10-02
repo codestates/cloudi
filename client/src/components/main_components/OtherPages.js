@@ -233,9 +233,8 @@ const NavBox = styled.div`
   border: 3px inset;
   border-radius: 10px;
   margin: 0 auto;
-  background-color: rgb(183, 197, 139);
   height: 16vw;
-  box-shadow: inset 10px 10px 20px rgb(150, 160, 120);
+  box-shadow: inset 5px 5px 10px gray;
 `;
 
 const PageLink = styled.a`

@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import MyinfoModal from './MyinfoModal';
-import SignupModal from './SignUpModal';
-import google from '../components/image/google.png';
-import kakao from '../components/image/kakao.png';
+import Myinfo from './Myinfo';
+import Signup from './Signup';
 
-const ModalContainer = styled.div`
+const LoginContainer = styled.div`
+  overflow: scroll;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
@@ -21,13 +20,13 @@ const ModalContainer = styled.div`
   }
 `;
 
-const ModalContent = styled.div`
+const LoginContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
   width: 28rem;
-  height: 430px;
+  height: 400px;
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
   border-radius: 0.8rem;
@@ -39,16 +38,13 @@ const ModalContent = styled.div`
 const CloseModal = styled.div`
   font-size: 30px;
   color: rgba(0, 0, 0, 0.7);
-  margin: 9px 0 0 410px;
   position: absolute;
-  border-radius: 50%;
-  top: 0;
+  border-radius: 15px;
+  top: 5px;
+  right: 15px;
   cursor: pointer;
   :hover {
     opacity: 0.7;
-  }
-  @media screen and (max-width: 468px) {
-    margin-left: 360px;
   }
 `;
 
@@ -111,8 +107,8 @@ const BorderBottom = styled.div`
   color: rgba(0, 0, 0, 0.35);
   font-size: 12px;
   position: absolute;
-  top: 245px;
-  width: 69.5%;
+  top: 238px;
+  width: 320px;
   ::before,
   ::after {
     content: '';
@@ -123,8 +119,8 @@ const BorderBottom = styled.div`
     line-height: 0px;
     margin: 0px 16px;
   }
-  @media screen and (max-width: 214px) {
-    top: 258px;
+  @media screen and (max-width: 358px) {
+    top: 245px;
   }
 `;
 
@@ -135,7 +131,7 @@ const SocialLoginBtn = styled.div`
   background-color: ${(props) => props.color};
   position: relative;
   margin-top: 15px;
-  top: 20px;
+  top: 25px;
   width: 290px;
   height: 40px;
   cursor: pointer;
@@ -151,11 +147,12 @@ const SocialImage = styled.img`
   height: 18px;
 `;
 
-const LoginModal = ({ visible, setVisible }) => {
+const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   });
+
   const [myinfoModalVisible, setMyinfoModalVisible] = useState(false);
   const [signupModalVisible, setSignupModalVisible] = useState(false);
   const handleLogin = () => {};
@@ -172,8 +169,8 @@ const LoginModal = ({ visible, setVisible }) => {
   };
   return (
     <>
-      <ModalContainer visible={visible}>
-        <ModalContent>
+      <LoginContainer visible={visible}>
+        <LoginContent>
           <LoginTitle>
             <LoginText>LOG IN</LoginText>
           </LoginTitle>
@@ -201,20 +198,20 @@ const LoginModal = ({ visible, setVisible }) => {
           <LoginBtn onClick={handleLogin}>로그인</LoginBtn>
           <BorderBottom> 또는</BorderBottom>
           <SocialLoginBtn color='#f7e600' onClick={myinfoHandler}>
-            <SocialImage src={kakao} alt='소셜로그인 이미지' />
+            <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />
             카카오 로그인
           </SocialLoginBtn>
           <SocialLoginBtn color='#e6e6e6' onClick={signupHandler}>
-            <SocialImage src={google} alt='소셜로그인 이미지' />
+            <SocialImage src='/images/google.png' alt='소셜로그인 이미지' />
             구글 로그인
           </SocialLoginBtn>
-        </ModalContent>
-      </ModalContainer>
-      <MyinfoModal
+        </LoginContent>
+      </LoginContainer>
+      <Myinfo
         myinfoModalVisible={myinfoModalVisible}
         setMyinfoModalVisible={setMyinfoModalVisible}
       />
-      <SignupModal
+      <Signup
         signupModalVisible={signupModalVisible}
         setSignupModalVisible={setSignupModalVisible}
       />
@@ -222,4 +219,4 @@ const LoginModal = ({ visible, setVisible }) => {
   );
 };
 
-export default LoginModal;
+export default Login;

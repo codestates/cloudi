@@ -2,24 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // 초기 상태
 const initialState = {
-  sticks: [
-    {
-      id: 1,
-      stickId: 2,
-      stickName: '귤피',
-      stickPrice: 2000,
-      stickQuantity: 2,
-      stickImage: '/images/stickSample.png'
-    },
-    {
-      id: 2,
-      stickId: 3,
-      stickName: '담배',
-      stickPrice: 2000,
-      stickQuantity: 3,
-      stickImage: '/images/stickSample.png'
-    }
-  ]
+  sticks: []
 };
 
 let id = initialState.sticks.length + 1;
@@ -30,10 +13,12 @@ export const stickSlice = createSlice({
   reducers: {
     increaseStickQuantity: (state, { payload: id }) => {
       const index = state.sticks.findIndex(stick => stick.id === id);
-      state.sticks[index].stickQuantity++;
+      if (state.sticks[index].stickQuantity < 99) {
+        state.sticks[index].stickQuantity++;
+      }
     },
     decreaseStickQuantity: (state, { payload: id }) => {
-      const index = state.sticks.findIndex(stick => stick.id === id);
+      const index = state.sticks.findIndex((stick) => stick.id === id);
       if (state.sticks[index].stickQuantity > 1) {
         state.sticks[index].stickQuantity--;
       }
@@ -41,17 +26,26 @@ export const stickSlice = createSlice({
     insertStick: (state, action) => {
       const stick = {
         id: id++,
-        stickText: action.payload.text
+        stickId: action.payload.stickId,
+        stickName: action.payload.stickName,
+        stickPrice: 2000,
+        stickQuantity: 1,
+        stickImage: action.payload.stickImage
       };
       state.sticks.push(stick);
     },
     removeStick: (state, { payload: id }) => {
-      const index = state.sticks.findIndex(stick => stick.id === id);
+      const index = state.sticks.findIndex((stick) => stick.id === id);
       state.sticks.splice(index, 1);
     }
   }
 });
 
-export const { increaseStickQuantity, decreaseStickQuantity, insertStick, removeStick } = stickSlice.actions;
+export const {
+  increaseStickQuantity,
+  decreaseStickQuantity,
+  insertStick,
+  removeStick
+} = stickSlice.actions;
 
 export default stickSlice.reducer;

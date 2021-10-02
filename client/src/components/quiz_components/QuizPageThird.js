@@ -63,7 +63,13 @@ const BtnContent = styled.div`
   }
 `;
 
-const QuizPageThird = ({ visible, setImageClick, secondPageVisible }) => {
+const QuizPageThird = ({
+  visible,
+  setImageClick,
+  secondPageVisible,
+  answer,
+  setAnswer
+}) => {
   const [localVisible, setLocalVisible] = useState(visible);
   const [animateType, setAnimateType] = useState('boxFadeIn');
   const [endAnimateTime, setEndAnimateTime] = useState(false);
@@ -88,12 +94,14 @@ const QuizPageThird = ({ visible, setImageClick, secondPageVisible }) => {
         image_A: false,
         image_B: true
       });
+      setAnswer({ ...answer, thirdScore: 1 });
     } else {
       setImage('/images/prsA.png');
       setColor({
         image_A: true,
         image_B: false
       });
+      setAnswer({ ...answer, thirdScore: -1 });
     }
     setImageClick(true);
   };
@@ -104,14 +112,11 @@ const QuizPageThird = ({ visible, setImageClick, secondPageVisible }) => {
       <QuizThirdContainer animation={animateType}>
         <Image url={image} />
         <BtnContainer>
-          <BtnContent
-            color={color.image_A && 'A'}
-            onClick={btnClickHanlder}
-          >
+          <BtnContent color={color.image_A ? 'A' : 'B'} onClick={btnClickHanlder}>
             감성적인 편이다
           </BtnContent>
           <BtnContent
-            color={color.image_B && 'A'}
+            color={color.image_B ? 'A' : 'B'}
             onClick={() => btnClickHanlder('B')}
           >
             이성적인 편이다

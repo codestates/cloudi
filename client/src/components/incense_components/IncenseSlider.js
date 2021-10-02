@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
+import { CONSTANT_DATA } from './incenseItem';
 const SliderContainer = styled.div`
   width: 100%;
   height: 350px;
@@ -51,7 +51,8 @@ const Text = styled.div`
 
 const IncenseSlider = ({
   data,
-  clickHandler,
+  setStickData,
+  clickCount,
   setClickCount,
   click,
   setClick
@@ -60,13 +61,20 @@ const IncenseSlider = ({
   const [num, setNum] = useState(null);
   const RATE = [1, 2, 3, 4, 5];
   const SCOPE_DATA = ['citrus', 'green', 'fruity', 'fresh', 'floral'];
+
   useEffect(() => {
     const dividedNum = SCOPE_DATA.map((item) => {
-      const a = scope[item] / 2;
-      return a;
+      return scope[item] / 2;
     });
     setNum(dividedNum);
   }, [data]);
+
+  useEffect(() => {
+    if (clickCount === 0) {
+      setClick(CONSTANT_DATA);
+    }
+  }, [clickCount]);
+
   const changeToStr = (score) => {
     const circles = [];
     const isHalf = score % 1 !== 0;
@@ -85,29 +93,23 @@ const IncenseSlider = ({
     return circles.join('');
   };
 
-  const sliderClickHandler = (id) => {
-    const data = {
-      one: false,
-      two: false,
-      three: false,
-      four: false
-    };
-    if (click[id] === true) {
-      setClick({ ...data, [id]: false });
+  const sliderClickHandler = (el) => {
+    if (click[el.stickId] === true) {
+      setClick({ ...CONSTANT_DATA, [el.stickId]: false });
       setClickCount(0);
     } else {
-      setClick({ ...data, [id]: true });
+      setClick({ ...CONSTANT_DATA, [el.stickId]: true });
       setClickCount(1);
-      clickHandler(id);
+      setStickData(el);
     }
   };
 
   return (
-    <SliderContainer onClick={() => sliderClickHandler(data.id)}>
-      <Img img={data.url} />
+    <SliderContainer onClick={() => sliderClickHandler(data)}>
+      <Img img={data.stickImage} />
       <TextContainer>
         <Text>{data.stickName}</Text>
-        <Text>{data.title}</Text>
+        <Text>{data.stickDesc}</Text>
         <Text>{data.stickPrice} KRW</Text>
         {SCOPE_DATA.map((el, idx) => {
           return (
@@ -116,7 +118,7 @@ const IncenseSlider = ({
             </Text>
           );
         })}
-        <CheckImg click={click[data.id] && '/images/check.png'} />
+        <CheckImg click={click[data.stickId] && '/images/check.png'} />
       </TextContainer>
     </SliderContainer>
   );

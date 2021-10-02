@@ -44,21 +44,19 @@ const DeleteTitle = styled.div`
   color: rgba(255, 255, 255, 0.9);
 `;
 
-const CloseModal = styled.div`
+const CloseBtn = styled.div`
   font-size: 30px;
   color: rgba(0, 0, 0, 0.7);
-  margin: 9px 0 0 450px;
   position: absolute;
-  border-radius: 50%;
-  top: 0;
+  border-radius: 15px;
+  top: 5px;
+  right: 15px;
   cursor: pointer;
   :hover {
     opacity: 0.7;
   }
-  @media screen and (max-width: 510px) {
-    margin-left: 300px;
-  }
 `;
+
 const DeleteText = styled.div`
   margin: 2.5rem;
   color: rgba(0, 0, 0, 0.8);
@@ -67,12 +65,14 @@ const DeleteText = styled.div`
   width: 100%;
   height: 20px;
 `;
+
 const InputBox = styled.input`
   flex: 60%;
   padding-left: 10px;
   margin: 1.9rem 0 0 0.5rem;
   height: 2.3rem;
 `;
+
 const DeleteBtn = styled.button`
   flex: 20%;
   margin: 2rem 0 0 3rem;
@@ -85,6 +85,7 @@ const DeleteBtn = styled.button`
     background-color: rgba(120, 0, 0, 0.6);
   }
 `;
+
 const ErrMessage = styled.div`
   position: absolute;
   margin: 5rem 0 0 0.5rem;
@@ -92,7 +93,8 @@ const ErrMessage = styled.div`
   font-size: 16px;
   color: red;
 `;
-const Container = styled.div`
+
+const InputContainer = styled.div`
   display: flex;
   width: 75%;
   justify-content: space-between;
@@ -114,11 +116,13 @@ const Delete = ({ visible, setDeleteModalVisible }) => {
       setErrorMessage('');
     }
   };
+
   const handleCloseModal = () => {
     setDeleteModalVisible(false);
     setErrorMessage('');
     setInputCheck('');
   };
+
   const checkDeleteValue = () => {
     if (InputCheck === '회원탈퇴') {
       setDeleteModalVisible(false);
@@ -127,31 +131,30 @@ const Delete = ({ visible, setDeleteModalVisible }) => {
       setErrorMessage('`회원탈퇴` 입력을 다시 확인해주세요');
     }
   };
+
   return (
-    <>
-      <DeleteContainer isvisible={visible}>
-        <DeleteBack>
-          <DeleteTitle>DELETE USER</DeleteTitle>
-          <CloseModal onClick={handleCloseModal}>&times;</CloseModal>
-          <DeleteText>
-            회원 탈퇴를 원하시면 <p />
-            아래에 '회원탈퇴'를 입력해 주세요
-          </DeleteText>
-          <BorderBottom />
-          <Container>
-            <InputBox
-              type='text'
-              name='deleteInputBox'
-              value={InputCheck}
-              onChange={(e) => handleInputValue(e)}
-              placeholder='회원탈퇴'
-            />
-            <ErrMessage>{errorMessage}</ErrMessage>
-            <DeleteBtn onClick={checkDeleteValue}>회원탈퇴</DeleteBtn>
-          </Container>
-        </DeleteBack>
-      </DeleteContainer>
-    </>
+    <DeleteContainer isvisible={visible}>
+      <DeleteBack>
+        <DeleteTitle>DELETE USER</DeleteTitle>
+        <CloseBtn onClick={handleCloseModal}>&times;</CloseBtn>
+        <DeleteText>
+          회원 탈퇴를 원하시면 <p />
+          아래에 '회원탈퇴'를 입력해 주세요
+        </DeleteText>
+        <BorderBottom />
+        <InputContainer>
+          <InputBox
+            type='text'
+            name='deleteInputBox'
+            value={InputCheck}
+            onChange={(e) => handleInputValue(e)}
+            placeholder='회원탈퇴'
+          />
+          <ErrMessage>{errorMessage}</ErrMessage>
+          <DeleteBtn onClick={checkDeleteValue}>회원탈퇴</DeleteBtn>
+        </InputContainer>
+      </DeleteBack>
+    </DeleteContainer>
   );
 };
 

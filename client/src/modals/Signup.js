@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const ModalContainer = styled.div`
+const SignupContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
   height: 100%;
   width: 100%;
@@ -17,13 +17,13 @@ const ModalContainer = styled.div`
   }
 `;
 
-const ModalContent = styled.div`
+const SignupContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 28rem;
-  height: 25rem;
+  width: 450px;
+  height: 440px;
   padding-top: 70px;
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
@@ -34,19 +34,16 @@ const ModalContent = styled.div`
   }
 `;
 
-const CloseModal = styled.div`
+const CloseBtn = styled.div`
   font-size: 30px;
   color: rgba(0, 0, 0, 0.7);
-  margin: 9px 0 0 400px;
   position: absolute;
-  border-radius: 50%;
-  top: 0;
+  border-radius: 15px;
+  top: 5px;
+  right: 15px;
   cursor: pointer;
   :hover {
     opacity: 0.7;
-  }
-  @media screen and (max-width: 460px) {
-    margin-left: 350px;
   }
 `;
 
@@ -76,7 +73,7 @@ const SignupTitle = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 14%;
+  height: 70px;
   background-color: rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0%;
@@ -84,6 +81,7 @@ const SignupTitle = styled.div`
   border-top-right-radius: 0.8rem;
   color: rgba(255, 255, 255, 0.9);
 `;
+
 const SignupText = styled.div`
   font-size: 25px;
   color: rgba(255, 255, 255, 0.8);
@@ -109,25 +107,25 @@ const ErrMessage = styled.div`
   width: 20rem;
   font-size: 15px;
   position: absolute;
-  bottom: 7rem;
+  top: 325px;
   color: red;
 `;
 
-const SignUpModal = ({ signupModalVisible, setSignupModalVisible }) => {
+const Signup = ({ visible, setVisible }) => {
   const [UserInfo, setUserInfo] = useState({
-    user_name: '',
-    user_email: '',
-    password: '',
+    userName: '',
+    userEmail: '',
+    userPassword: '',
     confirmPassword: ''
   });
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputValue = (key) => (e) => {
-    if (key === 'user_name') {
+    if (key === 'userName') {
       setUserInfo({ ...UserInfo, [key]: e.target.value });
     } else if (
       key === 'confirmPassword' &&
-      UserInfo.password !== e.target.value
+      UserInfo.userPassword !== e.target.value
     ) {
       setUserInfo({ ...UserInfo, [key]: e.target.value });
       setErrorMessage('입력한 비밀번호와 일치하지 않습니다');
@@ -137,32 +135,32 @@ const SignUpModal = ({ signupModalVisible, setSignupModalVisible }) => {
     }
   };
   const onClickHandler = () => {
-    setSignupModalVisible(false);
+    setVisible(false);
   };
 
   const closeModalHandler = () => {
-    setSignupModalVisible(false);
+    setVisible(false);
     setUserInfo({
-      user_name: '',
-      user_email: '',
-      password: '',
+      userName: '',
+      userEmail: '',
+      userPassword: '',
       confirmPassword: ''
     });
     setErrorMessage('');
   };
 
   return (
-    <ModalContainer visible={signupModalVisible}>
-      <ModalContent>
+    <SignupContainer visible={visible}>
+      <SignupContent>
         <SignupTitle>
           <SignupText>SIGN UP</SignupText>
+          <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
         </SignupTitle>
-        <CloseModal onClick={closeModalHandler}>&times;</CloseModal>
         <InputContainer>
           <InputTitle>User name</InputTitle>
           <InputBox
             type='text'
-            value={UserInfo.user_name}
+            value={UserInfo.userName}
             onChange={handleInputValue('user_name')}
             placeholder='User name'
           />
@@ -171,7 +169,7 @@ const SignUpModal = ({ signupModalVisible, setSignupModalVisible }) => {
           <InputTitle>User email</InputTitle>
           <InputBox
             type='email'
-            value={UserInfo.user_email}
+            value={UserInfo.userEmail}
             onChange={handleInputValue('user_email')}
             placeholder='User email'
           />
@@ -180,7 +178,7 @@ const SignUpModal = ({ signupModalVisible, setSignupModalVisible }) => {
           <InputTitle>Password</InputTitle>
           <InputBox
             type='password'
-            value={UserInfo.password}
+            value={UserInfo.userPassword}
             onChange={handleInputValue('password')}
             placeholder='Password'
           />
@@ -201,9 +199,9 @@ const SignUpModal = ({ signupModalVisible, setSignupModalVisible }) => {
         <SignupBtn type='submit' onClick={onClickHandler}>
           SUBMIT
         </SignupBtn>
-      </ModalContent>
-    </ModalContainer>
+      </SignupContent>
+    </SignupContainer>
   );
 };
 
-export default SignUpModal;
+export default Signup;
