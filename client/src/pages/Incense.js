@@ -138,19 +138,18 @@ const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [clickCount, setClickCount] = useState(0);
   const [stickData, setStickData] = useState(null);
-  const dispatch = useDispatch();
-  const stick = useSelector(sticksSelector); //* 검사할때쓴다.
-
   const [click, setClick] = useState({
     one: false,
     two: false,
     three: false,
     four: false
   });
+  const dispatch = useDispatch();
+  const stick = useSelector(sticksSelector);
   const slideRef = useRef(null);
   const data = [
     {
-      stickId: 'one',
+      stickId: 0,
       stickDesc: '시트러스 계열 과일 껍질의 상큼한 향',
       stickImage: '/images/incense_2.png',
       stickName: 'Tangerinepeel',
@@ -164,7 +163,7 @@ const Incense = () => {
       }
     },
     {
-      stickId: 'two',
+      stickId: 1,
       stickDesc: 'Lorem ipsum Incense',
       stickImage: '/images/incense_0.png',
       stickName: '오크모스',
@@ -178,7 +177,7 @@ const Incense = () => {
       }
     },
     {
-      stickId: 'three',
+      stickId: 2,
       stickDesc: 'On the beach Insence',
       stickImage: '/images/incense_1.png',
       stickName: '새벽',
@@ -192,7 +191,7 @@ const Incense = () => {
       }
     },
     {
-      stickId: 'four',
+      stickId: 3,
       stickDesc: 'Hi Ho Hu',
       stickImage: '/images/incense_3.png',
       stickName: '시라민스',
@@ -227,13 +226,23 @@ const Incense = () => {
   }, [currentSlide]);
 
   const clickHandler = () => {
-    dispatch(
-      insertStick({
-        stickId: stickData.stickId,
-        stickName: stickData.stickName,
-        stickImage: stickData.stickImage
-      })
-    );
+    const stickCount =
+      stick.sticks.filter((el) => el.stickId === stickData.stickId)
+        .length === 0;
+
+    if (stickCount) {
+      dispatch(
+        insertStick({
+          stickId: stickData.stickId,
+          stickName: stickData.stickName,
+          stickImage: stickData.stickImage
+        })
+      );
+      setClickCount(0);
+    } else {
+      alert('이미 담겼는데?');
+      setClickCount(0);
+    }
   };
   return (
     <Wrapper>
@@ -244,7 +253,7 @@ const Incense = () => {
             {data.map((el) => {
               return (
                 <IncenseSlider
-                  key={el.stickId}
+                  key={el.stickId.toString()}
                   data={el}
                   setStickData={setStickData}
                   clickCount={clickCount}
