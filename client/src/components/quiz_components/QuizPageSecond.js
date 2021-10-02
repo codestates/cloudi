@@ -102,7 +102,7 @@ const QuizPageSecond = ({
       setBtnDisable(false);
       setImageClick(false);
     }
-  }, [activeBtn]);
+  }, [activeBtn]); // eslint-disable-line
 
   const clickHandler = (text, score) => {
     if (clickCount === 3) {
@@ -124,7 +124,7 @@ const QuizPageSecond = ({
       setTimeout(() => setEndAnimateTime(false), 250);
     }
     setLocalVisible(visible);
-  }, [visible]);
+  }, [visible]); // eslint-disable-line
 
   return !endAnimateTime && !localVisible
     ? null

@@ -21,6 +21,7 @@ const QuizContainer = styled.div`
     }
   }
 `;
+
 const QuizContent = styled.div`
   background-color: ${(props) => !props.image && '#666669'};
   background-image: url(${(props) => props.url});

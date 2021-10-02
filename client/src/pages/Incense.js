@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { insertStick } from '../app/modules/stick';
 import { sticksSelector } from '../app/modules/hooks';
 
-const Wrapper = styled.div`
+const IncenseWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
   background-image: url('/images/room.png');
   background-size: cover;
@@ -151,7 +151,7 @@ const Incense = () => {
   const data = [
     {
       stickId: 0,
-      stickDesc: '시트러스 계열 과일 껍질의 상큼한 향',
+      stickDesc: '시트러스 계열의 상큼한 향',
       stickImage: '/images/incense_2.png',
       stickName: 'Tangerinepeel',
       stickPrice: 2000,
@@ -165,7 +165,7 @@ const Incense = () => {
     },
     {
       stickId: 1,
-      stickDesc: 'Lorem ipsum Incense',
+      stickDesc: '인센스의 전형적인 우디한 향',
       stickImage: '/images/incense_0.png',
       stickName: '오크모스',
       stickPrice: 2000,
@@ -246,7 +246,7 @@ const Incense = () => {
     }
   };
   return (
-    <Wrapper>
+    <IncenseWrapper>
       <IncenseContainer>
         <IncenseContent>
           <Sequence>{currentSlide + 1}/4</Sequence>
@@ -273,7 +273,7 @@ const Incense = () => {
         </CartBtn>
       </IncenseContainer>
       <Cloud />
-    </Wrapper>
+    </IncenseWrapper>
   );
 };
 

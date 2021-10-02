@@ -40,9 +40,9 @@ const DeleteTitle = styled.div`
   width: 100%;
   height: 25%;
   background-color: rgba(0, 0, 0, 0.15);
+  color: rgba(255, 255, 255, 0.8);
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
 `;
 
 const CloseBtn = styled.div`
