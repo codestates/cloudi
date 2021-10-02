@@ -6,6 +6,7 @@ import { insertStick } from '../app/modules/stick';
 import { sticksSelector } from '../app/modules/hooks';
 
 const Wrapper = styled.div`
+  font-family: 'Roboto', sans-serif;
   background-image: url('/images/room.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -106,8 +107,8 @@ const SliderBtnRight = styled.div`
 `;
 
 const CartBtn = styled.div`
-  padding: 20px;
   background-color: ${(props) => (props.count === 1 ? '#b7c58b' : 'white')};
+  padding: 20px;
   opacity: 0.6;
   display: flex;
   justify-content: center;
@@ -227,8 +228,8 @@ const Incense = () => {
 
   const clickHandler = () => {
     const stickCount =
-      stick.sticks.filter((el) => el.stickId === stickData.stickId)
-        .length === 0;
+      stick.sticks.filter((el) => el.stickId === stickData.stickId).length ===
+      0;
 
     if (stickCount) {
       dispatch(

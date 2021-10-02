@@ -174,8 +174,14 @@ const Header = () => {
   const stand = useSelector(standsSelector);
   const stick = useSelector(sticksSelector);
 
-  const totalStandQuantity = stand.stands.reduce((acc, cur) => acc + cur.standQuantity, 0);
-  const totalStickQuantity = stick.sticks.reduce((acc, cur) => acc + cur.stickQuantity, 0);
+  const totalStandQuantity = stand.stands.reduce(
+    (acc, cur) => acc + cur.standQuantity,
+    0
+  );
+  const totalStickQuantity = stick.sticks.reduce(
+    (acc, cur) => acc + cur.stickQuantity,
+    0
+  );
   const totalQuantity = totalStandQuantity + totalStickQuantity;
 
   const handleClickMenu = () => {
@@ -210,7 +216,9 @@ const Header = () => {
       <IconContainer>
         <Link to='/order'>
           <Icon src='/images/cart.png' />
-          {totalQuantity >= 1 ? <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount> : null}
+          {totalQuantity >= 1 ? (
+            <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount>
+          ) : null}
         </Link>
         <Icon src='/images/user.png' onClick={clickHandler} />
       </IconContainer>

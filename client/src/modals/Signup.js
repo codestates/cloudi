@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const SignupContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
+  font-family: 'Roboto', sans-serif;
   height: 100%;
   width: 100%;
   top: 0;
@@ -29,7 +30,7 @@ const SignupContent = styled.div`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
   border-radius: 0.8rem;
   transition: all 0.2s ease;
-  @media screen and (max-width: 460px) {
+  @media screen and (max-width: 468px) {
     width: 400px;
   }
 `;
@@ -49,8 +50,8 @@ const CloseBtn = styled.div`
 
 const InputBox = styled.input`
   padding-left: 10px;
-  margin-top: 18px;
-  width: 140px;
+  margin-top: 15px;
+  width: 150px;
   height: 32px;
 `;
 
@@ -88,6 +89,8 @@ const SignupText = styled.div`
 `;
 
 const SignupBtn = styled.div`
+  font-size: 18px;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,41 +104,57 @@ const SignupBtn = styled.div`
   :hover {
     opacity: 0.8;
   }
+  @media screen and (max-width: 468px) {
+    width: 240px;
+  }
 `;
 
 const ErrMessage = styled.div`
-  width: 20rem;
   font-size: 15px;
   position: absolute;
-  top: 325px;
+  left: ${(props) => props.left}px;
+  bottom: ${(props) => props.bottom || 110}px;
   color: red;
 `;
 
 const Signup = ({ visible, setVisible }) => {
-  const [UserInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState({
     userName: '',
     userEmail: '',
     userPassword: '',
     confirmPassword: ''
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [nameMessage, setNameMessage] = useState('');
+
+  useEffect(() => {
+    if (userInfo.userName.length === 9) {
+      setUserInfo({ ...userInfo, userName: userInfo.userName.slice(0, -1) });
+    } else if (userInfo.userName.length === 8) {
+      setNameMessage('글자수는 최대 7자입니다');
+    } else {
+      setNameMessage('');
+    }
+  }, [userInfo.userName]);
 
   const handleInputValue = (key) => (e) => {
-    if (key === 'userName') {
-      setUserInfo({ ...UserInfo, [key]: e.target.value });
-    } else if (
-      key === 'confirmPassword' &&
-      UserInfo.userPassword !== e.target.value
-    ) {
-      setUserInfo({ ...UserInfo, [key]: e.target.value });
-      setErrorMessage('입력한 비밀번호와 일치하지 않습니다');
-    } else {
-      setUserInfo({ ...UserInfo, [key]: e.target.value });
-      setErrorMessage('');
-    }
+    setUserInfo({ ...userInfo, [key]: e.target.value });
   };
-  const onClickHandler = () => {
+  const submitHandler = () => {
+    if (
+      !userInfo.userEmail ||
+      !userInfo.userName ||
+      !userInfo.userPassword ||
+      !userInfo.confirmPassword
+    ) {
+      setErrorMessage('모든 항목을 기입해주세요');
+      return;
+    } else if (userInfo.userPassword !== userInfo.confirmPassword) {
+      setErrorMessage('입력한 비밀번호와 일치하지 않습니다');
+      return;
+    }
     setVisible(false);
+    setErrorMessage('');
   };
 
   const closeModalHandler = () => {
@@ -147,6 +166,12 @@ const Signup = ({ visible, setVisible }) => {
       confirmPassword: ''
     });
     setErrorMessage('');
+    setUserInfo({
+      userName: '',
+      userEmail: '',
+      userPassword: '',
+      confirmPassword: ''
+    });
   };
 
   return (
@@ -160,17 +185,21 @@ const Signup = ({ visible, setVisible }) => {
           <InputTitle>User name</InputTitle>
           <InputBox
             type='text'
-            value={UserInfo.userName}
-            onChange={handleInputValue('user_name')}
+            value={userInfo.userName}
+            maxLength={8}
+            onChange={handleInputValue('userName')}
             placeholder='User name'
           />
         </InputContainer>
+        <ErrMessage left='220' bottom='295'>
+          {nameMessage}
+        </ErrMessage>
         <InputContainer>
           <InputTitle>User email</InputTitle>
           <InputBox
             type='email'
-            value={UserInfo.userEmail}
-            onChange={handleInputValue('user_email')}
+            value={userInfo.userEmail}
+            onChange={handleInputValue('userEmail')}
             placeholder='User email'
           />
         </InputContainer>
@@ -178,8 +207,8 @@ const Signup = ({ visible, setVisible }) => {
           <InputTitle>Password</InputTitle>
           <InputBox
             type='password'
-            value={UserInfo.userPassword}
-            onChange={handleInputValue('password')}
+            value={userInfo.userPassword}
+            onChange={handleInputValue('userPassword')}
             placeholder='Password'
           />
         </InputContainer>
@@ -190,13 +219,13 @@ const Signup = ({ visible, setVisible }) => {
           </InputTitle>
           <InputBox
             type='password'
-            value={UserInfo.confirmPassword}
+            value={userInfo.confirmPassword}
             onChange={handleInputValue('confirmPassword')}
             placeholder='confirmPassword'
           />
-          <ErrMessage>{errorMessage}</ErrMessage>
         </InputContainer>
-        <SignupBtn type='submit' onClick={onClickHandler}>
+        <ErrMessage>{errorMessage}</ErrMessage>
+        <SignupBtn type='submit' onClick={submitHandler}>
           SUBMIT
         </SignupBtn>
       </SignupContent>

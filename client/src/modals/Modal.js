@@ -13,6 +13,7 @@ const modal = keyframes`
 const ModalContainer = styled.div`
   position: absolute;
   display: ${(props) => (props.visible ? 'flex' : 'none')};
+  font-family: 'Roboto', sans-serif;
   flex-direction: column;
   animation-duration: 0.2s;
   animation-timing-function: ease-out;
