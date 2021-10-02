@@ -1,6 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+// TODO : CSS/Styled Component 정리
+const StyledTextInput = styled.section`
+  display: flex;
+  flex-direction: row;
+
+  .apply {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .price {
+    font-family: 'Roboto';
+    font-weight: 400;
+    position: absolute;
+    top: 0;
+    font-size: 16px;
+    color: #787878;
+    padding: 5px 8px;
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .apply:hover .price {
+    top: -20px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+`;
+
 const ApplyButton = styled.input`
   background-color: ${props => props.disabled ? '#d1d1d1' : '#b7c58b'};
   border: ${props => props.disabled ? '3px #d1d1d1 solid' : '3px #b7c58b solid'};
@@ -15,11 +49,11 @@ const ApplyButton = styled.input`
 
   :hover {
     cursor: pointer;
-    background-color: #b7c58b;
-    border: 3px #b7c58b solid ;
+    background-color: ${props => props.disabled ? '#d1d1d1' : '#b7c58b'};
+    border: ${props => props.disabled ? '13px #d1d1d solid' : '3px #b7c58b solid'};
   };
   :active {
-    background-color: rgba(235, 235, 235, 1);
+    background-color: ${props => props.disabled ? '#d1d1d1' : 'rgba(235, 235, 235, 1)'};
     border: 0;
   }
 `;
@@ -46,7 +80,7 @@ const TextBox = styled.input`
   }
   :hover {
     cursor: pointer;
-    background-color: rgba(235, 235, 235, 1);
+    background-color: ${props => props.disabled ? '#d1d1d1' : 'rgba(235, 235, 235, 1)'};
   };
   ::placeholder {
     color: ${props => props.disabled ? '#dfdfdf' : '#787878'};
@@ -84,30 +118,43 @@ const NoTextButton = styled.input`
   }
 `;
 
-const TextInput = ({ handleTextInput }) => {
+const TextInput = ({ handleBtnClick }) => {
   const [text, setText] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIsVisible(true), 7000);
+    const timer = setTimeout(() => setIsVisible(true), 7000);
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
-    <div>
+    <StyledTextInput>
       <TextBox
         type='text'
         placeholder='10자 이내로 작성해 주세요.'
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => setText(e.target.value.toUpperCase())}
         maxLength='10'
+        value={text}
         disabled={isDisabled}
       />
-      <ApplyButton
-        type='button'
-        value='적용하기'
-        onClick={() => handleTextInput(text)}
-        disabled={isDisabled}
-      />
+      <div className='apply'>
+        <ApplyButton
+          type='button'
+          value='적용하기'
+          onClick={() => handleBtnClick({
+            type: 'text',
+            option: text,
+            price: 2000
+          })}
+          disabled={isDisabled || !text}
+        />
+        <div className='price'>
+          +2,000 ₩
+        </div>
+      </div>
       {/* eslint-disable */
         isVisible
           ? <NoTextButton
@@ -115,13 +162,17 @@ const TextInput = ({ handleTextInput }) => {
             value='글씨 안넣을래요'
             isVisible={isVisible}
             onClick={() => {
-              handleTextInput('empty input!')
+              handleBtnClick({
+                type: 'text',
+                option: 'empty input!',
+                price: 0
+              })
               setIsDisabled(!isDisabled)
             }}
           />
           : null
       /* eslint-disable */}
-    </div>
+    </StyledTextInput>
   );
 };
 

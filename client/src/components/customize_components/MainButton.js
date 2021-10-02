@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { insertStand } from '../../app/modules/stand';
+import { standsSelector } from '../../app/modules/hooks';
 
 const MainButtonContainer = styled.section`
   position: fixed;
@@ -26,7 +29,6 @@ const Input = styled.input`
     background-color: ${props => props.disabled ? '#787887' : '#97a371'};
   };
   :active {
-    box-shadow: inset 5px 5px 5px rgb(70, 110, 75);
     background-color: '#b7c58b';
   };
 `;
@@ -71,6 +73,28 @@ const MainButton = ({
 }) => {
   const { nextUrl, buttonValue } = getNextUrl(curStage);
   const [isDisabled, setIsDisabled] = useState(false);
+  const dispatch = useDispatch();
+  const stand = useSelector(standsSelector);
+
+  const handleOrderBtnClick = () => {
+    const noMatching = stand.stands.filter(el => {
+      return (
+        el.standPlate === selectedOps.plate &&
+        el.standHolder === selectedOps.holder &&
+        el.standText === selectedOps.text
+      );
+    }).length === 0;
+
+    if (noMatching || stand.stands.length === 0) {
+      dispatch(insertStand({
+        plate: selectedOps.plate,
+        holder: selectedOps.holder,
+        text: selectedOps.text,
+        price: selectedOps.price,
+        image: stand.curStandImg
+      }));
+    }
+  };
 
   useEffect(() => {
     if (curStage === 'material') {
@@ -94,9 +118,15 @@ const MainButton = ({
 
   return (
     <MainButtonContainer>
-      <Link to={nextUrl}>
-        <Input type='button' value={buttonValue} disabled={isDisabled} />
-      </Link>
+      {/* eslint-disable */
+        curStage !== 'finish'
+          ? <Link to={nextUrl}>
+            <Input type='button' value={buttonValue} disabled={isDisabled} />
+          </Link>
+          : <Link to={nextUrl}>
+          <Input type='button' value={buttonValue} disabled={isDisabled} onClick={() => handleOrderBtnClick()} />
+        </Link>
+      /* eslint-enable */}
     </MainButtonContainer>
   );
 };

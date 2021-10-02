@@ -51,7 +51,7 @@ const SecondContainer = styled.div`
 const BtnContent = styled.div`
   width: ${(props) => props.width || '130'}px;
   color: ${(props) => (props.disable ? '#a9a9ab' : '#3e3e4d')};
-  background-color: ${(props) => (props.color)};
+  background-color: ${(props) => props.color};
   text-align: center;
   padding: 10px;
   margin: 5px;
@@ -65,7 +65,13 @@ const BtnContent = styled.div`
   }
 `;
 
-const QuizPageSecond = ({ visible, setImageClick, firstPageVisible }) => {
+const QuizPageSecond = ({
+  visible,
+  setImageClick,
+  firstPageVisible,
+  answer,
+  setAnswer
+}) => {
   const [btnDisable, setBtnDisable] = useState(false);
   const [activeBtn, setActiveBtn] = useState({
     joy: false,
@@ -98,14 +104,16 @@ const QuizPageSecond = ({ visible, setImageClick, firstPageVisible }) => {
     }
   }, [activeBtn]);
 
-  const clickHandler = (text) => {
+  const clickHandler = (text, score) => {
     if (clickCount === 3) {
       if (activeBtn[text]) {
         setActiveBtn({ ...activeBtn, [text]: !activeBtn[text] });
-      } else {
-        return null;
+        setAnswer({ ...answer, secondScore: answer.secondScore - score });
       }
     } else {
+      activeBtn[text]
+        ? setAnswer({ ...answer, secondScore: answer.secondScore - score })
+        : setAnswer({ ...answer, secondScore: answer.secondScore + score });
       setActiveBtn({ ...activeBtn, [text]: !activeBtn[text] });
     }
   };
@@ -137,7 +145,7 @@ const QuizPageSecond = ({ visible, setImageClick, firstPageVisible }) => {
                     disable={btnDisable && !activeBtn[item.id]}
                     color={activeBtn[item.id] ? '#b7c58b' : '#ffffff'}
                     width={item.width}
-                    onClick={() => clickHandler(item.id)}
+                    onClick={() => clickHandler(item.id, item.score)}
                   >
                     {item.text}
                   </BtnContent>

@@ -33,7 +33,7 @@ const ErrorMsg = ({ handleErrorMsg }) => {
     <>
       <StyledErrorMsg>
         <img src='/images/errorstands.png' alt='incensestand' width='500' height='350' />
-        <h2>뭔가가 잘못되었습니다.</h2>
+        <h2>잘못된 경로입니다.</h2>
         <div>'CUSTOMIZE' 글자를 눌러주세요.</div>
         <div>불편을 드려 죄송합니다.</div>
       </StyledErrorMsg>

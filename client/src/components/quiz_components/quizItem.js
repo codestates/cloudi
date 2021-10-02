@@ -4,16 +4,19 @@ export const QUIZ_LIST = [
     btn: [
       {
         id: 'joy',
-        text: '즐거움'
+        text: '즐거움',
+        score: 1
       },
       {
         id: 'anger',
-        text: '분노'
+        text: '분노',
+        score: 0
       },
       {
         id: 'surprise',
         text: '놀라움',
-        width: 100
+        width: 100,
+        score: -1
       }
     ]
   },
@@ -23,22 +26,26 @@ export const QUIZ_LIST = [
       {
         id: 'happiness',
         text: '행복',
-        width: 150
+        width: 150,
+        score: 1
       },
       {
         id: 'fear',
         text: '공포',
-        width: 80
+        width: 80,
+        score: 1
       },
       {
         id: 'aversion',
         text: '혐오',
-        width: 180
+        width: 180,
+        score: -1
       },
       {
         id: 'love',
         text: '사랑',
-        width: 90
+        width: 90,
+        score: 1
       }
     ]
   },
@@ -49,11 +56,13 @@ export const QUIZ_LIST = [
       {
         id: 'loneliness',
         text: '외로움',
-        width: 170
+        width: 170,
+        score: -1
       },
       {
         id: 'worry',
-        text: '걱정'
+        text: '걱정',
+        score: -1
       }
     ]
   },
@@ -65,17 +74,20 @@ export const QUIZ_LIST = [
       {
         id: 'sadness',
         text: '슬픔',
-        width: 150
+        width: 150,
+        score: -1
       },
       {
         id: 'ecstasy',
         text: '황홀함',
-        width: 110
+        width: 110,
+        score: 1
       },
       {
         id: 'comfort',
         text: '편안함',
-        width: 200
+        width: 200,
+        score: 1
       }
     ]
   }
