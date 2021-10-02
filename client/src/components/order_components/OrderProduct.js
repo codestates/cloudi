@@ -205,8 +205,7 @@ const ContainerPicture = styled(ContainerTwo)`
 `;
 
 const StickImg = styled.img`
-  height: 150px;
-  vertical-align: middle;
+  height: 190px;
 `;
 
 const StandImg = styled.img`
