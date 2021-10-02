@@ -112,23 +112,36 @@ const FinishButtons = ({ selectedOps }) => {
 
   const handleCartBtnClick = () => {
     setIsAddedInCart(true);
-    dispatch(insertStand({ text: selectedOps.text }));
+    dispatch(insertStand({
+      plate: selectedOps.plate,
+      holder: selectedOps.holder,
+      text: selectedOps.text,
+      price: selectedOps.price,
+      image: stand.curStandImg
+    }));
+  };
+
+  const handleSaveBtnClick = () => {
+    const link = document.createElement('a');
+    link.download = 'myIncenseStand.png';
+    link.href = stand.curStandImg;
+    document.body.appendChild(link);
+    link.click();
   };
 
   useEffect(() => {
-    const alreadyInCart = stand.stands.filter(el => {
+    const Matching = stand.stands.filter(el => {
       return (
-        el.standPlate === selectedOps.plate ||
-        el.standHolder === selectedOps.holder ||
+        el.standPlate === selectedOps.plate &&
+        el.standHolder === selectedOps.holder &&
         el.standText === selectedOps.text
       );
-    }).length === 0;
-    setIsAddedInCart(alreadyInCart);
-  }, [
-    selectedOps.plate,
-    selectedOps.holder,
-    selectedOps.text
-  ]);
+    }).length !== 0;
+
+    if (Matching && stand.stands.length !== 0) {
+      setIsAddedInCart(true);
+    }
+  }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]); // eslint-disable-line
 
   return (
     <>
@@ -160,7 +173,6 @@ const FinishButtons = ({ selectedOps }) => {
           </div>
           /* eslint-enable */
         }
-
         <Link to='/customize/material'>
           <div className='icon redo'>
             <div className='tooltip'>
@@ -171,7 +183,10 @@ const FinishButtons = ({ selectedOps }) => {
             </span>
           </div>
         </Link>
-        <div className='icon save'>
+        <div
+          className='icon save'
+          onClick={() => handleSaveBtnClick()}
+        >
           <div className='tooltip'>
             SAVE&nbsp;FILE
           </div>

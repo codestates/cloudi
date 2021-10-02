@@ -8,7 +8,7 @@ import FinishButtons from './FinishButtons';
 
 const StyledController = styled.section`
   position: fixed;
-  bottom: 20%;
+  bottom: 22%;
   left: 50%;
   transform: translate(-50%, 0);
 
@@ -20,11 +20,21 @@ const StyledController = styled.section`
   height: 100px;
 `;
 
+const TotalPrice = styled.section`
+  position: fixed;
+  bottom: -20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  text-align: center;
+  font-size: 20px;
+  color: #787878;
+`;
+
 const Controller = ({
   curStage,
   selectedOps,
-  handleBtnClick,
-  handleTextInput
+  handleBtnClick
 }) => {
   return (
     <StyledController>
@@ -37,7 +47,9 @@ const Controller = ({
                 key={el.option}
                 type={el.type}
                 option={el.option}
+                price={el.price}
                 onClick={handleBtnClick}
+                curPrice={selectedOps.price}
               />
             );
           })
@@ -45,7 +57,7 @@ const Controller = ({
       }
       {
         curStage === 'text'
-          ? <TextInput handleTextInput={handleTextInput} />
+          ? <TextInput handleBtnClick={handleBtnClick} />
           : null
       }
       {
@@ -53,6 +65,9 @@ const Controller = ({
           ? <FinishButtons selectedOps={selectedOps} />
           : null
       }
+      <TotalPrice>
+        {selectedOps.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}&nbsp;₩
+      </TotalPrice>
     </StyledController>
   );
 };

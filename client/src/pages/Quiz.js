@@ -95,8 +95,13 @@ const Quiz = () => {
   const [resultVisible, setResultVisible] = useState(false);
   const [quizBtn, setQuizBtn] = useState('CONTINUE');
   const [title, setTitle] = useState('좋아하는 계절을 선택해주세요');
+  const [answer, setAnswer] = useState({
+    firstScore: 0,
+    secondScore: 0,
+    thirdScore: 0,
+    fourthScore: 0
+  });
   const progress = ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'];
-
   const submitBtnHandler = () => {
     setVisible({
       ...visible,
@@ -183,20 +188,28 @@ const Quiz = () => {
         <QuizPageFirst
           visible={visible.firstPage}
           setImageClick={setImageClick}
+          answer={answer}
+          setAnswer={setAnswer}
         />
         <QuizPageSecond
           firstPageVisible={visible.firstPage}
           visible={visible.secondPage}
           setImageClick={setImageClick}
+          answer={answer}
+          setAnswer={setAnswer}
         />
         <QuizPageThird
           secondPageVisible={visible.firstPage}
           visible={visible.thirdPage}
           setImageClick={setImageClick}
+          answer={answer}
+          setAnswer={setAnswer}
         />
         <QuizPageFourth
           visible={visible.fourthPage}
           setImageClick={setImageClick}
+          answer={answer}
+          setAnswer={setAnswer}
         />
       </ContentWrapper>
       <ContinueBox

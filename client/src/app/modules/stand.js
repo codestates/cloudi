@@ -2,17 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // 초기 상태
 const initialState = {
-  stands: [
-    {
-      id: 1,
-      standPlate: 'CERAMIC',
-      standHolder: 'PINOCCIO',
-      standText: 'CLOUDI',
-      standPrice: 37000,
-      standQuantity: 1,
-      standImage: '/images/defaultplate.png'
-    }
-  ]
+  curStandImg: '',
+  stands: []
 };
 
 let id = initialState.stands.length + 1;
@@ -23,7 +14,9 @@ export const standSlice = createSlice({
   reducers: {
     increaseStandQuantity: (state, { payload: id }) => {
       const index = state.stands.findIndex(stand => stand.id === id);
-      state.stands[index].standQuantity++;
+      if (state.stands[index].standQuantity < 99) {
+        state.stands[index].standQuantity++;
+      }
     },
     decreaseStandQuantity: (state, { payload: id }) => {
       const index = state.stands.findIndex(stand => stand.id === id);
@@ -34,9 +27,17 @@ export const standSlice = createSlice({
     insertStand: (state, action) => {
       const stand = {
         id: id++,
-        standText: action.payload.text
+        standPlate: action.payload.plate,
+        standHolder: action.payload.holder,
+        standText: action.payload.text,
+        standPrice: action.payload.price,
+        standQuantity: 1,
+        standImage: action.payload.image
       };
       state.stands.push(stand);
+    },
+    changeCurStandImg: (state, { payload: curStandImg }) => {
+      state.curStandImg = curStandImg;
     },
     removeStand: (state, { payload: id }) => {
       const index = state.stands.findIndex(stand => stand.id === id);
@@ -45,6 +46,12 @@ export const standSlice = createSlice({
   }
 });
 
-export const { increaseStandQuantity, decreaseStandQuantity, insertStand, removeStand } = standSlice.actions;
+export const {
+  increaseStandQuantity,
+  decreaseStandQuantity,
+  changeCurStandImg,
+  insertStand,
+  removeStand
+} = standSlice.actions;
 
 export default standSlice.reducer;

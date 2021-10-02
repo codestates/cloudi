@@ -23,7 +23,6 @@ const Editor = ({
   message,
   selectedOps,
   handleBtnClick,
-  handleTextInput,
   handleErrorMsg
 }) => {
   return (
@@ -31,13 +30,13 @@ const Editor = ({
       {/* eslint-disable */
         stage !== 'material' && selectedOps.plate === ''
           ? <> 
-          <ErrorMsg
-            handleErrorMsg={handleErrorMsg}
-          />
-          <MainButton
-            curStage='error'
-            selectedOps={selectedOps}
-          />
+            <ErrorMsg
+              handleErrorMsg={handleErrorMsg}
+            />
+            <MainButton
+              curStage='error'
+              selectedOps={selectedOps}
+            />
           </>
           : <>
             <Indicator
@@ -57,7 +56,6 @@ const Editor = ({
               curStage={stage}
               selectedOps={selectedOps}
               handleBtnClick={handleBtnClick}
-              handleTextInput={handleTextInput}
             />
             <MainButton
               curStage={stage}

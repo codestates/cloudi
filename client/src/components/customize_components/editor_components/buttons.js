@@ -4,17 +4,17 @@ module.exports = {
       id: 1,
       type: 'plate',
       option: 'WOOD',
-      price: 10000
+      price: 14000
     }, {
       id: 2,
       type: 'plate',
       option: 'CERAMIC',
-      price: 12000
+      price: 16000
     }, {
       id: 3,
       type: 'plate',
       option: 'STEEL',
-      price: 14000
+      price: 18000
     }
   ],
   holder: [
