@@ -51,20 +51,20 @@ const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen }) => {
   };
   return (
     <ModalContainer visible={visible} onClick={visibleHandler}>
-      {isLogin ? (
-        'My info'
-      ) : (
-        <ModalContent top='10' onClick={() => setSignupOpen(true)}>
-          Sign up
-        </ModalContent>
-      )}
-      {isLogin ? (
-        'Log out'
-      ) : (
-        <ModalContent bottom='10' onClick={() => setLoginModal(true)}>
-          Log in
-        </ModalContent>
-      )}
+      {isLogin
+        ? 'My info'
+        : (
+          <ModalContent top='10' onClick={() => setSignupOpen(true)}>
+            Sign up
+          </ModalContent>
+          )}
+      {isLogin
+        ? 'Log out'
+        : (
+          <ModalContent bottom='10' onClick={() => setLoginModal(true)}>
+            Log in
+          </ModalContent>
+          )}
     </ModalContainer>
   );
 };
