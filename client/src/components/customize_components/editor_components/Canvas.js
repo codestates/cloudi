@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { changeCurStandImg } from '../../../app/modules/stand';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 import { plateImg, holderImg } from './standImages'; // eslint-disable-line
 
@@ -37,6 +38,25 @@ const writeText = (ctx, text, material) => {
   for (let i = 0; i < chars.length; i++) {
     ctx.fillText(chars[i], 190 + (i * 16), yStart - (i * 6));
   }
+};
+
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    x: '-5vw'
+  },
+  in: {
+    opacity: 1,
+    x: 0
+  },
+  out: {
+    opacity: 0,
+    x: '5vw'
+  }
+};
+
+const pageTransitions = {
+  duration: 0.5
 };
 
 const Canvas = ({
@@ -103,11 +123,17 @@ const Canvas = ({
     }
   }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]); // eslint-disable-line
   return (
-    <>
+    <motion.div
+      initial='initial'
+      animate='in'
+      exit='out'
+      variants={pageVariants}
+      transition={pageTransitions}
+    >
       <StyledCanvas ref={canvas} width='650' height='650'>
         Sorry, your browser dosen't support canvas tags.
       </StyledCanvas>
-    </>
+    </motion.div>
   );
 };
 
