@@ -18,7 +18,6 @@ const ProductExplanation = styled.article`
   width: 100%;
   height: 50px;
   line-height: 50px;
-  border-bottom: 2px solid;
   @media screen and (max-width: 1023px) {
     display: none;
   };
@@ -131,7 +130,6 @@ const ProductContainer = styled.div`
 `;
 
 const ShippingFeeContainer = styled.div`
-  margin: 10px 0;
   flex: 1;
   text-align: center;
   display:table;
@@ -141,11 +139,13 @@ const ShippingFeeContainer = styled.div`
   }
 `;
 
-const Fee = styled.div`
+const Fee = styled.section`
   display:table-cell;
   vertical-align:middle;
+  border-top: 2px solid;
   @media screen and (max-width: 1023px) {
     display: block;
+    border-top: none;
   }
 `;
 
@@ -172,7 +172,7 @@ const SingleStick = styled.article`
   display: flex;
   width: 100%;
   height: 200px;
-  border-top: 1px solid;
+  border-top: 2px solid;
   @media screen and (max-width: 1023px) {
     flex-direction: column;
     height: auto;
@@ -217,6 +217,9 @@ const StandImg = styled.img`
 
 const SingleDesc = styled.p`
   margin-top: 80px;
+  @media screen and (max-width: 1023px) {
+    margin-top: 0;
+  }
 `;
 
 const Delete = styled.p`
@@ -268,8 +271,8 @@ const QuantityButton = styled(QuantityContainer)`
 
 const OrderProduct = () => {
   const [modal, setModal] = useState(0);
-  const stand = useSelector(standsSelector);
   const stick = useSelector(sticksSelector);
+  const stand = useSelector(standsSelector);
   const dispatch = useDispatch();
 
   const totalStandPrice = stand.stands.reduce((acc, cur) => acc + cur.standPrice * cur.standQuantity, 0);
