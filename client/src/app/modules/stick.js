@@ -2,24 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // 초기 상태
 const initialState = {
-  sticks: [
-    {
-      id: 1,
-      stickId: 2,
-      stickName: '귤피',
-      stickPrice: 2000,
-      stickQuantity: 2,
-      stickImage: '/images/stickSample.png'
-    },
-    {
-      id: 2,
-      stickId: 3,
-      stickName: '담배',
-      stickPrice: 2000,
-      stickQuantity: 3,
-      stickImage: '/images/stickSample.png'
-    }
-  ]
+  sticks: []
 };
 
 let id = initialState.sticks.length + 1;
