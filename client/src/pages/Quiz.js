@@ -8,7 +8,6 @@ import QuizPageResult from '../components/quiz_components/QuizPageResult';
 import { SEQUENCE } from '../components/quiz_components/quizItem';
 
 const QuizContainer = styled.div`
-  //padding-top: 95px;
   height: 100vh;
   display: flex;
   align-items: center;

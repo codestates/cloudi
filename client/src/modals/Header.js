@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { standsSelector, sticksSelector } from '../app/modules/hooks';
 import { useSelector } from 'react-redux';
@@ -173,7 +173,11 @@ const Header = () => {
   const [signupOpen, setSignupOpen] = useState(false);
   const stand = useSelector(standsSelector);
   const stick = useSelector(sticksSelector);
-
+  useEffect(() => {
+    if (menu) {
+      setModalOpen(false);
+    }
+  }, [menu]);
   const totalStandQuantity = stand.stands.reduce(
     (acc, cur) => acc + cur.standQuantity,
     0
@@ -194,10 +198,13 @@ const Header = () => {
     <NavBar menu={menu}>
       <NavLogo>
         <Link to='/'>
-          <CloudiLogo src='/images/cloudi.png' />
+          <CloudiLogo
+            src='/images/cloudi.png'
+            onClick={() => setModalOpen(false)}
+          />
         </Link>
       </NavLogo>
-      <NavMenu menu={menu}>
+      <NavMenu menu={menu} onClick={() => setModalOpen(false)}>
         <MobileMenuList>SIGN UP</MobileMenuList>
         <MobileMenuList>LOG IN</MobileMenuList>
         <LinkElem to='/order'>
@@ -215,7 +222,7 @@ const Header = () => {
       </NavMenu>
       <IconContainer>
         <Link to='/order'>
-          <Icon src='/images/cart.png' />
+          <Icon src='/images/cart.png' onClick={() => setModalOpen(false)} />
           {totalQuantity >= 1 ? (
             <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount>
           ) : null}

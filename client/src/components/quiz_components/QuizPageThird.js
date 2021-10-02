@@ -85,7 +85,7 @@ const QuizPageThird = ({
       setTimeout(() => setEndAnimateTime(false), 250);
     }
     setLocalVisible(visible);
-  }, [visible]);
+  }, [visible]); // eslint-disable-line
 
   const btnClickHanlder = (key) => {
     if (key === 'B') {

@@ -4,17 +4,16 @@ import Myinfo from './Myinfo';
 import Signup from './Signup';
 
 const LoginContainer = styled.div`
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
+  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
   font-family: 'Roboto', sans-serif;
-  overflow: scroll;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   top: 0;
-  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
   z-index: 9999;
   @media screen and (max-height: 700px) {
     height: 700px;
@@ -60,8 +59,8 @@ const InputBox = styled.input`
 
 const InputContainer = styled.div`
   display: flex;
-  width: 64%;
   justify-content: space-between;
+  width: 280px;
 `;
 
 const InputTitle = styled.div`
@@ -74,25 +73,20 @@ const LoginTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 25px;
   width: 100%;
   height: 16%;
-  background-color: rgba(0, 0, 0, 0.15);
-  position: relative;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
-`;
-
-const LoginText = styled.div`
-  font-size: 25px;
-  color: rgba(255, 255, 255, 0.8);
 `;
 
 const LoginBtn = styled.button`
   font-size: 15px;
-  margin-top: 20px;
+  margin-top: 30px;
   background-color: #b7c58b;
-  text-decoration: none;
   border: none;
   width: 290px;
   height: 40px;
@@ -109,7 +103,7 @@ const BorderBottom = styled.div`
   color: rgba(0, 0, 0, 0.35);
   font-size: 12px;
   position: absolute;
-  top: 238px;
+  top: 248px;
   width: 320px;
   ::before,
   ::after {
@@ -121,8 +115,8 @@ const BorderBottom = styled.div`
     line-height: 0px;
     margin: 0px 16px;
   }
-  @media screen and (max-width: 358px) {
-    top: 245px;
+  @media screen and (max-width: 310px) {
+    top: 255px;
   }
 `;
 
@@ -151,33 +145,46 @@ const SocialImage = styled.img`
   height: 18px;
 `;
 
+const ErrMessage = styled.div`
+  position: absolute;
+  font-size: 15px;
+  top: 175px;
+  color: red;
+`;
+
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   });
-
+  const [errorMessage, setErrorMessage] = useState('');
   const [myinfoModalVisible, setMyinfoModalVisible] = useState(false);
   const [signupModalVisible, setSignupModalVisible] = useState(false);
-  const handleLogin = () => {};
+
+  const loginClickHandler = () => {
+    setErrorMessage('아이디 또는 비밀번호가 잘못 입력 되었습니다');
+  };
+
   const loginInfoHandler = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
+    setErrorMessage('');
   };
+
   const myinfoHandler = () => {
     setVisible(false);
     setMyinfoModalVisible(true);
   };
+
   const signupHandler = () => {
     setVisible(false);
     setSignupModalVisible(true);
   };
+
   return (
     <>
       <LoginContainer visible={visible}>
         <LoginContent>
-          <LoginTitle>
-            <LoginText>LOG IN</LoginText>
-          </LoginTitle>
+          <LoginTitle>LOG IN</LoginTitle>
           <CloseModal onClick={() => setVisible(false)}>&times;</CloseModal>
           <InputContainer>
             <InputTitle>User email</InputTitle>
@@ -199,7 +206,8 @@ const Login = ({ visible, setVisible }) => {
               onChange={loginInfoHandler('password')}
             />
           </InputContainer>
-          <LoginBtn onClick={handleLogin}>로그인</LoginBtn>
+          <ErrMessage>{errorMessage}</ErrMessage>
+          <LoginBtn onClick={loginClickHandler}>로그인</LoginBtn>
           <BorderBottom>또는</BorderBottom>
           <SocialLoginBtn color='#f7e600' onClick={myinfoHandler}>
             <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />

@@ -76,16 +76,12 @@ const SignupTitle = styled.div`
   width: 100%;
   height: 70px;
   background-color: rgba(0, 0, 0, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 25px;
   position: absolute;
   top: 0%;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
-`;
-
-const SignupText = styled.div`
-  font-size: 25px;
-  color: rgba(255, 255, 255, 0.8);
 `;
 
 const SignupBtn = styled.div`
@@ -102,7 +98,7 @@ const SignupBtn = styled.div`
   height: 40px;
   cursor: pointer;
   :hover {
-    opacity: 0.8;
+    opacity: 0.9;
   }
   @media screen and (max-width: 468px) {
     width: 240px;
@@ -115,6 +111,9 @@ const ErrMessage = styled.div`
   left: ${(props) => props.left}px;
   bottom: ${(props) => props.bottom || 110}px;
   color: red;
+  @media screen and (max-width: 468px) {
+    left: ${(props) => props.left - 40}px;
+  }
 `;
 
 const Signup = ({ visible, setVisible }) => {
@@ -135,10 +134,11 @@ const Signup = ({ visible, setVisible }) => {
     } else {
       setNameMessage('');
     }
-  }, [userInfo.userName]);
+  }, [userInfo.userName]); // eslint-disable-line
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
+    setErrorMessage('');
   };
   const submitHandler = () => {
     if (
@@ -177,10 +177,8 @@ const Signup = ({ visible, setVisible }) => {
   return (
     <SignupContainer visible={visible}>
       <SignupContent>
-        <SignupTitle>
-          <SignupText>SIGN UP</SignupText>
-          <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
-        </SignupTitle>
+        <SignupTitle>SIGN UP</SignupTitle>
+        <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
         <InputContainer>
           <InputTitle>User name</InputTitle>
           <InputBox

@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import Delete from './Delete';
 
 const MyinfoContainer = styled.div`
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
+  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
+  position: fixed;
+  justify-content: center;
+  align-items: center;
   font-family: 'Roboto', sans-serif;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  justify-content: center;
-  align-items: center;
   top: 0;
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
-  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
   z-index: 9999;
   @media screen and (max-height: 700px) {
     height: 700px;
@@ -63,52 +63,49 @@ const InputBox = styled.input`
 `;
 
 const ProfileContainer = styled.div`
-  margin-top: 10px;
   display: flex;
-  width: 64%;
+  margin-top: 10px;
+  width: 275px;
   justify-content: space-between;
   @media screen and (max-width: 468px) {
-    margin-top: 5px;
-    width: 55%;
+    align-items: center;
+    width: 220px;
   }
 `;
 
 const InputTitle = styled.div`
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 15px;
   margin-top: ${(props) => props.margin || 27}px;
   text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 15px;
 `;
 
 const MyinfoTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
   width: 100%;
   height: 14%;
   background-color: rgba(0, 0, 0, 0.15);
-  position: absolute;
+  font-size: 25px;
   top: 0%;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
-`;
-
-const MyinfoText = styled.div`
-  font-size: 25px;
   color: rgba(255, 255, 255, 0.8);
 `;
 
-const MyinfoChangeBtn = styled.div`
+const MyinfoBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.color};
   position: relative;
+  background-color: ${(props) => props.color};
   margin-top: 15px;
   top: 25px;
   width: 290px;
   height: 40px;
+  color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
   :hover {
     opacity: 0.8;
@@ -124,7 +121,7 @@ const ProfileData = styled.div`
   width: 137px;
   margin-top: 27px;
   font-size: 17px;
-  color: rgb(0, 0, 0);
+  color: rgba(0, 0, 0, 0.9);
   @media screen and (max-width: 468px) {
     width: 103px;
     font-size: 15px;
@@ -193,9 +190,7 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
     <>
       <MyinfoContainer visible={myinfoModalVisible}>
         <MyinfoContent>
-          <MyinfoTitle>
-            <MyinfoText>MY INFO</MyinfoText>
-          </MyinfoTitle>
+          <MyinfoTitle>MY INFO</MyinfoTitle>
           <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
           <ProfileContainer>
             <InputTitle>User name</InputTitle>
@@ -240,12 +235,12 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
             />
             <ErrMessage>{errorMessage}</ErrMessage>
           </ProfileContainer>
-          <MyinfoChangeBtn color='#b7c58b' onClick={onClickHandler('Change')}>
-            CHANGE
-          </MyinfoChangeBtn>
-          <MyinfoChangeBtn color='#a0a0a8' onClick={onClickHandler('Delete')}>
-            DELETE USER
-          </MyinfoChangeBtn>
+          <MyinfoBtn color='#b7c58b' onClick={onClickHandler('Change')}>
+            Change
+          </MyinfoBtn>
+          <MyinfoBtn color='#a0a0a8' onClick={onClickHandler('Delete')}>
+            Delete User
+          </MyinfoBtn>
         </MyinfoContent>
       </MyinfoContainer>
       <Delete

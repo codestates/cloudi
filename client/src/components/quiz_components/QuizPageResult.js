@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+
 const ResultWrapper = styled.div`
   display: ${(props) => (props.visible === 'A' ? 'flex' : 'none')};
   flex-direction: column;
@@ -24,7 +25,6 @@ const ResultTitle = styled.div`
 `;
 
 const ResultContainer = styled.div`
-  //background-color: darkgreen;
   display: flex;
   flex-direction: column;
   height: 500px;
