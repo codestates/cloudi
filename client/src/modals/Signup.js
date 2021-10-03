@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const SignupContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
+  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
+  z-index: 999;
   font-family: 'Roboto', sans-serif;
   height: 100%;
   width: 100%;
@@ -11,8 +14,15 @@ const SignupContainer = styled.div`
   position: fixed;
   justify-content: center;
   align-items: center;
-  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
-  z-index: 999;
+  animation: 0.2s ease-in-out signup;
+  @keyframes signup {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @media screen and (max-height: 700px) {
     height: 700px;
   }
@@ -115,14 +125,17 @@ const ErrMessage = styled.div`
     left: ${(props) => props.left - 40}px;
   }
 `;
+const URL = 'http://localhost:80';
 
-const Signup = ({ visible, setVisible }) => {
-  const [userInfo, setUserInfo] = useState({
-    userName: '',
-    userEmail: '',
-    userPassword: '',
-    confirmPassword: ''
-  });
+const USER_INFO = {
+  userName: '',
+  userEmail: '',
+  userPassword: '',
+  confirmPassword: ''
+};
+
+const Signup = ({ visible, setVisible, setClearOpen }) => {
+  const [userInfo, setUserInfo] = useState(USER_INFO);
   const [errorMessage, setErrorMessage] = useState('');
   const [nameMessage, setNameMessage] = useState('');
 
@@ -140,7 +153,9 @@ const Signup = ({ visible, setVisible }) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
     setErrorMessage('');
   };
+
   const submitHandler = () => {
+    const { userName, userEmail, userPassword } = userInfo;
     if (
       !userInfo.userEmail ||
       !userInfo.userName ||
@@ -148,30 +163,34 @@ const Signup = ({ visible, setVisible }) => {
       !userInfo.confirmPassword
     ) {
       setErrorMessage('모든 항목을 기입해주세요');
-      return;
     } else if (userInfo.userPassword !== userInfo.confirmPassword) {
       setErrorMessage('입력한 비밀번호와 일치하지 않습니다');
-      return;
-    }
-    setVisible(false);
-    setErrorMessage('');
-  };
+    } else {
+      axios({
+        method: 'POST',
+        url: URL + '/user/signup',
+        data: { userName, userEmail, userPassword }
+      })
+        .then((res) => {
+          setVisible(false);
+          setClearOpen(true);
+          // * 회원 가입 성공
+          setUserInfo(USER_INFO);
+        })
 
+        .catch((err) => {
+          if (err.response.data) {
+            setErrorMessage(err.response.data);
+          } else {
+            console.log('signup err', err);
+          }
+        });
+    }
+  };
   const closeModalHandler = () => {
     setVisible(false);
-    setUserInfo({
-      userName: '',
-      userEmail: '',
-      userPassword: '',
-      confirmPassword: ''
-    });
+    setUserInfo(USER_INFO);
     setErrorMessage('');
-    setUserInfo({
-      userName: '',
-      userEmail: '',
-      userPassword: '',
-      confirmPassword: ''
-    });
   };
 
   return (

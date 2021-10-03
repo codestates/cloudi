@@ -44,22 +44,34 @@ const ModalContent = styled.div`
   border-bottom-right-radius: ${(props) => props.bottom}px;
 `;
 
-const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen }) => {
-  const [isLogin] = useState(false);
+const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen, setMyinfoOpen }) => {
+  const [isLogin] = useState(true);
   const visibleHandler = () => {
     setVisible(!visible);
   };
+
+  const logoutHandler = () => {
+    console.log('로그아웃');
+  };
   return (
-    <ModalContainer visible={visible} onClick={visibleHandler}>
+    <ModalContainer visible={visible} onClick={(visibleHandler)}>
       {isLogin
-        ? 'My info'
+        ? (
+          <ModalContent top='10' onClick={() => setMyinfoOpen(true)}>
+            My info
+          </ModalContent>
+          )
         : (
           <ModalContent top='10' onClick={() => setSignupOpen(true)}>
             Sign up
           </ModalContent>
           )}
       {isLogin
-        ? 'Log out'
+        ? (
+          <ModalContent bottom='10' onClick={logoutHandler}>
+            Log out
+          </ModalContent>
+          )
         : (
           <ModalContent bottom='10' onClick={() => setLoginModal(true)}>
             Log in

@@ -1,19 +1,29 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Delete from './Delete';
+import axios from 'axios';
 
 const MyinfoContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
   pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
+  font-family: 'Roboto', sans-serif;
+  z-index: 9999;
   position: fixed;
   justify-content: center;
   align-items: center;
-  font-family: 'Roboto', sans-serif;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
   top: 0;
-  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: 0.2s ease-in-out myinfo;
+  @keyframes myinfo {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @media screen and (max-height: 700px) {
     height: 700px;
   }
@@ -129,16 +139,21 @@ const ProfileData = styled.div`
 `;
 
 const ErrMessage = styled.div`
-  width: 20rem;
+  width: 13rem;
   font-size: 15px;
   position: absolute;
-  bottom: 8rem;
-  color: red;
+  bottom: 140px;
+  left: 130px;
+  text-align: center;
+  color: ${(props) => (props.color ? '#1c1a1a' : '#ff0000')};
 `;
 
-const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+const URL = 'http://localhost:80';
+
+const Myinfo = ({ visible, setVisible }) => {
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [clearColor, setClearColor] = useState(0);
   const [userInfo] = useState({
     userName: 'Cloudi',
     userEmail: 'abcabcabcabc@naver.com'
@@ -152,33 +167,69 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
   const handleInputValue = (key) => (e) => {
     if (key === 'currPassword') {
       setNewUserInfo({ ...newUserInfo, [key]: e.target.value });
+      setErrorMessage('');
     } else if (
       key === 'newPasswordMatch' &&
       newUserInfo.newPassword !== e.target.value
     ) {
       setNewUserInfo({ ...newUserInfo, [key]: e.target.value });
+      setClearColor(0);
       setErrorMessage('신규 비밀번호가 일치하지 않습니다');
     } else {
       setNewUserInfo({ ...newUserInfo, [key]: e.target.value });
       setErrorMessage('');
     }
   };
+
   const onClickHandler = (key) => () => {
-    setMyinfoModalVisible(false);
     if (key === 'Change') {
-      console.log('change');
+      if (
+        !newUserInfo.currPassword ||
+        !newUserInfo.newPassword ||
+        !newUserInfo.newPasswordMatch
+      ) {
+        setErrorMessage('모든 항목을 기입해주세요');
+      } else {
+        const { currPassword, newPassword } = newUserInfo;
+        axios({
+          method: 'PUT',
+          url: URL + '/user',
+          data: { userPassword: currPassword, newPassword },
+          headers: {
+            Authorization:
+              'jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImtha2FvSWQiOm51bGwsImdvb2dsZUlkIjpudWxsLCJpc0FkbWluIjpmYWxzZSwidXNlckVtYWlsIjoiZGRAbmF2ZXIuY29tIiwidXNlck5hbWUiOiLrjZXsm5AiLCJjcmVhdGVkQXQiOiIyMDIxLTEwLTAzVDExOjE2OjEzLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTEwLTAzVDExOjE2OjEzLjAwMFoiLCJpYXQiOjE2MzMyNTk4MzIsImV4cCI6MTYzMzI4MTQzMn0.ghko4WsUYBNH9Rcj_R4z5FKMVg35GI8ZuvOzZwJmCIA'
+          }
+        })
+          .then((res) => {
+            setClearColor(1);
+            setErrorMessage('비밀번호 변경이 완료되었습니다');
+          })
+          .catch((err) => {
+            if (err.response.status === 400) {
+              // 비번다름
+              setClearColor(0);
+              setErrorMessage(err.response.data);
+            } else if (err.response.status === 401) {
+              // 토큰 유효 x
+              setClearColor(0);
+              setErrorMessage('다시 로그인 해주세요');
+            }
+          });
+      }
     } else if (key === 'Delete') {
-      setDeleteModalVisible(true);
+      setVisible(false);
+      setDeleteOpen(true);
+      setNewUserInfo({
+        currPassword: '',
+        newPassword: '',
+        newPasswordMatch: ''
+      });
+      setErrorMessage('');
     }
-    setNewUserInfo({
-      currPassword: '',
-      newPassword: '',
-      newPasswordMatch: ''
-    });
-    setErrorMessage('');
   };
+
   const closeModalHandler = () => {
-    setMyinfoModalVisible(false);
+    setVisible(false);
     setNewUserInfo({
       currPassword: '',
       newPassword: '',
@@ -188,7 +239,7 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
   };
   return (
     <>
-      <MyinfoContainer visible={myinfoModalVisible}>
+      <MyinfoContainer visible={visible}>
         <MyinfoContent>
           <MyinfoTitle>MY INFO</MyinfoTitle>
           <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
@@ -233,7 +284,7 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
               onChange={handleInputValue('newPasswordMatch')}
               placeholder='New Password'
             />
-            <ErrMessage>{errorMessage}</ErrMessage>
+            <ErrMessage color={clearColor}>{errorMessage}</ErrMessage>
           </ProfileContainer>
           <MyinfoBtn color='#b7c58b' onClick={onClickHandler('Change')}>
             Change
@@ -243,10 +294,7 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
           </MyinfoBtn>
         </MyinfoContent>
       </MyinfoContainer>
-      <Delete
-        visible={deleteModalVisible}
-        setDeleteModalVisible={setDeleteModalVisible}
-      />
+      <Delete visible={deleteOpen} setVisible={setDeleteOpen} />
     </>
   );
 };

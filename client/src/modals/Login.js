@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import Myinfo from './Myinfo';
-import Signup from './Signup';
+import axios from 'axios';
+
+// import { useDispatch, useSelector } from 'react-redux';
+// import { increaseStandQuantity, decreaseStandQuantity, removeStand } from '../app/modules/stand';
+// import { increaseStickQuantity, decreaseStickQuantity, removeStick } from '../app/modules/stick';
+// import { standsSelector, sticksSelector } from '../app/modules/hooks';
 
 const LoginContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -15,6 +19,15 @@ const LoginContainer = styled.div`
   align-items: center;
   top: 0;
   z-index: 9999;
+  animation: 0.2s ease-in-out login;
+  @keyframes login {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @media screen and (max-height: 700px) {
     height: 700px;
   }
@@ -152,18 +165,32 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
+const URL = 'http://localhost:80';
+
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   });
   const [errorMessage, setErrorMessage] = useState('');
-  const [myinfoModalVisible, setMyinfoModalVisible] = useState(false);
-  const [signupModalVisible, setSignupModalVisible] = useState(false);
 
   const loginClickHandler = () => {
-    setErrorMessage('아이디 또는 비밀번호가 잘못 입력 되었습니다');
     // 로그인버튼
+    const { email, password } = loginInfo;
+    axios({
+      method: 'POST',
+      url: URL + '/user/login',
+      data: { orders: null, userEmail: email, userPassword: password }
+    })
+      .then((data) => {
+        console.log('로그인성공 -->', data);
+      })
+      .catch(() => {
+        setErrorMessage('아이디 또는 비밀번호가 잘못 입력 되었습니다');
+      });
+
+    // 장바구니 받으면 dispatch로 보내야함
+    // sticks -> sticks / / stand -> stand
   };
 
   const loginInfoHandler = (key) => (e) => {
@@ -171,14 +198,21 @@ const Login = ({ visible, setVisible }) => {
     setErrorMessage('');
   };
 
-  const myinfoHandler = () => {
-    setVisible(false);
-    setMyinfoModalVisible(true);
+  const kakaoLoginHandler = () => {
+    window.location.assign(
+      'https://kauth.kakao.com/oauth/authorize?client_id=6bea04e98d9b7654b9f9c4090d3350cd&redirect_uri=http://localhost:3000&response_type=code'
+    );
   };
 
-  const signupHandler = () => {
-    setVisible(false);
-    setSignupModalVisible(true);
+  const googleLoginHandler = () => {
+    const CLIENT_ID =
+      '489580139925-kej0e09kiqes22usrhcivb5f5krrhlte.apps.googleusercontent.com';
+    const REDIRECT_URI = 'http://localhost:3000';
+    const SCOPE =
+      'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
+    window.location.assign(
+      `https://accounts.google.com/o/oauth2/v2/auth?scope=${SCOPE}&response_type=code&redirect_uri=${REDIRECT_URI}&client_id=${CLIENT_ID}`
+    );
   };
 
   return (
@@ -210,24 +244,16 @@ const Login = ({ visible, setVisible }) => {
           <ErrMessage>{errorMessage}</ErrMessage>
           <LoginBtn onClick={loginClickHandler}>로그인</LoginBtn>
           <BorderBottom>또는</BorderBottom>
-          <SocialLoginBtn color='#f7e600' onClick={myinfoHandler}>
+          <SocialLoginBtn color='#f7e600' onClick={kakaoLoginHandler}>
             <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />
             카카오 로그인
           </SocialLoginBtn>
-          <SocialLoginBtn color='#e6e6e6' onClick={signupHandler}>
+          <SocialLoginBtn color='#e6e6e6' onClick={googleLoginHandler}>
             <SocialImage src='/images/google.png' alt='소셜로그인 이미지' />
             구글 로그인
           </SocialLoginBtn>
         </LoginContent>
       </LoginContainer>
-      <Myinfo
-        myinfoModalVisible={myinfoModalVisible}
-        setMyinfoModalVisible={setMyinfoModalVisible}
-      />
-      <Signup
-        signupModalVisible={signupModalVisible}
-        setSignupModalVisible={setSignupModalVisible}
-      />
     </>
   );
 };

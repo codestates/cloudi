@@ -7,6 +7,8 @@ import { Link, NavLink } from 'react-router-dom';
 import Modal from './Modal';
 import Login from './Login';
 import Signup from './Signup';
+import Myinfo from './Myinfo';
+import SignupClear from './SignupClear';
 
 const NavBar = styled.nav`
   position: fixed;
@@ -171,6 +173,8 @@ const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
+  const [myinfoOpen, setMyinfoOpen] = useState(false);
+  const [clearOpen, setClearOpen] = useState(false);
   const stand = useSelector(standsSelector);
   const stick = useSelector(sticksSelector);
   useEffect(() => {
@@ -194,6 +198,16 @@ const Header = () => {
   const clickHandler = () => {
     setModalOpen(!modalOpen);
   };
+
+  const loginHandler = () => {
+    setLoginModal(true);
+    setMenu(false);
+  };
+
+  const signupHandler = () => {
+    setSignupOpen(true);
+    setMenu(false);
+  };
   return (
     <NavBar menu={menu}>
       <NavLogo>
@@ -205,8 +219,8 @@ const Header = () => {
         </Link>
       </NavLogo>
       <NavMenu menu={menu} onClick={() => setModalOpen(false)}>
-        <MobileMenuList>SIGN UP</MobileMenuList>
-        <MobileMenuList>LOG IN</MobileMenuList>
+        <MobileMenuList onClick={loginHandler}>SIGN UP</MobileMenuList>
+        <MobileMenuList onClick={signupHandler}>LOG IN</MobileMenuList>
         <LinkElem to='/order'>
           <MobileMenuList>ORDER</MobileMenuList>
         </LinkElem>
@@ -223,9 +237,11 @@ const Header = () => {
       <IconContainer>
         <Link to='/order'>
           <Icon src='/images/cart.png' onClick={() => setModalOpen(false)} />
-          {totalQuantity >= 1 ? (
-            <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount>
-          ) : null}
+          {totalQuantity >= 1
+            ? (
+              <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount>
+              )
+            : null}
         </Link>
         <Icon src='/images/user.png' onClick={clickHandler} />
       </IconContainer>
@@ -235,9 +251,15 @@ const Header = () => {
         setVisible={setModalOpen}
         setLoginModal={setLoginModal}
         setSignupOpen={setSignupOpen}
+        setMyinfoOpen={setMyinfoOpen}
       />
       <Login visible={loginModal} setVisible={setLoginModal} />
-      <Signup visible={signupOpen} setVisible={setSignupOpen} />
+      <Signup visible={signupOpen} setVisible={setSignupOpen} setClearOpen={setClearOpen} />
+      <Myinfo
+        visible={myinfoOpen}
+        setVisible={setMyinfoOpen}
+      />
+      <SignupClear visible={clearOpen} setVisible={setClearOpen} setLoginModal={setLoginModal} />
     </NavBar>
   );
 };
