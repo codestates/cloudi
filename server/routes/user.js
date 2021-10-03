@@ -14,7 +14,7 @@ const router = express.Router();
 // router.delete('/', userController.delete);
 
 // google 로그인 & 가입 post /user/google
-// router.post('/google', googleController.post);
+router.post('/google', googleController.post);
 
 // kakao 로그인 & 가입 post /user/kakao
 router.post('/kakao', kakaoController.post);

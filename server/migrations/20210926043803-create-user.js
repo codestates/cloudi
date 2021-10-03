@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       googleId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       isAdmin: {
         defaultValue : false,
