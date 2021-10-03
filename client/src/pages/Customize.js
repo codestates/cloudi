@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 
 import Editor from '../components/customize_components/Editor';
@@ -43,7 +44,9 @@ const Title = styled.button`
   text-align: center;
 
   :focus {
-    background: rgba(228, 242, 184, 1);
+    background: #E4F2D8;
+    height:20px;
+    border-radius: 10px;
   }
 `;
 
@@ -79,10 +82,7 @@ const Customize = () => {
 
   const [textPrice, setTextPrice] = useState(0);
 
-  useEffect(() => {
-    const newPrice = platePrice + holderPrice + textPrice;
-    setSelectedOps({ ...selectedOps, ...{ price: newPrice } });
-  }, [platePrice, holderPrice, textPrice]); // eslint-disable-line
+  const location = useLocation();
 
   const handleReset = () => {
     setSelectedOps(
@@ -93,7 +93,15 @@ const Customize = () => {
         price: 0
       }
     );
+    setPlatePrice(0);
+    setHolderPrice(0);
+    setTextPrice(0);
   };
+
+  useEffect(() => {
+    const newPrice = platePrice + holderPrice + textPrice;
+    setSelectedOps({ ...selectedOps, ...{ price: newPrice } });
+  }, [platePrice, holderPrice, textPrice]); // eslint-disable-line
 
   const handleBtnClick = (clickedBtn) => {
     if (clickedBtn.type === 'holder') {
@@ -119,30 +127,32 @@ const Customize = () => {
       <Link to='/customize'>
         <Title ref={titleRef} onClick={() => handleReset()}>CUSTOMIZE</Title>
       </Link>
-      <Switch>
-        {stages.map((el, idx) => {
-          return (
-            <Route
-              key={el.stage}
-              path={`/customize/${el.stage}`}
-            >
-              <Editor
-                stages={stages.map(el => el.stage)}
-                stage={el.stage}
-                message={el.message}
-                handleBtnClick={handleBtnClick}
-                handleErrorMsg={handleErrorMsg}
-                selectedOps={selectedOps}
-              />
-            </Route>
-          );
-        })}
-        <Route path='/customize'>
-          <InitialMsg
-            selectedOps={selectedOps}
-          />
-        </Route>
-      </Switch>
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.pathname}>
+          {stages.map((el) => {
+            return (
+              <Route
+                key={el.stage}
+                path={`/customize/${el.stage}`}
+              >
+                <Editor
+                  stages={stages.map(el => el.stage)}
+                  stage={el.stage}
+                  message={el.message}
+                  handleBtnClick={handleBtnClick}
+                  handleErrorMsg={handleErrorMsg}
+                  selectedOps={selectedOps}
+                />
+              </Route>
+            );
+          })}
+          <Route path='/customize'>
+            <InitialMsg
+              selectedOps={selectedOps}
+            />
+          </Route>
+        </Switch>
+      </AnimatePresence>
       {/* <Footer /> */}
     </CustomizePage>
   );

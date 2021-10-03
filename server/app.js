@@ -17,7 +17,7 @@ const standRouter = require('./routes/stand');
 const orderRouter = require('./routes/order');
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 app.use(
   cors(/*{
     origin: ['https://localhost:3000'],

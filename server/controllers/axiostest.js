@@ -6,7 +6,7 @@ const axios = require("axios");
 
 // db.user.create({
 //   id: 5,
-//   userEmail: 'skshim',
+//   userEmail: undefined,
 //   userPassword: '1234',
 //   userName: '상국'
 // })
@@ -17,10 +17,10 @@ const axios = require("axios");
 //! update user
 
 // db.user.update({
-//   userName: '상국2'
+//   googleId: '106477660792720416229'
 // },{
 //     where: {
-//       id: 5
+//       id: 4
 //     }
 // })
 // .then(data => {
@@ -74,7 +74,7 @@ const axios = require("axios");
 
 // db.user.destroy({
 //   where: {
-//     id: 7
+//     id: 5
 //   }
 // })
 // .then(data => {
@@ -87,7 +87,7 @@ const axios = require("axios");
 //   url: 'http://localhost:5000/user/kakao',
 //   data: {
 //     orders: null,
-//     code: 'sqtsDUMwdztwyUtPQJzuKBFnENMQpcJlA9_SzUthPke-S4IVXjcSb1d0Ud3_REr7zkjPcAopyNkAAAF8PQcOvA'
+//     code: '4FNKuJrn1y7BodzmIIwUVaoyIoOnmohJdHzRAKKhl-aNo5wSVF-wbG9WwefUGysLJZehugo9cxgAAAF8Pvt6zQ'
 //   }
 // })
 // .then(data => {
