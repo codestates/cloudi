@@ -223,9 +223,11 @@ const Header = () => {
       <IconContainer>
         <Link to='/order'>
           <Icon src='/images/cart.png' onClick={() => setModalOpen(false)} />
-          {totalQuantity >= 1 ? (
-            <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount>
-          ) : null}
+          {totalQuantity >= 1
+            ? (
+              <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount>
+              )
+            : null}
         </Link>
         <Icon src='/images/user.png' onClick={clickHandler} />
       </IconContainer>
