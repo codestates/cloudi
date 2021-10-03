@@ -1,13 +1,12 @@
+require('dotenv').config();
 const db = require("../models")
 const qs = require('qs');
 const axios = require("axios");
+const { sign, verify } = require('jsonwebtoken');
 
 //! create user
 
 // db.user.create({
-//   id: 5,
-//   userEmail: undefined,
-//   userPassword: '1234',
 //   userName: '상국'
 // })
 // .then(data => {
@@ -29,7 +28,12 @@ const axios = require("axios");
 
 //! find all users
 
-// db.user.findAll().then(data => {
+// db.user.findAll({
+//   where: {
+//     googleId: '106477660792720416229'
+//   }
+// })
+// .then(data => {
 //   console.log(data[0].dataValues)
 // })
 
@@ -105,3 +109,33 @@ const axios = require("axios");
 // .then(data => {
 //   console.log(data)
 // })
+
+//! jwt sign
+
+// let data = {
+//   "id": 1,
+//   "kakaoId": null,
+//   "googleId": null,
+//   "isAdmin": false,
+//   "userEmail": "won-bin@gmail.com",
+//   "userName": "원빈",
+//   "createdAt": "2021-10-02T15:16:51.000Z",
+//   "updatedAt": "2021-10-02T15:16:51.000Z"
+// }
+// const token = sign(data, '0712',{
+//   expiresIn: "2h"
+// });
+// console.log(token)
+
+//! jwt verify
+
+// let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwia2FrYW9JZCI6bnVsbCwiZ29vZ2xlSWQiOm51bGwsImlzQWRtaW4iOmZhbHNlLCJ1c2VyRW1haWwiOiJ3b24tYmluQGdtYWlsLmNvbSIsInVzZXJOYW1lIjoi7JuQ67mIIiwiY3JlYXRlZEF0IjoiMjAyMS0xMC0wMlQxNToxNjo1MS4wMDBaIiwidXBkYXRlZEF0IjoiMjAyMS0xMC0wMlQxNToxNjo1MS4wMDBaIiwiaWF0IjoxNjMzMjI4NjUzLCJleHAiOjE2MzMyMzU4NTN9.gYD2-qzi51deNgOD-AzagJQdxuQkRTwNUxGFXl7KFf4'
+// try {
+//   let info = verify(token, '1111');
+//   console.log(info)
+// } catch (err){
+//   // console.log(err)
+//   if(err){
+//     console.log('ddd')
+//   }
+// }

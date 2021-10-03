@@ -8,10 +8,10 @@ const express = require('express');
 const router = express.Router();
 
 // 수정 put /user
-// router.put('/', userController.put);
+router.put('/', userController.put);
 
 // 탈퇴 delete /user
-// router.delete('/', userController.delete);
+router.delete('/', userController.delete);
 
 // google 로그인 & 가입 post /user/google
 router.post('/google', googleController.post);
@@ -20,9 +20,9 @@ router.post('/google', googleController.post);
 router.post('/kakao', kakaoController.post);
 
 // 로그인 post /user/login
-// router.post('/login', loginController.post);
+router.post('/login', loginController.post);
 
 // 회원가입 post /user/signup
-// router.post('/signup', signupController.post);
+router.post('/signup', signupController.post);
 
 module.exports = router;
