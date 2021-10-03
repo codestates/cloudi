@@ -163,6 +163,7 @@ const Login = ({ visible, setVisible }) => {
 
   const loginClickHandler = () => {
     setErrorMessage('아이디 또는 비밀번호가 잘못 입력 되었습니다');
+    // 로그인버튼
   };
 
   const loginInfoHandler = (key) => (e) => {
