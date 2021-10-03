@@ -5,12 +5,12 @@ export const QUIZ_LIST = [
       {
         id: 'joy',
         text: '즐거움',
-        score: 1
+        score: -1
       },
       {
         id: 'anger',
         text: '분노',
-        score: 0
+        score: -1
       },
       {
         id: 'surprise',
@@ -57,12 +57,12 @@ export const QUIZ_LIST = [
         id: 'loneliness',
         text: '외로움',
         width: 170,
-        score: -1
+        score: 0
       },
       {
         id: 'worry',
         text: '걱정',
-        score: -1
+        score: 1
       }
     ]
   },
@@ -87,7 +87,7 @@ export const QUIZ_LIST = [
         id: 'comfort',
         text: '편안함',
         width: 200,
-        score: 1
+        score: -1
       }
     ]
   }
