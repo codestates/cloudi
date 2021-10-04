@@ -52,13 +52,13 @@ module.exports = {
 
         for (let holder of holders) {
           
-          // 중복방지 조건
+          // 홀더 옵션 중복방지 조건
           if (!holderTypes.includes(holder.dataValues.holderType)) {
             holderTypes.push(holder.dataValues.holderType);
 
             // 홀더 옵션 정보
             let holderOption = {
-              id: response.options.holders.length,
+              id: response.options.holders.length + 1,
               type: 'holder',
               option: holder.dataValues.holderType,
               price: holder.dataValues.holderPrice
@@ -67,16 +67,18 @@ module.exports = {
             response.options.holders.push(holderOption)
           }
 
+          // 홀더 옵션 이미지
+          if (!(holder.dataValues.holderMaterial in response.images.holderImg)) {
+            response.images.holderImg[holder.dataValues.holderMaterial] = {};
+          }
 
-          
+          response.images.holderImg[holder.dataValues.holderMaterial][holder.dataValues.holderType] = holder.dataValues.holderImage.toString();
         }
       })
       .catch(e => {
         console.log(`find all holders error ${e}`)
       });
 
-      console.log(response.options.holders)
     res.status(200).json(response);
-
   }
 }

@@ -6,6 +6,7 @@ import Canvas from './editor_components/Canvas';
 import Indicator from './Indicator';
 import MainButton from './MainButton';
 import ErrorMsg from './ErrorMsg';
+import { Redirect } from 'react-router';
 
 const Message = styled.section`
   position: fixed;
@@ -23,7 +24,9 @@ const Editor = ({
   message,
   selectedOps,
   handleBtnClick,
-  handleErrorMsg
+  handleErrorMsg,
+  standImages,
+  buttons
 }) => {
   return (
     <>
@@ -40,7 +43,7 @@ const Editor = ({
           </>
           : <>
             <Indicator
-              stages={stages.slice(0,3)}
+              stages={stages}
               stage={stage}
               selectedOps={selectedOps}
             />
@@ -51,11 +54,13 @@ const Editor = ({
             </Message>
             <Canvas
               selectedOps={selectedOps}
+              standImages={standImages}
             />
             <Controller
               curStage={stage}
               selectedOps={selectedOps}
               handleBtnClick={handleBtnClick}
+              buttons={buttons}
             />
             <MainButton
               curStage={stage}

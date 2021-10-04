@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import buttons from './buttons';
 import OptionButton from './OptionButton';
 import TextInput from './TextInput';
 import FinishButtons from './FinishButtons';
@@ -34,7 +33,8 @@ const TotalPrice = styled.section`
 const Controller = ({
   curStage,
   selectedOps,
-  handleBtnClick
+  handleBtnClick,
+  buttons
 }) => {
   return (
     <StyledController>

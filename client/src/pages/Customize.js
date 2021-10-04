@@ -55,14 +55,17 @@ const Title = styled.button`
 `;
 
 const Customize = () => {
+  const [serverData, setServerData] = useState({});
   // 첫 렌더 시 모든 옵션 불러오기
   useEffect(() => {
-    // axios({
-    //   method: "get",
-    //   url: `${local}/stand`
-    // })
-    // .then(res => {console.log(res.data)})
-    // .catch(e => console.log(e.response.data))
+    axios({
+      method: "get",
+      url: `${local}/stand`
+    })
+    .then(res => {
+      setServerData(res.data);
+    })
+    .catch(e => console.log(e.response.data))
 
   }, [])
 
@@ -146,36 +149,46 @@ const Customize = () => {
 
   return (
     <CustomizePage>
-      <Link to='/customize'>
-        <Title ref={titleRef} onClick={() => handleReset()}>CUSTOMIZE</Title>
-      </Link>
-      <AnimatePresence exitBeforeEnter>
-        <Switch location={location} key={location.pathname}>
-          {stages.map((el) => {
-            return (
-              <Route
-                key={el.stage}
-                path={`/customize/${el.stage}`}
-              >
-                <Editor
-                  stages={stages.map(el => el.stage)}
-                  stage={el.stage}
-                  message={el.message}
-                  handleBtnClick={handleBtnClick}
-                  handleErrorMsg={handleErrorMsg}
+      {/* eslint-disable */
+        Object.keys(serverData).length === 0
+        ? <>
+          <div>Loading...</div>
+        </>
+        : <>
+          <Link to='/customize'>
+            <Title ref={titleRef} onClick={() => handleReset()}>CUSTOMIZE</Title>
+          </Link>
+          <AnimatePresence exitBeforeEnter>
+            <Switch location={location} key={location.pathname}>
+              {stages.map((el) => {
+                return (
+                  <Route
+                    key={el.stage}
+                    path={`/customize/${el.stage}`}
+                  >
+                    <Editor
+                      stages={stages.map(el => el.stage)}
+                      stage={el.stage}
+                      message={el.message}
+                      handleBtnClick={handleBtnClick}
+                      handleErrorMsg={handleErrorMsg}
+                      selectedOps={selectedOps}
+                      standImages={serverData.images}
+                      buttons={serverData.options}
+                    />
+                  </Route>
+                );
+              })}
+              <Route path='/customize'>
+                <InitialMsg
                   selectedOps={selectedOps}
                 />
               </Route>
-            );
-          })}
-          <Route path='/customize'>
-            <InitialMsg
-              selectedOps={selectedOps}
-            />
-          </Route>
-        </Switch>
-      </AnimatePresence>
-      {/* <Footer /> */}
+            </Switch>
+          </AnimatePresence>
+          {/* <Footer /> */}
+        </>
+      /* eslint-enable */}
     </CustomizePage>
   );
 };

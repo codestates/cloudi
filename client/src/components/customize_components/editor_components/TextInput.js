@@ -164,7 +164,7 @@ const TextInput = ({ handleBtnClick }) => {
             onClick={() => {
               handleBtnClick({
                 type: 'text',
-                option: 'empty input!',
+                option: '-- NO TEXT --',
                 price: 0
               })
               setIsDisabled(!isDisabled)
