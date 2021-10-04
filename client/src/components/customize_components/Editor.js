@@ -28,7 +28,7 @@ const Editor = ({
   return (
     <>
       {/* eslint-disable */
-        stage !== 'material' && selectedOps.plate === ''
+        stage !== 'plate' && selectedOps.plate === ''
           ? <> 
             <ErrorMsg
               handleErrorMsg={handleErrorMsg}

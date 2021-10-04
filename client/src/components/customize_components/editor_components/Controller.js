@@ -39,9 +39,9 @@ const Controller = ({
   return (
     <StyledController>
       {
-        curStage === 'material' ||
+        curStage === 'plate' ||
         curStage === 'holder'
-          ? buttons[curStage].map(el => {
+          ? buttons[`${curStage}s`].map(el => {
             return (
               <OptionButton
                 key={el.option}

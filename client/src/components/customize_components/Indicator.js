@@ -46,7 +46,7 @@ const IndicatorBar = styled.section`
 const Indicator = ({ stage, selectedOps }) => {
   const [finishedStages, setFinishedStages] = useState([
     {
-      stage: 'material',
+      stage: 'plate',
       finished: false
     }, {
       stage: 'holder',
@@ -62,7 +62,7 @@ const Indicator = ({ stage, selectedOps }) => {
 
     setFinishedStages([
       {
-        stage: 'material',
+        stage: 'plate',
         finished: !!plate
       }, {
         stage: 'holder',

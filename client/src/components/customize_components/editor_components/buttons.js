@@ -1,5 +1,5 @@
 module.exports = {
-  material: [
+  plates: [
     {
       id: 1,
       type: 'plate',
@@ -17,7 +17,7 @@ module.exports = {
       price: 18000
     }
   ],
-  holder: [
+  holders: [
     {
       id: 1,
       type: 'holder',
@@ -38,21 +38,6 @@ module.exports = {
       type: 'holder',
       option: 'FISHER',
       price: 4000
-    }
-  ],
-  finish: [
-    {
-      id: 1,
-      type: 'finish',
-      option: 'ADD TO CART'
-    }, {
-      id: 2,
-      type: 'finish',
-      option: 'REDO'
-    }, {
-      id: 3,
-      type: 'finish',
-      option: 'HOME'
     }
   ]
 };

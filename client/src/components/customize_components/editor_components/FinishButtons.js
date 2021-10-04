@@ -173,7 +173,7 @@ const FinishButtons = ({ selectedOps }) => {
           </div>
           /* eslint-enable */
         }
-        <Link to='/customize/material'>
+        <Link to='/customize/plate'>
           <div className='icon redo'>
             <div className='tooltip'>
               REDO
