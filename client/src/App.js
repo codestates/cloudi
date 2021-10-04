@@ -17,29 +17,31 @@ import Incense from './pages/Incense';
 const App = () => {
   const dispatch = useDispatch();
   const userinfo = useSelector(userinfoSelector);
+
   const didMount = () => {
     const url = new URL(window.location.href);
     const authorizationCode = url.searchParams.get('code');
     // 카카오 구글 두개 나눠야함
     if (authorizationCode) {
-      // axios({
-      //   method: 'POST',
-      //   url: 'http://localhost:5000/user/kakao',
-      //   data: { orders: null, code: authorizationCode },
-      // }).then(res => {
-      //   console.log('Kakao Login OK', res.data.userEmail);
-      // })
-      // .catch(err => console.log('Kakao Login', err));
 
       axios({
         method: 'POST',
-        url: 'http://localhost:8000/user/google',
-        data: { orders: null, code: authorizationCode }
+        url: 'http://localhost:8000/user/kakao',
+        data: { orders: null, code: authorizationCode },
+      }).then(res => {
+        console.log('Kakao Login OK', res.data.userEmail);
       })
-        .then((res) => {
-          console.log('Google Login OK', res.data.userEmail);
-        })
-        .catch((err) => console.log('Google Login', err));
+      .catch(err => console.log('Kakao Login', err));
+      // axios({
+      //   method: 'POST',
+      //   url: 'http://localhost:8000/user/google',
+      //   data: { orders: null, code: authorizationCode }
+      // })
+      //   .then((res) => {
+      //     console.log('Google Login OK', res.data.userEmail);
+      //   })
+      //   .catch((err) => console.log('Google Login', err));
+        console.log('토큰->', userinfo.userinfo.token);
     }
   };
 
@@ -54,8 +56,8 @@ const App = () => {
         dispatch(insertAllStands(res.data.orders.stands));
         dispatch(insertAllSticks(res.data.orders.sticks));
       })
-      .catch((err) => console.log(err.response.data));
-  }, [dispatch, userinfo.userinfo.token]);
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <>
