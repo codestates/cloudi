@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
@@ -72,25 +72,18 @@ const IncenseBtn = styled(NavLink)`
   }
 `;
 
-const QuizPageResult = ({ resultVisible }) => {
-  const [incense] = useState({
-    id: 1,
-    stickId: 2,
-    stickName: '귤피',
-    stickPrice: 2000,
-    stickQuantity: 2,
-    stickImage: '/images/product.png'
-  });
+const QuizPageResult = ({ resultVisible, resultData }) => {
+  console.log('마지막페이지 데이터', resultData);
   const rightClickHandler = () => {};
   return (
     <ResultWrapper visible={resultVisible && 'A'}>
       <ResultTitle>나에게 어울리는 Incense는..</ResultTitle>
       <ResultContainer>
-        <ContentImage img={incense.stickImage} />
+        <ContentImage img={resultData?.stickImage} />
         <TextContainer>
-          <TextContent color='#3f3f4a'>{incense.stickName}</TextContent>
-          <TextContent>귤 냄새 가득 가득가득다그</TextContent>
-          <TextContent>{incense.stickPrice} 원</TextContent>
+          <TextContent color='#3f3f4a'>{resultData?.stickName}</TextContent>
+          <TextContent>{resultData?.stickDesc}</TextContent>
+          <TextContent>{resultData?.stickPrice} 원</TextContent>
         </TextContainer>
       </ResultContainer>
       <IncenseBtn to='/incense' onClick={rightClickHandler}>

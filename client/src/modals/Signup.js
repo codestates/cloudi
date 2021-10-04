@@ -125,7 +125,8 @@ const ErrMessage = styled.div`
     left: ${(props) => props.left - 40}px;
   }
 `;
-const URL = 'http://localhost:80';
+
+const URL = 'http://localhost:5000';
 
 const USER_INFO = {
   userName: '',

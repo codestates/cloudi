@@ -4,6 +4,7 @@ import IncenseSlider from '../components/incense_components/IncenseSlider';
 import { useSelector, useDispatch } from 'react-redux';
 import { insertStick } from '../app/modules/stick';
 import { sticksSelector } from '../app/modules/hooks';
+import axios from 'axios';
 
 const IncenseWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
@@ -134,11 +135,15 @@ const Sequence = styled.div`
   }
 `;
 
-const TOTAL_SLIDES = 3;
+const TOTAL_SLIDES = 12;
+
+const URL = 'http://localhost:5000';
+
 const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [clickCount, setClickCount] = useState(0);
   const [stickData, setStickData] = useState(null);
+  const [incenseData, setIncenseData] = useState(null);
   const [click, setClick] = useState({
     one: false,
     two: false,
@@ -148,64 +153,22 @@ const Incense = () => {
   const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const slideRef = useRef(null);
-  const data = [
-    {
-      stickId: 0,
-      stickDesc: '시트러스 계열의 상큼한 향',
-      stickImage: '/images/incense_2.png',
-      stickName: 'Tangerinepeel',
-      stickPrice: 2000,
-      stickScope: {
-        citrus: 2,
-        green: 10,
-        fruity: 5,
-        fresh: 7,
-        floral: 5
-      }
-    },
-    {
-      stickId: 1,
-      stickDesc: '인센스의 전형적인 우디한 향',
-      stickImage: '/images/incense_0.png',
-      stickName: '오크모스',
-      stickPrice: 2000,
-      stickScope: {
-        citrus: 4,
-        green: 6,
-        fruity: 7,
-        fresh: 5,
-        floral: 5
-      }
-    },
-    {
-      stickId: 2,
-      stickDesc: 'On the beach Insence',
-      stickImage: '/images/incense_1.png',
-      stickName: '새벽',
-      stickPrice: 2000,
-      stickScope: {
-        citrus: 3,
-        green: 10,
-        fruity: 6,
-        fresh: 5,
-        floral: 3
-      }
-    },
-    {
-      stickId: 3,
-      stickDesc: 'Hi Ho Hu',
-      stickImage: '/images/incense_3.png',
-      stickName: '시라민스',
-      stickPrice: 2000,
-      stickScope: {
-        citrus: 7,
-        green: 4,
-        fruity: 2,
-        fresh: 2,
-        floral: 5
-      }
-    }
-  ];
+  useEffect(() => {
+    axios({
+      method: 'GET',
+      url: `${URL}/incense`
+    })
+      .then((res) => {
+        // *로딩인디케이터
+        // console.log('인센스성공 ->', res.data);
+        setIncenseData(res.data);
+      })
+      .catch((err) => {
+        console.log('인센스실패 ->', err);
+      });
+  }, []);
+  const data = incenseData;
+
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
       setCurrentSlide(0);
@@ -225,16 +188,17 @@ const Incense = () => {
     slideRef.current.style.transition = 'all 0.5s ease-in-out';
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
   }, [currentSlide]);
+  // console.log('장바구니 stickId ->', stick.sticks);
 
   const clickHandler = () => {
+    // * Add to cart
     const stickCount =
-      stick.sticks.filter((el) => el.stickId === stickData.stickId).length ===
-      0;
+      stick.sticks.filter((el) => el.stickId === stickData.id).length === 0;
 
     if (stickCount) {
       dispatch(
         insertStick({
-          stickId: stickData.stickId,
+          stickId: stickData.id,
           stickName: stickData.stickName,
           stickImage: stickData.stickImage
         })
@@ -249,12 +213,12 @@ const Incense = () => {
     <IncenseWrapper>
       <IncenseContainer>
         <IncenseContent>
-          <Sequence>{currentSlide + 1}/4</Sequence>
+          <Sequence>{currentSlide + 1}/13</Sequence>
           <SliderBox ref={slideRef}>
-            {data.map((el) => {
+            {data?.map((el) => {
               return (
                 <IncenseSlider
-                  key={el.stickId.toString()}
+                  key={el.id.toString()}
                   data={el}
                   setStickData={setStickData}
                   clickCount={clickCount}
