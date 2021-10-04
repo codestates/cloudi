@@ -4,11 +4,7 @@ import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { insertUserinfo } from '../app/modules/userinfo';
-import {
-  standsSelector,
-  sticksSelector,
-  userinfoSelector
-} from '../app/modules/hooks';
+import { standsSelector, sticksSelector } from '../app/modules/hooks';
 
 const LoginContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -179,11 +175,9 @@ const Login = ({ visible, setVisible }) => {
   const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
-  const { userinfo } = useSelector(userinfoSelector);
-
   // console.log('인센스 ->', stick);
   // console.log('홀더 ->', stand.stands);
-  // console.log('리덕스 유저인포 ->', userinfo);
+  // console.log('리덕스 유저인포(loginModal) ->', userinfo);
   const orders = { ...stick, ...stand };
   // console.log('orders 데이터  ->', orders);
 
@@ -208,7 +202,7 @@ const Login = ({ visible, setVisible }) => {
       data: { orders, userEmail: email, userPassword: password }
     })
       .then((res) => {
-        // console.log('일반로그인성공 -->', res.data.orders);
+        console.log('일반로그인성공 -->', res.data);
         // ? res.data.orders -> 객체 // 키 stands, sticks
         dispatch(
           insertUserinfo({
@@ -221,6 +215,7 @@ const Login = ({ visible, setVisible }) => {
             token: res.data.token
           })
         );
+        setVisible(false);
         // ! 장바구니에 넣기
       })
       .catch((err) => {

@@ -18,6 +18,7 @@ export const userinfoSlice = createSlice({
   initialState,
   reducers: {
     insertUserinfo: (state, action) => {
+      console.log('인서트인포', action);
       const userinfo = {
         id: action.payload.id,
         kakoId: action.payload.kakaoId,
@@ -27,9 +28,9 @@ export const userinfoSlice = createSlice({
         userName: action.payload.userName,
         token: action.payload.token
       };
-      console.log('리덕스 유저인포', userinfo);
       state.userinfo = userinfo;
-      console.log('리덕스 스테이트', state.userinfo);
+
+      console.log('리덕스 스테이트', state);
     },
     removeUserinfo: (state) => {
       state.userinfo = {
