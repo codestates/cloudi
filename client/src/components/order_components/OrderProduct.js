@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseStandQuantity, decreaseStandQuantity, removeStand } from '../../app/modules/stand';
 import { increaseStickQuantity, decreaseStickQuantity, removeStick } from '../../app/modules/stick';
-import { standsSelector, sticksSelector } from '../../app/modules/hooks';
+import { standsSelector, sticksSelector, userinfoSelector } from '../../app/modules/hooks';
 import Construction from '../../modals/Construction';
+import Login from '../../modals/Login';
 
 import EmptyProduct from './EmtpyProduct';
 
@@ -271,9 +272,12 @@ const QuantityButton = styled(QuantityContainer)`
 
 const OrderProduct = () => {
   const [modal, setModal] = useState(0);
+  const [loginModal, setLoginModal] = useState(false);
+
+  const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
-  const dispatch = useDispatch();
+  const userinfo = useSelector(userinfoSelector);
 
   const totalStandPrice = stand.stands.reduce((acc, cur) => acc + cur.standPrice * cur.standQuantity, 0);
   const totalStickPrice = stick.sticks.reduce((acc, cur) => acc + cur.stickPrice * cur.stickQuantity, 0);
@@ -291,108 +295,116 @@ const OrderProduct = () => {
     });
   };
 
+  const handleLoginModal = () => {
+    setLoginModal(prevState => {
+      return !prevState;
+    });
+  };
+
   return (
-    <OrderProductContainer>
-      {totalPrice === 0
-        ? <EmptyProduct />
-        : <>
-          <ProductExplanation>
-            <ProductInfo>&emsp;&emsp;상품 정보</ProductInfo>
-            <ProductDesc>수량</ProductDesc>
-            <ProductDesc>가격</ProductDesc>
-            <ProductDesc>배송금액</ProductDesc>
-          </ProductExplanation>
-          <ShoppingBasket>
-            <ProductContainer>
-              {stick.sticks.map((stick, idx) => {
-                return (
-                  <SingleStick key={stick.id}>
-                    <MobileDesc>
-                      <MyProduct>My Incense</MyProduct>
-                      <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStick(stick.id)); }} />
-                    </MobileDesc>
-                    <ContainerPicture>
-                      <StickImg src={stick.stickImage} />
-                    </ContainerPicture>
-                    <ContainerTwo>
-                      <SingleDesc>
-                        INCENSE STICKS / {stick.stickName} / 12"
-                      </SingleDesc>
-                      <Delete onClick={() => { dispatch(removeStick(stick.id)); }}>삭제하기</Delete>
-                    </ContainerTwo>
-                    <ContainerOne>
-                      <QuantityButton onClick={() => { dispatch(decreaseStickQuantity(stick.id)); }}>-</QuantityButton>
-                      <QuantityContainer>{stick.stickQuantity}</QuantityContainer>
-                      <QuantityButton onClick={() => { dispatch(increaseStickQuantity(stick.id)); }}>+</QuantityButton>
-                    </ContainerOne>
-                    <ContainerOne>
-                      {money(stick.stickPrice)}원
-                    </ContainerOne>
-                  </SingleStick>
-                );
-              })}
-              {stand.stands.map((stand, idx) => {
-                return (
-                  <SingleStand key={stand.id}>
-                    <MobileDesc>
-                      <MyProduct>My Holder</MyProduct>
-                      <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStand(stand.id)); }} />
-                    </MobileDesc>
-                    <ContainerPicture>
-                      <StandImg src={stand.standImage} />
-                    </ContainerPicture>
-                    <ContainerTwo>
-                      <SingleDesc>
-                        {stand.standPlate} / {stand.standHolder} / {stand.standText}
-                      </SingleDesc>
-                      <Delete onClick={() => { dispatch(removeStand(stand.id)); }}>삭제하기</Delete>
-                    </ContainerTwo>
-                    <ContainerOne>
-                      <QuantityButton onClick={() => { dispatch(decreaseStandQuantity(stand.id)); }}>-</QuantityButton>
-                      <QuantityContainer>{stand.standQuantity}</QuantityContainer>
-                      <QuantityButton onClick={() => { dispatch(increaseStandQuantity(stand.id)); }}>+</QuantityButton>
-                    </ContainerOne>
-                    <ContainerOne>
-                      {money(stand.standPrice)}원
-                    </ContainerOne>
-                  </SingleStand>
-                );
-              })}
-            </ProductContainer>
-            <ShippingFeeContainer>
-              <ShippingContainer>
-                <Shipping>
-                  배송금액
-                </Shipping>
-              </ShippingContainer>
-              <Fee>
-                3,000 원
-                <ShippingFeeDesc>
-                  50,000원 이상 구매시 무료
-                </ShippingFeeDesc>
-              </Fee>
-            </ShippingFeeContainer>
-          </ShoppingBasket>
-          <ProductCal>
-            <CalDesc>상품 합계</CalDesc>
-            <Price>{money(totalPrice)} 원</Price>
-          </ProductCal>
-          <ShippingFeeCal>
-            <FeeDesc>배송비</FeeDesc>
-            <Price>{money(totalPrice >= 50000 ? 0 : 3000)} 원</Price>
-          </ShippingFeeCal>
-          <PriceSumContainer>
-            <SumDesc>
-              합 계
-            </SumDesc>
-            <Sum>{money(totalPrice >= 50000 ? totalPrice : totalPrice + 3000)} 원</Sum>
-          </PriceSumContainer>
-          <ButtonContainer>
-            <Button onClick={handleModal}>ORDER</Button>
-          </ButtonContainer>
-          <Construction modal={modal} handleModal={handleModal} />
+    <>
+      <OrderProductContainer>
+        {totalPrice === 0
+          ? <EmptyProduct />
+          : <>
+            <ProductExplanation>
+              <ProductInfo>&emsp;&emsp;상품 정보</ProductInfo>
+              <ProductDesc>수량</ProductDesc>
+              <ProductDesc>가격</ProductDesc>
+              <ProductDesc>배송금액</ProductDesc>
+            </ProductExplanation>
+            <ShoppingBasket>
+              <ProductContainer>
+                {stick.sticks.map((stick, idx) => {
+                  return (
+                    <SingleStick key={stick.id}>
+                      <MobileDesc>
+                        <MyProduct>My Incense</MyProduct>
+                        <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStick(stick.id)); }} />
+                      </MobileDesc>
+                      <ContainerPicture>
+                        <StickImg src={stick.stickImage} />
+                      </ContainerPicture>
+                      <ContainerTwo>
+                        <SingleDesc>
+                          INCENSE STICKS / {stick.stickName} / 12"
+                        </SingleDesc>
+                        <Delete onClick={() => { dispatch(removeStick(stick.id)); }}>삭제하기</Delete>
+                      </ContainerTwo>
+                      <ContainerOne>
+                        <QuantityButton onClick={() => { dispatch(decreaseStickQuantity(stick.id)); }}>-</QuantityButton>
+                        <QuantityContainer>{stick.stickQuantity}</QuantityContainer>
+                        <QuantityButton onClick={() => { dispatch(increaseStickQuantity(stick.id)); }}>+</QuantityButton>
+                      </ContainerOne>
+                      <ContainerOne>
+                        {money(stick.stickPrice)}원
+                      </ContainerOne>
+                    </SingleStick>
+                  );
+                })}
+                {stand.stands.map((stand, idx) => {
+                  return (
+                    <SingleStand key={stand.id}>
+                      <MobileDesc>
+                        <MyProduct>My Holder</MyProduct>
+                        <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStand(stand.id)); }} />
+                      </MobileDesc>
+                      <ContainerPicture>
+                        <StandImg src={stand.standImage} />
+                      </ContainerPicture>
+                      <ContainerTwo>
+                        <SingleDesc>
+                          {stand.standPlate} / {stand.standHolder} / {stand.standText}
+                        </SingleDesc>
+                        <Delete onClick={() => { dispatch(removeStand(stand.id)); }}>삭제하기</Delete>
+                      </ContainerTwo>
+                      <ContainerOne>
+                        <QuantityButton onClick={() => { dispatch(decreaseStandQuantity(stand.id)); }}>-</QuantityButton>
+                        <QuantityContainer>{stand.standQuantity}</QuantityContainer>
+                        <QuantityButton onClick={() => { dispatch(increaseStandQuantity(stand.id)); }}>+</QuantityButton>
+                      </ContainerOne>
+                      <ContainerOne>
+                        {money(stand.standPrice)}원
+                      </ContainerOne>
+                    </SingleStand>
+                  );
+                })}
+              </ProductContainer>
+              <ShippingFeeContainer>
+                <ShippingContainer>
+                  <Shipping>
+                    배송금액
+                  </Shipping>
+                </ShippingContainer>
+                <Fee>
+                  3,000 원
+                  <ShippingFeeDesc>
+                    50,000원 이상 구매시 무료
+                  </ShippingFeeDesc>
+                </Fee>
+              </ShippingFeeContainer>
+            </ShoppingBasket>
+            <ProductCal>
+              <CalDesc>상품 합계</CalDesc>
+              <Price>{money(totalPrice)} 원</Price>
+            </ProductCal>
+            <ShippingFeeCal>
+              <FeeDesc>배송비</FeeDesc>
+              <Price>{money(totalPrice >= 50000 ? 0 : 3000)} 원</Price>
+            </ShippingFeeCal>
+            <PriceSumContainer>
+              <SumDesc>
+                합 계
+              </SumDesc>
+              <Sum>{money(totalPrice >= 50000 ? totalPrice : totalPrice + 3000)} 원</Sum>
+            </PriceSumContainer>
+            <ButtonContainer>
+              {userinfo.token === '' ? <Button onClick={handleLoginModal}>ORDER</Button> : <Button onClick={handleModal}>ORDER</Button>}
+            </ButtonContainer>
         </>/*eslint-disable-line*/}
-    </OrderProductContainer>
+      </OrderProductContainer>
+      {userinfo.token === '' ? <Login visible={loginModal} setVisible={setLoginModal} /> : <Construction modal={modal} handleModal={handleModal} />}
+    </>
   );
 };
 
