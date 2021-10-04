@@ -124,8 +124,6 @@ const SideBar = () => {
   };
 
   const handleTimer = () => {
-    setMin(parseInt(15));
-    setSec(parseInt(0));
     setTimer(prevState => {
       if (prevState === 0) {
         return 1;
@@ -133,6 +131,13 @@ const SideBar = () => {
         return 0;
       }
     });
+    if (timer === 0) {
+      setMin(parseInt(15));
+      setSec(parseInt(0));
+    } else {
+      setMin(parseInt(0));
+      setSec(parseInt(0));
+    }
   };
 
   const handlePlaying = () => {
