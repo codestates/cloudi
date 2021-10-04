@@ -47,12 +47,12 @@ const App = () => {
     axios({
       method: 'GET',
       url: 'http://localhost:8000/auth',
-      headers: {Authorization: userinfo.userinfo.token}
+      headers: { Authorization: userinfo.userinfo.token }
     }).then(res => {
-      console.log(res.data.orders)
-      // dispatch(insertAllStands(res.data.orders.stands))
-    }).catch(err => console.log(err.response.data))
-  }, []);
+      dispatch(insertAllStands(res.data.orders.stands));
+      dispatch(insertAllSticks(res.data.orders.sticks));
+    }).catch(err => console.log(err.response.data));
+  }, [dispatch, userinfo.userinfo.token]);
 
   return (
     <>

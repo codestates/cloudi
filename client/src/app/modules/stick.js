@@ -44,7 +44,7 @@ export const stickSlice = createSlice({
       };
     },
     insertAllSticks: (state, action) => {
-      state.sticks = action.sticks;
+      state.sticks = action.payload;
     }
   }
 });

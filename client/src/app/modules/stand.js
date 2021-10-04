@@ -50,7 +50,7 @@ export const standSlice = createSlice({
       };
     },
     insertAllStands: (state, action) => {
-      state.stands = action.stands;
+      state.stands = action.payload;
     }
   }
 });
