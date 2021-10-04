@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { userinfoSelector } from '../app/modules/hooks';
+import { removeUserinfo } from '../app/modules/userinfo';
 
 const DeleteContainer = styled.div`
   display: ${(props) => (props.isvisible ? 'flex' : 'none')};
@@ -108,10 +112,15 @@ const BorderBottom = styled.div`
   border-bottom: 2px solid black;
 `;
 
+const URL = 'http://localhost:5000';
+
 const Delete = ({ visible, setVisible }) => {
   const [InputCheck, setInputCheck] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { userinfo } = useSelector(userinfoSelector);
+  // console.log('딜리트에서 가져오는 유저인포 ->', userinfo);
 
   const handleInputValue = (e) => {
     setInputCheck(e.target.value);
@@ -128,12 +137,25 @@ const Delete = ({ visible, setVisible }) => {
 
   const checkDeleteValue = () => {
     if (InputCheck === '회원탈퇴') {
+      axios({
+        method: 'DELETE',
+        url: `${URL}/user`,
+        headers: { Authorization: userinfo.token }
+      })
+        .then((res) => {
+          console.log('딜리트 성공 -> ', res);
+        })
+        .catch((err) => {
+          console.log('딜리트 실패 ->', err);
+        });
+
       setVisible(false);
       setInputCheck('');
       setErrorMessage('');
       alert('회원탈퇴가 완료되었습니다');
       history.push('/');
-      // localStorage.clear();
+      dispatch(removeUserinfo());
+      // * 딜리트 리덕스 스테이트 변경
     } else {
       setErrorMessage('`회원탈퇴` 입력을 다시 확인해주세요');
     }
