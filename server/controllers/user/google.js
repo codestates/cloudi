@@ -86,7 +86,7 @@ module.exports = {
                 });
               }
               //stand 주문 정보 저장
-              for(let j = 0; j < orders.stands.length; j++){
+              for(let i = 0; i < orders.stands.length; i++){
                 await db.stand.create({
                   userId: userInfoDB.id,
                   standQuantity: orders.stands[i].standQuantity,
@@ -186,7 +186,7 @@ module.exports = {
                 });
               }
               //stand 주문 정보 저장
-              for(let j = 0; j < orders.stands.length; j++){
+              for(let i = 0; i < orders.stands.length; i++){
                 await db.stand.create({
                   userId: userInfoDB.id,
                   standQuantity: orders.stands[i].standQuantity,
