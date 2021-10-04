@@ -59,15 +59,14 @@ const Customize = () => {
   // 첫 렌더 시 모든 옵션 불러오기
   useEffect(() => {
     axios({
-      method: "get",
+      method: 'get',
       url: `${local}/stand`
     })
-    .then(res => {
-      setServerData(res.data);
-    })
-    .catch(e => console.log(e.response.data))
-
-  }, [])
+      .then(res => {
+        setServerData(res.data);
+      })
+      .catch(e => console.log(e.response.data));
+  }, []);
 
   // 포커스할 때 사용
   const titleRef = useRef();

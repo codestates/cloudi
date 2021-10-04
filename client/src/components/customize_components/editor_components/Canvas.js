@@ -62,11 +62,11 @@ const Canvas = ({
   standImages
 }) => {
   const canvas = useRef();
-  
+
   const { plateImg, holderImg } = standImages;
-  
+
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     const ctx = canvas.current.getContext('2d');
     const { plate, holder, text } = selectedOps;

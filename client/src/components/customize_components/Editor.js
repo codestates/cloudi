@@ -6,7 +6,6 @@ import Canvas from './editor_components/Canvas';
 import Indicator from './Indicator';
 import MainButton from './MainButton';
 import ErrorMsg from './ErrorMsg';
-import { Redirect } from 'react-router';
 
 const Message = styled.section`
   position: fixed;

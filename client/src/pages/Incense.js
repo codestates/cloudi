@@ -205,7 +205,7 @@ const Incense = () => {
       );
       setClickCount(0);
     } else {
-      alert('이미 담겼는데?');
+      alert('이미 담겼는데?'); // eslint-disable-line
       setClickCount(0);
     }
   };
