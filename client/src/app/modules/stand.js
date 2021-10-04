@@ -48,6 +48,9 @@ export const standSlice = createSlice({
         curStandImg: '',
         stands: []
       };
+    },
+    insertAllStands: (state, action) => {
+      state.stands = action.stands;
     }
   }
 });
@@ -58,7 +61,8 @@ export const {
   changeCurStandImg,
   insertStand,
   removeStand,
-  removeAllStands
+  removeAllStands,
+  insertAllStands
 } = standSlice.actions;
 
 export default standSlice.reducer;
