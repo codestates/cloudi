@@ -11,5 +11,5 @@ export const CONSTANT_DATA = {
   10: false,
   11: false,
   12: false,
-  13: false 
+  13: false
 };

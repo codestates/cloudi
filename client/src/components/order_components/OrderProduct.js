@@ -364,7 +364,7 @@ const OrderProduct = () => {
                         <QuantityButton onClick={() => { dispatch(increaseStandQuantity(stand.id)); }}>+</QuantityButton>
                       </ContainerOne>
                       <ContainerOne>
-                        {money(stand.standPrice)}원
+                        {money(stand.standPrice)} 원
                       </ContainerOne>
                     </SingleStand>
                   );

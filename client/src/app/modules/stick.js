@@ -37,6 +37,11 @@ export const stickSlice = createSlice({
     removeStick: (state, { payload: id }) => {
       const index = state.sticks.findIndex((stick) => stick.id === id);
       state.sticks.splice(index, 1);
+    },
+    removeAllSticks: (state) => {
+      state = {
+        sticks: []
+      };
     }
   }
 });
@@ -45,7 +50,8 @@ export const {
   increaseStickQuantity,
   decreaseStickQuantity,
   insertStick,
-  removeStick
+  removeStick,
+  removeAllSticks
 } = stickSlice.actions;
 
 export default stickSlice.reducer;
