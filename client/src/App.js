@@ -54,8 +54,8 @@ const App = () => {
         dispatch(insertAllStands(res.data.orders.stands));
         dispatch(insertAllSticks(res.data.orders.sticks));
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => console.log(err.response.data));
+  }, [dispatch, userinfo.userinfo.token]);
 
   return (
     <>

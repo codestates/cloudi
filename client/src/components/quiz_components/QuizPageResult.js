@@ -88,27 +88,29 @@ const QuizPageResult = ({ resultVisible, resultData, loadingOpen }) => {
   const rightClickHandler = () => {};
   return (
     <>
-      {loadingOpen ? (
-        <>
-          <LoadingImg />
-          <LoadingText>Incense 분석 중 . . .</LoadingText>
-        </>
-      ) : (
-        <ResultWrapper visible={resultVisible && 'A'}>
-          <ResultTitle>나에게 어울리는 Incense는..</ResultTitle>
-          <ResultContainer>
-            <ContentImage img={resultData?.stickImage} />
-            <TextContainer>
-              <TextContent color='#3f3f4a'>{resultData?.stickName}</TextContent>
-              <TextContent>{resultData?.stickDesc}</TextContent>
-              <TextContent>{resultData?.stickPrice} 원</TextContent>
-            </TextContainer>
-          </ResultContainer>
-          <IncenseBtn to='/incense' onClick={rightClickHandler}>
-            더 많은 제품 보러가기
-          </IncenseBtn>
-        </ResultWrapper>
-      )}
+      {loadingOpen
+        ? (
+          <>
+            <LoadingImg />
+            <LoadingText>Incense 분석 중 . . .</LoadingText>
+          </>
+          )
+        : (
+          <ResultWrapper visible={resultVisible && 'A'}>
+            <ResultTitle>나에게 어울리는 Incense는..</ResultTitle>
+            <ResultContainer>
+              <ContentImage img={resultData?.stickImage} />
+              <TextContainer>
+                <TextContent color='#3f3f4a'>{resultData?.stickName}</TextContent>
+                <TextContent>{resultData?.stickDesc}</TextContent>
+                <TextContent>{resultData?.stickPrice} 원</TextContent>
+              </TextContainer>
+            </ResultContainer>
+            <IncenseBtn to='/incense' onClick={rightClickHandler}>
+              더 많은 제품 보러가기
+            </IncenseBtn>
+          </ResultWrapper>
+          )}
     </>
   );
 };

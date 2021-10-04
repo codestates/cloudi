@@ -46,6 +46,9 @@ export const standSlice = createSlice({
     removeAllStands: (state) => {
       state.curStandImg = '';
       state.stands = [];
+    },
+    insertAllStands: (state, action) => {
+      state.stands = action.payload;
     }
   }
 });
