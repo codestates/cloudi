@@ -34,6 +34,7 @@ module.exports = {
       .then(data1 => {
         const stickData = data1[0].dataValues;
         resData.stickName = stickData.stickName;
+        resData.stickDesc = stickData.stickDesc;
         resData.stickPrice = stickData.stickPrice;
         resData.stickImage = stickData.stickImage.toString();
         //! 응답 전송

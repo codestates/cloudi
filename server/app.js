@@ -16,7 +16,7 @@ const incenseRouter = require('./routes/incense');
 const standRouter = require('./routes/stand');
 const orderRouter = require('./routes/order');
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 app.use(
   cors(/*{
