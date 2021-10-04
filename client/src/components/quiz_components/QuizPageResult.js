@@ -32,8 +32,8 @@ const ResultContainer = styled.div`
 
 const ContentImage = styled.div`
   flex: 80%;
-  background-image: url(${(props) => props.img});
-  background-size: contain;
+  background-image: url(${props => props.img});
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 `;
