@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertUserinfo } from '../app/modules/userinfo';
 import { standsSelector, sticksSelector } from '../app/modules/hooks';
+import { userinfoSelector } from '../app/modules/hooks';
 
 const LoginContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -175,31 +176,20 @@ const Login = ({ visible, setVisible }) => {
   const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
+  const { userinfo } = useSelector(userinfoSelector);
 
-  // console.log('인센스 ->', stick);
-  // console.log('홀더 ->', stand.stands);
-  // console.log('리덕스 유저인포(loginModal) ->', userinfo);
+  console.log('인센스 ->', stick);
+  console.log('홀더 ->', stand.stands);
+  console.log('리덕스 유저인포(loginModal) ->', userinfo);
   const orders = { ...stick, ...stand };
   // console.log('orders 데이터  ->', orders);
 
   const loginClickHandler = () => {
     // 로그인버튼
     const { email, password } = loginInfo;
-    // const obj = {
-    //   sticks: [
-    //     {
-    //       stickId : 1,
-    //       stickQuantity: 1
-    //     }
-    //   ],
-    //   stands: stand.stands
-    // };
-
     axios({
       method: 'POST',
       url: `${URL}/user/login`,
-      // ? orders: {...stick, ...stand} 넘기면 CORS에러
-      // ? 1. null일때 구분해야 하는?
       data: { orders, userEmail: email, userPassword: password }
     })
       .then((res) => {

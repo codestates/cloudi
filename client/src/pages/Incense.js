@@ -137,7 +137,7 @@ const Sequence = styled.div`
 
 const TOTAL_SLIDES = 12;
 
-const URL = 'http://localhost:5000';
+const URL = 'http://localhost:8000';
 
 const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -160,7 +160,7 @@ const Incense = () => {
     })
       .then((res) => {
         // *로딩인디케이터
-        // console.log('인센스성공 ->', res.data);
+        console.log('인센스성공 ->', res.data);
         setIncenseData(res.data);
       })
       .catch((err) => {

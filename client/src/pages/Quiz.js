@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { userinfoSelector } from '../app/modules/hooks';
 
 const QuizContainer = styled.div`
+  font-family: 'Roboto', sans-serif;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -90,7 +91,7 @@ const ContentWrapper = styled.div`
   align-items: center;
 `;
 
-const URL = 'http://localhost:5000';
+const URL = 'http://localhost:8000';
 
 const Quiz = () => {
   const [visible, setVisible] = useState(SEQUENCE);
@@ -98,6 +99,7 @@ const Quiz = () => {
   const [imageClick, setImageClick] = useState(false);
   const [resultVisible, setResultVisible] = useState(false);
   const [quizBtn, setQuizBtn] = useState('CONTINUE');
+  const [loadingOpen, setLoadingOpen] = useState(0);
   const [resultData, setResultData] = useState(null);
   const [title, setTitle] = useState('좋아하는 계절을 선택해주세요');
   const [answer, setAnswer] = useState({
@@ -108,8 +110,9 @@ const Quiz = () => {
   });
   const progress = ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'];
   const { userinfo } = useSelector(userinfoSelector);
-
+  console.log('퀴즈페이지 유저인포', userinfo);
   const submitBtnHandler = () => {
+    // * true
     const num =
       answer.firstScore +
       answer.secondScore +
@@ -124,13 +127,13 @@ const Quiz = () => {
     setTitle('');
     setResultVisible(true);
     axios({
-      method: 'POST',
-      url: `${URL}/incense`,
-      data: { userId: userinfo.id, stickId: num + 1 }
+      method: 'GET',
+      url: `${URL}/incense`
     })
       .then((res) => {
-        console.log('퀴즈 결과 성공 -> ', res.data);
-        setResultData(res.data);
+        // * false
+        const DATA = res.data.filter((el) => el.stickGrade === num);
+        setResultData(...DATA);
       })
       .catch((err) => {
         console.log('퀴즈 실패', err);
@@ -246,7 +249,11 @@ const Quiz = () => {
       >
         {quizBtn}
       </ContinueBox>
-      <QuizPageResult resultVisible={resultVisible} resultData={resultData} />
+      <QuizPageResult
+        resultVisible={resultVisible}
+        resultData={resultData}
+        loadingOpen={loadingOpen}
+      />
     </QuizContainer>
   );
 };

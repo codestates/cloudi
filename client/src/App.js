@@ -35,10 +35,11 @@ const App = () => {
         method: 'POST',
         url: 'http://localhost:8000/user/google',
         data: { orders: null, code: authorizationCode }
-      }).then(res => {
-        console.log('Google Login OK', res.data.userEmail);
       })
-        .catch(err => console.log('Google Login', err));
+        .then((res) => {
+          console.log('Google Login OK', res.data.userEmail);
+        })
+        .catch((err) => console.log('Google Login', err));
     }
   };
 
@@ -47,11 +48,13 @@ const App = () => {
     axios({
       method: 'GET',
       url: 'http://localhost:8000/auth',
-      headers: {Authorization: userinfo.userinfo.token}
-    }).then(res => {
-      console.log(res.data.orders)
-      // dispatch(insertAllStands(res.data.orders.stands))
-    }).catch(err => console.log(err.response.data))
+      headers: { Authorization: userinfo.userinfo.token }
+    })
+      .then((res) => {
+        dispatch(insertAllStands(res.data.orders.stands));
+        dispatch(insertAllSticks(res.data.orders.sticks));
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -76,8 +79,20 @@ const App = () => {
           <Incense />
         </Route>
         <Route path='/'>
-          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-          <div><center>페이지를 찾을 수 없습니다.</center></div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <div>
+            <center>페이지를 찾을 수 없습니다.</center>
+          </div>
         </Route>
       </Switch>
     </>
