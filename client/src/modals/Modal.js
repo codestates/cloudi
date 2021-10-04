@@ -45,7 +45,7 @@ const ModalContent = styled.div`
 `;
 
 const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen, setMyinfoOpen }) => {
-  const [isLogin] = useState(true);
+  const [isLogin] = useState(false);
   const visibleHandler = () => {
     setVisible(!visible);
   };

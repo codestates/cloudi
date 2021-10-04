@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // 초기 상태
 const initialState = {
-  id: '',
-  kakaoId: '',
-  googleId: '',
-  isAdmin: '',
-  userEmail: '',
-  userName: '',
-  token: ''
+    id: '',
+    kakaoId: '',
+    googleId: '',
+    isAdmin: '',
+    userEmail: '',
+    userName: '',
+    token: ''
 };
 
 export const userinfoSlice = createSlice({

@@ -2,10 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-// import { useDispatch, useSelector } from 'react-redux';
-// import { increaseStandQuantity, decreaseStandQuantity, removeStand } from '../app/modules/stand';
-// import { increaseStickQuantity, decreaseStickQuantity, removeStick } from '../app/modules/stick';
-// import { standsSelector, sticksSelector } from '../app/modules/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { insertUserinfo } from '../app/modules/userinfo';
+import { standsSelector, sticksSelector, userinfoSelector } from '../app/modules/hooks';
 
 const LoginContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -173,6 +172,16 @@ const Login = ({ visible, setVisible }) => {
     password: ''
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
+  const stick = useSelector(sticksSelector);
+  const stand = useSelector(standsSelector);
+  const { userinfo } = useSelector(userinfoSelector);
+  
+  console.log('인센스 ->', stick);
+  console.log('홀더 ->', stand);
+  console.log('리덕스 유저인포 ->', userinfo);
+  const stickData = { ...stick, ...stand };
+  console.log('STICK 데이터  ->', stickData );
 
   const loginClickHandler = () => {
     // 로그인버튼
@@ -180,10 +189,23 @@ const Login = ({ visible, setVisible }) => {
     axios({
       method: 'POST',
       url: URL + '/user/login',
+      //? orders: {...stick, ...stand} 넘기면 CORS에러
+      //? 1. null일때 구분해야 하는?
+
       data: { orders: null, userEmail: email, userPassword: password }
     })
-      .then((data) => {
-        console.log('로그인성공 -->', data);
+      .then((res) => {
+          console.log('일반로그인성공 -->', res.data);
+          dispatch(insertUserinfo({
+            id: res.data.id,
+            kakaoId: res.data.kakaoId,
+            googleId: res.data.googldId,
+            isAdmin: res.data.isAdmin,
+            userEmail: res.data.userEmail,
+            userName: res.data.userName,
+            token: res.data.token
+          }));
+          // * 장바구니에 넣기
       })
       .catch(() => {
         setErrorMessage('아이디 또는 비밀번호가 잘못 입력 되었습니다');
