@@ -42,6 +42,9 @@ export const stickSlice = createSlice({
       state = {
         sticks: []
       };
+    },
+    insertAllSticks: (state, action) => {
+      state.sticks = action.sticks;
     }
   }
 });
@@ -51,7 +54,8 @@ export const {
   decreaseStickQuantity,
   insertStick,
   removeStick,
-  removeAllSticks
+  removeAllSticks,
+  insertAllSticks
 } = stickSlice.actions;
 
 export default stickSlice.reducer;

@@ -168,7 +168,7 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
-const URL = 'http://localhost:5000';
+const URL = 'http://localhost:8000';
 
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
@@ -179,7 +179,7 @@ const Login = ({ visible, setVisible }) => {
   const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
-  const { userinfo } = useSelector(userinfoSelector);
+  const userinfo = useSelector(userinfoSelector);
 
   // console.log('인센스 ->', stick);
   // console.log('홀더 ->', stand.stands);
