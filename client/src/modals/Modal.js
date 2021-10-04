@@ -5,6 +5,7 @@ import { removeUserinfo } from '../app/modules/userinfo';
 import { removeAllSticks } from '../app/modules/stick';
 import { removeAllStands } from '../app/modules/stand';
 import { userinfoSelector } from '../app/modules/hooks';
+
 const modal = keyframes`
   0% {
       opacity: 0;
@@ -59,9 +60,9 @@ const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen, setMyinfoOpe
   const logoutHandler = () => {
     console.log('로그아웃 클릭');
     dispatch(removeUserinfo());
-    console.log('로그아웃 클릭 후에 유저인포 ->', userinfo);
     dispatch(removeAllSticks());
     dispatch(removeAllStands());
+    localStorage.clear();
   };
   return (
     <ModalContainer visible={visible} onClick={(visibleHandler)}>

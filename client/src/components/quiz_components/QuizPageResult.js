@@ -1,6 +1,6 @@
-
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { ReactComponent as CloudyIcon } from '../../svgs/Cloudy.svg';
 
 const ResultWrapper = styled.div`
   display: ${(props) => (props.visible === 'A' ? 'flex' : 'none')};
@@ -32,7 +32,7 @@ const ResultContainer = styled.div`
 
 const ContentImage = styled.div`
   flex: 80%;
-  background-image: url(${props => props.img});
+  background-image: url(${(props) => props.img});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -72,24 +72,46 @@ const IncenseBtn = styled(NavLink)`
   }
 `;
 
-const QuizPageResult = ({ resultVisible, resultData }) => {
-  console.log('마지막페이지 데이터', resultData);
+const LoadingImg = styled(CloudyIcon)`
+  position: absolute;
+  width: 500px;
+  height: 500px;
+`;
+
+const LoadingText = styled.div`
+  padding-top: 100px;
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0.7);
+`;
+
+const QuizPageResult = ({ resultVisible, resultData, loadingOpen }) => {
   const rightClickHandler = () => {};
   return (
-    <ResultWrapper visible={resultVisible && 'A'}>
-      <ResultTitle>나에게 어울리는 Incense는..</ResultTitle>
-      <ResultContainer>
-        <ContentImage img={resultData?.stickImage} />
-        <TextContainer>
-          <TextContent color='#3f3f4a'>{resultData?.stickName}</TextContent>
-          <TextContent>{resultData?.stickDesc}</TextContent>
-          <TextContent>{resultData?.stickPrice} 원</TextContent>
-        </TextContainer>
-      </ResultContainer>
-      <IncenseBtn to='/incense' onClick={rightClickHandler}>
-        더 많은 제품 보러가기
-      </IncenseBtn>
-    </ResultWrapper>
+    <>
+      {loadingOpen
+        ? (
+          <>
+            <LoadingImg />
+            <LoadingText>Incense 분석 중 . . .</LoadingText>
+          </>
+          )
+        : (
+          <ResultWrapper visible={resultVisible && 'A'}>
+            <ResultTitle>나에게 어울리는 Incense는..</ResultTitle>
+            <ResultContainer>
+              <ContentImage img={resultData?.stickImage} />
+              <TextContainer>
+                <TextContent color='#3f3f4a'>{resultData?.stickName}</TextContent>
+                <TextContent>{resultData?.stickDesc}</TextContent>
+                <TextContent>{resultData?.stickPrice} 원</TextContent>
+              </TextContainer>
+            </ResultContainer>
+            <IncenseBtn to='/incense' onClick={rightClickHandler}>
+              더 많은 제품 보러가기
+            </IncenseBtn>
+          </ResultWrapper>
+          )}
+    </>
   );
 };
 
