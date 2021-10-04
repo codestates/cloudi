@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseStandQuantity, decreaseStandQuantity, removeStand } from '../../app/modules/stand';
 import { increaseStickQuantity, decreaseStickQuantity, removeStick } from '../../app/modules/stick';
@@ -301,6 +302,40 @@ const OrderProduct = () => {
     });
   };
 
+  const handleStickDelete = (stick) => {
+    dispatch(removeStick(stick.id));
+    axios({
+      method: 'DELETE',
+      url: `http://localhost:8000/order?stickOrderId=${stick.id}`
+    }).then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
+  const handleDecreaseStickQuantity = (stick) => {
+    console.log(stick);
+    dispatch(decreaseStickQuantity(stick.id));
+    axios({
+      method: 'PUT',
+      url: 'http://localhost:8000/order',
+      data: {
+        stickQuantity: stick.stickQuantity - 1,
+        stickOrderId: stick.id
+      }
+    }).catch(err => console.log(err));
+  };
+
+  const handleIncreaseStickQuantity = (stick) => {
+    dispatch(increaseStickQuantity(stick.id));
+    axios({
+      method: 'PUT',
+      url: 'http://localhost:8000/order',
+      data: {
+        stickQuantity: stick.stickQuantity + 1,
+        stickOrderId: stick.id
+      }
+    }).catch(err => console.log(err));
+  };
+
   return (
     <>
       <OrderProductContainer>
@@ -320,7 +355,7 @@ const OrderProduct = () => {
                     <SingleStick key={stick.id}>
                       <MobileDesc>
                         <MyProduct>My Incense</MyProduct>
-                        <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStick(stick.id)); }} />
+                        <DeleteX src='/images/modalX.png' onClick={() => { handleStickDelete(stick); }} />
                       </MobileDesc>
                       <ContainerPicture>
                         <StickImg src={stick.stickImage} />
@@ -329,12 +364,12 @@ const OrderProduct = () => {
                         <SingleDesc>
                           INCENSE STICKS / {stick.stickName} / 12"
                         </SingleDesc>
-                        <Delete onClick={() => { dispatch(removeStick(stick.id)); }}>삭제하기</Delete>
+                        <Delete onClick={() => { handleStickDelete(stick); }}>삭제하기</Delete>
                       </ContainerTwo>
                       <ContainerOne>
-                        <QuantityButton onClick={() => { dispatch(decreaseStickQuantity(stick.id)); }}>-</QuantityButton>
+                        <QuantityButton onClick={() => { handleDecreaseStickQuantity(stick); }}>-</QuantityButton>
                         <QuantityContainer>{stick.stickQuantity}</QuantityContainer>
-                        <QuantityButton onClick={() => { dispatch(increaseStickQuantity(stick.id)); }}>+</QuantityButton>
+                        <QuantityButton onClick={() => { handleIncreaseStickQuantity(stick); }}>+</QuantityButton>
                       </ContainerOne>
                       <ContainerOne>
                         {money(stick.stickPrice)}원

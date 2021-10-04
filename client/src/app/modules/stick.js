@@ -40,6 +40,9 @@ export const stickSlice = createSlice({
     },
     removeAllSticks: (state) => {
       state.sticks = [];
+    },
+    insertAllSticks: (state, action) => {
+      state.sticks = action.payload;
     }
   }
 });
