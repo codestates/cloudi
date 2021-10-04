@@ -100,6 +100,7 @@ const Quiz = () => {
     thirdScore: 0,
     fourthScore: 0
   });
+  console.log(answer);
   const progress = ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'];
   const submitBtnHandler = () => {
     setVisible({

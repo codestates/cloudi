@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import GlobalStyle from './GlobalStyle';
 import Header from './modals/Header';
 import Main from './pages/Main';
@@ -10,6 +11,35 @@ import SideBar from './modals/SideBar';
 import Incense from './pages/Incense';
 
 const App = () => {
+  const didMount = () => {
+    const url = new URL(window.location.href);
+    const authorizationCode = url.searchParams.get('code');
+    // 카카오 구글 두개 나눠야함
+    if (authorizationCode) {
+      // axios({
+      //   method: 'POST',
+      //   url: 'http://localhost:80/user/kakao',
+      //   data: { orders: null, code: authorizationCode },
+      // }).then(res => {
+      //   console.log('Kakao Login OK', res.data.userEmail);
+      // })
+      // .catch(err => console.log('Kakao Login', err));
+
+      axios({
+        method: 'POST',
+        url: 'http://localhost:80/user/google',
+        data: { orders: null, code: authorizationCode }
+      }).then(res => {
+        console.log('Google Login OK', res.data.userEmail);
+      })
+        .catch(err => console.log('Google Login', err));
+    }
+  };
+
+  useEffect(() => {
+    didMount();
+  }, []);
+
   return (
     <>
       <GlobalStyle />

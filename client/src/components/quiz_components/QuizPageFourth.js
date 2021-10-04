@@ -45,9 +45,9 @@ const QuizPageFourth = ({ visible, setImageClick, answer, setAnswer }) => {
   });
   const score = {
     rainy: -1,
-    snow: -1,
+    snow: 1,
     sunny: 1,
-    cloudy: 1
+    cloudy: 0
   };
 
   const WEATHER = ['rainy', 'snow', 'sunny', 'cloudy'];

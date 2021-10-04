@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const DeleteContainer = styled.div`
   display: ${(props) => (props.isvisible ? 'flex' : 'none')};
@@ -107,9 +108,10 @@ const BorderBottom = styled.div`
   border-bottom: 2px solid black;
 `;
 
-const Delete = ({ visible, setDeleteModalVisible }) => {
+const Delete = ({ visible, setVisible }) => {
   const [InputCheck, setInputCheck] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const history = useHistory();
 
   const handleInputValue = (e) => {
     setInputCheck(e.target.value);
@@ -119,16 +121,19 @@ const Delete = ({ visible, setDeleteModalVisible }) => {
   };
 
   const handleCloseModal = () => {
-    setDeleteModalVisible(false);
+    setVisible(false);
     setErrorMessage('');
     setInputCheck('');
   };
 
   const checkDeleteValue = () => {
     if (InputCheck === '회원탈퇴') {
-      setDeleteModalVisible(false);
+      setVisible(false);
       setInputCheck('');
       setErrorMessage('');
+      alert('회원탈퇴가 완료되었습니다');
+      history.push('/');
+      // localStorage.clear();
     } else {
       setErrorMessage('`회원탈퇴` 입력을 다시 확인해주세요');
     }
