@@ -164,7 +164,7 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
-const URL = 'http://localhost:5000';
+const URL = 'http://localhost:8000';
 
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
@@ -175,6 +175,7 @@ const Login = ({ visible, setVisible }) => {
   const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
+
   // console.log('인센스 ->', stick);
   // console.log('홀더 ->', stand.stands);
   // console.log('리덕스 유저인포(loginModal) ->', userinfo);
@@ -250,7 +251,6 @@ const Login = ({ visible, setVisible }) => {
   };
 
   return (
-    <>
       <LoginContainer visible={visible}>
         <LoginContent>
           <LoginTitle>LOG IN</LoginTitle>
@@ -288,7 +288,6 @@ const Login = ({ visible, setVisible }) => {
           </SocialLoginBtn>
         </LoginContent>
       </LoginContainer>
-    </>
   );
 };
 

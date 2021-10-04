@@ -49,7 +49,8 @@ export const {
   decreaseStickQuantity,
   insertStick,
   removeStick,
-  removeAllSticks
+  removeAllSticks,
+  insertAllSticks
 } = stickSlice.actions;
 
 export default stickSlice.reducer;

@@ -56,7 +56,8 @@ export const {
   changeCurStandImg,
   insertStand,
   removeStand,
-  removeAllStands
+  removeAllStands,
+  insertAllStands
 } = standSlice.actions;
 
 export default standSlice.reducer;

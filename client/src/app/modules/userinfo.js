@@ -18,7 +18,6 @@ export const userinfoSlice = createSlice({
   initialState,
   reducers: {
     insertUserinfo: (state, action) => {
-      console.log('인서트인포', action);
       const userinfo = {
         id: action.payload.id,
         kakoId: action.payload.kakaoId,
