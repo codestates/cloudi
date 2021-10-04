@@ -82,7 +82,7 @@ const TimerContainer = styled.section`
   right: 15px;
   border-radius: 20px;
   width: 120px;
-  height: 30px;
+  height: 33px;
   line-height: 30px;
   background-color: ${props =>
     props.min ? 'gray' : 'red'
@@ -104,6 +104,15 @@ const Timer = styled.div`
 const Reset = styled.img`
   height: 18px;
   cursor: pointer;
+`;
+
+const TimerIncense = styled.div`
+  position: absolute;
+  height: 5px;
+  width: 85px;
+  top: 26px;
+  right: 18px;
+  background: linear-gradient(to right, rgb(83, 101, 110) 1%, rgb(70, 52, 35) 9%);
 `;
 
 const SideBar = () => {
@@ -196,6 +205,7 @@ const SideBar = () => {
           {min} : {sec < 10 ? `0${sec}` : sec}
         </Timer>
         <Reset src='images/reset.png' onClick={handleReset} />
+        <TimerIncense />
       </TimerContainer>
     </>
   );
