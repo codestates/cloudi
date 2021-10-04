@@ -148,7 +148,7 @@ const ErrMessage = styled.div`
   color: ${(props) => (props.color ? '#1c1a1a' : '#ff0000')};
 `;
 
-const URL = 'http://localhost:80';
+const URL = 'http://localhost:5000';
 
 const Myinfo = ({ visible, setVisible }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);

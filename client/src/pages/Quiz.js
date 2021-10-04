@@ -6,6 +6,9 @@ import QuizPageThird from '../components/quiz_components/QuizPageThird';
 import QuizPageFourth from '../components/quiz_components/QuizPageFourth';
 import QuizPageResult from '../components/quiz_components/QuizPageResult';
 import { SEQUENCE } from '../components/quiz_components/quizItem';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { userinfoSelector } from '../app/modules/hooks';
 
 const QuizContainer = styled.div`
   height: 100vh;
@@ -87,12 +90,15 @@ const ContentWrapper = styled.div`
   align-items: center;
 `;
 
+const URL = 'http://localhost:5000';
+
 const Quiz = () => {
   const [visible, setVisible] = useState(SEQUENCE);
   const [sequence, setSequence] = useState(SEQUENCE);
   const [imageClick, setImageClick] = useState(false);
   const [resultVisible, setResultVisible] = useState(false);
   const [quizBtn, setQuizBtn] = useState('CONTINUE');
+  const [resultData, setResultData] = useState(null);
   const [title, setTitle] = useState('좋아하는 계절을 선택해주세요');
   const [answer, setAnswer] = useState({
     firstScore: 0,
@@ -100,15 +106,35 @@ const Quiz = () => {
     thirdScore: 0,
     fourthScore: 0
   });
-  console.log(answer);
   const progress = ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'];
+  const { userinfo } = useSelector(userinfoSelector);
+
   const submitBtnHandler = () => {
+    const num =
+      answer.firstScore +
+      answer.secondScore +
+      answer.thirdScore +
+      answer.fourthScore +
+      6;
+
     setVisible({
       ...visible,
       fourthPage: false
     });
     setTitle('');
     setResultVisible(true);
+    axios({
+      method: 'POST',
+      url: `${URL}/incense`,
+      data: { userId: userinfo.id, stickId: num + 1 }
+    })
+      .then((res) => {
+        console.log('퀴즈 결과 성공 -> ', res.data);
+        setResultData(res.data);
+      })
+      .catch((err) => {
+        console.log('퀴즈 실패', err);
+      });
   };
 
   const continueBtnHandler = () => {
@@ -220,7 +246,7 @@ const Quiz = () => {
       >
         {quizBtn}
       </ContinueBox>
-      <QuizPageResult resultVisible={resultVisible} />
+      <QuizPageResult resultVisible={resultVisible} resultData={resultData} />
     </QuizContainer>
   );
 };

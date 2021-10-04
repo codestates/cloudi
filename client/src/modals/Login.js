@@ -2,10 +2,13 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-// import { useDispatch, useSelector } from 'react-redux';
-// import { increaseStandQuantity, decreaseStandQuantity, removeStand } from '../app/modules/stand';
-// import { increaseStickQuantity, decreaseStickQuantity, removeStick } from '../app/modules/stick';
-// import { standsSelector, sticksSelector } from '../app/modules/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { insertUserinfo } from '../app/modules/userinfo';
+import {
+  standsSelector,
+  sticksSelector,
+  userinfoSelector
+} from '../app/modules/hooks';
 
 const LoginContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -165,7 +168,7 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
-const URL = 'http://localhost:80';
+const URL = 'http://localhost:5000';
 
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
@@ -173,20 +176,56 @@ const Login = ({ visible, setVisible }) => {
     password: ''
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
+  const stick = useSelector(sticksSelector);
+  const stand = useSelector(standsSelector);
+  const { userinfo } = useSelector(userinfoSelector);
+
+  // console.log('인센스 ->', stick);
+  // console.log('홀더 ->', stand.stands);
+  // console.log('리덕스 유저인포 ->', userinfo);
+  const orders = { ...stick, ...stand };
+  // console.log('orders 데이터  ->', orders);
 
   const loginClickHandler = () => {
     // 로그인버튼
     const { email, password } = loginInfo;
+    // const obj = {
+    //   sticks: [
+    //     {
+    //       stickId : 1,
+    //       stickQuantity: 1
+    //     }
+    //   ],
+    //   stands: stand.stands
+    // };
+
     axios({
       method: 'POST',
-      url: URL + '/user/login',
-      data: { orders: null, userEmail: email, userPassword: password }
+      url: `${URL}/user/login`,
+      // ? orders: {...stick, ...stand} 넘기면 CORS에러
+      // ? 1. null일때 구분해야 하는?
+      data: { orders, userEmail: email, userPassword: password }
     })
-      .then((data) => {
-        console.log('로그인성공 -->', data);
+      .then((res) => {
+        // console.log('일반로그인성공 -->', res.data.orders);
+        // ? res.data.orders -> 객체 // 키 stands, sticks
+        dispatch(
+          insertUserinfo({
+            id: res.data.id,
+            kakaoId: res.data.kakaoId,
+            googleId: res.data.googldId,
+            isAdmin: res.data.isAdmin,
+            userEmail: res.data.userEmail,
+            userName: res.data.userName,
+            token: res.data.token
+          })
+        );
+        // ! 장바구니에 넣기
       })
-      .catch(() => {
+      .catch((err) => {
         setErrorMessage('아이디 또는 비밀번호가 잘못 입력 되었습니다');
+        console.log('에러', err);
       });
 
     // 장바구니 받으면 dispatch로 보내야함

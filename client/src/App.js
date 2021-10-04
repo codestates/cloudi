@@ -18,7 +18,7 @@ const App = () => {
     if (authorizationCode) {
       // axios({
       //   method: 'POST',
-      //   url: 'http://localhost:80/user/kakao',
+      //   url: 'http://localhost:5000/user/kakao',
       //   data: { orders: null, code: authorizationCode },
       // }).then(res => {
       //   console.log('Kakao Login OK', res.data.userEmail);
@@ -27,7 +27,7 @@ const App = () => {
 
       axios({
         method: 'POST',
-        url: 'http://localhost:80/user/google',
+        url: 'http://localhost:5000/user/google',
         data: { orders: null, code: authorizationCode }
       }).then(res => {
         console.log('Google Login OK', res.data.userEmail);

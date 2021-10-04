@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUserinfo } from '../app/modules/userinfo';
+import { userinfoSelector } from '../app/modules/hooks';
 const modal = keyframes`
   0% {
       opacity: 0;
@@ -45,13 +47,20 @@ const ModalContent = styled.div`
 `;
 
 const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen, setMyinfoOpen }) => {
-  const [isLogin] = useState(true);
+  const [isLogin] = useState(false);
+  const dispatch = useDispatch();
+  const { userinfo } = useSelector(userinfoSelector);
+  // console.log('Modal컴포넌트 유저인포token ->', userinfo.token);
+  // * 리덕스통해서 token이 있으면 isLogin true 없으면 false
+  // ?  if (token !== '')
   const visibleHandler = () => {
     setVisible(!visible);
   };
 
   const logoutHandler = () => {
-    console.log('로그아웃');
+    console.log('로그아웃 클릭');
+    dispatch(removeUserinfo());
+    console.log('로그아웃 클릭 후에 유저인포 ->', userinfo);
   };
   return (
     <ModalContainer visible={visible} onClick={(visibleHandler)}>

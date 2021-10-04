@@ -2,13 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // 초기 상태
 const initialState = {
-  id: '',
-  kakaoId: '',
-  googleId: '',
-  isAdmin: '',
-  userEmail: '',
-  userName: '',
-  token: ''
+  userinfo: {
+    id: '',
+    kakaoId: '',
+    googleId: '',
+    isAdmin: '',
+    userEmail: '',
+    userName: '',
+    token: ''
+  }
 };
 
 export const userinfoSlice = createSlice({
@@ -25,10 +27,21 @@ export const userinfoSlice = createSlice({
         userName: action.payload.userName,
         token: action.payload.token
       };
-      state = userinfo;
+      console.log('리덕스 유저인포', userinfo);
+      state.userinfo = userinfo;
+      console.log('리덕스 스테이트', state.userinfo);
     },
     removeUserinfo: (state) => {
-      state = initialState;
+      state.userinfo = {
+        id: '',
+        kakaoId: '',
+        googleId: '',
+        isAdmin: '',
+        userEmail: '',
+        userName: '',
+        token: ''
+      };
+      // * 회원탈퇴, 로그아웃
     }
   }
 });
