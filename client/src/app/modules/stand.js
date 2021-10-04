@@ -44,13 +44,8 @@ export const standSlice = createSlice({
       state.stands.splice(index, 1);
     },
     removeAllStands: (state) => {
-      state = {
-        curStandImg: '',
-        stands: []
-      };
-    },
-    insertAllStands: (state, action) => {
-      state.stands = action.stands;
+      state.curStandImg = '';
+      state.stands = [];
     }
   }
 });
