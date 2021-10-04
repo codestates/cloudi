@@ -46,6 +46,117 @@ module.exports = {
     })
   },
   delete: (req, res) => {
+    const token = req.headers.authorization;
+    // console.log(token)
+    let jwt;
+    let kakao;
+    let google;
+    if(token.split(' ')[0] === 'jwt'){
+      jwt = token.split(' ')[1];
+    }else if(token.split(' ')[0] === 'kakao'){
+      kakao = token.split(' ')[1];
+    }else{
+      google = token.split(' ')[1];
+    }
 
+    if(!!jwt){//jwt 토큰인 경우
+      // console.log(jwt)
+      let jwtData;
+      try {
+        jwtData = verify(jwt, secret);
+      } catch (err) {
+        if(err){
+        return res.status(401).send('유효하지 않은 토큰입니다')
+        }
+      }
+      // console.log(jwtData)
+      db.user.destroy({
+        where: {
+          id: jwtData.id
+        }
+      })
+      .then(data => {
+        if(data === 1){//성공적으로 회원 삭제
+          res.status(200).send('회원탈퇴가 완료되었습니다');
+        }else{
+          res.status(404).send('해당하는 회원이 없습니다');
+        }
+      })
+    }else if(!!kakao){//kakao 토큰인 경우
+      axios({
+        method: 'get',
+        url: 'https://kapi.kakao.com/v2/user/me',
+        headers: {
+          'authorization': `Bearer ${kakao}`,
+          'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        }
+      })
+      .then(data => {
+        let userInfo = data.data;
+
+        db.user.findAll({
+          where: {
+            kakaoId: userInfo.id
+          }
+        })
+        .then(data1 => {
+          let userInfoDB = data1[0].dataValues
+          db.user.destroy({
+            where: {
+              id: userInfoDB.id
+            }
+          })
+          .then(data2 => {
+            if(data2 === 1){//성공적으로 회원 삭제
+              res.status(200).send('회원탈퇴가 완료되었습니다');
+            }else{
+              res.status(404).send('해당하는 회원이 없습니다');
+            }
+          })        
+        })
+      })
+      .catch(e => {
+        console.log(`kakao token error ${e}`)
+        return res.status(401).send('유효하지 않은 토큰입니다')
+      })
+    }else{//google 토큰인 경우
+      axios({
+        method: 'get',
+        url: `https://www.googleapis.com/oauth2/v2/userinfo`,
+        headers: {
+          'authorization': `Bearer ${google}`,
+        }
+      })
+      .then(data => {
+        let userInfo = data.data;
+        // console.log(userInfo)
+
+        db.user.findAll({
+          where: {
+            googleId: userInfo.id
+          }
+        })
+        .then(data1 => {
+          let userInfoDB = data1[0].dataValues
+          
+          db.user.destroy({
+            where: {
+              id: userInfoDB.id
+            }
+          })
+          .then(data2 => {
+            if(data2 === 1){//성공적으로 회원 삭제
+              res.status(200).send('회원탈퇴가 완료되었습니다');
+            }else{
+              res.status(404).send('해당하는 회원이 없습니다');
+            }
+          })
+        })
+      })
+      .catch(e => {
+        console.log(`google token error ${e}`)
+        return res.status(401).send('유효하지 않은 토큰입니다')
+      })
+    }
   }
 }
