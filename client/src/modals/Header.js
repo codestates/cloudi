@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { standsSelector, sticksSelector } from '../app/modules/hooks';
-import { useSelector } from 'react-redux';
-
+import { standsSelector, sticksSelector, userinfoSelector } from '../app/modules/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUserinfo } from '../app/modules/userinfo';
+import { removeAllSticks } from '../app/modules/stick';
+import { removeAllStands } from '../app/modules/stand';
 import { Link, NavLink } from 'react-router-dom';
+
 import Modal from './Modal';
 import Login from './Login';
 import Signup from './Signup';
@@ -175,13 +178,18 @@ const Header = () => {
   const [signupOpen, setSignupOpen] = useState(false);
   const [myinfoOpen, setMyinfoOpen] = useState(false);
   const [clearOpen, setClearOpen] = useState(false);
+
+  const dispatch = useDispatch();
   const stand = useSelector(standsSelector);
   const stick = useSelector(sticksSelector);
+  const userinfo = useSelector(userinfoSelector);
+
   useEffect(() => {
     if (menu) {
       setModalOpen(false);
     }
   }, [menu]);
+
   const totalStandQuantity = stand.stands.reduce(
     (acc, cur) => acc + cur.standQuantity,
     0
@@ -195,6 +203,7 @@ const Header = () => {
   const handleClickMenu = () => {
     setMenu(!menu);
   };
+
   const clickHandler = () => {
     setModalOpen(!modalOpen);
   };
@@ -208,6 +217,13 @@ const Header = () => {
     setSignupOpen(true);
     setMenu(false);
   };
+
+  const logoutHandler = () => {
+    dispatch(removeUserinfo());
+    dispatch(removeAllSticks());
+    dispatch(removeAllStands());
+  };
+
   return (
     <NavBar menu={menu}>
       <NavLogo>
@@ -219,19 +235,26 @@ const Header = () => {
         </Link>
       </NavLogo>
       <NavMenu menu={menu} onClick={() => setModalOpen(false)}>
-        <MobileMenuList onClick={loginHandler}>SIGN UP</MobileMenuList>
-        <MobileMenuList onClick={signupHandler}>LOG IN</MobileMenuList>
+        {userinfo.token === ''
+          ? <>
+            <MobileMenuList onClick={loginHandler}>SIGN UP</MobileMenuList>
+            <MobileMenuList onClick={signupHandler}>LOG IN</MobileMenuList>
+            </>/*eslint-disable-line*/
+          : <>
+            <MobileMenuList visible={myinfoOpen} setVisible={setMyinfoOpen}>MY INFO</MobileMenuList>
+            <MobileMenuList onClick={logoutHandler}>LOG OUT</MobileMenuList>
+            </>/*eslint-disable-line*/}
         <LinkElem to='/order'>
-          <MobileMenuList>ORDER</MobileMenuList>
+          <MobileMenuList onClick={handleClickMenu}>ORDER</MobileMenuList>
         </LinkElem>
         <LinkElem to='/incense'>
-          <MenuList>INCENSE</MenuList>
+          <MenuList onClick={handleClickMenu}>INCENSE</MenuList>
         </LinkElem>
         <LinkElem to='/quiz'>
-          <MenuList>QUIZ</MenuList>
+          <MenuList onClick={handleClickMenu}>QUIZ</MenuList>
         </LinkElem>
         <LinkElem to='/customize'>
-          <MenuList>CUSTOMIZE</MenuList>
+          <MenuList onClick={handleClickMenu}>CUSTOMIZE</MenuList>
         </LinkElem>
       </NavMenu>
       <IconContainer>
