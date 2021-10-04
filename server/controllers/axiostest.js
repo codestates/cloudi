@@ -19,7 +19,7 @@ const { sign, verify } = require('jsonwebtoken');
 //   googleId: '106477660792720416229'
 // },{
 //     where: {
-//       id: 4
+//       id: 10
 //     }
 // })
 // .then(data => {
@@ -78,11 +78,11 @@ const { sign, verify } = require('jsonwebtoken');
 
 // db.user.destroy({
 //   where: {
-//     id: 5
+//     id: 6
 //   }
 // })
 // .then(data => {
-//   console.log(data)
+//   console.log(data, typeof data)
 // })
 
 //! kakao test
@@ -113,7 +113,7 @@ const { sign, verify } = require('jsonwebtoken');
 //! jwt sign
 
 // let data = {
-//   "id": 1,
+//   "id": 9,
 //   "kakaoId": null,
 //   "googleId": null,
 //   "isAdmin": false,
