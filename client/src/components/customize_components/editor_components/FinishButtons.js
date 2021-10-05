@@ -112,7 +112,7 @@ const FinishButtons = ({ selectedOps, url }) => {
   const stand = useSelector(standsSelector);
   const { userinfo } = useSelector(userinfoSelector);
 
-  const handleCartBtnClick = () => {
+  const handleCartBtnClick = async () => {
 
     // 카트에 들어감. 버튼 비활성화
     setIsAddedInCart(true);
@@ -126,12 +126,20 @@ const FinishButtons = ({ selectedOps, url }) => {
       image: stand.curStandImg
     }
 
+    console.log(userinfo.id)
+
     // 로그인한 상태
     if (!!userinfo.token) {
-      axios({
+      await axios({
         method: "post",
         url: `${url}/stand`,
         data: {
+          userId: userinfo.id,
+          standPrice: selectedOps.price,
+          standImage: stand.curStandImg,
+          standPlate: selectedOps.plate,
+          standHolder: selectedOps.holder,
+          standText: selectedOps.text
         }
       })
       .then(res => {
