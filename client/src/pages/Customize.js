@@ -9,9 +9,6 @@ import InitialMsg from '../components/customize_components/InitialMsg';
 
 // import Footer from '../modals/Footer';
 
-const local = 'http://localhost:80';
-// const remote = 'https://www.cloudi.shop';
-
 const CustomizePage = styled.section`
   display: flex;
   flex-direction: column;
@@ -56,11 +53,15 @@ const Title = styled.button`
 
 const Customize = () => {
   const [serverData, setServerData] = useState({});
+
+  // ! SERVER URL
+  const url = 'http://localhost:80';
+
   // 첫 렌더 시 모든 옵션 불러오기
   useEffect(() => {
     axios({
       method: 'get',
-      url: `${local}/stand`
+      url: `${url}/stand`
     })
       .then(res => {
         setServerData(res.data);
@@ -166,6 +167,7 @@ const Customize = () => {
                     path={`/customize/${el.stage}`}
                   >
                     <Editor
+                      url={url}
                       stages={stages.map(el => el.stage)}
                       stage={el.stage}
                       message={el.message}

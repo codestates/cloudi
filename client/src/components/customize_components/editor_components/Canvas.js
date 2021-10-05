@@ -83,6 +83,15 @@ const Canvas = ({
 
       plateImage.onload = function () {
         ctx.drawImage(plateImage, -30, 0);
+
+        // 텍스트 선택했다면 그리고 이미지 생성
+        if (!!text && text !== '-- NO TEXT --' && holder === 'NONE') { // eslint-disable-line
+          writeText(ctx, text, plate);
+        }
+
+        // ! 이미지 생성
+        const curStandImg = canvas.current.toDataURL();
+        dispatch(changeCurStandImg(curStandImg));
       };
       plateImage.onerror = function () {
         console.log('plate image loading error');

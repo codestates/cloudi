@@ -31,6 +31,7 @@ const TotalPrice = styled.section`
 `;
 
 const Controller = ({
+  url,
   curStage,
   selectedOps,
   handleBtnClick,
@@ -62,7 +63,7 @@ const Controller = ({
       }
       {
         curStage === 'finish'
-          ? <FinishButtons selectedOps={selectedOps} />
+          ? <FinishButtons selectedOps={selectedOps} url={url} />
           : null
       }
       <TotalPrice>

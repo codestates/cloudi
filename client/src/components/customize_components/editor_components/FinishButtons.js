@@ -5,6 +5,7 @@ import { insertStand } from '../../../app/modules/stand';
 import { standsSelector } from '../../../app/modules/hooks';
 
 import styled from 'styled-components';
+// import axios from 'axios';
 
 const ButtonWrapper = styled.div`
   margin: 0;
@@ -105,7 +106,7 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-const FinishButtons = ({ selectedOps }) => {
+const FinishButtons = ({ selectedOps, url }) => {
   const [isAddedInCart, setIsAddedInCart] = useState(false);
   const dispatch = useDispatch();
   const stand = useSelector(standsSelector);
@@ -119,6 +120,17 @@ const FinishButtons = ({ selectedOps }) => {
       price: selectedOps.price,
       image: stand.curStandImg
     }));
+
+    // if (true) { // 로그인한 상황
+    //   axios({
+    //     method: "post",
+    //     url: `${url}/stand`,
+    //     data: {
+    //     }
+    //   })
+    //   .then(res => console.log(res.data.images.holderImg.STEEL.CAT))
+    //   .catch(e => console.log(e.response.data))
+    // }
   };
 
   const handleSaveBtnClick = () => {

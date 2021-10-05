@@ -29,7 +29,7 @@ const StyledErrorMsg = styled.section`
 `;
 
 const ErrorMsg = ({ handleErrorMsg }) => {
-  let [timeLeft, setTimeLeft] = useState(5);
+  let [timeLeft, setTimeLeft] = useState(3);
 
   useEffect(() => {
     handleErrorMsg();

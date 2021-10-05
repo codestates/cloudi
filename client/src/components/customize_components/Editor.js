@@ -18,6 +18,7 @@ const Message = styled.section`
 `;
 
 const Editor = ({
+  url,
   stages,
   stage,
   message,
@@ -56,6 +57,7 @@ const Editor = ({
               standImages={standImages}
             />
             <Controller
+              url={url}
               curStage={stage}
               selectedOps={selectedOps}
               handleBtnClick={handleBtnClick}
