@@ -56,7 +56,7 @@ module.exports = {
         standPrice: 18000,
         standImage: standImages[0].blob,
         standPlate: 'WOOD',
-        standHolder: null,
+        standHolder: 'NONE',
         standText: 'WOO SUNG',
         createdAt: new Date(),
         updatedAt: new Date()

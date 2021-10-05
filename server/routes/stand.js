@@ -7,6 +7,6 @@ const router = express.Router();
 router.get('/', standController.get);
 
 // post /stand
-// router.post('/', standController.post);
+router.post('/', standController.post);
 
 module.exports = router;

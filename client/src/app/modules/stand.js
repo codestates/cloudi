@@ -25,8 +25,8 @@ export const standSlice = createSlice({
       }
     },
     insertStand: (state, action) => {
-      // 로그인 상태 + 서버에 있는 주문 아이디가 받아온 경우
-      if (action.payload.id) {
+      // 로그인 상태 + 서버에 있는 주문 아이디 받아온 경우
+      if (!!action.payload.id) {
         id = action.payload.id;
       } else {
         id++;
