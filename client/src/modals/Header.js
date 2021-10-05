@@ -237,8 +237,8 @@ const Header = () => {
       <NavMenu menu={menu} onClick={() => setModalOpen(false)}>
         {userinfo.token === ''
           ? <>
-            <MobileMenuList onClick={loginHandler}>SIGN UP</MobileMenuList>
-            <MobileMenuList onClick={signupHandler}>LOG IN</MobileMenuList>
+            <MobileMenuList onClick={signupHandler}>SIGN UP</MobileMenuList>
+            <MobileMenuList onClick={loginHandler}>LOG IN</MobileMenuList>
             </>/*eslint-disable-line*/
           : <>
             <MobileMenuList visible={myinfoOpen} setVisible={setMyinfoOpen}>MY INFO</MobileMenuList>

@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { insertUserinfo } from '../app/modules/userinfo';
+import { insertAllSticks } from '../app/modules/stick';
+import { insertAllStands } from '../app/modules/stand';
 import { standsSelector, sticksSelector } from '../app/modules/hooks';
 
 const LoginContainer = styled.div`
@@ -175,12 +177,7 @@ const Login = ({ visible, setVisible }) => {
   const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
-
-  // console.log('인센스 ->', stick);
-  // console.log('홀더 ->', stand.stands);
-  // console.log('리덕스 유저인포(loginModal) ->', userinfo);
   const orders = { ...stick, ...stand };
-  // console.log('orders 데이터  ->', orders);
 
   const loginClickHandler = () => {
     // 로그인버튼
@@ -191,8 +188,6 @@ const Login = ({ visible, setVisible }) => {
       data: { orders, userEmail: email, userPassword: password }
     })
       .then((res) => {
-        console.log('일반로그인성공 -->', res.data);
-        // ? res.data.orders -> 객체 // 키 stands, sticks
         dispatch(
           insertUserinfo({
             id: res.data.id,
@@ -204,16 +199,14 @@ const Login = ({ visible, setVisible }) => {
             token: res.data.token
           })
         );
+        dispatch(insertAllSticks(res.data.orders.sticks));
+        dispatch(insertAllStands(res.data.orders.stands));
         setVisible(false);
-        // ! 장바구니에 넣기
       })
       .catch((err) => {
         setErrorMessage('이메일 또는 비밀번호가 잘못 입력 되었습니다');
         console.log('에러', err);
       });
-
-    // 장바구니 받으면 dispatch로 보내야함
-    // sticks -> sticks / / stand -> stand
   };
 
   const loginInfoHandler = (key) => (e) => {
