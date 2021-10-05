@@ -80,5 +80,34 @@ module.exports = {
       });
 
     res.status(200).json(response);
+  },
+  post: async (req, res) => {
+    await db.stand.findAll({
+      where: {
+        userId: req.body.userId,
+        standPrice: req.body.userId,
+
+      }
+    })
+    .then (data => {
+      if (data.length === 0) {
+        const newStand = {
+          userId: req.body.userId,
+          standQuantity: 1,
+          standPrice: req.body.standPrice,
+          standImage: req.body.standImage,
+          standPlate: req.body.standPlate,
+          standHolder: req.body.standHolder,
+          standText: req.body.standText
+        }
+
+        db.stand.create(newStand)
+          .then (createdData => {
+            res.status(200).json(createdData.dataValues);
+          })
+      } else {
+        res.status(400).send('이미 존재하는 스탠드 입니다.')
+      }
+    })
   }
 }
