@@ -113,6 +113,7 @@ const Quiz = () => {
   console.log('퀴즈페이지 유저인포', userinfo);
   const submitBtnHandler = () => {
     // * true
+    setLoadingOpen(1);
     const num =
       answer.firstScore +
       answer.secondScore +
@@ -131,9 +132,11 @@ const Quiz = () => {
       url: `${URL}/incense`
     })
       .then((res) => {
-        // * false
         const DATA = res.data.filter((el) => el.stickGrade === num);
         setResultData(...DATA);
+        setTimeout(() => {
+          setLoadingOpen(0);
+        }, 3000);
       })
       .catch((err) => {
         console.log('퀴즈 실패', err);

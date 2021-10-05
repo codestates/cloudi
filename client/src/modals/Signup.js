@@ -28,7 +28,7 @@ const SignupContainer = styled.div`
   }
 `;
 
-const SignupContent = styled.div`
+const SignupContent = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,10 +172,9 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
         url: URL + '/user/signup',
         data: { userName, userEmail, userPassword }
       })
-        .then((res) => {
+        .then(() => {
           setVisible(false);
           setClearOpen(true);
-          // * 회원 가입 성공
           setUserInfo(USER_INFO);
         })
 
@@ -239,7 +238,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
             type='password'
             value={userInfo.confirmPassword}
             onChange={handleInputValue('confirmPassword')}
-            placeholder='confirmPassword'
+            placeholder='Confirm Password'
           />
         </InputContainer>
         <ErrMessage>{errorMessage}</ErrMessage>

@@ -74,18 +74,18 @@ const IncenseBtn = styled(NavLink)`
 
 const LoadingImg = styled(CloudyIcon)`
   position: absolute;
-  width: 500px;
   height: 500px;
+  width: 500px;
 `;
 
 const LoadingText = styled.div`
-  padding-top: 100px;
   font-size: 30px;
+  margin-top: 120px;
   color: rgba(0, 0, 0, 0.7);
 `;
 
 const QuizPageResult = ({ resultVisible, resultData, loadingOpen }) => {
-  const rightClickHandler = () => {};
+  
   return (
     <>
       {loadingOpen
@@ -106,7 +106,7 @@ const QuizPageResult = ({ resultVisible, resultData, loadingOpen }) => {
                 <TextContent>{resultData?.stickPrice} 원</TextContent>
               </TextContainer>
             </ResultContainer>
-            <IncenseBtn to='/incense' onClick={rightClickHandler}>
+            <IncenseBtn to='/incense'>
               더 많은 제품 보러가기
             </IncenseBtn>
           </ResultWrapper>

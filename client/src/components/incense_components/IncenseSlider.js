@@ -11,7 +11,7 @@ const SliderContainer = styled.div`
 `;
 
 const CheckImg = styled.div`
-  background-image: url(${(props) => props.click || '/images/blank.png'});
+  background-image: url(${(props) => props.click || '/images/blank2.png'});
   background-size: contain;
   background-repeat: no-repeat;
   width: 30px;
@@ -44,7 +44,7 @@ const TextContainer = styled.div`
 `;
 
 const IncenseData = styled.div`
-  color: #dbdbdb;
+  color: #636363;
   text-align: center;
   line-height: 30px;
 `;
@@ -94,11 +94,11 @@ const IncenseSlider = ({
   };
 
   const sliderClickHandler = (el) => {
-    if (click[el.stickId] === true) {
-      setClick({ ...CONSTANT_DATA, [el.stickId]: false });
+    if (click[el.id] === true) {
+      setClick({ ...CONSTANT_DATA, [el.id]: false });
       setClickCount(0);
     } else {
-      setClick({ ...CONSTANT_DATA, [el.stickId]: true });
+      setClick({ ...CONSTANT_DATA, [el.id]: true });
       setClickCount(1);
       setStickData(el);
     }
@@ -118,7 +118,7 @@ const IncenseSlider = ({
             </IncenseData>
           );
         })}
-        <CheckImg click={click[data.stickId] && '/images/check.png'} />
+        <CheckImg click={click[data.id] && '/images/check2.png'} />
       </TextContainer>
     </SliderContainer>
   );

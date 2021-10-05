@@ -128,10 +128,17 @@ const FinishButtons = ({ selectedOps, url }) => {
 
     // 로그인한 상태
     if (!!userinfo.token) {
+      newStand.userId = userinfo.userId;
       axios({
         method: "post",
         url: `${url}/stand`,
         data: {
+          userId: userinfo.userId,
+          standPrice: selectedOps.price,
+          standImage: stand.curStandImg,
+          standPlate: selectedOps.plate,
+          standHolder: selectedOps.holder,
+          standText: selectedOps.text
         }
       })
       .then(res => {
