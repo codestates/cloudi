@@ -218,10 +218,15 @@ const Header = () => {
     setMenu(false);
   };
 
+  const myinfoHandler = () => {
+    setMyinfoOpen(true);
+    setMenu(false);
+  }
   const logoutHandler = () => {
     dispatch(removeUserinfo());
     dispatch(removeAllSticks());
     dispatch(removeAllStands());
+    setMenu(false);
   };
 
   return (
@@ -241,7 +246,7 @@ const Header = () => {
             <MobileMenuList onClick={loginHandler}>LOG IN</MobileMenuList>
             </>/*eslint-disable-line*/
           : <>
-            <MobileMenuList visible={myinfoOpen} setVisible={setMyinfoOpen}>MY INFO</MobileMenuList>
+            <MobileMenuList visible={myinfoOpen} onClick={myinfoHandler}>MY INFO</MobileMenuList>
             <MobileMenuList onClick={logoutHandler}>LOG OUT</MobileMenuList>
             </>/*eslint-disable-line*/}
         <LinkElem to='/order'>
