@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { ReactComponent as CloudyIcon } from '../../svgs/Cloudy.svg';
 
 const ResultWrapper = styled.div`
-  display: ${(props) => (props.visible === 'A' ? 'flex' : 'none')};
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
   flex-direction: column;
   align-items: center;
   animation: 0.8s ease-in-out resultEffect;
@@ -95,7 +95,7 @@ const QuizPageResult = ({ resultVisible, resultData, loadingOpen }) => {
           </>
           )
         : (
-          <ResultWrapper visible={resultVisible && 'A'}>
+          <ResultWrapper visible={resultVisible}>
             <ResultTitle>나에게 어울리는 Incense는..</ResultTitle>
             <ResultContainer>
               <ContentImage img={resultData?.stickImage} />

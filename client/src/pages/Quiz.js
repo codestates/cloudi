@@ -32,7 +32,7 @@ const QuizContainer = styled.div`
 `;
 
 const QuizHeadline = styled.div`
-  display: ${(props) => (props.visible === 'A' ? 'none' : 'auto')};
+  display: ${(props) => (props.visible ? 'none' : 'auto')};
   color: #92929c;
   font-size: 0.9rem;
   margin-bottom: 20px;
@@ -45,7 +45,7 @@ const QuizTitle = styled.div`
 `;
 
 const SequenceContainer = styled.div`
-  display: ${(props) => (props.visible === 'A' ? 'none' : 'flex')};
+  display: ${(props) => (props.visible ? 'none' : 'flex')};
   flex-direction: row;
   justify-content: space-around;
 `;
@@ -62,7 +62,7 @@ const SequenceBox = styled.div`
 `;
 
 const ContinueBox = styled.div`
-  display: ${(props) => (props.visible === 'A' ? 'none' : 'auto')};
+  display: ${(props) => (props.visible ? 'none' : 'auto')};
   color: white;
   background-color: ${(props) => (props.click ? '#b7c58b' : '#787887')};
   width: 8rem;
@@ -85,7 +85,7 @@ const ContinueBox = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  display: ${(props) => (props.visible === 'A' ? 'none' : 'auto')};
+  display: ${(props) => (props.visible ? 'none' : 'auto')};
   height: 200px;
   justify-content: center;
   align-items: center;
@@ -97,7 +97,7 @@ const Quiz = () => {
   const [visible, setVisible] = useState(SEQUENCE);
   const [sequence, setSequence] = useState(SEQUENCE);
   const [imageClick, setImageClick] = useState(false);
-  const [resultVisible, setResultVisible] = useState(false);
+  const [resultVisible, setResultVisible] = useState(0);
   const [quizBtn, setQuizBtn] = useState('CONTINUE');
   const [loadingOpen, setLoadingOpen] = useState(0);
   const [resultData, setResultData] = useState(null);
@@ -208,15 +208,15 @@ const Quiz = () => {
 
   return (
     <QuizContainer>
-      <QuizHeadline visible={resultVisible && 'A'}>INCENSE QUIZ</QuizHeadline>
-      <SequenceContainer visible={resultVisible && 'A'}>
+      <QuizHeadline visible={resultVisible}>INCENSE QUIZ</QuizHeadline>
+      <SequenceContainer visible={resultVisible}>
         {progress.map((el) => {
           return <SequenceBox key={el} progress={sequence[el]} />;
         })}
       </SequenceContainer>
       <QuizTitle>{title}</QuizTitle>
 
-      <ContentWrapper visible={resultVisible && 'A'}>
+      <ContentWrapper visible={resultVisible}>
         <QuizPageFirst
           visible={visible.firstPage}
           setImageClick={setImageClick}
@@ -248,7 +248,7 @@ const Quiz = () => {
         click={imageClick}
         onClick={continueBtnHandler}
         quizBtn={quizBtn}
-        visible={resultVisible && 'A'}
+        visible={resultVisible}
       >
         {quizBtn}
       </ContinueBox>
