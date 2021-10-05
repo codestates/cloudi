@@ -2,6 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Delete from './Delete';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { standsSelector, sticksSelector, userinfoSelector } from '../app/modules/hooks';
+
 
 const MyinfoContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -154,6 +157,11 @@ const Myinfo = ({ visible, setVisible }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [clearColor, setClearColor] = useState(0);
+  const dispatch = useDispatch();
+  const stick = useSelector(sticksSelector);
+  const stand = useSelector(standsSelector);
+  const { userinfo } = useSelector(userinfoSelector);
+
   const [userInfo] = useState({
     userName: 'Cloudi',
     userEmail: 'abcabcabcabc@naver.com'
@@ -196,8 +204,7 @@ const Myinfo = ({ visible, setVisible }) => {
           url: URL + '/user',
           data: { userPassword: currPassword, newPassword },
           headers: {
-            Authorization:
-              'jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImtha2FvSWQiOm51bGwsImdvb2dsZUlkIjpudWxsLCJpc0FkbWluIjpmYWxzZSwidXNlckVtYWlsIjoiZGRAbmF2ZXIuY29tIiwidXNlck5hbWUiOiLrjZXsm5AiLCJjcmVhdGVkQXQiOiIyMDIxLTEwLTAzVDExOjE2OjEzLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTEwLTAzVDExOjE2OjEzLjAwMFoiLCJpYXQiOjE2MzMyNTk4MzIsImV4cCI6MTYzMzI4MTQzMn0.ghko4WsUYBNH9Rcj_R4z5FKMVg35GI8ZuvOzZwJmCIA'
+            Authorization: userinfo.token
           }
         })
           .then((res) => {
@@ -209,6 +216,8 @@ const Myinfo = ({ visible, setVisible }) => {
               // 비번다름
               setClearColor(0);
               setErrorMessage(err.response.data);
+              // * 소셜로그인
+              // * 비번 다름
             } else if (err.response.status === 401) {
               // 토큰 유효 x
               setClearColor(0);

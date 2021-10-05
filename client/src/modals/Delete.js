@@ -155,7 +155,7 @@ const Delete = ({ visible, setVisible }) => {
       alert('회원탈퇴가 완료되었습니다');
       history.push('/');
       dispatch(removeUserinfo());
-      // * 딜리트 리덕스 스테이트 변경
+      // * 장바구니 날리기
     } else {
       setErrorMessage('`회원탈퇴` 입력을 다시 확인해주세요');
     }
