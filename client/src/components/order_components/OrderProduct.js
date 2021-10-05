@@ -40,24 +40,24 @@ const ButtonContainer = styled.div`
   text-align: center;
 `;
 
-const Button = styled.button`
-  margin-top: 90px;
-  margin-bottom: 50px;
+const Input = styled.button`
+  width: 12rem;
+  padding: 12px;
   font-size: 20px;
-  padding: 10px 30px;
   color: white;
-  background-color: rgb(105, 149, 94);
+  border: none;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  background-color: #b7c58b;
+  margin: 90px 0 40px 0;
   :hover {
     cursor: pointer;
-    color: white;
-    box-shadow: 1px 1px 1px black;
-  };
-  :active {
-    box-shadow: inset 5px 5px 5px rgb(70, 110, 75);
+    background-color: #97a371;
   };
   @media screen and (max-width: 1023px) {
+    margin-top: 30px;
     width: 100%;
-  }
+  };
 `;
 
 const ProductCal = styled.article`
@@ -278,7 +278,7 @@ const OrderProduct = () => {
   const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
-  const userinfo = useSelector(userinfoSelector);
+  const { userinfo } = useSelector(userinfoSelector);
 
   const totalStandPrice = stand.stands.reduce((acc, cur) => acc + cur.standPrice * cur.standQuantity, 0);
   const totalStickPrice = stick.sticks.reduce((acc, cur) => acc + cur.stickPrice * cur.stickQuantity, 0);
@@ -344,8 +344,8 @@ const OrderProduct = () => {
       method: 'DELETE',
       url: `${URL}/order?standOrderId=${stand.id}`
     }).then(res => console.log(res))
-    .catch(err => console.log(err));
-};
+      .catch(err => console.log(err));
+  };
 
   const handleDecreaseStandQuantity = (stand) => {
     dispatch(decreaseStandQuantity(stand.id));
@@ -469,11 +469,11 @@ const OrderProduct = () => {
               <Sum>{money(totalPrice >= 50000 ? totalPrice : totalPrice + 3000)} 원</Sum>
             </PriceSumContainer>
             <ButtonContainer>
-              {userinfo.userinfo.token === '' ? <Button onClick={handleLoginModal}>ORDER</Button> : <Button onClick={handleModal}>ORDER</Button>}
+              {userinfo.token === '' ? <Input onClick={handleLoginModal}>ORDER</Input> : <Input onClick={handleModal}>ORDER</Input>}
             </ButtonContainer>
         </>/*eslint-disable-line*/}
       </OrderProductContainer>
-      {userinfo.userinfo.token === '' ? <Login visible={loginModal} setVisible={setLoginModal} /> : <Construction modal={modal} handleModal={handleModal} />}
+      {userinfo.token === '' ? <Login visible={loginModal} setVisible={setLoginModal} /> : <Construction modal={modal} handleModal={handleModal} />}
     </>
   );
 };
