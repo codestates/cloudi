@@ -55,7 +55,7 @@ const Customize = () => {
   const [serverData, setServerData] = useState({});
 
   // ! SERVER URL
-  const url = 'http://localhost:80';
+  const url = 'http://localhost:8000';
 
   // 첫 렌더 시 모든 옵션 불러오기
   useEffect(() => {
