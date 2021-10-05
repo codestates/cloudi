@@ -85,7 +85,6 @@ const LoadingText = styled.div`
 `;
 
 const QuizPageResult = ({ resultVisible, resultData, loadingOpen }) => {
-  
   return (
     <>
       {loadingOpen

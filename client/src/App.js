@@ -27,7 +27,7 @@ const App = () => {
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
   const orders = { ...stick, ...stand };
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(true);
 
   const didMount = () => {
     const url = new URL(window.location.href);
@@ -96,7 +96,7 @@ const App = () => {
       })
       .catch((err) => {
         setIsLogin(false);
-        console.log(err)
+        console.log(err);
       });
   }, []);
 
@@ -109,8 +109,8 @@ const App = () => {
         <Route exact path='/'>
           {
             isLogin
-            ? <LoadingIndicator text={'로딩중입니다...'} />
-            : <Main />
+              ? <LoadingIndicator text='로딩중입니다...' />
+              : <Main />
           }
         </Route>
         <Route path='/quiz'>
