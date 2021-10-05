@@ -2,6 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Delete from './Delete';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { userinfoSelector } from '../app/modules/hooks';
 
 const MyinfoContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -154,10 +156,7 @@ const Myinfo = ({ visible, setVisible }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [clearColor, setClearColor] = useState(0);
-  const [userInfo] = useState({
-    userName: 'Cloudi',
-    userEmail: 'abcabcabcabc@naver.com'
-  });
+  const { userinfo } = useSelector(userinfoSelector);
   const [newUserInfo, setNewUserInfo] = useState({
     currPassword: '',
     newPassword: '',
@@ -196,11 +195,10 @@ const Myinfo = ({ visible, setVisible }) => {
           url: URL + '/user',
           data: { userPassword: currPassword, newPassword },
           headers: {
-            Authorization:
-              'jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImtha2FvSWQiOm51bGwsImdvb2dsZUlkIjpudWxsLCJpc0FkbWluIjpmYWxzZSwidXNlckVtYWlsIjoiZGRAbmF2ZXIuY29tIiwidXNlck5hbWUiOiLrjZXsm5AiLCJjcmVhdGVkQXQiOiIyMDIxLTEwLTAzVDExOjE2OjEzLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIxLTEwLTAzVDExOjE2OjEzLjAwMFoiLCJpYXQiOjE2MzMyNTk4MzIsImV4cCI6MTYzMzI4MTQzMn0.ghko4WsUYBNH9Rcj_R4z5FKMVg35GI8ZuvOzZwJmCIA'
+            Authorization: userinfo.token
           }
         })
-          .then((res) => {
+          .then(() => {
             setClearColor(1);
             setErrorMessage('비밀번호 변경이 완료되었습니다');
           })
@@ -210,7 +208,6 @@ const Myinfo = ({ visible, setVisible }) => {
               setClearColor(0);
               setErrorMessage(err.response.data);
             } else if (err.response.status === 401) {
-              // 토큰 유효 x
               setClearColor(0);
               setErrorMessage('다시 로그인 해주세요');
             }
@@ -245,11 +242,11 @@ const Myinfo = ({ visible, setVisible }) => {
           <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
           <ProfileContainer>
             <InputTitle>User name</InputTitle>
-            <ProfileData>{userInfo.userName}</ProfileData>
+            <ProfileData>{userinfo.userName}</ProfileData>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>User email</InputTitle>
-            <ProfileData>{userInfo.userEmail}</ProfileData>
+            <ProfileData>{userinfo.userEmail}</ProfileData>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>Password</InputTitle>
