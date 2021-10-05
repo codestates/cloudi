@@ -112,8 +112,7 @@ const FinishButtons = ({ selectedOps, url }) => {
   const stand = useSelector(standsSelector);
   const { userinfo } = useSelector(userinfoSelector);
 
-  const handleCartBtnClick = () => {
-
+  const handleCartBtnClick = async () => {
     // 카트에 들어감. 버튼 비활성화
     setIsAddedInCart(true);
 
@@ -124,21 +123,27 @@ const FinishButtons = ({ selectedOps, url }) => {
       text: selectedOps.text,
       price: selectedOps.price,
       image: stand.curStandImg
-    }
+    };
 
     // 로그인한 상태
-    if (!!userinfo.token) {
-      axios({
-        method: "post",
+    if (userinfo.token) {
+      await axios({
+        method: 'post',
         url: `${url}/stand`,
         data: {
+          userId: userinfo.id,
+          standPrice: selectedOps.price,
+          standImage: stand.curStandImg,
+          standPlate: selectedOps.plate,
+          standHolder: selectedOps.holder,
+          standText: selectedOps.text
         }
       })
-      .then(res => {
-        newStand.id = res.data.id;
-        dispatch(insertStand(newStand));
-      })
-      .catch(e => console.log(e.response.data))
+        .then(res => {
+          newStand.id = res.data.id;
+          dispatch(insertStand(newStand));
+        })
+        .catch(e => console.log(e.response.data));
     } else {
       dispatch(insertStand(newStand));
     }
