@@ -5,7 +5,7 @@ import { insertStand } from '../../../app/modules/stand';
 import { standsSelector, userinfoSelector } from '../../../app/modules/hooks';
 
 import styled from 'styled-components';
-// import axios from 'axios';
+import axios from 'axios';
 
 const ButtonWrapper = styled.div`
   margin: 0;
@@ -110,17 +110,12 @@ const FinishButtons = ({ selectedOps, url }) => {
   const [isAddedInCart, setIsAddedInCart] = useState(false);
   const dispatch = useDispatch();
   const stand = useSelector(standsSelector);
-  const userInfo = useSelector(userinfoSelector);
+  const { userinfo } = useSelector(userinfoSelector);
 
-  const handleCartBtnClick = async () => {
+  const handleCartBtnClick = () => {
 
     // 카트에 들어감. 버튼 비활성화
     setIsAddedInCart(true);
-    console.log(userInfo.userinfo.token)
-    // 로그인한 상태
-    if (!!userInfo.userinfo.token) {
-
-    }
 
     const newStand = {
       id: null,
@@ -131,24 +126,22 @@ const FinishButtons = ({ selectedOps, url }) => {
       image: stand.curStandImg
     }
 
-    dispatch(insertStand({
-      plate: selectedOps.plate,
-      holder: selectedOps.holder,
-      text: selectedOps.text,
-      price: selectedOps.price,
-      image: stand.curStandImg
-    }));
-
-    // if (true) { // 로그인한 상황
-    //   axios({
-    //     method: "post",
-    //     url: `${url}/stand`,
-    //     data: {
-    //     }
-    //   })
-    //   .then(res => console.log(res.data.images.holderImg.STEEL.CAT))
-    //   .catch(e => console.log(e.response.data))
-    // }
+    // 로그인한 상태
+    if (!!userinfo.token) {
+      axios({
+        method: "post",
+        url: `${url}/stand`,
+        data: {
+        }
+      })
+      .then(res => {
+        newStand.id = res.data.id;
+        dispatch(insertStand(newStand));
+      })
+      .catch(e => console.log(e.response.data))
+    } else {
+      dispatch(insertStand(newStand));
+    }
   };
 
   const handleSaveBtnClick = () => {

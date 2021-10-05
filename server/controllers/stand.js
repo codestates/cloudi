@@ -86,7 +86,9 @@ module.exports = {
       where: {
         userId: req.body.userId,
         standPrice: req.body.userId,
-
+        standPlate: req.body.standPlate,
+        standHolder: req.body.standHolder,
+        standText: req.body.standText
       }
     })
     .then (data => {
