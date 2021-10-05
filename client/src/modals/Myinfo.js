@@ -144,10 +144,15 @@ const ErrMessage = styled.div`
   width: 13rem;
   font-size: 15px;
   position: absolute;
-  bottom: 140px;
+  bottom: 125px;
   left: 130px;
   text-align: center;
-  color: ${(props) => (props.color ? '#1c1a1a' : '#ff0000')};
+  color: ${(props) => (props.color ? '#302f2f' : '#ff0000')};
+  @media screen and (max-width: 468px) {
+    bottom: 65px;
+    left: 85px;
+    font-size: 12px;
+  }
 `;
 
 const URL = 'http://localhost:8000';

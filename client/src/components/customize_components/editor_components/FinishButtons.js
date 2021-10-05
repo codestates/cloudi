@@ -55,7 +55,7 @@ const ButtonWrapper = styled.div`
 
   .tooltip::before {
     position: absolute;
-    content: "";
+    content: '';
     height: 8px;
     width: 8px;
     background-color: #787878;
@@ -80,7 +80,7 @@ const ButtonWrapper = styled.div`
   .cart:hover,
   .cart:hover .tooltip,
   .cart:hover .tooltip::before {
-    background-color: #E0BC00;
+    background-color: #e0bc00;
     color: #ffffff;
   }
 
@@ -94,14 +94,14 @@ const ButtonWrapper = styled.div`
   .redo:hover,
   .redo:hover .tooltip,
   .redo:hover .tooltip::before {
-    background-color: #69955E ;
+    background-color: #69955e;
     color: #ffffff;
   }
 
   .save:hover,
   .save:hover .tooltip,
   .save:hover .tooltip::before {
-    background-color: #404AA8;
+    background-color: #404aa8;
     color: #ffffff;
   }
 `;
@@ -139,11 +139,11 @@ const FinishButtons = ({ selectedOps, url }) => {
           standText: selectedOps.text
         }
       })
-        .then(res => {
+        .then((res) => {
           newStand.id = res.data.id;
           dispatch(insertStand(newStand));
         })
-        .catch(e => console.log(e));
+        .catch((e) => console.log(e));
     } else {
       dispatch(insertStand(newStand));
     }
@@ -158,66 +158,54 @@ const FinishButtons = ({ selectedOps, url }) => {
   };
 
   useEffect(() => {
-    const Matching = stand.stands.filter(el => {
-      return (
-        el.standPlate === selectedOps.plate &&
-        el.standHolder === selectedOps.holder &&
-        el.standText === selectedOps.text
-      );
-    }).length !== 0;
+    const Matching =
+      stand.stands.filter((el) => {
+        return (
+          el.standPlate === selectedOps.plate &&
+          el.standHolder === selectedOps.holder &&
+          el.standText === selectedOps.text
+        );
+      }).length !== 0;
 
     if (Matching && stand.stands.length !== 0) {
       setIsAddedInCart(true);
     }
-  }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]); // eslint-disable-line
+  }, [selectedOps.plate, selectedOps.holder, selectedOps.text]); // eslint-disable-line
 
   return (
     <>
       <ButtonWrapper>
-        {/* eslint-disable */
-          isAddedInCart
-          // 카트에 이미 있음 (바꾸기 전까진 아무것도 못함)
-            ? <div className='icon cartIn'>
-              <div
-                className='tooltip'
-              >
-                ALREADY&nbsp;IN&nbsp;CART
-              </div>
+        {
+          /* eslint-disable */
+          isAddedInCart ? (
+            // 카트에 이미 있음 (바꾸기 전까진 아무것도 못함)
+            <div className='icon cartIn'>
+              <div className='tooltip'>ALREADY&nbsp;IN&nbsp;CART</div>
               <span>
                 <img src='/images/addtocart.png' alt='cartIcon' />
               </span>
             </div>
+          ) : (
             // 카트에 없음
-            : <div 
-              className='icon cart'
-              onClick={() => handleCartBtnClick()}
-            >
-            <div className='tooltip'>
-              ADD&nbsp;TO&nbsp;CART
+            <div className='icon cart' onClick={() => handleCartBtnClick()}>
+              <div className='tooltip'>ADD&nbsp;TO&nbsp;CART</div>
+              <span>
+                <img src='/images/addtocart.png' alt='cartIcon' />
+              </span>
             </div>
-            <span>
-              <img src='/images/addtocart.png' alt='cartIcon' />
-            </span>
-          </div>
+          )
           /* eslint-enable */
         }
         <Link to='/customize/plate'>
           <div className='icon redo'>
-            <div className='tooltip'>
-              REDO
-            </div>
+            <div className='tooltip'>REDO</div>
             <span>
               <img src='/images/redo.png' alt='redoIcon' />
             </span>
           </div>
         </Link>
-        <div
-          className='icon save'
-          onClick={() => handleSaveBtnClick()}
-        >
-          <div className='tooltip'>
-            SAVE&nbsp;FILE
-          </div>
+        <div className='icon save' onClick={() => handleSaveBtnClick()}>
+          <div className='tooltip'>SAVE&nbsp;FILE</div>
           <span>
             <img src='/images/savefile.png' alt='saveIcon' />
           </span>

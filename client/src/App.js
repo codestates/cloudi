@@ -7,14 +7,18 @@ import Customize from './pages/Customize';
 import Order from './pages/Order';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { standsSelector, sticksSelector, userinfoSelector } from './app/modules/hooks';
+import {
+  standsSelector,
+  sticksSelector,
+  userinfoSelector
+} from './app/modules/hooks';
 import { insertAllStands } from './app/modules/stand';
 import { insertAllSticks } from './app/modules/stick';
+import { insertUserinfo } from '../src/app/modules/userinfo';
 import Quiz from './pages/Quiz';
 import SideBar from './modals/SideBar';
 import Incense from './pages/Incense';
 import NotFound from './pages/NotFound';
-import { insertUserinfo } from '../src/app/modules/userinfo';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -35,7 +39,6 @@ const App = () => {
           data: { orders, code: authorizationCode }
         })
           .then((res) => {
-            console.log('Google Login OK', res.data.userEmail);
             dispatch(
               insertUserinfo({
                 id: res.data.id,
@@ -47,6 +50,8 @@ const App = () => {
                 token: res.data.token
               })
             );
+            dispatch(insertAllSticks(res.data.orders.sticks));
+            dispatch(insertAllStands(res.data.orders.stands));
           })
           .catch((err) => console.log('Google Login', err));
       } else {
@@ -54,21 +59,24 @@ const App = () => {
           method: 'POST',
           url: 'http://localhost:8000/user/kakao',
           data: { orders, code: authorizationCode }
-        }).then(res => {
-          console.log('Kakao Login OK', res.data.token);
-          dispatch(
-            insertUserinfo({
-              id: res.data.id,
-              kakaoId: res.data.kakaoId,
-              googleId: res.data.googldId,
-              isAdmin: res.data.isAdmin,
-              userEmail: res.data.userEmail,
-              userName: res.data.userName,
-              token: res.data.token
-            })
-          );
         })
-          .catch(err => console.log('Kakao Login', err));
+          .then((res) => {
+            console.log('Kakao Login OK', res.data.token);
+            dispatch(
+              insertUserinfo({
+                id: res.data.id,
+                kakaoId: res.data.kakaoId,
+                googleId: res.data.googldId,
+                isAdmin: res.data.isAdmin,
+                userEmail: res.data.userEmail,
+                userName: res.data.userName,
+                token: res.data.token
+              })
+            );
+            dispatch(insertAllSticks(res.data.orders.sticks));
+            dispatch(insertAllStands(res.data.orders.stands));
+          })
+          .catch((err) => console.log('Kakao Login', err));
       }
     }
   };

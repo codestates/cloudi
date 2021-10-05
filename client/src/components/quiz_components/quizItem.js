@@ -93,6 +93,7 @@ export const QUIZ_LIST = [
   }
 ];
 
+
 export const IMAGE = {
   spring: '/images/spring_black.png',
   summer: '/images/summer_black.png',
