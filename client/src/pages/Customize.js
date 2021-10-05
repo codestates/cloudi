@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import axios from 'axios';
 
+import LoadingIndicator from '../components/LoadingIndicator';
 import Editor from '../components/customize_components/Editor';
 import InitialMsg from '../components/customize_components/InitialMsg';
 
@@ -53,6 +54,7 @@ const Title = styled.button`
 
 const Customize = () => {
   const [serverData, setServerData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   // ! SERVER URL
   const url = 'http://localhost:8000';
@@ -66,7 +68,14 @@ const Customize = () => {
       .then(res => {
         setServerData(res.data);
       })
-      .catch(e => console.log(e.response.data));
+      .catch(e => console.log(e));
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   // 포커스할 때 사용
@@ -85,7 +94,8 @@ const Customize = () => {
       message: '받침에 새길 텍스트를 작성해 주세요.'
     }, {
       stage: 'finish',
-      message: '축하합니다! 나만의 인센스 스탠드가 완성되었습니다.'
+      message: `축하합니다!
+      나만의 인센스 스탠드가 완성되었습니다.`
     }
   ];
 
@@ -150,10 +160,8 @@ const Customize = () => {
   return (
     <CustomizePage>
       {/* eslint-disable */
-        Object.keys(serverData).length === 0
-        ? <>
-          <div>Loading...</div>
-        </>
+        Object.keys(serverData).length === 0 || isLoading
+        ? <LoadingIndicator text={'불러오는 중...'} />
         : <>
           <Link to='/customize'>
             <Title ref={titleRef} onClick={() => handleReset()}>CUSTOMIZE</Title>

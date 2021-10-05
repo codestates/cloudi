@@ -40,24 +40,24 @@ const ButtonContainer = styled.div`
   text-align: center;
 `;
 
-const Button = styled.button`
-  margin-top: 90px;
-  margin-bottom: 50px;
+const Input = styled.button`
+  width: 12rem;
+  padding: 12px;
   font-size: 20px;
-  padding: 10px 30px;
   color: white;
-  background-color: rgb(105, 149, 94);
+  border: none;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05), 0 6px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  background-color: #b7c58b;
+  margin: 90px 0 40px 0;
   :hover {
     cursor: pointer;
-    color: white;
-    box-shadow: 1px 1px 1px black;
-  };
-  :active {
-    box-shadow: inset 5px 5px 5px rgb(70, 110, 75);
+    background-color: #97a371;
   };
   @media screen and (max-width: 1023px) {
+    margin-top: 30px;
     width: 100%;
-  }
+  };
 `;
 
 const ProductCal = styled.article`
@@ -278,7 +278,7 @@ const OrderProduct = () => {
   const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
-  const userinfo = useSelector(userinfoSelector);
+  const { userinfo } = useSelector(userinfoSelector);
 
   const totalStandPrice = stand.stands.reduce((acc, cur) => acc + cur.standPrice * cur.standQuantity, 0);
   const totalStickPrice = stick.sticks.reduce((acc, cur) => acc + cur.stickPrice * cur.stickQuantity, 0);
@@ -296,6 +296,8 @@ const OrderProduct = () => {
     });
   };
 
+  const URL = 'http://localhost:8000';
+
   const handleLoginModal = () => {
     setLoginModal(prevState => {
       return !prevState;
@@ -306,7 +308,7 @@ const OrderProduct = () => {
     dispatch(removeStick(stick.id));
     axios({
       method: 'DELETE',
-      url: `http://localhost:8000/order?stickOrderId=${stick.id}`
+      url: `${URL}/order?stickOrderId=${stick.id}`
     }).then(res => console.log(res))
       .catch(err => console.log(err));
   };
@@ -316,7 +318,7 @@ const OrderProduct = () => {
     dispatch(decreaseStickQuantity(stick.id));
     axios({
       method: 'PUT',
-      url: 'http://localhost:8000/order',
+      url: `${URL}/order`,
       data: {
         stickQuantity: stick.stickQuantity - 1,
         stickOrderId: stick.id
@@ -328,10 +330,43 @@ const OrderProduct = () => {
     dispatch(increaseStickQuantity(stick.id));
     axios({
       method: 'PUT',
-      url: 'http://localhost:8000/order',
+      url: `${URL}/order`,
       data: {
         stickQuantity: stick.stickQuantity + 1,
         stickOrderId: stick.id
+      }
+    }).catch(err => console.log(err));
+  };
+
+  const handleStandDelete = (stand) => {
+    dispatch(removeStand(stand.id));
+    axios({
+      method: 'DELETE',
+      url: `${URL}/order?standOrderId=${stand.id}`
+    }).then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
+  const handleDecreaseStandQuantity = (stand) => {
+    dispatch(decreaseStandQuantity(stand.id));
+    axios({
+      method: 'PUT',
+      url: `${URL}/order`,
+      data: {
+        standQuantity: stand.standQuantity - 1,
+        standOrderId: stand.id
+      }
+    }).catch(err => console.log(err));
+  };
+
+  const handleIncreaseStandQuantity = (stand) => {
+    dispatch(increaseStandQuantity(stand.id));
+    axios({
+      method: 'PUT',
+      url: `${URL}/order`,
+      data: {
+        standQuantity: stand.standQuantity + 1,
+        standOrderId: stand.id
       }
     }).catch(err => console.log(err));
   };
@@ -382,7 +417,7 @@ const OrderProduct = () => {
                     <SingleStand key={stand.id}>
                       <MobileDesc>
                         <MyProduct>My Holder</MyProduct>
-                        <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStand(stand.id)); }} />
+                        <DeleteX src='/images/modalX.png' onClick={() => { handleStandDelete(stand); }} />
                       </MobileDesc>
                       <ContainerPicture>
                         <StandImg src={stand.standImage} />
@@ -391,12 +426,12 @@ const OrderProduct = () => {
                         <SingleDesc>
                           {stand.standPlate} / {stand.standHolder} / {stand.standText}
                         </SingleDesc>
-                        <Delete onClick={() => { dispatch(removeStand(stand.id)); }}>삭제하기</Delete>
+                        <Delete onClick={() => { handleStandDelete(stand); }}>삭제하기</Delete>
                       </ContainerTwo>
                       <ContainerOne>
-                        <QuantityButton onClick={() => { dispatch(decreaseStandQuantity(stand.id)); }}>-</QuantityButton>
+                        <QuantityButton onClick={() => { handleDecreaseStandQuantity(stand); }}>-</QuantityButton>
                         <QuantityContainer>{stand.standQuantity}</QuantityContainer>
-                        <QuantityButton onClick={() => { dispatch(increaseStandQuantity(stand.id)); }}>+</QuantityButton>
+                        <QuantityButton onClick={() => { handleIncreaseStandQuantity(stand); }}>+</QuantityButton>
                       </ContainerOne>
                       <ContainerOne>
                         {money(stand.standPrice)} 원
@@ -434,7 +469,7 @@ const OrderProduct = () => {
               <Sum>{money(totalPrice >= 50000 ? totalPrice : totalPrice + 3000)} 원</Sum>
             </PriceSumContainer>
             <ButtonContainer>
-              {userinfo.token === '' ? <Button onClick={handleLoginModal}>ORDER</Button> : <Button onClick={handleModal}>ORDER</Button>}
+              {userinfo.token === '' ? <Input onClick={handleLoginModal}>ORDER</Input> : <Input onClick={handleModal}>ORDER</Input>}
             </ButtonContainer>
         </>/*eslint-disable-line*/}
       </OrderProductContainer>

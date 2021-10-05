@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertStand } from '../../app/modules/stand';
-import { standsSelector } from '../../app/modules/hooks';
+import { standsSelector, userinfoSelector } from '../../app/modules/hooks';
+
+import axios from 'axios';
 
 const MainButtonContainer = styled.section`
   position: fixed;
-  bottom: 12%;
+  bottom: 7vh;
   left: 50%;
   transform: translate(-50%, 0);
 
@@ -69,14 +71,16 @@ const getNextUrl = function (option) {
 
 const MainButton = ({
   curStage,
-  selectedOps
+  selectedOps,
+  url
 }) => {
   const { nextUrl, buttonValue } = getNextUrl(curStage);
   const [isDisabled, setIsDisabled] = useState(false);
   const dispatch = useDispatch();
   const stand = useSelector(standsSelector);
+  const { userinfo } = useSelector(userinfoSelector);
 
-  const handleOrderBtnClick = () => {
+  const handleOrderBtnClick = async () => {
     const noMatching = stand.stands.filter(el => {
       return (
         el.standPlate === selectedOps.plate &&
@@ -85,14 +89,39 @@ const MainButton = ({
       );
     }).length === 0;
 
+    // 장바구니 안에 없음
     if (noMatching || stand.stands.length === 0) {
-      dispatch(insertStand({
+      const newStand = {
+        id: null,
         plate: selectedOps.plate,
         holder: selectedOps.holder,
         text: selectedOps.text,
         price: selectedOps.price,
         image: stand.curStandImg
-      }));
+      };
+
+      // 로그인한 상태
+      if (userinfo.token) {
+        await axios({
+          method: 'post',
+          url: `${url}/stand`,
+          data: {
+            userId: userinfo.id,
+            standPrice: selectedOps.price,
+            standImage: stand.curStandImg,
+            standPlate: selectedOps.plate,
+            standHolder: selectedOps.holder,
+            standText: selectedOps.text
+          }
+        })
+          .then(res => {
+            newStand.id = res.data.id;
+            dispatch(insertStand(newStand));
+          })
+          .catch(e => console.log(e));
+      } else {
+        dispatch(insertStand(newStand));
+      }
     }
   };
 

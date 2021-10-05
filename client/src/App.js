@@ -18,6 +18,7 @@ import { insertUserinfo } from '../src/app/modules/userinfo';
 import Quiz from './pages/Quiz';
 import SideBar from './modals/SideBar';
 import Incense from './pages/Incense';
+import NotFound from './pages/NotFound';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -115,20 +116,7 @@ const App = () => {
           <Incense />
         </Route>
         <Route path='/'>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <div>
-            <center>페이지를 찾을 수 없습니다.</center>
-          </div>
+          <NotFound />
         </Route>
       </Switch>
     </>
