@@ -182,7 +182,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const stand = useSelector(standsSelector);
   const stick = useSelector(sticksSelector);
-  const userinfo = useSelector(userinfoSelector);
+  const { userinfo } = useSelector(userinfoSelector);
 
   useEffect(() => {
     if (menu) {

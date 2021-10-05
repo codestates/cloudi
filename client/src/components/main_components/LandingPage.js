@@ -75,7 +75,7 @@ const LandingPage = () => {
     <LandingPageContiner id='landing'>
       <MainImg>
         <MainSaying>
-          오늘, 당신의 기분은 어떤 향인가요 ?
+          오늘, 당신의 기분은 어떤 향인가요?
           <Arrow src='/images/arrowdown.png' />
         </MainSaying>
       </MainImg>

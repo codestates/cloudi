@@ -13,8 +13,8 @@ import InitialMsg from '../components/customize_components/InitialMsg';
 const CustomizePage = styled.section`
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
   background: linear-gradient(165deg, #ffffff, #E1E7EF);
@@ -94,8 +94,7 @@ const Customize = () => {
       message: '받침에 새길 텍스트를 작성해 주세요.'
     }, {
       stage: 'finish',
-      message: `축하합니다!
-      나만의 인센스 스탠드가 완성되었습니다.`
+      message: '축하합니다!\n나만의 인센스 스탠드가 완성되었습니다.'
     }
   ];
 
