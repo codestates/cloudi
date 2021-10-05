@@ -66,6 +66,7 @@ const Editor = ({
             <MainButton
               curStage={stage}
               selectedOps={selectedOps}
+              url={url}
             />
           </>
       /* eslint-enable */}

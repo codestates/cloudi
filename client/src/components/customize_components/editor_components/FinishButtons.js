@@ -113,7 +113,6 @@ const FinishButtons = ({ selectedOps, url }) => {
   const { userinfo } = useSelector(userinfoSelector);
 
   const handleCartBtnClick = async () => {
-
     // 카트에 들어감. 버튼 비활성화
     setIsAddedInCart(true);
 
@@ -124,14 +123,12 @@ const FinishButtons = ({ selectedOps, url }) => {
       text: selectedOps.text,
       price: selectedOps.price,
       image: stand.curStandImg
-    }
-
-    console.log(userinfo.id)
+    };
 
     // 로그인한 상태
-    if (!!userinfo.token) {
+    if (userinfo.token) {
       await axios({
-        method: "post",
+        method: 'post',
         url: `${url}/stand`,
         data: {
           userId: userinfo.id,
@@ -142,11 +139,11 @@ const FinishButtons = ({ selectedOps, url }) => {
           standText: selectedOps.text
         }
       })
-      .then(res => {
-        newStand.id = res.data.id;
-        dispatch(insertStand(newStand));
-      })
-      .catch(e => console.log(e.response.data))
+        .then(res => {
+          newStand.id = res.data.id;
+          dispatch(insertStand(newStand));
+        })
+        .catch(e => console.log(e.response.data));
     } else {
       dispatch(insertStand(newStand));
     }
