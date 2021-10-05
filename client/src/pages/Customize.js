@@ -13,11 +13,12 @@ import InitialMsg from '../components/customize_components/InitialMsg';
 const CustomizePage = styled.section`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   justify-content: center;
   align-items: center;
   background: linear-gradient(165deg, #ffffff, #E1E7EF);
+  font-family: 'Roboto';
 
   a {
     text-decoration: none;
@@ -72,7 +73,7 @@ const Customize = () => {
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 300);
     return () => {
       clearTimeout(timer);
     };
@@ -85,16 +86,16 @@ const Customize = () => {
   const stages = [
     {
       stage: 'plate',
-      message: '받침대의 재질을 선택해 주세요.'
+      message: '받침대의 재질을 선택해 주세요'
     }, {
       stage: 'holder',
-      message: '인센스 스틱 홀더를 선택해 주세요.'
+      message: '인센스 스틱 홀더를 선택해 주세요'
     }, {
       stage: 'text',
-      message: '받침에 새길 텍스트를 작성해 주세요.'
+      message: '받침에 새길 텍스트를 작성해 주세요'
     }, {
       stage: 'finish',
-      message: '축하합니다!\n나만의 인센스 스탠드가 완성되었습니다.'
+      message: '축하합니다!\n나만의 인센스 스탠드가 완성되었습니다'
     }
   ];
 

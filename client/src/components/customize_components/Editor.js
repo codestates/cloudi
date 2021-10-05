@@ -14,10 +14,11 @@ const Message = styled.section`
   transform: translate(-50%, 0);
   z-index: 800;
   text-align: center;
+  color: #787887;
+  font-size: 1.3rem;
 
   white-space: pre-wrap;
   line-height: 1.6;
-  font-size: 1.2rem;
 `;
 
 const Editor = ({
