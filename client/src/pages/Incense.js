@@ -206,7 +206,7 @@ const Incense = () => {
     };
 
     if (stickCount) {
-      if (!!userinfo.token) {
+      if (userinfo.token) {
         axios({
           method: 'POST',
           url: `${URL}/incense`,
