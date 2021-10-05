@@ -89,6 +89,7 @@ const Desc = styled.p`
   margin-top: 10px;
   font-size: 1.2vw;
   font-weight: normal;
+  line-height: 1.3;
   @media screen and (max-height: 800px) {
     font-size: 2.3vh;
   };
@@ -324,7 +325,7 @@ const OtherPages = () => {
           </LastPagePictureContainer>
           <LastPageDescContainer>
             <CloudiSaying>
-              "향기는 우리 기억의 열쇠이다"
+              "향기는 기억의 열쇠이다"
             </CloudiSaying>
             <CloudiDesc>
               클라우디는 나만의 시간, 나만의 공간을 향기로 물들여 모든 기억을<br />

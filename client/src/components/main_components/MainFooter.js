@@ -72,8 +72,7 @@ const Content = styled.a`
 `;
 
 const NameContent = styled(Content)`
-  font-family: 'Nanum Pen Script', cursive;
-  font-size: 25px;
+  font-size: 19px;
   display: block;
   @media screen and (max-height: 600px) {
     display: inline-flex;
@@ -111,8 +110,8 @@ const Stack = styled.span`
 `;
 
 const CloudiLogo = styled.img`
-  height: 50px;
-  width: 157px;
+  height: 45px;
+  width: 140px;
   @media screen and (max-height: 600px) {
     height: 21px;
     width: 50px;

@@ -24,7 +24,7 @@ export const stickSlice = createSlice({
       }
     },
     insertStick: (state, action) => {
-      if (!!action.payload.id) {
+      if (action.payload.id) {
         id = action.payload.id;
       } else {
         id++;

@@ -88,17 +88,15 @@ const CloudiImg = styled.div`
 `;
 
 const Cart = ({ visible, setVisible, inCartItem }) => {
-  
   return (
     <CartContainer visible={visible}>
       <CartContent>
         <CloseBtn onClick={() => setVisible(false)}>&times;</CloseBtn>
         <CloudiImg img={inCartItem} />
         <CartText size='30'>
-          {inCartItem 
+          {inCartItem
             ? '장바구니에 이미 존재하는 상품입니다'
-            : '장바구니에 상품이 담겼습니다'
-            }
+            : '장바구니에 상품이 담겼습니다'}
         </CartText>
         <CartBtn to='/order'>장바구니 보기</CartBtn>
       </CartContent>

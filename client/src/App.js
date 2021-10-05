@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import GlobalStyle from './GlobalStyle';
 import Header from './modals/Header';
@@ -19,6 +19,7 @@ import Quiz from './pages/Quiz';
 import SideBar from './modals/SideBar';
 import Incense from './pages/Incense';
 import NotFound from './pages/NotFound';
+import LoadingIndicator from './components/LoadingIndicator';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const App = () => {
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
   const orders = { ...stick, ...stand };
+  const [isLogin, setIsLogin] = useState(true);
 
   const didMount = () => {
     const url = new URL(window.location.href);
@@ -90,8 +92,12 @@ const App = () => {
       .then((res) => {
         dispatch(insertAllStands(res.data.orders.stands));
         dispatch(insertAllSticks(res.data.orders.sticks));
+        setIsLogin(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsLogin(false);
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -101,7 +107,11 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path='/'>
-          <Main />
+          {
+            isLogin
+              ? <LoadingIndicator text='로딩중입니다...' />
+              : <Main />
+          }
         </Route>
         <Route path='/quiz'>
           <Quiz />

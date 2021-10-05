@@ -62,7 +62,6 @@ const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen, setMyinfoOpe
     dispatch(removeUserinfo());
     dispatch(removeAllSticks());
     dispatch(removeAllStands());
-    localStorage.clear();
   };
   return (
     <ModalContainer visible={visible} onClick={(visibleHandler)}>
