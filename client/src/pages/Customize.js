@@ -66,7 +66,7 @@ const Customize = () => {
       .then(res => {
         setServerData(res.data);
       })
-      .catch(e => console.log(e.response.data));
+      .catch(e => console.log(e));
   }, []);
 
   // 포커스할 때 사용

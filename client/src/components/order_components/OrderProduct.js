@@ -296,6 +296,8 @@ const OrderProduct = () => {
     });
   };
 
+  const URL = 'http://localhost:8000';
+
   const handleLoginModal = () => {
     setLoginModal(prevState => {
       return !prevState;
@@ -306,7 +308,7 @@ const OrderProduct = () => {
     dispatch(removeStick(stick.id));
     axios({
       method: 'DELETE',
-      url: `http://localhost:8000/order?stickOrderId=${stick.id}`
+      url: `${URL}/order?stickOrderId=${stick.id}`
     }).then(res => console.log(res))
       .catch(err => console.log(err));
   };
@@ -316,7 +318,7 @@ const OrderProduct = () => {
     dispatch(decreaseStickQuantity(stick.id));
     axios({
       method: 'PUT',
-      url: 'http://localhost:8000/order',
+      url: `${URL}/order`,
       data: {
         stickQuantity: stick.stickQuantity - 1,
         stickOrderId: stick.id
@@ -328,10 +330,43 @@ const OrderProduct = () => {
     dispatch(increaseStickQuantity(stick.id));
     axios({
       method: 'PUT',
-      url: 'http://localhost:8000/order',
+      url: `${URL}/order`,
       data: {
         stickQuantity: stick.stickQuantity + 1,
         stickOrderId: stick.id
+      }
+    }).catch(err => console.log(err));
+  };
+
+  const handleStandDelete = (stand) => {
+    dispatch(removeStand(stand.id));
+    axios({
+      method: 'DELETE',
+      url: `${URL}/order?standOrderId=${stand.id}`
+    }).then(res => console.log(res))
+    .catch(err => console.log(err));
+};
+
+  const handleDecreaseStandQuantity = (stand) => {
+    dispatch(decreaseStandQuantity(stand.id));
+    axios({
+      method: 'PUT',
+      url: `${URL}/order`,
+      data: {
+        standQuantity: stand.standQuantity - 1,
+        standOrderId: stand.id
+      }
+    }).catch(err => console.log(err));
+  };
+
+  const handleIncreaseStandQuantity = (stand) => {
+    dispatch(increaseStandQuantity(stand.id));
+    axios({
+      method: 'PUT',
+      url: `${URL}/order`,
+      data: {
+        standQuantity: stand.standQuantity + 1,
+        standOrderId: stand.id
       }
     }).catch(err => console.log(err));
   };
@@ -382,7 +417,7 @@ const OrderProduct = () => {
                     <SingleStand key={stand.id}>
                       <MobileDesc>
                         <MyProduct>My Holder</MyProduct>
-                        <DeleteX src='/images/modalX.png' onClick={() => { dispatch(removeStand(stand.id)); }} />
+                        <DeleteX src='/images/modalX.png' onClick={() => { handleStandDelete(stand); }} />
                       </MobileDesc>
                       <ContainerPicture>
                         <StandImg src={stand.standImage} />
@@ -391,12 +426,12 @@ const OrderProduct = () => {
                         <SingleDesc>
                           {stand.standPlate} / {stand.standHolder} / {stand.standText}
                         </SingleDesc>
-                        <Delete onClick={() => { dispatch(removeStand(stand.id)); }}>삭제하기</Delete>
+                        <Delete onClick={() => { handleStandDelete(stand); }}>삭제하기</Delete>
                       </ContainerTwo>
                       <ContainerOne>
-                        <QuantityButton onClick={() => { dispatch(decreaseStandQuantity(stand.id)); }}>-</QuantityButton>
+                        <QuantityButton onClick={() => { handleDecreaseStandQuantity(stand); }}>-</QuantityButton>
                         <QuantityContainer>{stand.standQuantity}</QuantityContainer>
-                        <QuantityButton onClick={() => { dispatch(increaseStandQuantity(stand.id)); }}>+</QuantityButton>
+                        <QuantityButton onClick={() => { handleIncreaseStandQuantity(stand); }}>+</QuantityButton>
                       </ContainerOne>
                       <ContainerOne>
                         {money(stand.standPrice)} 원
@@ -434,11 +469,11 @@ const OrderProduct = () => {
               <Sum>{money(totalPrice >= 50000 ? totalPrice : totalPrice + 3000)} 원</Sum>
             </PriceSumContainer>
             <ButtonContainer>
-              {userinfo.token === '' ? <Button onClick={handleLoginModal}>ORDER</Button> : <Button onClick={handleModal}>ORDER</Button>}
+              {userinfo.userinfo.token === '' ? <Button onClick={handleLoginModal}>ORDER</Button> : <Button onClick={handleModal}>ORDER</Button>}
             </ButtonContainer>
         </>/*eslint-disable-line*/}
       </OrderProductContainer>
-      {userinfo.token === '' ? <Login visible={loginModal} setVisible={setLoginModal} /> : <Construction modal={modal} handleModal={handleModal} />}
+      {userinfo.userinfo.token === '' ? <Login visible={loginModal} setVisible={setLoginModal} /> : <Construction modal={modal} handleModal={handleModal} />}
     </>
   );
 };
