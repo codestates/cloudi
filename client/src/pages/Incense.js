@@ -4,6 +4,7 @@ import IncenseSlider from '../components/incense_components/IncenseSlider';
 import { useSelector, useDispatch } from 'react-redux';
 import { insertStick } from '../app/modules/stick';
 import { sticksSelector } from '../app/modules/hooks';
+import Cart from '../modals/Cart';
 import axios from 'axios';
 
 const IncenseWrapper = styled.div`
@@ -135,6 +136,41 @@ const Sequence = styled.div`
   }
 `;
 
+const CartModal = styled.div`
+  display: ${props => props.visible ? 'flex' : 'none'};
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  left: 30%;
+  top: 30%;
+  transform: translate(-200%, -250%);
+  z-index: 3;
+  background-color: white;
+  opacity: 0.7;
+  color: rgba(0, 0, 0, 0.5);
+  animation: 2.5s ease-in-out cartModal;
+  @keyframes cartModal {
+    0% {
+      opacity: 0;
+      left: 30%;
+    }
+    50% {
+      opacity: 1;
+      left: 67%;
+    }
+    100% {
+      opacity: 0.5;
+      left: 30%;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    right: 400px;
+    width: 120px;
+  }
+`;
+
 const TOTAL_SLIDES = 12;
 
 const URL = 'http://localhost:8000';
@@ -142,6 +178,7 @@ const URL = 'http://localhost:8000';
 const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [clickCount, setClickCount] = useState(0);
+  const [cartModalOpen, setCartModalOpen] = useState(0);
   const [stickData, setStickData] = useState(null);
   const [incenseData, setIncenseData] = useState(null);
   const [click, setClick] = useState({
@@ -196,6 +233,7 @@ const Incense = () => {
       stick.sticks.filter((el) => el.stickId === stickData.id).length === 0;
 
     if (stickCount) {
+      setCartModalOpen(1);
       dispatch(
         insertStick({
           stickId: stickData.id,
@@ -204,12 +242,14 @@ const Incense = () => {
         })
       );
       setClickCount(0);
+      setTimeout(()=>{setCartModalOpen(0)}, 2000);
     } else {
       alert('이미 담겼는데?'); // eslint-disable-line
       setClickCount(0);
     }
   };
   return (
+    <>
     <IncenseWrapper>
       <IncenseContainer>
         <IncenseContent>
@@ -229,6 +269,7 @@ const Incense = () => {
               );
             })}
           </SliderBox>
+          <CartModal visible={cartModalOpen}>장바구니에 상품이 담겼습니다</CartModal>
         </IncenseContent>
         <SliderBtnLeft onClick={prevSlide} />
         <SliderBtnRight onClick={nextSlide} />
@@ -238,6 +279,8 @@ const Incense = () => {
       </IncenseContainer>
       <Cloud />
     </IncenseWrapper>
+    <Cart />
+    </>
   );
 };
 

@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { standsSelector, sticksSelector, userinfoSelector } from './app/modules/hooks';
 import { insertAllStands } from './app/modules/stand';
 import { insertAllSticks } from './app/modules/stick';
+import { insertUserinfo } from '../src/app/modules/userinfo';
 import Quiz from './pages/Quiz';
 import SideBar from './modals/SideBar';
 import Incense from './pages/Incense';
-import { insertUserinfo } from '../src/app/modules/userinfo';
+
 
 const App = () => {
   const dispatch = useDispatch();

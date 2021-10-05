@@ -110,7 +110,7 @@ const IncenseSlider = ({
       <TextContainer>
         <IncenseData>{data.stickName}</IncenseData>
         <IncenseData>{data.stickDesc}</IncenseData>
-        <IncenseData>{data.stickPrice} KRW</IncenseData>
+        <IncenseData>{data.stickPrice} 원</IncenseData>
         {SCOPE_DATA.map((el, idx) => {
           return (
             <IncenseData key={el}>
