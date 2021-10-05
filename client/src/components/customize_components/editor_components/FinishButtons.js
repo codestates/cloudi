@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertStand } from '../../../app/modules/stand';
-import { standsSelector } from '../../../app/modules/hooks';
+import { standsSelector, userinfoSelector } from '../../../app/modules/hooks';
 
 import styled from 'styled-components';
 // import axios from 'axios';
@@ -110,9 +110,27 @@ const FinishButtons = ({ selectedOps, url }) => {
   const [isAddedInCart, setIsAddedInCart] = useState(false);
   const dispatch = useDispatch();
   const stand = useSelector(standsSelector);
+  const userInfo = useSelector(userinfoSelector);
 
-  const handleCartBtnClick = () => {
+  const handleCartBtnClick = async () => {
+
+    // 카트에 들어감. 버튼 비활성화
     setIsAddedInCart(true);
+    console.log(userInfo.userinfo.token)
+    // 로그인한 상태
+    if (!!userInfo.userinfo.token) {
+
+    }
+
+    const newStand = {
+      id: null,
+      plate: selectedOps.plate,
+      holder: selectedOps.holder,
+      text: selectedOps.text,
+      price: selectedOps.price,
+      image: stand.curStandImg
+    }
+
     dispatch(insertStand({
       plate: selectedOps.plate,
       holder: selectedOps.holder,
