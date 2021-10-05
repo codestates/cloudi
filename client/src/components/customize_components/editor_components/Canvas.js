@@ -8,7 +8,7 @@ const StyledCanvas = styled.canvas`
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -65%);
+  transform: translate(-50%, -55%);
 
   width: 500px;
   height: 500px;

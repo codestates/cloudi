@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const MainButtonContainer = styled.section`
   position: fixed;
-  bottom: 12%;
+  bottom: 7vh;
   left: 50%;
   transform: translate(-50%, 0);
 
@@ -118,7 +118,7 @@ const MainButton = ({
             newStand.id = res.data.id;
             dispatch(insertStand(newStand));
           })
-          .catch(e => console.log(e.response.data));
+          .catch(e => console.log(e));
       } else {
         dispatch(insertStand(newStand));
       }
