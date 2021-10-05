@@ -27,9 +27,9 @@ export const userinfoSlice = createSlice({
         userName: action.payload.userName,
         token: action.payload.token
       };
-      console.log('리덕스 유저인포', userinfo);
       state.userinfo = userinfo;
-      console.log('리덕스 스테이트', state.userinfo);
+
+      console.log('리덕스 스테이트', state);
     },
     removeUserinfo: (state) => {
       state.userinfo = {

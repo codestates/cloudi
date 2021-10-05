@@ -4,11 +4,7 @@ import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { insertUserinfo } from '../app/modules/userinfo';
-import {
-  standsSelector,
-  sticksSelector,
-  userinfoSelector
-} from '../app/modules/hooks';
+import { standsSelector, sticksSelector } from '../app/modules/hooks';
 
 const LoginContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -168,7 +164,7 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
-const URL = 'http://localhost:5000';
+const URL = 'http://localhost:8000';
 
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
@@ -183,32 +179,20 @@ const Login = ({ visible, setVisible }) => {
 
   // console.log('인센스 ->', stick);
   // console.log('홀더 ->', stand.stands);
-  // console.log('리덕스 유저인포 ->', userinfo);
+  // console.log('리덕스 유저인포(loginModal) ->', userinfo);
   const orders = { ...stick, ...stand };
   // console.log('orders 데이터  ->', orders);
 
   const loginClickHandler = () => {
     // 로그인버튼
     const { email, password } = loginInfo;
-    // const obj = {
-    //   sticks: [
-    //     {
-    //       stickId : 1,
-    //       stickQuantity: 1
-    //     }
-    //   ],
-    //   stands: stand.stands
-    // };
-
     axios({
       method: 'POST',
       url: `${URL}/user/login`,
-      // ? orders: {...stick, ...stand} 넘기면 CORS에러
-      // ? 1. null일때 구분해야 하는?
       data: { orders, userEmail: email, userPassword: password }
     })
       .then((res) => {
-        // console.log('일반로그인성공 -->', res.data.orders);
+        console.log('일반로그인성공 -->', res.data);
         // ? res.data.orders -> 객체 // 키 stands, sticks
         dispatch(
           insertUserinfo({
@@ -221,6 +205,7 @@ const Login = ({ visible, setVisible }) => {
             token: res.data.token
           })
         );
+        setVisible(false);
         // ! 장바구니에 넣기
       })
       .catch((err) => {
@@ -255,45 +240,43 @@ const Login = ({ visible, setVisible }) => {
   };
 
   return (
-    <>
-      <LoginContainer visible={visible}>
-        <LoginContent>
-          <LoginTitle>LOG IN</LoginTitle>
-          <CloseModal onClick={() => setVisible(false)}>&times;</CloseModal>
-          <InputContainer>
-            <InputTitle>User email</InputTitle>
-            <InputBox
-              className='input'
-              type='email'
-              value={loginInfo.email}
-              onChange={loginInfoHandler('email')}
-              placeholder='Email'
-            />
-          </InputContainer>
-          <InputContainer>
-            <InputTitle>Password</InputTitle>
-            <InputBox
-              className='input'
-              type='password'
-              value={loginInfo.password}
-              placeholder='Password'
-              onChange={loginInfoHandler('password')}
-            />
-          </InputContainer>
-          <ErrMessage>{errorMessage}</ErrMessage>
-          <LoginBtn onClick={loginClickHandler}>로그인</LoginBtn>
-          <BorderBottom>또는</BorderBottom>
-          <SocialLoginBtn color='#f7e600' onClick={kakaoLoginHandler}>
-            <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />
-            카카오 로그인
-          </SocialLoginBtn>
-          <SocialLoginBtn color='#e6e6e6' onClick={googleLoginHandler}>
-            <SocialImage src='/images/google.png' alt='소셜로그인 이미지' />
-            구글 로그인
-          </SocialLoginBtn>
-        </LoginContent>
-      </LoginContainer>
-    </>
+    <LoginContainer visible={visible}>
+      <LoginContent>
+        <LoginTitle>LOG IN</LoginTitle>
+        <CloseModal onClick={() => setVisible(false)}>&times;</CloseModal>
+        <InputContainer>
+          <InputTitle>User email</InputTitle>
+          <InputBox
+            className='input'
+            type='email'
+            value={loginInfo.email}
+            onChange={loginInfoHandler('email')}
+            placeholder='Email'
+          />
+        </InputContainer>
+        <InputContainer>
+          <InputTitle>Password</InputTitle>
+          <InputBox
+            className='input'
+            type='password'
+            value={loginInfo.password}
+            placeholder='Password'
+            onChange={loginInfoHandler('password')}
+          />
+        </InputContainer>
+        <ErrMessage>{errorMessage}</ErrMessage>
+        <LoginBtn onClick={loginClickHandler}>로그인</LoginBtn>
+        <BorderBottom>또는</BorderBottom>
+        <SocialLoginBtn color='#f7e600' onClick={kakaoLoginHandler}>
+          <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />
+          카카오 로그인
+        </SocialLoginBtn>
+        <SocialLoginBtn color='#e6e6e6' onClick={googleLoginHandler}>
+          <SocialImage src='/images/google.png' alt='소셜로그인 이미지' />
+          구글 로그인
+        </SocialLoginBtn>
+      </LoginContent>
+    </LoginContainer>
   );
 };
 

@@ -72,7 +72,7 @@ module.exports = {
           // let allStick = await db.stick.findAll()
 
           if(created){//! 신규 가입자
-            if(orders !== null){//비회원 상태로 장바구니 존재하는 경우
+            if(!(orders.sticks.length === 0 && orders.stands.length === 0)){//비회원 상태로 장바구니 존재하는 경우
               let tmpOrders = {
                 sticks: [],
                 stands: []
@@ -160,7 +160,7 @@ module.exports = {
 
             }
           }else{//! 기존 가입자
-            if(orders !== null){//비로그인 상태로 장바구니 담은 경우
+            if(!(orders.sticks.length === 0 && orders.stands.length === 0)){//비로그인 상태로 장바구니 담은 경우
               let tmpOrders = {
                 sticks: [],
                 stands: []
