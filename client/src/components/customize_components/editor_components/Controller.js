@@ -7,7 +7,7 @@ import FinishButtons from './FinishButtons';
 
 const StyledController = styled.section`
   position: fixed;
-  bottom: 22%;
+  bottom: 17%;
   left: 50%;
   transform: translate(-50%, 0);
 

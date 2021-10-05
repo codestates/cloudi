@@ -18,13 +18,13 @@ const fadeIn = keyframes`
 const MainSaying = styled.h3`
   position: relative;
   z-index: 10;
-  font-family: 'Nanum Pen Script', cursive;
-  letter-spacing: -3px;
+  font-family: 'NanumMyungjo';
+  letter-spacing: 10px;
   top: 20%;
   left: 50%;
   color: white;
   cursor: default;
-  font-size: 34px;
+  font-size: 20px;
   writing-mode: vertical-rl;
   text-orientation: upright;
   animation-duration: 4s;
@@ -37,7 +37,7 @@ const MainSaying = styled.h3`
   };
   @media screen and (max-height: 800px) {
     margin-top: 95;
-    font-size: 3vh;
+    font-size: 2vh;
   };
 `;
 
@@ -54,7 +54,7 @@ const Arrow = styled.img`
   };
   @media screen and (max-height: 800px) {
     height: 2vh;
-    width: 1.5vw;
+    width: 1.6vw;
   };
 `;
 
@@ -75,7 +75,7 @@ const LandingPage = () => {
     <LandingPageContiner id='landing'>
       <MainImg>
         <MainSaying>
-          오늘,당신의기분은어떤향인가요?
+          오늘, 당신의 기분은 어떤 향인가요 ?
           <Arrow src='/images/arrowdown.png' />
         </MainSaying>
       </MainImg>

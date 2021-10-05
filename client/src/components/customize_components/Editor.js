@@ -13,7 +13,10 @@ const Message = styled.section`
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 800;
+  text-align: center;
 
+  white-space: pre-wrap;
+  line-height: 1.6;
   font-size: 1.2rem;
 `;
 
