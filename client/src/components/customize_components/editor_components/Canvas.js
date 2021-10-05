@@ -4,8 +4,6 @@ import { changeCurStandImg } from '../../../app/modules/stand';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-import { plateImg, holderImg } from './standImages'; // eslint-disable-line
-
 const StyledCanvas = styled.canvas`
   position: fixed;
   top: 50%;
@@ -60,10 +58,15 @@ const pageTransitions = {
 };
 
 const Canvas = ({
-  selectedOps
+  selectedOps,
+  standImages
 }) => {
   const canvas = useRef();
+
+  const { plateImg, holderImg } = standImages;
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     const ctx = canvas.current.getContext('2d');
     const { plate, holder, text } = selectedOps;
@@ -76,10 +79,19 @@ const Canvas = ({
       // 선택했다면, 선택한 이미지 그리기
       const plateImage = new Image(); // eslint-disable-line
 
-      plateImage.src = plateImg[plate.toLowerCase()];
+      plateImage.src = plateImg[plate];
 
       plateImage.onload = function () {
         ctx.drawImage(plateImage, -30, 0);
+
+        // 텍스트 선택했다면 그리고 이미지 생성
+        if (!!text && text !== '-- NO TEXT --' && holder === 'NONE') { // eslint-disable-line
+          writeText(ctx, text, plate);
+        }
+
+        // ! 이미지 생성
+        const curStandImg = canvas.current.toDataURL();
+        dispatch(changeCurStandImg(curStandImg));
       };
       plateImage.onerror = function () {
         console.log('plate image loading error');
@@ -103,13 +115,13 @@ const Canvas = ({
     if (!!plate && !!holder && holder !== 'NONE') {
       const holderImage = new Image(); // eslint-disable-line
 
-      holderImage.src = holderImg[plate.toLowerCase()][holder.toLowerCase()];
+      holderImage.src = holderImg[plate][holder];
 
       holderImage.onload = function () {
         ctx.drawImage(holderImage, -30, 0);
 
         // 텍스트 선택했다면 그리고 이미지 생성
-        if (!!text && text !== 'empty input!') { // eslint-disable-line
+        if (!!text && text !== '-- NO TEXT --') { // eslint-disable-line
           writeText(ctx, text, plate);
         }
 
@@ -130,7 +142,7 @@ const Canvas = ({
       variants={pageVariants}
       transition={pageTransitions}
     >
-      <StyledCanvas ref={canvas} width='650' height='650'>
+      <StyledCanvas ref={canvas} width='700' height='700'>
         Sorry, your browser dosen't support canvas tags.
       </StyledCanvas>
     </motion.div>

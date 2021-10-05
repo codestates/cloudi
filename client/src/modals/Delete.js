@@ -152,7 +152,7 @@ const Delete = ({ visible, setVisible }) => {
       setVisible(false);
       setInputCheck('');
       setErrorMessage('');
-      alert('회원탈퇴가 완료되었습니다');
+      alert('회원탈퇴가 완료되었습니다'); // eslint-disable-line
       history.push('/');
       dispatch(removeUserinfo());
       // * 딜리트 리덕스 스테이트 변경

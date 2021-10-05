@@ -36,10 +36,10 @@ const Input = styled.input`
 const getNextUrl = function (option) {
   if (option === 'main') {
     return {
-      nextUrl: '/customize/material',
+      nextUrl: '/customize/plate',
       buttonValue: 'START'
     };
-  } else if (option === 'material') {
+  } else if (option === 'plate') {
     return {
       nextUrl: '/customize/holder',
       buttonValue: 'NEXT'
@@ -97,7 +97,7 @@ const MainButton = ({
   };
 
   useEffect(() => {
-    if (curStage === 'material') {
+    if (curStage === 'plate') {
       setIsDisabled(!selectedOps.plate);
     }
 

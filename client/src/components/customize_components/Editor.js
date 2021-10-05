@@ -18,17 +18,20 @@ const Message = styled.section`
 `;
 
 const Editor = ({
+  url,
   stages,
   stage,
   message,
   selectedOps,
   handleBtnClick,
-  handleErrorMsg
+  handleErrorMsg,
+  standImages,
+  buttons
 }) => {
   return (
     <>
       {/* eslint-disable */
-        stage !== 'material' && selectedOps.plate === ''
+        stage !== 'plate' && selectedOps.plate === ''
           ? <> 
             <ErrorMsg
               handleErrorMsg={handleErrorMsg}
@@ -40,7 +43,7 @@ const Editor = ({
           </>
           : <>
             <Indicator
-              stages={stages.slice(0,3)}
+              stages={stages}
               stage={stage}
               selectedOps={selectedOps}
             />
@@ -51,11 +54,14 @@ const Editor = ({
             </Message>
             <Canvas
               selectedOps={selectedOps}
+              standImages={standImages}
             />
             <Controller
+              url={url}
               curStage={stage}
               selectedOps={selectedOps}
               handleBtnClick={handleBtnClick}
+              buttons={buttons}
             />
             <MainButton
               curStage={stage}
