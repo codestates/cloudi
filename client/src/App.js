@@ -26,7 +26,6 @@ const App = () => {
     const url = new URL(window.location.href);
     const google = url.searchParams.get('scope');
     const authorizationCode = url.searchParams.get('code');
-
     if (authorizationCode) {
       if (google) {
         axios({
@@ -50,11 +49,10 @@ const App = () => {
           })
           .catch((err) => console.log('Google Login', err));
       } else {
-        // * kakao
         axios({
           method: 'POST',
           url: 'http://localhost:8000/user/kakao',
-          data: { orders, code: authorizationCode },
+          data: { orders, code: authorizationCode }
         }).then(res => {
           console.log('Kakao Login OK', res.data.token);
           dispatch(
@@ -69,7 +67,7 @@ const App = () => {
             })
           );
         })
-        .catch(err => console.log('Kakao Login', err));
+          .catch(err => console.log('Kakao Login', err));
       }
     }
   };

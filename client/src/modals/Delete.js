@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { userinfoSelector } from '../app/modules/hooks';
 import { removeUserinfo } from '../app/modules/userinfo';
+import { removeAllSticks } from '../app/modules/stick';
+import { removeAllStands } from '../app/modules/stand';
 
 const DeleteContainer = styled.div`
   display: ${(props) => (props.isvisible ? 'flex' : 'none')};
@@ -120,7 +122,6 @@ const Delete = ({ visible, setVisible }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { userinfo } = useSelector(userinfoSelector);
-  // console.log('딜리트에서 가져오는 유저인포 ->', userinfo);
 
   const handleInputValue = (e) => {
     setInputCheck(e.target.value);
@@ -142,20 +143,20 @@ const Delete = ({ visible, setVisible }) => {
         url: `${URL}/user`,
         headers: { Authorization: userinfo.token }
       })
-        .then((res) => {
-          console.log('딜리트 성공 -> ', res);
+        .then(() => {
+          setVisible(false);
+          setInputCheck('');
+          setErrorMessage('');
+          alert('회원탈퇴가 완료되었습니다'); // eslint-disable-line
+          history.push('/');
+          dispatch(removeUserinfo());
+          dispatch(removeAllSticks());
+          dispatch(removeAllStands());
+          localStorage.clear(); // eslint-disable-line
         })
         .catch((err) => {
           console.log('딜리트 실패 ->', err);
         });
-
-      setVisible(false);
-      setInputCheck('');
-      setErrorMessage('');
-      alert('회원탈퇴가 완료되었습니다'); // eslint-disable-line
-      history.push('/');
-      dispatch(removeUserinfo());
-      // * 장바구니 날리기
     } else {
       setErrorMessage('`회원탈퇴` 입력을 다시 확인해주세요');
     }

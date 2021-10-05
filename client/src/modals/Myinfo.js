@@ -2,9 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Delete from './Delete';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { standsSelector, sticksSelector, userinfoSelector } from '../app/modules/hooks';
-
+import { useSelector } from 'react-redux';
+import { userinfoSelector } from '../app/modules/hooks';
 
 const MyinfoContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
@@ -157,15 +156,7 @@ const Myinfo = ({ visible, setVisible }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [clearColor, setClearColor] = useState(0);
-  const dispatch = useDispatch();
-  const stick = useSelector(sticksSelector);
-  const stand = useSelector(standsSelector);
   const { userinfo } = useSelector(userinfoSelector);
-
-  const [userInfo] = useState({
-    userName: 'Cloudi',
-    userEmail: 'abcabcabcabc@naver.com'
-  });
   const [newUserInfo, setNewUserInfo] = useState({
     currPassword: '',
     newPassword: '',
@@ -207,7 +198,7 @@ const Myinfo = ({ visible, setVisible }) => {
             Authorization: userinfo.token
           }
         })
-          .then((res) => {
+          .then(() => {
             setClearColor(1);
             setErrorMessage('비밀번호 변경이 완료되었습니다');
           })
@@ -216,10 +207,7 @@ const Myinfo = ({ visible, setVisible }) => {
               // 비번다름
               setClearColor(0);
               setErrorMessage(err.response.data);
-              // * 소셜로그인
-              // * 비번 다름
             } else if (err.response.status === 401) {
-              // 토큰 유효 x
               setClearColor(0);
               setErrorMessage('다시 로그인 해주세요');
             }
@@ -254,11 +242,11 @@ const Myinfo = ({ visible, setVisible }) => {
           <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
           <ProfileContainer>
             <InputTitle>User name</InputTitle>
-            <ProfileData>{userInfo.userName}</ProfileData>
+            <ProfileData>{userinfo.userName}</ProfileData>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>User email</InputTitle>
-            <ProfileData>{userInfo.userEmail}</ProfileData>
+            <ProfileData>{userinfo.userEmail}</ProfileData>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>Password</InputTitle>

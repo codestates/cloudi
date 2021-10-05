@@ -52,7 +52,7 @@ const ModalContent = styled.div`
 const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen, setMyinfoOpen }) => {
   const dispatch = useDispatch();
   const { userinfo } = useSelector(userinfoSelector);
-  // console.log('Modal컴포넌트 유저인포token ->', userinfo.token);
+
   const visibleHandler = () => {
     setVisible(!visible);
   };
@@ -62,7 +62,7 @@ const Modal = ({ visible, setVisible, setLoginModal, setSignupOpen, setMyinfoOpe
     dispatch(removeUserinfo());
     dispatch(removeAllSticks());
     dispatch(removeAllStands());
-    localStorage.clear();
+    localStorage.clear(); // eslint-disable-line
   };
   return (
     <ModalContainer visible={visible} onClick={(visibleHandler)}>
