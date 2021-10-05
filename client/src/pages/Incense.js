@@ -216,12 +216,11 @@ const Incense = () => {
             // * orderId
             setInCartItem(0); // * 카트에 이미 있습니다
             setCartModalOpen(1); // * 카트 자체 모달 오픈
-            console.log('인센스 res', res.data.id);
             dispatch(insertStick({ ...newStick, id: res.data.id }));
             setClickCount(0); // * 다시 비활성화
           })
           .catch((err) => {
-            console.log('인센스 post 실패 ->', err);
+            console.log(err);
           });
       } else {
         setInCartItem(0); // * 카트 모달
