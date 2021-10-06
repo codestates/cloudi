@@ -48,7 +48,7 @@ const Video = styled.video`
     border-radius: 10px;
   };
   @media screen and (max-height: 800px) {
-    height: 30vh;
+    height: 26vh;
     width: auto;
   };
 `;
@@ -94,8 +94,8 @@ const Desc = styled.p`
     font-size: 2.3vh;
   };
   @media screen and (max-width: 1023px) {
-      text-align: left;
-      font-size: 2vw;
+      text-align: center;
+      font-size: 2.5vw;
   };
 `;
 
