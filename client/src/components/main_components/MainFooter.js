@@ -4,14 +4,16 @@ import styled from 'styled-components';
 const MainFooterContainer = styled.footer`
   flex: 1;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   display: flex;
   width: 100vw;
   justify-content: center;
   background-color: rgb(183, 197, 139);
   @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+    flex: 1.4;
     padding: 10px;
     justify-content: space-between;
+    padding-top: 5px;
   };
 `;
 
