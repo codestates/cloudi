@@ -138,7 +138,7 @@ const Sequence = styled.div`
 `;
 
 const TOTAL_SLIDES = 12;
-const URL = 'http://localhost:8000';
+const URL = 'https://www.cloudi.shop';
 
 const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

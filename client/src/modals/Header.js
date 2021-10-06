@@ -221,7 +221,7 @@ const Header = () => {
   const myinfoHandler = () => {
     setMyinfoOpen(true);
     setMenu(false);
-  }
+  };
   const logoutHandler = () => {
     dispatch(removeUserinfo());
     dispatch(removeAllSticks());
