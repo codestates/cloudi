@@ -109,9 +109,9 @@ const SliderBtnRight = styled.div`
 `;
 
 const CartBtn = styled.div`
-  background-color: ${(props) => (props.count ? '#b7c58b' : '#ababab')};
+  background-color: ${(props) => (props.count ? '#b7c58b' : '#636363')}; // #b7c58b
   padding: 20px;
-  opacity: 0.6;
+  opacity: 0.7;
   display: flex;
   color: white;
   justify-content: center;
