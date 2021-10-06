@@ -37,7 +37,7 @@ const MyinfoContent = styled.div`
   align-items: center;
   position: relative;
   width: 450px;
-  height: 530px;
+  height: 540px;
   padding-top: 70px;
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
@@ -45,7 +45,7 @@ const MyinfoContent = styled.div`
   transition: all 0.2s ease;
   @media screen and (max-width: 468px) {
     width: 360px;
-    height: 410px;
+    height: 430px;
     padding-top: 30px;
   }
 `;
@@ -141,17 +141,15 @@ const ProfileData = styled.div`
 `;
 
 const ErrMessage = styled.div`
-  width: 13rem;
   font-size: 15px;
-  position: absolute;
-  bottom: 125px;
-  left: 130px;
+  position: relative;
+  left: 10px;
+  top: 20px;
   text-align: center;
   color: ${(props) => (props.color ? '#302f2f' : '#ff0000')};
   @media screen and (max-width: 468px) {
-    bottom: 65px;
-    left: 85px;
-    font-size: 12px;
+    top: 10px;
+    font-size: 11px;
   }
 `;
 
@@ -286,8 +284,8 @@ const Myinfo = ({ visible, setVisible }) => {
               onChange={handleInputValue('newPasswordMatch')}
               placeholder='New Password'
             />
-            <ErrMessage color={clearColor}>{errorMessage}</ErrMessage>
           </ProfileContainer>
+          <ErrMessage color={clearColor}>{errorMessage}</ErrMessage>
           <MyinfoBtn color='#b7c58b' onClick={onClickHandler('Change')}>
             Change
           </MyinfoBtn>

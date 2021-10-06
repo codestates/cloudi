@@ -221,7 +221,7 @@ const Header = () => {
   const myinfoHandler = () => {
     setMyinfoOpen(true);
     setMenu(false);
-  };
+  }
   const logoutHandler = () => {
     dispatch(removeUserinfo());
     dispatch(removeAllSticks());
@@ -252,11 +252,11 @@ const Header = () => {
         <LinkElem to='/order'>
           <MobileMenuList onClick={handleClickMenu}>ORDER</MobileMenuList>
         </LinkElem>
-        <LinkElem to='/quiz'>
-          <MenuList onClick={handleClickMenu}>QUIZ</MenuList>
-        </LinkElem>
         <LinkElem to='/incense'>
           <MenuList onClick={handleClickMenu}>INCENSE</MenuList>
+        </LinkElem>
+        <LinkElem to='/quiz'>
+          <MenuList onClick={handleClickMenu}>QUIZ</MenuList>
         </LinkElem>
         <LinkElem to='/customize'>
           <MenuList onClick={handleClickMenu}>CUSTOMIZE</MenuList>
