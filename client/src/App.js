@@ -37,7 +37,7 @@ const App = () => {
       if (google) {
         axios({
           method: 'POST',
-          url: 'http://localhost:8000/user/google',
+          url: 'https://www.cloudi.shop/user/google',
           data: { orders, code: authorizationCode }
         })
           .then((res) => {
@@ -59,7 +59,7 @@ const App = () => {
       } else {
         axios({
           method: 'POST',
-          url: 'http://localhost:8000/user/kakao',
+          url: 'https://www.cloudi.shop/user/kakao',
           data: { orders, code: authorizationCode }
         })
           .then((res) => {
@@ -86,7 +86,7 @@ const App = () => {
     didMount();
     axios({
       method: 'GET',
-      url: 'http://localhost:8000/auth',
+      url: 'https://www.cloudi.shop/auth',
       headers: { Authorization: userinfo.userinfo.token }
     })
       .then((res) => {
