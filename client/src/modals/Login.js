@@ -166,7 +166,7 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
-const URL = 'http://localhost:8000';
+const URL = 'https://www.cloudi.shop';
 
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
@@ -216,14 +216,14 @@ const Login = ({ visible, setVisible }) => {
 
   const kakaoLoginHandler = () => {
     window.location.assign(
-      'https://kauth.kakao.com/oauth/authorize?client_id=6bea04e98d9b7654b9f9c4090d3350cd&redirect_uri=http://localhost:3000&response_type=code'
+      'https://kauth.kakao.com/oauth/authorize?client_id=6bea04e98d9b7654b9f9c4090d3350cd&redirect_uri=https://cloudi.shop&response_type=code'
     );
   };
 
   const googleLoginHandler = () => {
     const CLIENT_ID =
       '489580139925-kej0e09kiqes22usrhcivb5f5krrhlte.apps.googleusercontent.com';
-    const REDIRECT_URI = 'http://localhost:3000';
+    const REDIRECT_URI = 'https://cloudi.shop';
     const SCOPE =
       'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
     window.location.assign(

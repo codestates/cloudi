@@ -126,7 +126,7 @@ const ErrMessage = styled.div`
   }
 `;
 
-const URL = 'http://localhost:8000';
+const URL = 'https://www.cloudi.shop';
 
 const USER_INFO = {
   userName: '',
