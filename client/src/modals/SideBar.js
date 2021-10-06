@@ -141,7 +141,7 @@ const SideBar = () => {
       }
     });
     if (timer === 0) {
-      setMin(parseInt(15));
+      setMin(parseInt(10));
       setSec(parseInt(0));
     } else {
       setMin(parseInt(0));
@@ -173,7 +173,7 @@ const SideBar = () => {
   }, [min, sec]);
 
   const handleReset = () => {
-    setMin(parseInt(15));
+    setMin(parseInt(10));
     setSec(parseInt(0));
   };
 
