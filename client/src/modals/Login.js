@@ -182,9 +182,9 @@ const Login = ({ visible, setVisible }) => {
   const loginClickHandler = () => {
     // 로그인버튼
     const { email, password } = loginInfo;
-    const pattern = /[<>"']/;
+    const pattern = /[<>"'()=\s]/;
     if (pattern.test(email) || pattern.test(password)) {
-      setErrorMessage('<, >, ", \' 사용은 불가능합니다');
+      setErrorMessage('특수문자 < > ( ) " \' = 과 공백은 불가능합니다');
     } else {
       axios({
         method: 'POST',

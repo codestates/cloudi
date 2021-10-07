@@ -156,7 +156,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
   };
 
   const submitHandler = () => {
-    const pattern = /[<>"']/;
+    const pattern = /[<>"'()=\s]/;
     const { userName, userEmail, userPassword } = userInfo;
     if (
       !userInfo.userEmail ||
@@ -166,7 +166,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
     ) {
       setErrorMessage('모든 항목을 기입해주세요');
     } else if (pattern.test(userInfo.userEmail) || pattern.test(userInfo.userName) || pattern.test(userInfo.userPassword) || pattern.test(userInfo.confirmPassword)) {
-      setErrorMessage('<, >, ", \' 사용은 불가능합니다');
+      setErrorMessage('특수문자 < > ( ) " \' = 과 공백은 불가능합니다');
     } else if (userInfo.userPassword !== userInfo.confirmPassword) {
       setErrorMessage('입력한 비밀번호와 일치하지 않습니다');
     } else if (/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(userEmail) === false) {
