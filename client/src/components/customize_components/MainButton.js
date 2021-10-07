@@ -16,6 +16,10 @@ const MainButtonContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-height: 800px) {
+    bottom: 1%;
+  };
 `;
 
 const Input = styled.input`
@@ -32,6 +36,10 @@ const Input = styled.input`
   };
   :active {
     background-color: '#b7c58b';
+  };
+
+  @media screen and (max-height: 800px) {
+    width: 98vw
   };
 `;
 

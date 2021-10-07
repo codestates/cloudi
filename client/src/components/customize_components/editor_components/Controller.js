@@ -15,8 +15,10 @@ const StyledController = styled.section`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 50vmax;
   height: 100px;
+  @media screen and (max-height: 800px) {
+    bottom: 14%;
+  };
 `;
 
 const TotalPrice = styled.section`
