@@ -231,7 +231,7 @@ const Quiz = () => {
           setAnswer={setAnswer}
         />
         <QuizPageThird
-          secondPageVisible={visible.firstPage}
+          firstPageVisible={visible.firstPage}
           visible={visible.thirdPage}
           setImageClick={setImageClick}
           answer={answer}
