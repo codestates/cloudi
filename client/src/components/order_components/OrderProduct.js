@@ -296,7 +296,7 @@ const OrderProduct = () => {
     });
   };
 
-  const URL = 'http://localhost:8000';
+  const URL = 'https://www.cloudi.shop';
 
   const handleLoginModal = () => {
     setLoginModal(prevState => {

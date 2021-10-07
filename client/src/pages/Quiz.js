@@ -91,7 +91,7 @@ const ContentWrapper = styled.div`
   align-items: center;
 `;
 
-const URL = 'http://localhost:8000';
+const URL = 'https://www.cloudi.shop';
 
 const Quiz = () => {
   const [visible, setVisible] = useState(SEQUENCE);

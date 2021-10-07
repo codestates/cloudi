@@ -58,7 +58,7 @@ const Customize = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // ! SERVER URL
-  const url = 'http://localhost:8000';
+  const url = 'https://www.cloudi.shop';
 
   // 첫 렌더 시 모든 옵션 불러오기
   useEffect(() => {

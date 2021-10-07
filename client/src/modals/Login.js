@@ -166,7 +166,7 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
-const URL = 'http://localhost:8000';
+const URL = 'https://www.cloudi.shop';
 
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
@@ -182,31 +182,36 @@ const Login = ({ visible, setVisible }) => {
   const loginClickHandler = () => {
     // 로그인버튼
     const { email, password } = loginInfo;
-    axios({
-      method: 'POST',
-      url: `${URL}/user/login`,
-      data: { orders, userEmail: email, userPassword: password }
-    })
-      .then((res) => {
-        dispatch(
-          insertUserinfo({
-            id: res.data.id,
-            kakaoId: res.data.kakaoId,
-            googleId: res.data.googldId,
-            isAdmin: res.data.isAdmin,
-            userEmail: res.data.userEmail,
-            userName: res.data.userName,
-            token: res.data.token
-          })
-        );
-        dispatch(insertAllSticks(res.data.orders.sticks));
-        dispatch(insertAllStands(res.data.orders.stands));
-        setVisible(false);
+    const pattern = /[<>"'()=\s]/;
+    if (pattern.test(email) || pattern.test(password)) {
+      setErrorMessage('특수문자 < > ( ) " \' = 과 공백은 불가능합니다');
+    } else {
+      axios({
+        method: 'POST',
+        url: `${URL}/user/login`,
+        data: { orders, userEmail: email, userPassword: password }
       })
-      .catch((err) => {
-        setErrorMessage('이메일 또는 비밀번호가 잘못 입력 되었습니다');
-        console.log('에러', err);
-      });
+        .then((res) => {
+          dispatch(
+            insertUserinfo({
+              id: res.data.id,
+              kakaoId: res.data.kakaoId,
+              googleId: res.data.googldId,
+              isAdmin: res.data.isAdmin,
+              userEmail: res.data.userEmail,
+              userName: res.data.userName,
+              token: res.data.token
+            })
+          );
+          dispatch(insertAllSticks(res.data.orders.sticks));
+          dispatch(insertAllStands(res.data.orders.stands));
+          setVisible(false);
+        })
+        .catch((err) => {
+          setErrorMessage('이메일 또는 비밀번호가 잘못 입력 되었습니다');
+          console.log('에러', err);
+        });
+    }
   };
 
   const loginInfoHandler = (key) => (e) => {
@@ -216,14 +221,14 @@ const Login = ({ visible, setVisible }) => {
 
   const kakaoLoginHandler = () => {
     window.location.assign(
-      'https://kauth.kakao.com/oauth/authorize?client_id=6bea04e98d9b7654b9f9c4090d3350cd&redirect_uri=http://localhost:3000&response_type=code'
+      'https://kauth.kakao.com/oauth/authorize?client_id=6bea04e98d9b7654b9f9c4090d3350cd&redirect_uri=https://cloudi.shop&response_type=code'
     );
   };
 
   const googleLoginHandler = () => {
     const CLIENT_ID =
       '489580139925-kej0e09kiqes22usrhcivb5f5krrhlte.apps.googleusercontent.com';
-    const REDIRECT_URI = 'http://localhost:3000';
+    const REDIRECT_URI = 'https://cloudi.shop';
     const SCOPE =
       'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
     window.location.assign(

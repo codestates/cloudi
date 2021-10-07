@@ -27,7 +27,7 @@ const App = () => {
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
   const orders = { ...stick, ...stand };
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const didMount = () => {
     const url = new URL(window.location.href);
@@ -37,7 +37,7 @@ const App = () => {
       if (google) {
         axios({
           method: 'POST',
-          url: 'http://localhost:8000/user/google',
+          url: 'https://www.cloudi.shop/user/google',
           data: { orders, code: authorizationCode }
         })
           .then((res) => {
@@ -59,7 +59,7 @@ const App = () => {
       } else {
         axios({
           method: 'POST',
-          url: 'http://localhost:8000/user/kakao',
+          url: 'https://www.cloudi.shop/user/kakao',
           data: { orders, code: authorizationCode }
         })
           .then((res) => {
@@ -83,21 +83,25 @@ const App = () => {
     }
   };
   useEffect(() => {
+    setIsLoading(true);
     didMount();
-    axios({
-      method: 'GET',
-      url: 'http://localhost:8000/auth',
-      headers: { Authorization: userinfo.userinfo.token }
-    })
-      .then((res) => {
-        dispatch(insertAllStands(res.data.orders.stands));
-        dispatch(insertAllSticks(res.data.orders.sticks));
-        setIsLogin(false);
+    if (userinfo.userinfo.token !== '') {
+      axios({
+        method: 'GET',
+        url: 'https://www.cloudi.shop/auth',
+        headers: { Authorization: userinfo.userinfo.token }
       })
-      .catch((err) => {
-        setIsLogin(false);
-        console.log(err);
-      });
+        .then((res) => {
+          dispatch(insertAllStands(res.data.orders.stands));
+          dispatch(insertAllSticks(res.data.orders.sticks));
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setIsLoading(false);
+    }
   }, []);
 
   return (
@@ -108,7 +112,7 @@ const App = () => {
       <Switch>
         <Route exact path='/'>
           {
-            isLogin
+            isLoading
               ? <LoadingIndicator text='로딩중입니다...' />
               : <Main />
           }

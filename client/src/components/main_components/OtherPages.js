@@ -48,7 +48,7 @@ const Video = styled.video`
     border-radius: 10px;
   };
   @media screen and (max-height: 800px) {
-    height: 30vh;
+    height: 26vh;
     width: auto;
   };
 `;
@@ -94,8 +94,8 @@ const Desc = styled.p`
     font-size: 2.3vh;
   };
   @media screen and (max-width: 1023px) {
-      text-align: left;
-      font-size: 2vw;
+      text-align: center;
+      font-size: 2.5vw;
   };
 `;
 
@@ -178,7 +178,7 @@ const LastPagePictureContainer = styled.article`
   padding-top: 10vh;
   @media screen and (max-width: 1023px) {
     padding-top: 0;
-    flex: 2;
+    flex: 1.7;
   };
 `;
 
@@ -186,6 +186,7 @@ const LastPageDescContainer = styled.article`
   flex: 2;
   margin-top: 13vh;
   @media screen and (max-width: 1023px) {
+    flex: 2.5;
     text-align: center;
     margin: 2vw 0;
   };

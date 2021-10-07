@@ -3,7 +3,7 @@ const axios = require("axios");
 
 module.exports = {
   put: (req, res) => {
-    const {userId, stickOrderId, standOrderId, stickQuantity, standQuantity} = req.body;
+    const {stickOrderId, standOrderId, stickQuantity, standQuantity} = req.body;
     if(!!stickOrderId && !!stickQuantity){//인센스 수량 변경
       db.user_stick.update({
         stickQuantity: stickQuantity
@@ -56,7 +56,7 @@ module.exports = {
     }
   },
   delete: (req, res) => {
-    const {userId, stickOrderId, standOrderId} = req.query;
+    const {stickOrderId, standOrderId} = req.query;
     // console.log(userId, stickOrderId, standOrderId);
     if(!!stickOrderId){//인센스 장바구니 삭제
       db.user_stick.destroy({

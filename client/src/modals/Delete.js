@@ -114,7 +114,7 @@ const BorderBottom = styled.div`
   border-bottom: 2px solid black;
 `;
 
-const URL = 'http://localhost:8000';
+const URL = 'https://www.cloudi.shop';
 
 const Delete = ({ visible, setVisible }) => {
   const [InputCheck, setInputCheck] = useState('');
