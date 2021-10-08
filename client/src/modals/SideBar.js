@@ -1,24 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as SidebarIcon } from '../svgs/sidebar.svg';
+import { ReactComponent as SidebarIcon } from '../svgs/candleholder.svg';
 
 const Icon = styled(SidebarIcon)`
   z-index: 1;
   position: fixed;
-  transform: scale(2);
-  top: 110px;
-  left: 2px;
+  top: 102px;
+  left: 1px;
+  height: 40px;
+  width: 40px;
+  transform: scale(1.2);
   cursor: pointer;
   visibility: ${props =>
       props.btn ? 'hidden' : 'visible'};
   opacity: ${props =>
       props.btn ? '0' : '1'};;
   :hover{
-    transform: scale(2.5);
-    left: 3px;
+    transform: scale(1.3);
   }
   @media screen and (max-width: 1023px) {
-    top: 80px;
+    transform: scale(0.8);
+    top: 67px;
+    left: -6px;
+    :hover{
+      transform: scale(1);
+    }
   }
 `;
 

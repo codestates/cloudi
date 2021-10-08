@@ -231,12 +231,11 @@ const NavContainer = styled.section`
 `;
 
 const NavBox = styled.div`
+  height: 16vw;
   width: 50%;
-  border: 3px inset;
+  border: 3px outset;
   border-radius: 10px;
   margin: 0 auto;
-  height: 16vw;
-  box-shadow: inset 5px 5px 10px gray;
 `;
 
 const PageLink = styled.a`
@@ -244,9 +243,10 @@ const PageLink = styled.a`
   font-size: 1.5vw;
   margin-top: 2vw;
   text-decoration: none;
-  color: black;
-  :hover {
-    font-weight: bold;
+  color: rgb(100, 74, 26);
+  font-weight: bold;
+  :hover{
+    text-decoration: underline overline green 7px;
   }
 `;
 
