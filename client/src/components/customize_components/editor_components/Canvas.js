@@ -14,7 +14,7 @@ const StyledCanvas = styled.canvas`
   height: 500px;
   background-color: none;
   
-  @media screen and (max-height: 800px) {
+  @media screen and (max-height: 850px) {
     transform: translate(-50%, -70%);
     width: 330px;
     height: 330px;

@@ -22,7 +22,7 @@ const Message = styled.section`
   white-space: pre-wrap;
   line-height: 1.6;
 
-  @media screen and (max-height: 800px) {
+  @media screen and (max-height: 850px) {
     top: 22%;
   };
 `;

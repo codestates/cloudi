@@ -18,7 +18,7 @@ const StyledCircle = styled.svg`
     stroke-dasharray: 5
   }
 
-  @media screen and (max-height: 800px) {
+  @media screen and (max-height: 850px) {
     display: none;
   };
 `;

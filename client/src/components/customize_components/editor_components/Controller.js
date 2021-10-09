@@ -16,7 +16,7 @@ const StyledController = styled.section`
   justify-content: center;
   align-items: center;
   height: 100px;
-  @media screen and (max-height: 800px) {
+  @media screen and (max-height: 850px) {
     bottom: 14%;
   };
 `;

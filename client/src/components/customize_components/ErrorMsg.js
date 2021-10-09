@@ -31,7 +31,7 @@ const StyledErrorMsg = styled.section`
     color: crimson;
   }
 
-  @media screen and (max-height: 800px) {
+  @media screen and (max-height: 850px) {
     width: auto;
     img {
       width: 350px;

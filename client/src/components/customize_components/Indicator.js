@@ -28,8 +28,8 @@ const IndicatorContainer = styled.section`
   .active section {
     background-color: #69955E;
   }
-  @media screen and (max-height: 800px) {
-    top: 12.5%;
+  @media screen and (max-height: 850px) {
+    top: 14%;
     width: 98vw;
   };
 `;

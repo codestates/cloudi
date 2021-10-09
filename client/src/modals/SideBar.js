@@ -20,9 +20,6 @@ const Icon = styled(SidebarIcon)`
   @media screen and (max-width: 1023px) {
     top: 80px;
   }
-  @media screen and (max-height: 800px) {
-    display: none;
-  };
 `;
 
 const Aside = styled.aside`

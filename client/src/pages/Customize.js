@@ -54,7 +54,7 @@ const Title = styled.button`
     border-radius: 10px;
   }
 
-  @media screen and (max-height: 800px) {
+  @media screen and (max-height: 850px) {
     display: none;
   };
 `;

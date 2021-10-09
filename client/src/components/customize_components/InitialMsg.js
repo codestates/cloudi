@@ -33,7 +33,7 @@ const StyledInitialMsg = styled.section`
     height: 350px;
   }
 
-  @media screen and (max-height: 800px) {
+  @media screen and (max-height: 850px) {
     width: auto;
     img {
       width: 350px;
