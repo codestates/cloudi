@@ -102,7 +102,7 @@ const App = () => {
     } else {
       setIsLoading(false);
     }
-  }, []);
+  }, []);  // eslint-disable-line
 
   return (
     <>
