@@ -146,7 +146,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
     } else {
       setNameMessage('');
     }
-  }, [userInfo.userName]);
+  }, [userInfo.userName]); // eslint-disable-line
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
