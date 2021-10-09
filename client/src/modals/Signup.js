@@ -144,8 +144,6 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
       setUserInfo({ ...userInfo, userName: userName.slice(0, -1) });
     } else if (userName.length === 8) {
       setNameMessage('글자수는 최대 7자입니다');
-    } else if (userPassword.length === 17) {
-      setUserInfo({ ...userInfo, userPassword: userPassword.slice(0, -1) });
     } else if (userPassword.length === 16) {
       setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
     } else {
