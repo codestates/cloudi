@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import IncenseSlider from '../components/incense_components/IncenseSlider';
+import LoadingIndicator from '../components/LoadingIndicator';
 import { useSelector, useDispatch } from 'react-redux';
 import { insertStick } from '../app/modules/stick';
 import { sticksSelector, userinfoSelector } from '../app/modules/hooks';
@@ -9,10 +10,6 @@ import axios from 'axios';
 
 const IncenseWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
-  /* background-image: url('/images/room.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center; */
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -144,6 +141,7 @@ const Incense = () => {
   const [clickCount, setClickCount] = useState(0);
   const [cartModalOpen, setCartModalOpen] = useState(0);
   const [inCartItem, setInCartItem] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const [stickData, setStickData] = useState(null);
   const [incenseData, setIncenseData] = useState(null);
   const [click, setClick] = useState({
@@ -164,6 +162,9 @@ const Incense = () => {
     })
       .then((res) => {
         setIncenseData(res.data);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 350);
       })
       .catch((err) => {
         console.log(err);
@@ -188,8 +189,10 @@ const Incense = () => {
   };
 
   useEffect(() => {
-    slideRef.current.style.transition = 'all 0.5s ease-in-out';
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+    if (incenseData) {
+      slideRef.current.style.transition = 'all 0.5s ease-in-out';
+      slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+    }
   }, [currentSlide]);
 
   const clickHandler = () => {
@@ -235,31 +238,35 @@ const Incense = () => {
   return (
     <>
       <IncenseWrapper>
-        <IncenseContainer>
-          <IncenseContent>
-            <Sequence>{currentSlide + 1}/13</Sequence>
-            <SliderBox ref={slideRef}>
-              {data?.map((el) => {
-                return (
-                  <IncenseSlider
-                    key={el.id.toString()}
-                    data={el}
-                    setStickData={setStickData}
-                    clickCount={clickCount}
-                    setClickCount={setClickCount}
-                    click={click}
-                    setClick={setClick}
-                  />
-                );
-              })}
-            </SliderBox>
-          </IncenseContent>
-          <SliderBtnLeft onClick={prevSlide} />
-          <SliderBtnRight onClick={nextSlide} />
-          <CartBtn count={clickCount} onClick={clickHandler}>
-            Add to cart
-          </CartBtn>
-        </IncenseContainer>
+        {isLoading ? (
+          <LoadingIndicator text={'Incense 불러오는 중...'} />
+        ) : (
+          <IncenseContainer>
+            <IncenseContent>
+              <Sequence>{currentSlide + 1}/13</Sequence>
+              <SliderBox ref={slideRef}>
+                {data?.map((el) => {
+                  return (
+                    <IncenseSlider
+                      key={el.id.toString()}
+                      data={el}
+                      setStickData={setStickData}
+                      clickCount={clickCount}
+                      setClickCount={setClickCount}
+                      click={click}
+                      setClick={setClick}
+                    />
+                  );
+                })}
+              </SliderBox>
+            </IncenseContent>
+            <SliderBtnLeft onClick={prevSlide} />
+            <SliderBtnRight onClick={nextSlide} />
+            <CartBtn count={clickCount} onClick={clickHandler}>
+              Add to cart
+            </CartBtn>
+          </IncenseContainer>
+        )}
         <Cloud />
       </IncenseWrapper>
       <Cart
