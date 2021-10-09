@@ -84,10 +84,12 @@ const CloseModal = styled.div`
 `;
 
 const SignupClear = ({ visible, setVisible, setLoginModal }) => {
+
   const loginClickHandler = () => {
     setVisible(false);
     setLoginModal(true);
   };
+
   return (
     <ClearContainer visible={visible}>
       <ClearContent>

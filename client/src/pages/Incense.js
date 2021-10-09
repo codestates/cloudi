@@ -109,7 +109,7 @@ const SliderBtnRight = styled.div`
 `;
 
 const CartBtn = styled.div`
-  background-color: ${(props) => (props.count ? '#b7c58b' : '#636363')}; // #b7c58b
+  background-color: ${(props) => (props.count ? '#b7c58b' : '#636363')};
   padding: 20px;
   opacity: 0.7;
   display: flex;
@@ -138,7 +138,6 @@ const Sequence = styled.div`
 `;
 
 const TOTAL_SLIDES = 12;
-const URL = 'https://www.cloudi.shop';
 
 const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -157,20 +156,20 @@ const Incense = () => {
   const { userinfo } = useSelector(userinfoSelector);
   const stick = useSelector(sticksSelector);
   const slideRef = useRef(null);
+
   useEffect(() => {
     axios({
       method: 'GET',
-      url: `${URL}/incense`
+      url: `https://www.cloudi.shop/incense`
     })
       .then((res) => {
-        // *로딩인디케이터
-        console.log('인센스성공 ->', res.data);
         setIncenseData(res.data);
       })
       .catch((err) => {
-        console.log('인센스실패 ->', err);
+        console.log(err);
       });
   }, []);
+
   const data = incenseData;
 
   const nextSlide = () => {
@@ -194,7 +193,6 @@ const Incense = () => {
   }, [currentSlide]);
 
   const clickHandler = () => {
-    // * Add to cart
     const stickCount =
       stick.sticks.filter((el) => el.stickId === stickData.id).length === 0;
 
@@ -207,24 +205,23 @@ const Incense = () => {
 
     if (stickCount) {
       if (userinfo.token) {
+        setClickCount(0);
         axios({
           method: 'POST',
-          url: `${URL}/incense`,
+          url: `https://www.cloudi.shop/incense`,
           data: { stickId: stickData.id, userId: userinfo.id }
         })
           .then((res) => {
-            // * orderId
-            setInCartItem(0); // * 카트에 이미 있습니다
-            setCartModalOpen(1); // * 카트 자체 모달 오픈
+            setInCartItem(0);
+            setCartModalOpen(1);
             dispatch(insertStick({ ...newStick, id: res.data.id }));
-            setClickCount(0); // * 다시 비활성화
           })
           .catch((err) => {
             console.log(err);
           });
       } else {
-        setInCartItem(0); // * 카트 모달
-        setCartModalOpen(1); // *
+        setInCartItem(0);
+        setCartModalOpen(1);
         dispatch(insertStick(newStick));
         setClickCount(0);
       }
@@ -234,6 +231,7 @@ const Incense = () => {
       setClickCount(0);
     }
   };
+
   return (
     <>
       <IncenseWrapper>

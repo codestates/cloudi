@@ -126,8 +126,6 @@ const ErrMessage = styled.div`
   }
 `;
 
-const URL = 'https://www.cloudi.shop';
-
 const USER_INFO = {
   userName: '',
   userEmail: '',
@@ -148,7 +146,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
     } else {
       setNameMessage('');
     }
-  }, [userInfo.userName]); // eslint-disable-line
+  }, [userInfo.userName]);
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
@@ -174,7 +172,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
     } else {
       axios({
         method: 'POST',
-        url: URL + '/user/signup',
+        url: 'https://www.cloudi.shop/user/signup',
         data: { userName, userEmail, userPassword }
       })
         .then(() => {
@@ -182,16 +180,16 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
           setClearOpen(true);
           setUserInfo(USER_INFO);
         })
-
         .catch((err) => {
           if (err.response.data) {
             setErrorMessage(err.response.data);
           } else {
-            console.log('signup err', err);
+            console.log(err);
           }
         });
     }
   };
+
   const closeModalHandler = () => {
     setVisible(false);
     setUserInfo(USER_INFO);

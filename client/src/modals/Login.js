@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { insertUserinfo } from '../app/modules/userinfo';
 import { insertAllSticks } from '../app/modules/stick';
@@ -166,8 +165,6 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
-const URL = 'https://www.cloudi.shop';
-
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
@@ -180,7 +177,6 @@ const Login = ({ visible, setVisible }) => {
   const orders = { ...stick, ...stand };
 
   const loginClickHandler = () => {
-    // 로그인버튼
     const { email, password } = loginInfo;
     const pattern = /[<>"'()=\s]/;
     if (pattern.test(email) || pattern.test(password)) {
@@ -188,7 +184,7 @@ const Login = ({ visible, setVisible }) => {
     } else {
       axios({
         method: 'POST',
-        url: `${URL}/user/login`,
+        url: `https://www.cloudi.shop/user/login`,
         data: { orders, userEmail: email, userPassword: password }
       })
         .then((res) => {
@@ -209,7 +205,7 @@ const Login = ({ visible, setVisible }) => {
         })
         .catch((err) => {
           setErrorMessage('이메일 또는 비밀번호가 잘못 입력 되었습니다');
-          console.log('에러', err);
+          console.log(err);
         });
     }
   };
