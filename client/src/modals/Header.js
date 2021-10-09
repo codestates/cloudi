@@ -244,11 +244,11 @@ const Header = () => {
           ? <>
             <MobileMenuList onClick={signupHandler}>SIGN UP</MobileMenuList>
             <MobileMenuList onClick={loginHandler}>LOG IN</MobileMenuList>
-            </>/*eslint-disable-line*/
+            </>
           : <>
             <MobileMenuList visible={myinfoOpen} onClick={myinfoHandler}>MY INFO</MobileMenuList>
             <MobileMenuList onClick={logoutHandler}>LOG OUT</MobileMenuList>
-            </>/*eslint-disable-line*/}
+            </>}
         <LinkElem to='/order'>
           <MobileMenuList onClick={handleClickMenu}>ORDER</MobileMenuList>
         </LinkElem>

@@ -246,7 +246,7 @@ const PageLink = styled.a`
   color: rgb(100, 74, 26);
   font-weight: bold;
   :hover{
-    text-decoration: underline overline green 7px;
+    text-decoration: underline overline rgb(8, 102, 0) 7px;
   }
 `;
 
