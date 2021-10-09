@@ -27,8 +27,6 @@ export const userinfoSlice = createSlice({
         token: action.payload.token
       };
       state.userinfo = userinfo;
-
-      console.log('리덕스 스테이트', state);
     },
     removeUserinfo: (state) => {
       state.userinfo = {
@@ -44,9 +42,6 @@ export const userinfoSlice = createSlice({
   }
 });
 
-export const {
-  insertUserinfo,
-  removeUserinfo
-} = userinfoSlice.actions;
+export const { insertUserinfo, removeUserinfo } = userinfoSlice.actions;
 
 export default userinfoSlice.reducer;

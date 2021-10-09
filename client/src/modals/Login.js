@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -152,10 +152,9 @@ const SocialLoginBtn = styled.div`
 `;
 
 const SocialImage = styled.img`
-  position: absolute;
-  left: 20px;
   width: 15px;
   height: 18px;
+  margin-right: 2px;
 `;
 
 const ErrMessage = styled.div`
@@ -165,23 +164,63 @@ const ErrMessage = styled.div`
   color: red;
 `;
 
+const LoadingImg = styled.div`
+  background-image: url('/images/CloudyLoading.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  margin-top: 40px;
+  width: 200px;
+  height: 200px;
+`;
+
+const LoadingText = styled.div`
+  font-size: 23px;
+  color: rgba(0, 0, 0, 0.7);
+  animation: loginLoading 2s infinite;
+  @keyframes loginLoading {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.2;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`;
+
 const Login = ({ visible, setVisible }) => {
   const [loginInfo, setLoginInfo] = useState({
     email: '',
     password: ''
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [loadingOpen, setLoadingOpen] = useState(false);
   const dispatch = useDispatch();
   const stick = useSelector(sticksSelector);
   const stand = useSelector(standsSelector);
   const orders = { ...stick, ...stand };
+
+  useEffect(() => {
+    const { password } = loginInfo;
+    if (password.length === 17) {
+      setLoginInfo({ ...loginInfo, password: password.slice(0, -1) });
+    } else if (password.length === 16) {
+      setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
+    }
+  }, [loginInfo.password]);
 
   const loginClickHandler = () => {
     const { email, password } = loginInfo;
     const pattern = /[<>"'()=\s]/;
     if (pattern.test(email) || pattern.test(password)) {
       setErrorMessage('특수문자 < > ( ) " \' = 과 공백은 불가능합니다');
+    } else if (password.length < 8) {
+      setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
     } else {
+      setLoadingOpen(true);
       axios({
         method: 'POST',
         url: `https://www.cloudi.shop/user/login`,
@@ -201,9 +240,11 @@ const Login = ({ visible, setVisible }) => {
           );
           dispatch(insertAllSticks(res.data.orders.sticks));
           dispatch(insertAllStands(res.data.orders.stands));
+          setLoadingOpen(false);
           setVisible(false);
         })
         .catch((err) => {
+          setLoadingOpen(false);
           setErrorMessage('이메일 또는 비밀번호가 잘못 입력 되었습니다');
           console.log(err);
         });
@@ -235,39 +276,49 @@ const Login = ({ visible, setVisible }) => {
   return (
     <LoginContainer visible={visible}>
       <LoginContent>
-        <LoginTitle>LOG IN</LoginTitle>
-        <CloseModal onClick={() => setVisible(false)}>&times;</CloseModal>
-        <InputContainer>
-          <InputTitle>User email</InputTitle>
-          <InputBox
-            className='input'
-            type='email'
-            value={loginInfo.email}
-            onChange={loginInfoHandler('email')}
-            placeholder='Email'
-          />
-        </InputContainer>
-        <InputContainer>
-          <InputTitle>Password</InputTitle>
-          <InputBox
-            className='input'
-            type='password'
-            value={loginInfo.password}
-            placeholder='Password'
-            onChange={loginInfoHandler('password')}
-          />
-        </InputContainer>
-        <ErrMessage>{errorMessage}</ErrMessage>
-        <LoginBtn onClick={loginClickHandler}>로그인</LoginBtn>
-        <BorderBottom>또는</BorderBottom>
-        <SocialLoginBtn color='#f7e600' onClick={kakaoLoginHandler}>
-          <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />
-          카카오 로그인
-        </SocialLoginBtn>
-        <SocialLoginBtn color='#e6e6e6' onClick={googleLoginHandler}>
-          <SocialImage src='/images/google.png' alt='소셜로그인 이미지' />
-          구글 로그인
-        </SocialLoginBtn>
+        {loadingOpen ? (
+          <>
+            <LoadingImg />
+            <LoadingText>로그인 중 . . .</LoadingText>
+          </>
+        ) : (
+          <>
+            <LoginTitle>LOG IN</LoginTitle>
+            <CloseModal onClick={() => setVisible(false)}>&times;</CloseModal>
+            <InputContainer>
+              <InputTitle>User email</InputTitle>
+              <InputBox
+                className='input'
+                type='email'
+                value={loginInfo.email}
+                onChange={loginInfoHandler('email')}
+                placeholder='Email'
+              />
+            </InputContainer>
+            <InputContainer>
+              <InputTitle>Password</InputTitle>
+              <InputBox
+                className='input'
+                type='password'
+                value={loginInfo.password}
+                maxLength={16}
+                placeholder='Password'
+                onChange={loginInfoHandler('password')}
+              />
+            </InputContainer>
+            <ErrMessage>{errorMessage}</ErrMessage>
+            <LoginBtn onClick={loginClickHandler}>로그인</LoginBtn>
+            <BorderBottom>또는</BorderBottom>
+            <SocialLoginBtn color='#f7e600' onClick={kakaoLoginHandler}>
+              <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />
+              카카오 로그인
+            </SocialLoginBtn>
+            <SocialLoginBtn color='#e6e6e6' onClick={googleLoginHandler}>
+              <SocialImage src='/images/google.png' alt='소셜로그인 이미지' />
+              구글 로그인
+            </SocialLoginBtn>
+          </>
+        )}
       </LoginContent>
     </LoginContainer>
   );
