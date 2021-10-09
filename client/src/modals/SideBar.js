@@ -19,11 +19,11 @@ const Icon = styled(SidebarIcon)`
     transform: scale(1.3);
   }
   @media screen and (max-width: 1023px) {
-    transform: scale(0.8);
-    top: 67px;
-    left: -6px;
+    transform: scale(0.6);
+    top: 60px;
+    left: -9px;
     :hover{
-      transform: scale(1);
+      transform: scale(0.8);
     }
   }
 `;

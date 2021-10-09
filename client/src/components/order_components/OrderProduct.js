@@ -471,7 +471,7 @@ const OrderProduct = () => {
             <ButtonContainer>
               {userinfo.token === '' ? <Input onClick={handleLoginModal}>ORDER</Input> : <Input onClick={handleModal}>ORDER</Input>}
             </ButtonContainer>
-        </>/*eslint-disable-line*/}
+        </>}
       </OrderProductContainer>
       {userinfo.token === '' ? <Login visible={loginModal} setVisible={setLoginModal} /> : <Construction modal={modal} handleModal={handleModal} />}
     </>
