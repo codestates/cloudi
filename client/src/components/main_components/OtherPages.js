@@ -284,15 +284,15 @@ const OtherPages = () => {
         </VideoContainer>
         <DescContainerLeft>
           <Title>
-            여러분만의 홀더를 커스텀 해보세요
+          자신이 선택한 제품을 직접 즐겨보세요
             <Desc>
-              시중에 시판되는 평범한 디자인의 홀더는 싫으신가요? <br />
-              cloudi에서는 여러분만의 홀더를 제작할 수 있습니다.<br />
-              cloudi에서 투박한 홀더 디자인을 벗어나 여러분만의<br />
-              독창적인 홀더를 제작 해보세요.
+              주문을 통해서 취향에 맞는 인센스 스틱과 직접 제작하신<br />
+              홀더를 가정에서 만나 보실 수 있습니다. 커스텀 주문시<br />
+              수작업으로 제작한 홀더는 디테일한 컷팅으로 인테리어로<br />
+              활용 가능합니다.
             </Desc>
-            <Link to='/customize'>
-              <Button>커스텀하러가기</Button>
+            <Link to='/incense'>
+              <Button>인센스보러가기</Button>
             </Link>
           </Title>
         </DescContainerLeft>
@@ -306,15 +306,15 @@ const OtherPages = () => {
         </VideoContainer>
         <DescContainerRight>
           <Title>
-            자신이 선택한 제품을 직접 즐겨보세요
+            여러분만의 홀더를 커스텀 해보세요
             <Desc>
-              주문을 통해서 취향에 맞는 인센스 스틱과 직접 제작하신<br />
-              홀더를 가정에서 만나 보실 수 있습니다. 커스텀 주문시<br />
-              수작업으로 제작한 홀더는 디테일한 컷팅으로 인테리어로<br />
-              활용 가능합니다.
+              시중에 시판되는 평범한 디자인의 홀더는 싫으신가요? <br />
+              cloudi에서는 여러분만의 홀더를 제작할 수 있습니다.<br />
+              cloudi에서 투박한 홀더 디자인을 벗어나 여러분만의<br />
+              독창적인 홀더를 제작 해보세요.
             </Desc>
-            <Link to='/order'>
-              <Button>주문하러가기</Button>
+            <Link to='/customize'>
+              <Button>커스텀하러가기</Button>
             </Link>
           </Title>
         </DescContainerRight>
