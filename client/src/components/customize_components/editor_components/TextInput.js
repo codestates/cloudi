@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const StyledTextInput = styled.section`
   display: flex;
   flex-direction: row;
+  z-index: 999;
 
   .apply {
     display: flex;

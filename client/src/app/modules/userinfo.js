@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// 초기 상태
 const initialState = {
   userinfo: {
     id: '',
@@ -41,7 +40,6 @@ export const userinfoSlice = createSlice({
         userName: '',
         token: ''
       };
-      // * 회원탈퇴, 로그아웃
     }
   }
 });

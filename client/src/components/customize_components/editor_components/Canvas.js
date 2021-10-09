@@ -12,9 +12,13 @@ const StyledCanvas = styled.canvas`
 
   width: 500px;
   height: 500px;
-  justify-content: space-between;
-  align-items: center;
   background-color: none;
+  
+  @media screen and (max-height: 850px) {
+    transform: translate(-50%, -70%);
+    width: 330px;
+    height: 330px;
+  };
 `;
 
 const writeText = (ctx, text, material) => {

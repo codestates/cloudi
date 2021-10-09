@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertStand } from '../../app/modules/stand';
 import { standsSelector, userinfoSelector } from '../../app/modules/hooks';
-
 import axios from 'axios';
+
+import Cart from '../../modals/Cart'
 
 const MainButtonContainer = styled.section`
   position: fixed;
@@ -16,6 +17,10 @@ const MainButtonContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-height: 850px) {
+    bottom: 1%;
+  };
 `;
 
 const Input = styled.input`
@@ -32,6 +37,10 @@ const Input = styled.input`
   };
   :active {
     background-color: '#b7c58b';
+  };
+
+  @media screen and (max-height: 850px) {
+    width: 98vw
   };
 `;
 
@@ -79,6 +88,8 @@ const MainButton = ({
   const dispatch = useDispatch();
   const stand = useSelector(standsSelector);
   const { userinfo } = useSelector(userinfoSelector);
+  const [cartMsgVisible, setCartMsgVisible] = useState(false)
+  const [inCartItem, setInCartItem] = useState(false)
 
   const handleOrderBtnClick = async () => {
     const noMatching = stand.stands.filter(el => {
@@ -91,6 +102,8 @@ const MainButton = ({
 
     // 장바구니 안에 없음
     if (noMatching || stand.stands.length === 0) {
+      setInCartItem(false);
+
       const newStand = {
         id: null,
         plate: selectedOps.plate,
@@ -122,7 +135,12 @@ const MainButton = ({
       } else {
         dispatch(insertStand(newStand));
       }
+    } else {
+      // 장바구니에 이미 있음
+      setInCartItem(true);
     }
+
+    setCartMsgVisible(true);
   };
 
   useEffect(() => {
@@ -146,17 +164,22 @@ const MainButton = ({
   }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]);
 
   return (
-    <MainButtonContainer>
-      {/* eslint-disable */
-        curStage !== 'finish'
-          ? <Link to={nextUrl}>
-            <Input type='button' value={buttonValue} disabled={isDisabled} />
-          </Link>
-          : <Link to={nextUrl}>
-          <Input type='button' value={buttonValue} disabled={isDisabled} onClick={() => handleOrderBtnClick()} />
-        </Link>
-      /* eslint-enable */}
-    </MainButtonContainer>
+    <>
+      <MainButtonContainer>
+        {/* eslint-disable */
+          curStage !== 'finish'
+            ? <Link to={nextUrl}>
+              <Input type='button' value={buttonValue} disabled={isDisabled} />
+            </Link>
+            : <Input type='button' value={buttonValue} disabled={isDisabled} onClick={() => handleOrderBtnClick()} />
+        /* eslint-enable */}
+      </MainButtonContainer>
+      <Cart
+        visible={cartMsgVisible}
+        setVisible={setCartMsgVisible}
+        inCartItem={inCartItem}
+      />
+    </>
   );
 };
 
