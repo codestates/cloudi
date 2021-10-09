@@ -89,7 +89,10 @@ const CloudiImg = styled.div`
 
 const Cart = ({ visible, setVisible, inCartItem }) => {
   return (
-    <CartContainer visible={visible}>
+    <CartContainer
+      visible={visible}
+      onClick={() => setVisible(false)}
+    >
       <CartContent>
         <CloseBtn onClick={() => setVisible(false)}>&times;</CloseBtn>
         <CloudiImg img={inCartItem} />

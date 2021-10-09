@@ -8,6 +8,10 @@ const StyledErrorMsg = styled.section`
   left: 50%;
   transform: translate(-50%, -45%);
   
+  background: rgba(255, 255, 255, 0.4);
+  color: #141414;
+  width: 600px;
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,10 +30,18 @@ const StyledErrorMsg = styled.section`
   #countdown {
     color: crimson;
   }
+
+  @media screen and (max-height: 850px) {
+    width: auto;
+    img {
+      width: 350px;
+      height: 240px;
+    }
+  };
 `;
 
 const ErrorMsg = ({ handleErrorMsg }) => {
-  let [timeLeft, setTimeLeft] = useState(3);
+  let [timeLeft, setTimeLeft] = useState(2);
 
   useEffect(() => {
     handleErrorMsg();
