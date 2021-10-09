@@ -10,8 +10,6 @@ import LoadingIndicator from '../components/LoadingIndicator';
 import Editor from '../components/customize_components/Editor';
 import InitialMsg from '../components/customize_components/InitialMsg';
 
-// import Footer from '../modals/Footer';
-
 const CustomizePage = styled.section`
   display: flex;
   flex-direction: column;
@@ -206,7 +204,6 @@ const Customize = () => {
             </Switch>
           </AnimatePresence>
           <Circle />
-          {/* <Footer /> */}
         </>
       /* eslint-enable */}
     </CustomizePage>

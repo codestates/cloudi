@@ -15,6 +15,7 @@ const StyledCircle = styled.svg`
     top: 40px;
     fill: #ffffff;
     stroke: #787878;
+    stroke-dasharray: 5
   }
 
   @media screen and (max-height: 800px) {
@@ -41,7 +42,7 @@ const Circle = () => {
       });
 
       gsap.to(circle('.circle'), {
-        opacity: 0.1,
+        opacity: 0.2,
         stroke: '#787878',
         fill: '#ffffff',
         strokeWidth: 2
@@ -71,7 +72,7 @@ const Circle = () => {
           y: 0
         })
         .to(circle('.circle'), {
-          strokeWidth: '6',
+          strokeWidth: '4',
           opacity: 1,
           stroke: '#FCA600',
           fill: 'none'
@@ -99,7 +100,7 @@ const Circle = () => {
 
   return (
     <StyledCircle ref={container} viewBox='0 0 100 100'>
-      <circle className='circle' cx='50' cy='50' r='45' stroke='black' strokeWidth='1' fill='none' strokeDasharray='5' />
+      <circle className='circle' cx='50' cy='50' r='45' />
     </StyledCircle>
   );
 };

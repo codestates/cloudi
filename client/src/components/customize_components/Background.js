@@ -50,6 +50,7 @@ const Background = () => {
         fill: '#EFEFEF'
       });
     } else if (curStage === 'text') {
+
       for (let i = 1; i <= 6; i++) {
         gsap.to(cloud(`.cloud${i}`), {
           duration: 5,
