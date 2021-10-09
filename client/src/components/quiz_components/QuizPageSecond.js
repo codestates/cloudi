@@ -120,7 +120,7 @@ const QuizPageSecond = ({
   useEffect(() => {
     if (!visible && !firstPageVisible) {
       setAnimateType('boxFadeOut');
-      setEndAnimateTime(true);
+      setEndAnimateTime(false);
       setTimeout(() => setEndAnimateTime(false), 250);
     }
     setLocalVisible(visible);
