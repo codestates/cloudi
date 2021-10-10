@@ -64,12 +64,12 @@ module.exports = {
           delete userInfoDB.userPassword;
           let resData = {
             ...userInfoDB,
-            token: token
+            token: `kakao ${token}`
           }
           // let allStick = await db.stick.findAll()
 
           if(created){//! 신규 가입자
-            if(orders !== null){//비회원 상태로 장바구니 존재하는 경우
+            if(!(orders.sticks.length === 0 && orders.stands.length === 0)){//비회원 상태로 장바구니 존재하는 경우
               let tmpOrders = {
                 sticks: [],
                 stands: []
@@ -83,7 +83,7 @@ module.exports = {
                 });
               }
               //stand 주문 정보 저장
-              for(let j = 0; j < orders.stands.length; j++){
+              for(let i = 0; i < orders.stands.length; i++){
                 await db.stand.create({
                   userId: userInfoDB.id,
                   standQuantity: orders.stands[i].standQuantity,
@@ -118,7 +118,7 @@ module.exports = {
                   tmp.stickName = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickName;
                   tmp.stickPrice = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickPrice;
                   tmp.stickQuantity = data[0].dataValues.user_sticks[i].dataValues.stickQuantity;
-                  tmp.stickImage = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickImage;
+                  tmp.stickImage = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickImage.toString(); //buffer to base64
                   tmp.createdAt = data[0].dataValues.user_sticks[i].dataValues.createdAt;
                   tmp.updatedAt = data[0].dataValues.user_sticks[i].dataValues.updatedAt;
                   tmpOrders.sticks.push(tmp);
@@ -138,6 +138,8 @@ module.exports = {
               .then(data => {
                 for(let i = 0; i < data[0].dataValues.stands.length; i++){
                   let tmp = data[0].dataValues.stands[i].dataValues;
+                  let base = tmp.standImage.toString();
+                  tmp.standImage = base;
                   delete tmp.userId;
                   tmpOrders.stands.push(tmp);
                 }
@@ -155,7 +157,7 @@ module.exports = {
 
             }
           }else{//! 기존 가입자
-            if(orders !== null){//비로그인 상태로 장바구니 담은 경우
+            if(!(orders.sticks.length === 0 && orders.stands.length === 0)){//비로그인 상태로 장바구니 담은 경우
               let tmpOrders = {
                 sticks: [],
                 stands: []
@@ -181,7 +183,7 @@ module.exports = {
                 });
               }
               //stand 주문 정보 저장
-              for(let j = 0; j < orders.stands.length; j++){
+              for(let i = 0; i < orders.stands.length; i++){
                 await db.stand.create({
                   userId: userInfoDB.id,
                   standQuantity: orders.stands[i].standQuantity,
@@ -216,7 +218,7 @@ module.exports = {
                   tmp.stickName = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickName;
                   tmp.stickPrice = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickPrice;
                   tmp.stickQuantity = data[0].dataValues.user_sticks[i].dataValues.stickQuantity;
-                  tmp.stickImage = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickImage;
+                  tmp.stickImage = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickImage.toString();
                   tmp.createdAt = data[0].dataValues.user_sticks[i].dataValues.createdAt;
                   tmp.updatedAt = data[0].dataValues.user_sticks[i].dataValues.updatedAt;
                   tmpOrders.sticks.push(tmp);
@@ -236,6 +238,8 @@ module.exports = {
               .then(data => {
                 for(let i = 0; i < data[0].dataValues.stands.length; i++){
                   let tmp = data[0].dataValues.stands[i].dataValues;
+                  let base = tmp.standImage.toString();
+                  tmp.standImage = base;
                   delete tmp.userId;
                   tmpOrders.stands.push(tmp);
                 }
@@ -272,7 +276,7 @@ module.exports = {
                   tmp.stickName = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickName;
                   tmp.stickPrice = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickPrice;
                   tmp.stickQuantity = data[0].dataValues.user_sticks[i].dataValues.stickQuantity;
-                  tmp.stickImage = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickImage;
+                  tmp.stickImage = data[0].dataValues.user_sticks[i].dataValues.stick.dataValues.stickImage.toString();
                   tmp.createdAt = data[0].dataValues.user_sticks[i].dataValues.createdAt;
                   tmp.updatedAt = data[0].dataValues.user_sticks[i].dataValues.updatedAt;
                   tmpOrders.sticks.push(tmp);
@@ -292,6 +296,8 @@ module.exports = {
               .then(data => {
                 for(let i = 0; i < data[0].dataValues.stands.length; i++){
                   let tmp = data[0].dataValues.stands[i].dataValues;
+                  let base = tmp.standImage.toString();
+                  tmp.standImage = base;
                   delete tmp.userId;
                   tmpOrders.stands.push(tmp);
                 }
@@ -308,15 +314,15 @@ module.exports = {
         })
       })
       .catch(e => {
-        console.log(`토큰 정보 받기 에러 ${e}`)
-        console.log(e)
-        res.send("info error")
+        console.log(`정보 받기 에러 ${e}`)
+        // console.log(e)
+        // res.send("info error")
       })
     })
     .catch(e => {
       console.log(`토큰 받기 에러 ${e}`)
       // console.log(e)
-      res.send("token error")
+      res.status(404).send("유효하지 않은 코드입니다")
     })
   }
 }

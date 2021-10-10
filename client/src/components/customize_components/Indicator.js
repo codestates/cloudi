@@ -7,7 +7,7 @@ const IndicatorContainer = styled.section`
   top: 25%;
   left: 50%;
   transform: translate(-50%, 0);
-  z-index: 800;
+  z-index: 400;
 
   display: flex;
   flex-direction: row;
@@ -28,6 +28,10 @@ const IndicatorContainer = styled.section`
   .active section {
     background-color: #69955E;
   }
+  @media screen and (max-height: 850px) {
+    top: 14%;
+    width: 98vw;
+  };
 `;
 
 const IndicatorBar = styled.section`
@@ -41,12 +45,16 @@ const IndicatorBar = styled.section`
   margin: 2.5px;
   background-color: ${props => props.done ? '#b7c58b' : '#d1d1d1'};
   transition: all 0.4s;
+
+  @media screen and (max-height: 800px) {
+    width: 125px;
+  };
 `;
 
 const Indicator = ({ stage, selectedOps }) => {
   const [finishedStages, setFinishedStages] = useState([
     {
-      stage: 'material',
+      stage: 'plate',
       finished: false
     }, {
       stage: 'holder',
@@ -62,7 +70,7 @@ const Indicator = ({ stage, selectedOps }) => {
 
     setFinishedStages([
       {
-        stage: 'material',
+        stage: 'plate',
         finished: !!plate
       }, {
         stage: 'holder',

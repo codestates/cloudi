@@ -17,7 +17,7 @@ module.exports = {
         id: 1,
         holderType: 'CAT',
         holderMaterial: 'CERAMIC',
-        holderPrice: 15000,
+        holderPrice: 5000,
         holderImage: holderImages[0].blob,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -26,7 +26,7 @@ module.exports = {
         id: 2,
         holderType: 'FISHER',
         holderMaterial: 'CERAMIC',
-        holderPrice: 16000,
+        holderPrice: 4000,
         holderImage: holderImages[1].blob,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -35,7 +35,7 @@ module.exports = {
         id: 3,
         holderType: 'PINOCCIO',
         holderMaterial: 'CERAMIC',
-        holderPrice: 17000,
+        holderPrice: 3000,
         holderImage: holderImages[2].blob,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -44,7 +44,7 @@ module.exports = {
         id: 4,
         holderType: 'CAT',
         holderMaterial: 'STEEL',
-        holderPrice: 15000,
+        holderPrice: 5000,
         holderImage: holderImages[3].blob,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -53,7 +53,7 @@ module.exports = {
         id: 5,
         holderType: 'FISHER',
         holderMaterial: 'STEEL',
-        holderPrice: 16000,
+        holderPrice: 4000,
         holderImage: holderImages[4].blob,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -62,7 +62,7 @@ module.exports = {
         id: 6,
         holderType: 'PINOCCIO',
         holderMaterial: 'STEEL',
-        holderPrice: 14000,
+        holderPrice: 3000,
         holderImage: holderImages[5].blob,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -71,7 +71,7 @@ module.exports = {
         id: 7,
         holderType: 'CAT',
         holderMaterial: 'WOOD',
-        holderPrice: 17000,
+        holderPrice: 5000,
         holderImage: holderImages[6].blob,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -80,7 +80,7 @@ module.exports = {
         id: 8,
         holderType: 'FISHER',
         holderMaterial: 'WOOD',
-        holderPrice: 16000,
+        holderPrice: 4000,
         holderImage: holderImages[7].blob,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -89,7 +89,7 @@ module.exports = {
         id: 9,
         holderType: 'PINOCCIO',
         holderMaterial: 'WOOD',
-        holderPrice: 15000,
+        holderPrice: 3000,
         holderImage: holderImages[8].blob,
         createdAt: new Date(),
         updatedAt: new Date()

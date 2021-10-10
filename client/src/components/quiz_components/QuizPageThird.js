@@ -45,6 +45,10 @@ const Image = styled.div`
   background-image: url(${(props) => props.url});
   background-size: contain;
   background-repeat: no-repeat;
+  @media screen and (max-width: 768px) {
+    width: 150px;
+    height: 130px;
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -61,12 +65,16 @@ const BtnContent = styled.div`
   :hover {
     border-color: #f09490;
   }
+  @media screen and (max-width: 768px) {
+    padding: 10px;
+    border: 1px solid;
+  }
 `;
 
 const QuizPageThird = ({
   visible,
   setImageClick,
-  secondPageVisible,
+  firstPageVisible,
   answer,
   setAnswer
 }) => {
@@ -79,7 +87,7 @@ const QuizPageThird = ({
     image_B: false
   });
   useEffect(() => {
-    if (!visible && !secondPageVisible) {
+    if (!visible && !firstPageVisible) {
       setAnimateType('boxFadeOut');
       setEndAnimateTime(true);
       setTimeout(() => setEndAnimateTime(false), 250);

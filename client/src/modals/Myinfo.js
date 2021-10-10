@@ -1,18 +1,31 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Delete from './Delete';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { userinfoSelector } from '../app/modules/hooks';
 
 const MyinfoContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
+  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
+  font-family: 'Roboto', sans-serif;
+  z-index: 9999;
   position: fixed;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  width: 100%;
   top: 0;
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
-  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
-  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: 0.2s ease-in-out myinfo;
+  @keyframes myinfo {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @media screen and (max-height: 700px) {
     height: 700px;
   }
@@ -24,7 +37,7 @@ const MyinfoContent = styled.div`
   align-items: center;
   position: relative;
   width: 450px;
-  height: 530px;
+  height: 540px;
   padding-top: 70px;
   background-color: rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
@@ -32,7 +45,7 @@ const MyinfoContent = styled.div`
   transition: all 0.2s ease;
   @media screen and (max-width: 468px) {
     width: 360px;
-    height: 410px;
+    height: 430px;
     padding-top: 30px;
   }
 `;
@@ -62,52 +75,49 @@ const InputBox = styled.input`
 `;
 
 const ProfileContainer = styled.div`
-  margin-top: 10px;
   display: flex;
-  width: 64%;
+  margin-top: 10px;
+  width: 275px;
   justify-content: space-between;
   @media screen and (max-width: 468px) {
-    margin-top: 5px;
-    width: 55%;
+    align-items: center;
+    width: 220px;
   }
 `;
 
 const InputTitle = styled.div`
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 15px;
   margin-top: ${(props) => props.margin || 27}px;
   text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 15px;
 `;
 
 const MyinfoTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
   width: 100%;
   height: 14%;
   background-color: rgba(0, 0, 0, 0.15);
-  position: absolute;
+  font-size: 25px;
   top: 0%;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
-`;
-
-const MyinfoText = styled.div`
-  font-size: 25px;
   color: rgba(255, 255, 255, 0.8);
 `;
 
-const MyinfoChangeBtn = styled.div`
+const MyinfoBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => props.color};
   position: relative;
+  background-color: ${(props) => props.color};
   margin-top: 15px;
   top: 25px;
   width: 290px;
   height: 40px;
+  color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
   :hover {
     opacity: 0.8;
@@ -123,7 +133,7 @@ const ProfileData = styled.div`
   width: 137px;
   margin-top: 27px;
   font-size: 17px;
-  color: rgb(0, 0, 0);
+  color: rgba(0, 0, 0, 0.9);
   @media screen and (max-width: 468px) {
     width: 103px;
     font-size: 15px;
@@ -131,20 +141,23 @@ const ProfileData = styled.div`
 `;
 
 const ErrMessage = styled.div`
-  width: 20rem;
   font-size: 15px;
-  position: absolute;
-  bottom: 8rem;
-  color: red;
+  position: relative;
+  left: 10px;
+  top: 20px;
+  text-align: center;
+  color: ${(props) => (props.color ? '#302f2f' : '#ff0000')};
+  @media screen and (max-width: 468px) {
+    top: 10px;
+    font-size: 11px;
+  }
 `;
 
-const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+const Myinfo = ({ visible, setVisible }) => {
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [userInfo] = useState({
-    userName: 'Cloudi',
-    userEmail: 'aaa00@naver.com'
-  });
+  const [clearColor, setClearColor] = useState(0);
+  const { userinfo } = useSelector(userinfoSelector);
   const [newUserInfo, setNewUserInfo] = useState({
     currPassword: '',
     newPassword: '',
@@ -154,33 +167,68 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
   const handleInputValue = (key) => (e) => {
     if (key === 'currPassword') {
       setNewUserInfo({ ...newUserInfo, [key]: e.target.value });
+      setErrorMessage('');
     } else if (
       key === 'newPasswordMatch' &&
       newUserInfo.newPassword !== e.target.value
     ) {
       setNewUserInfo({ ...newUserInfo, [key]: e.target.value });
+      setClearColor(0);
       setErrorMessage('신규 비밀번호가 일치하지 않습니다');
     } else {
       setNewUserInfo({ ...newUserInfo, [key]: e.target.value });
       setErrorMessage('');
     }
   };
+
   const onClickHandler = (key) => () => {
-    setMyinfoModalVisible(false);
     if (key === 'Change') {
-      console.log('change');
+      if (
+        !newUserInfo.currPassword ||
+        !newUserInfo.newPassword ||
+        !newUserInfo.newPasswordMatch
+      ) {
+        setErrorMessage('모든 항목을 기입해주세요');
+      } else {
+        const { currPassword, newPassword } = newUserInfo;
+        axios({
+          method: 'PUT',
+          url: 'https://www.cloudi.shop/user',
+          data: { userPassword: currPassword, newPassword },
+          headers: {
+            Authorization: userinfo.token
+          }
+        })
+          .then(() => {
+            setClearColor(1);
+            setErrorMessage('비밀번호 변경이 완료되었습니다');
+          })
+          .catch((err) => {
+            if (err.response.status === 400) {
+              setClearColor(0);
+              setErrorMessage(err.response.data);
+              console.log(err);
+            } else if (err.response.status === 401) {
+              setClearColor(0);
+              setErrorMessage('다시 로그인 해주세요');
+              console.log(err);
+            }
+          });
+      }
     } else if (key === 'Delete') {
-      setDeleteModalVisible(true);
+      setVisible(false);
+      setDeleteOpen(true);
+      setNewUserInfo({
+        currPassword: '',
+        newPassword: '',
+        newPasswordMatch: ''
+      });
+      setErrorMessage('');
     }
-    setNewUserInfo({
-      currPassword: '',
-      newPassword: '',
-      newPasswordMatch: ''
-    });
-    setErrorMessage('');
   };
+
   const closeModalHandler = () => {
-    setMyinfoModalVisible(false);
+    setVisible(false);
     setNewUserInfo({
       currPassword: '',
       newPassword: '',
@@ -190,19 +238,17 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
   };
   return (
     <>
-      <MyinfoContainer visible={myinfoModalVisible}>
+      <MyinfoContainer visible={visible}>
         <MyinfoContent>
-          <MyinfoTitle>
-            <MyinfoText>MY INFO</MyinfoText>
-          </MyinfoTitle>
+          <MyinfoTitle>MY INFO</MyinfoTitle>
           <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
           <ProfileContainer>
             <InputTitle>User name</InputTitle>
-            <ProfileData>{userInfo.userName}</ProfileData>
+            <ProfileData>{userinfo.userName}</ProfileData>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>User email</InputTitle>
-            <ProfileData>{userInfo.userEmail}</ProfileData>
+            <ProfileData>{userinfo.userEmail}</ProfileData>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>Password</InputTitle>
@@ -237,20 +283,17 @@ const Myinfo = ({ myinfoModalVisible, setMyinfoModalVisible }) => {
               onChange={handleInputValue('newPasswordMatch')}
               placeholder='New Password'
             />
-            <ErrMessage>{errorMessage}</ErrMessage>
           </ProfileContainer>
-          <MyinfoChangeBtn color='#b7c58b' onClick={onClickHandler('Change')}>
+          <ErrMessage color={clearColor}>{errorMessage}</ErrMessage>
+          <MyinfoBtn color='#b7c58b' onClick={onClickHandler('Change')}>
             Change
-          </MyinfoChangeBtn>
-          <MyinfoChangeBtn color='#a0a0a8' onClick={onClickHandler('Delete')}>
+          </MyinfoBtn>
+          <MyinfoBtn color='#a0a0a8' onClick={onClickHandler('Delete')}>
             Delete User
-          </MyinfoChangeBtn>
+          </MyinfoBtn>
         </MyinfoContent>
       </MyinfoContainer>
-      <Delete
-        visible={deleteModalVisible}
-        setDeleteModalVisible={setDeleteModalVisible}
-      />
+      <Delete visible={deleteOpen} setVisible={setDeleteOpen} />
     </>
   );
 };

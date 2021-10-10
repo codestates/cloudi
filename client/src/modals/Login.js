@@ -1,20 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Myinfo from './Myinfo';
-import Signup from './Signup';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { insertUserinfo } from '../app/modules/userinfo';
+import { insertAllSticks } from '../app/modules/stick';
+import { insertAllStands } from '../app/modules/stand';
+import { standsSelector, sticksSelector } from '../app/modules/hooks';
 
 const LoginContainer = styled.div`
-  overflow: scroll;
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
+  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
+  font-family: 'Roboto', sans-serif;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   position: fixed;
-  display: ${(props) => (props.visible ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   top: 0;
-  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
   z-index: 9999;
+  animation: 0.2s ease-in-out login;
+  @keyframes login {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @media screen and (max-height: 700px) {
     height: 700px;
   }
@@ -59,8 +72,8 @@ const InputBox = styled.input`
 
 const InputContainer = styled.div`
   display: flex;
-  width: 64%;
   justify-content: space-between;
+  width: 280px;
 `;
 
 const InputTitle = styled.div`
@@ -73,24 +86,20 @@ const LoginTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 25px;
   width: 100%;
   height: 16%;
-  background-color: rgba(0, 0, 0, 0.15);
-  position: relative;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
-`;
-
-const LoginText = styled.div`
-  font-size: 25px;
-  color: rgba(255, 255, 255, 0.8);
 `;
 
 const LoginBtn = styled.button`
-  margin-top: 20px;
+  font-size: 15px;
+  margin-top: 30px;
   background-color: #b7c58b;
-  text-decoration: none;
   border: none;
   width: 290px;
   height: 40px;
@@ -107,7 +116,7 @@ const BorderBottom = styled.div`
   color: rgba(0, 0, 0, 0.35);
   font-size: 12px;
   position: absolute;
-  top: 238px;
+  top: 248px;
   width: 320px;
   ::before,
   ::after {
@@ -119,12 +128,11 @@ const BorderBottom = styled.div`
     line-height: 0px;
     margin: 0px 16px;
   }
-  @media screen and (max-width: 358px) {
-    top: 245px;
-  }
 `;
 
 const SocialLoginBtn = styled.div`
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,10 +149,44 @@ const SocialLoginBtn = styled.div`
 `;
 
 const SocialImage = styled.img`
-  position: absolute;
-  left: 20px;
   width: 15px;
   height: 18px;
+  position: absolute;
+  margin-right: 250px;
+`;
+
+const ErrMessage = styled.div`
+  position: absolute;
+  font-size: 15px;
+  top: 175px;
+  color: red;
+`;
+
+const LoadingImg = styled.div`
+  background-image: url('/images/CloudyLoading.gif');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  margin-top: 40px;
+  width: 200px;
+  height: 200px;
+`;
+
+const LoadingText = styled.div`
+  font-size: 23px;
+  color: rgba(0, 0, 0, 0.7);
+  animation: loginLoading 2s infinite;
+  @keyframes loginLoading {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.2;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 const Login = ({ visible, setVisible }) => {
@@ -152,70 +194,140 @@ const Login = ({ visible, setVisible }) => {
     email: '',
     password: ''
   });
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loadingOpen, setLoadingOpen] = useState(false);
+  const dispatch = useDispatch();
+  const stick = useSelector(sticksSelector);
+  const stand = useSelector(standsSelector);
+  const orders = { ...stick, ...stand };
 
-  const [myinfoModalVisible, setMyinfoModalVisible] = useState(false);
-  const [signupModalVisible, setSignupModalVisible] = useState(false);
-  const handleLogin = () => {};
+  useEffect(() => {
+    const { password } = loginInfo;
+    if (password.length === 17) {
+      setLoginInfo({ ...loginInfo, password: password.slice(0, -1) });
+    } else if (password.length === 16) {
+      setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
+    }
+  }, [loginInfo.password]);
+
+  const loginClickHandler = () => {
+    // 일반 로그인 버튼 클릭 함수
+    const { email, password } = loginInfo;
+    const pattern = /[<>"'()=\s]/;
+    if (pattern.test(email) || pattern.test(password)) {
+      setErrorMessage('특수문자 < > ( ) " \' = 과 공백은 불가능합니다');
+    } else if (password.length < 8) {
+      setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
+    } else {
+      setLoadingOpen(true);
+      axios({
+        method: 'POST',
+        url: `https://www.cloudi.shop/user/login`,
+        data: { orders, userEmail: email, userPassword: password }
+      })
+        .then((res) => {
+          dispatch(
+            insertUserinfo({
+              id: res.data.id,
+              kakaoId: res.data.kakaoId,
+              googleId: res.data.googldId,
+              isAdmin: res.data.isAdmin,
+              userEmail: res.data.userEmail,
+              userName: res.data.userName,
+              token: res.data.token
+            })
+          );
+          dispatch(insertAllSticks(res.data.orders.sticks));
+          dispatch(insertAllStands(res.data.orders.stands));
+          setLoadingOpen(false);
+          setVisible(false);
+        })
+        .catch((err) => {
+          setLoadingOpen(false);
+          setErrorMessage('이메일 또는 비밀번호가 잘못 입력 되었습니다');
+          console.log(err);
+        });
+    }
+  };
+
   const loginInfoHandler = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
+    setErrorMessage('');
   };
-  const myinfoHandler = () => {
-    setVisible(false);
-    setMyinfoModalVisible(true);
+
+  const kakaoLoginHandler = () => {
+    window.location.assign(
+      'https://kauth.kakao.com/oauth/authorize?client_id=6bea04e98d9b7654b9f9c4090d3350cd&redirect_uri=https://cloudi.shop&response_type=code'
+    );
   };
-  const signupHandler = () => {
+
+  const googleLoginHandler = () => {
+    const CLIENT_ID =
+      '489580139925-kej0e09kiqes22usrhcivb5f5krrhlte.apps.googleusercontent.com';
+    const REDIRECT_URI = 'https://cloudi.shop';
+    const SCOPE =
+      'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
+    window.location.assign(
+      `https://accounts.google.com/o/oauth2/v2/auth?scope=${SCOPE}&response_type=code&redirect_uri=${REDIRECT_URI}&client_id=${CLIENT_ID}`
+    );
+  };
+
+  const closeClickHandler = () => {
     setVisible(false);
-    setSignupModalVisible(true);
+    setErrorMessage('');
+    setLoginInfo({
+      email: '',
+      password: ''
+    });
   };
   return (
-    <>
-      <LoginContainer visible={visible}>
-        <LoginContent>
-          <LoginTitle>
-            <LoginText>LOG IN</LoginText>
-          </LoginTitle>
-          <CloseModal onClick={() => setVisible(false)}>&times;</CloseModal>
-          <InputContainer>
-            <InputTitle>User email</InputTitle>
-            <InputBox
-              className='input'
-              type='email'
-              value={loginInfo.email}
-              onChange={loginInfoHandler('email')}
-              placeholder='Email'
-            />
-          </InputContainer>
-          <InputContainer>
-            <InputTitle>Password</InputTitle>
-            <InputBox
-              className='input'
-              type='password'
-              value={loginInfo.password}
-              placeholder='Password'
-              onChange={loginInfoHandler('password')}
-            />
-          </InputContainer>
-          <LoginBtn onClick={handleLogin}>로그인</LoginBtn>
-          <BorderBottom> 또는</BorderBottom>
-          <SocialLoginBtn color='#f7e600' onClick={myinfoHandler}>
-            <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />
-            카카오 로그인
-          </SocialLoginBtn>
-          <SocialLoginBtn color='#e6e6e6' onClick={signupHandler}>
-            <SocialImage src='/images/google.png' alt='소셜로그인 이미지' />
-            구글 로그인
-          </SocialLoginBtn>
-        </LoginContent>
-      </LoginContainer>
-      <Myinfo
-        myinfoModalVisible={myinfoModalVisible}
-        setMyinfoModalVisible={setMyinfoModalVisible}
-      />
-      <Signup
-        signupModalVisible={signupModalVisible}
-        setSignupModalVisible={setSignupModalVisible}
-      />
-    </>
+    <LoginContainer visible={visible}>
+      <LoginContent>
+        {loadingOpen ? (
+          <>
+            <LoadingImg />
+            <LoadingText>로그인 중 . . .</LoadingText>
+          </>
+        ) : (
+          <>
+            <LoginTitle>LOG IN</LoginTitle>
+            <CloseModal onClick={closeClickHandler}>&times;</CloseModal>
+            <InputContainer>
+              <InputTitle>User email</InputTitle>
+              <InputBox
+                className='input'
+                type='email'
+                value={loginInfo.email}
+                onChange={loginInfoHandler('email')}
+                placeholder='Email'
+              />
+            </InputContainer>
+            <InputContainer>
+              <InputTitle>Password</InputTitle>
+              <InputBox
+                className='input'
+                type='password'
+                value={loginInfo.password}
+                maxLength={16}
+                placeholder='Password'
+                onChange={loginInfoHandler('password')}
+              />
+            </InputContainer>
+            <ErrMessage>{errorMessage}</ErrMessage>
+            <LoginBtn onClick={loginClickHandler}>로그인</LoginBtn>
+            <BorderBottom>또는</BorderBottom>
+            <SocialLoginBtn color='#f7e600' onClick={kakaoLoginHandler}>
+              <SocialImage src='/images/kakao.png' alt='카카오톡 이미지' />
+              카카오 로그인
+            </SocialLoginBtn>
+            <SocialLoginBtn color='#e6e6e6' onClick={googleLoginHandler}>
+              <SocialImage src='/images/google.png' alt='구글 이미지' />
+              구글 로그인
+            </SocialLoginBtn>
+          </>
+        )}
+      </LoginContent>
+    </LoginContainer>
   );
 };
 

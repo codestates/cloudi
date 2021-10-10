@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const SignupContainer = styled.div`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
+  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
+  z-index: 999;
+  font-family: 'Roboto', sans-serif;
   height: 100%;
   width: 100%;
   top: 0;
@@ -10,14 +14,21 @@ const SignupContainer = styled.div`
   position: fixed;
   justify-content: center;
   align-items: center;
-  pointer-events: ${(props) => (props.visible ? 'initial' : 'none')};
-  z-index: 999;
+  animation: 0.2s ease-in-out signup;
+  @keyframes signup {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @media screen and (max-height: 700px) {
     height: 700px;
   }
 `;
 
-const SignupContent = styled.div`
+const SignupContent = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +40,7 @@ const SignupContent = styled.div`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.25);
   border-radius: 0.8rem;
   transition: all 0.2s ease;
-  @media screen and (max-width: 460px) {
+  @media screen and (max-width: 468px) {
     width: 400px;
   }
 `;
@@ -49,8 +60,8 @@ const CloseBtn = styled.div`
 
 const InputBox = styled.input`
   padding-left: 10px;
-  margin-top: 18px;
-  width: 140px;
+  margin-top: 15px;
+  width: 150px;
   height: 32px;
 `;
 
@@ -75,19 +86,25 @@ const SignupTitle = styled.div`
   width: 100%;
   height: 70px;
   background-color: rgba(0, 0, 0, 0.15);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 25px;
   position: absolute;
   top: 0%;
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
 `;
 
-const SignupText = styled.div`
-  font-size: 25px;
-  color: rgba(255, 255, 255, 0.8);
+const DescMessage = styled.div`
+  position: absolute;
+  font-size: 12px;
+  color: #787878;
+  bottom: 180px;
+  right: 80px;
 `;
 
 const SignupBtn = styled.div`
+  font-size: 18px;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,78 +116,131 @@ const SignupBtn = styled.div`
   height: 40px;
   cursor: pointer;
   :hover {
-    opacity: 0.8;
+    opacity: 0.9;
+  }
+  @media screen and (max-width: 468px) {
+    width: 240px;
   }
 `;
 
 const ErrMessage = styled.div`
-  width: 20rem;
   font-size: 15px;
   position: absolute;
-  top: 325px;
+  left: ${(props) => props.left}px;
+  bottom: ${(props) => props.bottom || 110}px;
   color: red;
+  @media screen and (max-width: 468px) {
+    left: ${(props) => props.left - 40}px;
+  }
 `;
 
-const Signup = ({ visible, setVisible }) => {
-  const [UserInfo, setUserInfo] = useState({
-    userName: '',
-    userEmail: '',
-    userPassword: '',
-    confirmPassword: ''
-  });
+const USER_INFO = {
+  userName: '',
+  userEmail: '',
+  userPassword: '',
+  confirmPassword: ''
+};
+
+const Signup = ({ visible, setVisible, setClearOpen }) => {
+  const [userInfo, setUserInfo] = useState(USER_INFO);
   const [errorMessage, setErrorMessage] = useState('');
+  const [nameMessage, setNameMessage] = useState('');
+
+  useEffect(() => {
+    const { userName, userPassword } = userInfo;
+    if (userName.length === 9) {
+      setUserInfo({ ...userInfo, userName: userName.slice(0, -1) });
+    } else if (userName.length === 8) {
+      setNameMessage('글자수는 최대 7자입니다');
+    } else if (userPassword.length === 16) {
+      setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
+    } else {
+      setNameMessage('');
+    }
+  }, [userInfo.userName, userInfo.userPassword]);
 
   const handleInputValue = (key) => (e) => {
-    if (key === 'userName') {
-      setUserInfo({ ...UserInfo, [key]: e.target.value });
-    } else if (
-      key === 'confirmPassword' &&
-      UserInfo.userPassword !== e.target.value
-    ) {
-      setUserInfo({ ...UserInfo, [key]: e.target.value });
-      setErrorMessage('입력한 비밀번호와 일치하지 않습니다');
-    } else {
-      setUserInfo({ ...UserInfo, [key]: e.target.value });
-      setErrorMessage('');
-    }
+    setUserInfo({ ...userInfo, [key]: e.target.value });
+    setErrorMessage('');
   };
-  const onClickHandler = () => {
-    setVisible(false);
+
+  const submitHandler = () => {
+    // 회원가입 버튼 클릭 함수
+    const pattern = /[<>"'()=\s]/;
+    const { userName, userEmail, userPassword, confirmPassword } = userInfo;
+
+    if (!userEmail || !userName || !userPassword || !confirmPassword) {
+      setErrorMessage('모든 항목을 기입해주세요');
+    } else if (
+      pattern.test(userEmail) ||
+      pattern.test(userName) ||
+      pattern.test(userPassword) ||
+      pattern.test(confirmPassword)
+    ) {
+      setErrorMessage('특수문자 < > ( ) " \' = 과 공백은 불가능합니다');
+    } else if (userPassword !== confirmPassword) {
+      setErrorMessage('입력한 비밀번호와 일치하지 않습니다');
+    } else if (
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(
+        userEmail
+      ) === false
+    ) {
+      setErrorMessage('이메일 형식을 확인해주세요');
+    } else if (userPassword.length < 8) {
+      setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
+    } else if (userName.length > 7) {
+      setNameMessage('글자수는 최대 7자입니다');
+    } else {
+      axios({
+        method: 'POST',
+        url: 'https://www.cloudi.shop/user/signup',
+        data: { userName, userEmail, userPassword }
+      })
+        .then(() => {
+          setVisible(false);
+          setClearOpen(true);
+          setUserInfo(USER_INFO);
+        })
+        .catch((err) => {
+          if (err.response.data) {
+            setErrorMessage(err.response.data);
+          } else {
+            console.log(err);
+          }
+        });
+    }
   };
 
   const closeModalHandler = () => {
     setVisible(false);
-    setUserInfo({
-      userName: '',
-      userEmail: '',
-      userPassword: '',
-      confirmPassword: ''
-    });
+    setUserInfo(USER_INFO);
     setErrorMessage('');
   };
 
   return (
     <SignupContainer visible={visible}>
       <SignupContent>
-        <SignupTitle>
-          <SignupText>SIGN UP</SignupText>
-          <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
-        </SignupTitle>
+        <SignupTitle>SIGN UP</SignupTitle>
+        <CloseBtn onClick={closeModalHandler}>&times;</CloseBtn>
         <InputContainer>
           <InputTitle>User name</InputTitle>
           <InputBox
             type='text'
-            value={UserInfo.userName}
-            onChange={handleInputValue('user_name')}
+            value={userInfo.userName}
+            maxLength={8}
+            onChange={handleInputValue('userName')}
             placeholder='User name'
           />
         </InputContainer>
+        <ErrMessage left='220' bottom='295'>
+          {nameMessage}
+        </ErrMessage>
         <InputContainer>
           <InputTitle>User email</InputTitle>
           <InputBox
             type='email'
-            value={UserInfo.userEmail}
-            onChange={handleInputValue('user_email')}
+            value={userInfo.userEmail}
+            onChange={handleInputValue('userEmail')}
             placeholder='User email'
           />
         </InputContainer>
@@ -178,11 +248,13 @@ const Signup = ({ visible, setVisible }) => {
           <InputTitle>Password</InputTitle>
           <InputBox
             type='password'
-            value={UserInfo.userPassword}
-            onChange={handleInputValue('password')}
+            value={userInfo.userPassword}
+            maxLength={16}
+            onChange={handleInputValue('userPassword')}
             placeholder='Password'
           />
         </InputContainer>
+        <DescMessage>비밀번호는 8~15자로 입력해 주세요</DescMessage>
         <InputContainer>
           <InputTitle margin={21}>
             Confirm
@@ -190,13 +262,14 @@ const Signup = ({ visible, setVisible }) => {
           </InputTitle>
           <InputBox
             type='password'
-            value={UserInfo.confirmPassword}
+            value={userInfo.confirmPassword}
+            maxLength={16}
             onChange={handleInputValue('confirmPassword')}
-            placeholder='confirmPassword'
+            placeholder='Confirm Password'
           />
-          <ErrMessage>{errorMessage}</ErrMessage>
         </InputContainer>
-        <SignupBtn type='submit' onClick={onClickHandler}>
+        <ErrMessage>{errorMessage}</ErrMessage>
+        <SignupBtn type='submit' onClick={submitHandler}>
           SUBMIT
         </SignupBtn>
       </SignupContent>

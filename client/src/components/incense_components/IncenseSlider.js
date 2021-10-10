@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { CONSTANT_DATA } from './incenseItem';
+
 const SliderContainer = styled.div`
   width: 100%;
   height: 350px;
@@ -10,7 +11,7 @@ const SliderContainer = styled.div`
 `;
 
 const CheckImg = styled.div`
-  background-image: url(${(props) => props.click || '/images/blank.png'});
+  background-image: url(${(props) => props.click || '/images/blank2.png'});
   background-size: contain;
   background-repeat: no-repeat;
   width: 30px;
@@ -24,10 +25,9 @@ const CheckImg = styled.div`
   }
 `;
 
-const Img = styled.div`
+const IncenseImg = styled.div`
   flex: 1;
   flex-shrink: 0;
-  //background-color: #b7c58b;
   background-image: url(${(props) => props.img});
   background-size: contain;
   background-repeat: no-repeat;
@@ -43,8 +43,8 @@ const TextContainer = styled.div`
   justify-content: center;
 `;
 
-const Text = styled.div`
-  color: #dbdbdb;
+const IncenseData = styled.div`
+  color: #636363;
   text-align: center;
   line-height: 30px;
 `;
@@ -67,13 +67,13 @@ const IncenseSlider = ({
       return scope[item] / 2;
     });
     setNum(dividedNum);
-  }, [data]);
+  }, [data]); // eslint-disable-line
 
   useEffect(() => {
     if (clickCount === 0) {
       setClick(CONSTANT_DATA);
     }
-  }, [clickCount]);
+  }, [clickCount]); // eslint-disable-line
 
   const changeToStr = (score) => {
     const circles = [];
@@ -94,11 +94,11 @@ const IncenseSlider = ({
   };
 
   const sliderClickHandler = (el) => {
-    if (click[el.stickId] === true) {
-      setClick({ ...CONSTANT_DATA, [el.stickId]: false });
+    if (click[el.id] === true) {
+      setClick({ ...CONSTANT_DATA, [el.id]: false });
       setClickCount(0);
     } else {
-      setClick({ ...CONSTANT_DATA, [el.stickId]: true });
+      setClick({ ...CONSTANT_DATA, [el.id]: true });
       setClickCount(1);
       setStickData(el);
     }
@@ -106,19 +106,19 @@ const IncenseSlider = ({
 
   return (
     <SliderContainer onClick={() => sliderClickHandler(data)}>
-      <Img img={data.stickImage} />
+      <IncenseImg img={data.stickImage} />
       <TextContainer>
-        <Text>{data.stickName}</Text>
-        <Text>{data.stickDesc}</Text>
-        <Text>{data.stickPrice} KRW</Text>
+        <IncenseData>{data.stickName}</IncenseData>
+        <IncenseData>{data.stickDesc}</IncenseData>
+        <IncenseData>{data.stickPrice} 원</IncenseData>
         {SCOPE_DATA.map((el, idx) => {
           return (
-            <Text key={el}>
+            <IncenseData key={el}>
               {el}: {num && changeToStr(num[idx])}
-            </Text>
+            </IncenseData>
           );
         })}
-        <CheckImg click={click[data.stickId] && '/images/check.png'} />
+        <CheckImg click={click[data.id] && '/images/check2.png'} />
       </TextContainer>
     </SliderContainer>
   );
