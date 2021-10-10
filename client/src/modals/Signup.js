@@ -157,8 +157,10 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
   };
 
   const submitHandler = () => {
+    // 회원가입 버튼 클릭 함수
     const pattern = /[<>"'()=\s]/;
     const { userName, userEmail, userPassword, confirmPassword } = userInfo;
+
     if (!userEmail || !userName || !userPassword || !confirmPassword) {
       setErrorMessage('모든 항목을 기입해주세요');
     } else if (

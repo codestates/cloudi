@@ -145,7 +145,7 @@ const Delete = ({ visible, setVisible }) => {
           setVisible(false);
           setInputCheck('');
           setErrorMessage('');
-          alert('회원탈퇴가 완료되었습니다'); // eslint-disable-line
+          alert('회원탈퇴가 완료되었습니다');
           history.push('/');
           dispatch(removeUserinfo());
           dispatch(removeAllSticks());
@@ -174,6 +174,7 @@ const Delete = ({ visible, setVisible }) => {
             type='text'
             name='deleteInputBox'
             value={InputCheck}
+            maxLength={10}
             onChange={(e) => handleInputValue(e)}
             placeholder='회원탈퇴'
           />
