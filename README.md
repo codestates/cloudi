@@ -33,7 +33,7 @@ Cloudi 퀴즈를 통해 나에게 맞는 Incense stick을 추천해 드립니다
  
  </div>
 
-# 기술스택
+# 🌨 기술스택
 
 ### Common
 <img src="https://img.shields.io/badge/node.js-228B22?style=for-the-badge&logo=node.js&logoColor=white">  <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=ESLint&logoColor=white">  <img src="https://img.shields.io/badge/Axios-black?style=for-the-badge&logo=&logoColor=white">
@@ -77,7 +77,7 @@ Cloudi 퀴즈를 통해 나에게 맞는 Incense stick을 추천해 드립니다
 
 <img src="https://user-images.githubusercontent.com/83770790/136695629-84157b9a-9984-48b5-9e5b-b50fe5805f68.png" />
 
-# 팀 소개
+# 🌨 팀 소개
 
 |Name|Position|Github|
 |--|--|--|
