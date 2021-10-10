@@ -45,6 +45,10 @@ const Image = styled.div`
   background-image: url(${(props) => props.url});
   background-size: contain;
   background-repeat: no-repeat;
+  @media screen and (max-width: 768px) {
+    width: 150px;
+    height: 130px;
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -60,6 +64,10 @@ const BtnContent = styled.div`
   cursor: pointer;
   :hover {
     border-color: #f09490;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 10px;
+    border: 1px solid;
   }
 `;
 
@@ -85,7 +93,7 @@ const QuizPageThird = ({
       setTimeout(() => setEndAnimateTime(false), 250);
     }
     setLocalVisible(visible);
-  }, [visible]); // eslint-disable-line
+  }, [visible]);
 
   const btnClickHanlder = (key) => {
     if (key === 'B') {

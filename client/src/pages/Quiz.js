@@ -24,8 +24,8 @@ const QuizContainer = styled.div`
       opacity: 1;
     }
   }
-  @media screen and (max-height: 830px) {
-    height: 850px;
+  @media screen and (max-height: 680px) {
+    height: 700px;
   }
 `;
 
@@ -79,6 +79,9 @@ const ContinueBox = styled.div`
   :hover {
     cursor: pointer;
     background-color: #97a371;
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 0px;
   }
 `;
 

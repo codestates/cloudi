@@ -34,6 +34,11 @@ const QuizContent = styled.div`
   transition: background-color 0.3s;
   box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    width: 350px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
 `;
 
 const QuizPageFourth = ({ visible, setImageClick, answer, setAnswer }) => {

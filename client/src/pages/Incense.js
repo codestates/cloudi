@@ -121,8 +121,8 @@ const CartBtn = styled.div`
     opacity: 1;
   }
   @media screen and (max-width: 768px) {
-    position: absolute;
-    bottom: 150px;
+    position: relative;
+    bottom: 90px;
   }
 `;
 

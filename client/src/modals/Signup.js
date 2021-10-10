@@ -94,6 +94,14 @@ const SignupTitle = styled.div`
   border-top-right-radius: 0.8rem;
 `;
 
+const DescMessage = styled.div`
+  position: absolute;
+  font-size: 12px;
+  color: #787878;
+  bottom: 180px;
+  right: 80px;
+`;
+
 const SignupBtn = styled.div`
   font-size: 18px;
   color: white;
@@ -246,6 +254,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
             placeholder='Password'
           />
         </InputContainer>
+        <DescMessage>비밀번호는 8~15자로 입력해 주세요</DescMessage>
         <InputContainer>
           <InputTitle margin={21}>
             Confirm
