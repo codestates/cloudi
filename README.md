@@ -5,7 +5,7 @@
 
 ### 🕯️당신을 위한 인센스 스틱 & 홀더 < cloudi >
 
-### cloudi라는 이름은 인센스 향을 피우면 은은한 향과 함께 올라오는 작은 구름같은 연기를 모티브로 삼아 탄생 하였습니다.
+### cloudi라는 이름은 인센스 향을 피우면 <br />은은한 향과 함께 올라오는 작은 구름같은 연기를<br /> 모티브로 삼아 탄생 하였습니다.
 
 <br />
 
@@ -77,7 +77,7 @@ Cloudi 퀴즈를 통해 나에게 맞는 Incense stick을 추천해 드립니다
 
 <img src="https://user-images.githubusercontent.com/83770790/136695629-84157b9a-9984-48b5-9e5b-b50fe5805f68.png" />
 
-# 🌨 팀 소개
+# 🌧 팀 소개
 
 |Name|Position|Github|
 |--|--|--|
