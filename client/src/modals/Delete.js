@@ -114,8 +114,6 @@ const BorderBottom = styled.div`
   border-bottom: 2px solid black;
 `;
 
-const URL = 'https://www.cloudi.shop';
-
 const Delete = ({ visible, setVisible }) => {
   const [InputCheck, setInputCheck] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -140,22 +138,21 @@ const Delete = ({ visible, setVisible }) => {
     if (InputCheck === '회원탈퇴') {
       axios({
         method: 'DELETE',
-        url: `${URL}/user`,
+        url: `https://www.cloudi.shop/user`,
         headers: { Authorization: userinfo.token }
       })
         .then(() => {
           setVisible(false);
           setInputCheck('');
           setErrorMessage('');
-          alert('회원탈퇴가 완료되었습니다'); // eslint-disable-line
+          alert('회원탈퇴가 완료되었습니다');
           history.push('/');
           dispatch(removeUserinfo());
           dispatch(removeAllSticks());
           dispatch(removeAllStands());
-          localStorage.clear(); // eslint-disable-line
         })
         .catch((err) => {
-          console.log('딜리트 실패 ->', err);
+          console.log(err);
         });
     } else {
       setErrorMessage('`회원탈퇴` 입력을 다시 확인해주세요');
@@ -177,6 +174,7 @@ const Delete = ({ visible, setVisible }) => {
             type='text'
             name='deleteInputBox'
             value={InputCheck}
+            maxLength={10}
             onChange={(e) => handleInputValue(e)}
             placeholder='회원탈퇴'
           />

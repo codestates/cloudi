@@ -126,36 +126,34 @@ const QuizPageSecond = ({
     setLocalVisible(visible);
   }, [visible]); // eslint-disable-line
 
-  return !endAnimateTime && !localVisible
-    ? null
-    : (
-      <Wrapper>
-        {QUIZ_LIST.map((el) => {
-          return (
-            <SecondContainer
-              key={el.width.toString()}
-              width={el.width}
-              visible={visible}
-              animation={animateType}
-            >
-              {el.btn.map((item) => {
-                return (
-                  <BtnContent
-                    key={item.text.toString()}
-                    disable={btnDisable && !activeBtn[item.id]}
-                    color={activeBtn[item.id] ? '#b7c58b' : '#ffffff'}
-                    width={item.width}
-                    onClick={() => clickHandler(item.id, item.score)}
-                  >
-                    {item.text}
-                  </BtnContent>
-                );
-              })}
-            </SecondContainer>
-          );
-        })}
-      </Wrapper>
-      );
+  return !endAnimateTime && !localVisible ? null : (
+    <Wrapper>
+      {QUIZ_LIST.map((el) => {
+        return (
+          <SecondContainer
+            key={el.width.toString()}
+            width={el.width}
+            visible={visible}
+            animation={animateType}
+          >
+            {el.btn.map((item) => {
+              return (
+                <BtnContent
+                  key={item.text.toString()}
+                  disable={btnDisable && !activeBtn[item.id]}
+                  color={activeBtn[item.id] ? '#b7c58b' : '#ffffff'}
+                  width={item.width}
+                  onClick={() => clickHandler(item.id, item.score)}
+                >
+                  {item.text}
+                </BtnContent>
+              );
+            })}
+          </SecondContainer>
+        );
+      })}
+    </Wrapper>
+  );
 };
 
 export default QuizPageSecond;

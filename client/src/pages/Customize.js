@@ -4,11 +4,11 @@ import { AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 import axios from 'axios';
 
+import Background from '../components/customize_components/Background';
+import Circle from '../components/customize_components/Circle';
 import LoadingIndicator from '../components/LoadingIndicator';
 import Editor from '../components/customize_components/Editor';
 import InitialMsg from '../components/customize_components/InitialMsg';
-
-// import Footer from '../modals/Footer';
 
 const CustomizePage = styled.section`
   display: flex;
@@ -17,8 +17,10 @@ const CustomizePage = styled.section`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(165deg, #ffffff, #E1E7EF);
+  background: linear-gradient(165deg, #ffffff, #D4DEEB);
   font-family: 'Roboto';
+  
+  overflow: hidden;
 
   a {
     text-decoration: none;
@@ -51,6 +53,10 @@ const Title = styled.button`
     height:20px;
     border-radius: 10px;
   }
+
+  @media screen and (max-height: 850px) {
+    display: none;
+  };
 `;
 
 const Customize = () => {
@@ -62,6 +68,7 @@ const Customize = () => {
 
   // 첫 렌더 시 모든 옵션 불러오기
   useEffect(() => {
+    setIsLoading(true);
     axios({
       method: 'get',
       url: `${url}/stand`
@@ -159,6 +166,7 @@ const Customize = () => {
 
   return (
     <CustomizePage>
+      <Background />
       {/* eslint-disable */
         Object.keys(serverData).length === 0 || isLoading
         ? <LoadingIndicator text={'불러오는 중...'} />
@@ -195,7 +203,7 @@ const Customize = () => {
               </Route>
             </Switch>
           </AnimatePresence>
-          {/* <Footer /> */}
+          <Circle />
         </>
       /* eslint-enable */}
     </CustomizePage>

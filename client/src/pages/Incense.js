@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import IncenseSlider from '../components/incense_components/IncenseSlider';
+import LoadingIndicator from '../components/LoadingIndicator';
 import { useSelector, useDispatch } from 'react-redux';
 import { insertStick } from '../app/modules/stick';
 import { sticksSelector, userinfoSelector } from '../app/modules/hooks';
@@ -9,10 +10,6 @@ import axios from 'axios';
 
 const IncenseWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
-  /* background-image: url('/images/room.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center; */
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -109,9 +106,9 @@ const SliderBtnRight = styled.div`
 `;
 
 const CartBtn = styled.div`
-  background-color: ${(props) => (props.count ? '#b7c58b' : '#ababab')};
+  background-color: ${(props) => (props.count ? '#b7c58b' : '#636363')};
   padding: 20px;
-  opacity: 0.6;
+  opacity: 0.7;
   display: flex;
   color: white;
   justify-content: center;
@@ -122,6 +119,10 @@ const CartBtn = styled.div`
   cursor: pointer;
   :hover {
     opacity: 1;
+  }
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    bottom: 150px;
   }
 `;
 
@@ -138,13 +139,13 @@ const Sequence = styled.div`
 `;
 
 const TOTAL_SLIDES = 12;
-const URL = 'https://www.cloudi.shop';
 
 const Incense = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [clickCount, setClickCount] = useState(0);
   const [cartModalOpen, setCartModalOpen] = useState(0);
   const [inCartItem, setInCartItem] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const [stickData, setStickData] = useState(null);
   const [incenseData, setIncenseData] = useState(null);
   const [click, setClick] = useState({
@@ -157,20 +158,23 @@ const Incense = () => {
   const { userinfo } = useSelector(userinfoSelector);
   const stick = useSelector(sticksSelector);
   const slideRef = useRef(null);
+
   useEffect(() => {
     axios({
       method: 'GET',
-      url: `${URL}/incense`
+      url: `https://www.cloudi.shop/incense`
     })
       .then((res) => {
-        // *로딩인디케이터
-        console.log('인센스성공 ->', res.data);
         setIncenseData(res.data);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 350);
       })
       .catch((err) => {
-        console.log('인센스실패 ->', err);
+        console.log(err);
       });
   }, []);
+
   const data = incenseData;
 
   const nextSlide = () => {
@@ -189,12 +193,13 @@ const Incense = () => {
   };
 
   useEffect(() => {
-    slideRef.current.style.transition = 'all 0.5s ease-in-out';
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+    if (incenseData) {
+      slideRef.current.style.transition = 'all 0.5s ease-in-out';
+      slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+    }
   }, [currentSlide]);
 
   const clickHandler = () => {
-    // * Add to cart
     const stickCount =
       stick.sticks.filter((el) => el.stickId === stickData.id).length === 0;
 
@@ -207,24 +212,23 @@ const Incense = () => {
 
     if (stickCount) {
       if (userinfo.token) {
+        setClickCount(0);
         axios({
           method: 'POST',
-          url: `${URL}/incense`,
+          url: `https://www.cloudi.shop/incense`,
           data: { stickId: stickData.id, userId: userinfo.id }
         })
           .then((res) => {
-            // * orderId
-            setInCartItem(0); // * 카트에 이미 있습니다
-            setCartModalOpen(1); // * 카트 자체 모달 오픈
+            setInCartItem(0);
+            setCartModalOpen(1);
             dispatch(insertStick({ ...newStick, id: res.data.id }));
-            setClickCount(0); // * 다시 비활성화
           })
           .catch((err) => {
             console.log(err);
           });
       } else {
-        setInCartItem(0); // * 카트 모달
-        setCartModalOpen(1); // *
+        setInCartItem(0);
+        setCartModalOpen(1);
         dispatch(insertStick(newStick));
         setClickCount(0);
       }
@@ -234,34 +238,39 @@ const Incense = () => {
       setClickCount(0);
     }
   };
+
   return (
     <>
       <IncenseWrapper>
-        <IncenseContainer>
-          <IncenseContent>
-            <Sequence>{currentSlide + 1}/13</Sequence>
-            <SliderBox ref={slideRef}>
-              {data?.map((el) => {
-                return (
-                  <IncenseSlider
-                    key={el.id.toString()}
-                    data={el}
-                    setStickData={setStickData}
-                    clickCount={clickCount}
-                    setClickCount={setClickCount}
-                    click={click}
-                    setClick={setClick}
-                  />
-                );
-              })}
-            </SliderBox>
-          </IncenseContent>
-          <SliderBtnLeft onClick={prevSlide} />
-          <SliderBtnRight onClick={nextSlide} />
-          <CartBtn count={clickCount} onClick={clickHandler}>
-            Add to cart
-          </CartBtn>
-        </IncenseContainer>
+        {isLoading ? (
+          <LoadingIndicator text={'Incense 불러오는 중...'} />
+        ) : (
+          <IncenseContainer>
+            <IncenseContent>
+              <Sequence>{currentSlide + 1}/13</Sequence>
+              <SliderBox ref={slideRef}>
+                {data?.map((el) => {
+                  return (
+                    <IncenseSlider
+                      key={el.id.toString()}
+                      data={el}
+                      setStickData={setStickData}
+                      clickCount={clickCount}
+                      setClickCount={setClickCount}
+                      click={click}
+                      setClick={setClick}
+                    />
+                  );
+                })}
+              </SliderBox>
+            </IncenseContent>
+            <SliderBtnLeft onClick={prevSlide} />
+            <SliderBtnRight onClick={nextSlide} />
+            <CartBtn count={clickCount} onClick={clickHandler}>
+              Add to cart
+            </CartBtn>
+          </IncenseContainer>
+        )}
         <Cloud />
       </IncenseWrapper>
       <Cart

@@ -66,7 +66,7 @@ const BtnContent = styled.div`
 const QuizPageThird = ({
   visible,
   setImageClick,
-  secondPageVisible,
+  firstPageVisible,
   answer,
   setAnswer
 }) => {
@@ -79,7 +79,7 @@ const QuizPageThird = ({
     image_B: false
   });
   useEffect(() => {
-    if (!visible && !secondPageVisible) {
+    if (!visible && !firstPageVisible) {
       setAnimateType('boxFadeOut');
       setEndAnimateTime(true);
       setTimeout(() => setEndAnimateTime(false), 250);

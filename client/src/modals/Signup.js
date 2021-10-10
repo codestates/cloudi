@@ -126,8 +126,6 @@ const ErrMessage = styled.div`
   }
 `;
 
-const URL = 'https://www.cloudi.shop';
-
 const USER_INFO = {
   userName: '',
   userEmail: '',
@@ -141,14 +139,17 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
   const [nameMessage, setNameMessage] = useState('');
 
   useEffect(() => {
-    if (userInfo.userName.length === 9) {
-      setUserInfo({ ...userInfo, userName: userInfo.userName.slice(0, -1) });
-    } else if (userInfo.userName.length === 8) {
+    const { userName, userPassword } = userInfo;
+    if (userName.length === 9) {
+      setUserInfo({ ...userInfo, userName: userName.slice(0, -1) });
+    } else if (userName.length === 8) {
       setNameMessage('글자수는 최대 7자입니다');
+    } else if (userPassword.length === 16) {
+      setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
     } else {
       setNameMessage('');
     }
-  }, [userInfo.userName]); // eslint-disable-line
+  }, [userInfo.userName, userInfo.userPassword]);
 
   const handleInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
@@ -156,22 +157,35 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
   };
 
   const submitHandler = () => {
-    const { userName, userEmail, userPassword } = userInfo;
-    if (
-      !userInfo.userEmail ||
-      !userInfo.userName ||
-      !userInfo.userPassword ||
-      !userInfo.confirmPassword
-    ) {
+    // 회원가입 버튼 클릭 함수
+    const pattern = /[<>"'()=\s]/;
+    const { userName, userEmail, userPassword, confirmPassword } = userInfo;
+
+    if (!userEmail || !userName || !userPassword || !confirmPassword) {
       setErrorMessage('모든 항목을 기입해주세요');
-    } else if (userInfo.userPassword !== userInfo.confirmPassword) {
+    } else if (
+      pattern.test(userEmail) ||
+      pattern.test(userName) ||
+      pattern.test(userPassword) ||
+      pattern.test(confirmPassword)
+    ) {
+      setErrorMessage('특수문자 < > ( ) " \' = 과 공백은 불가능합니다');
+    } else if (userPassword !== confirmPassword) {
       setErrorMessage('입력한 비밀번호와 일치하지 않습니다');
-    } else if (/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(userEmail) === false) {
+    } else if (
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(
+        userEmail
+      ) === false
+    ) {
       setErrorMessage('이메일 형식을 확인해주세요');
+    } else if (userPassword.length < 8) {
+      setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
+    } else if (userName.length > 7) {
+      setNameMessage('글자수는 최대 7자입니다');
     } else {
       axios({
         method: 'POST',
-        url: URL + '/user/signup',
+        url: 'https://www.cloudi.shop/user/signup',
         data: { userName, userEmail, userPassword }
       })
         .then(() => {
@@ -179,16 +193,16 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
           setClearOpen(true);
           setUserInfo(USER_INFO);
         })
-
         .catch((err) => {
           if (err.response.data) {
             setErrorMessage(err.response.data);
           } else {
-            console.log('signup err', err);
+            console.log(err);
           }
         });
     }
   };
+
   const closeModalHandler = () => {
     setVisible(false);
     setUserInfo(USER_INFO);
@@ -227,6 +241,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
           <InputBox
             type='password'
             value={userInfo.userPassword}
+            maxLength={16}
             onChange={handleInputValue('userPassword')}
             placeholder='Password'
           />
@@ -239,6 +254,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
           <InputBox
             type='password'
             value={userInfo.confirmPassword}
+            maxLength={16}
             onChange={handleInputValue('confirmPassword')}
             placeholder='Confirm Password'
           />

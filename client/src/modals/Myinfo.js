@@ -153,8 +153,6 @@ const ErrMessage = styled.div`
   }
 `;
 
-const URL = 'https://www.cloudi.shop';
-
 const Myinfo = ({ visible, setVisible }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -195,7 +193,7 @@ const Myinfo = ({ visible, setVisible }) => {
         const { currPassword, newPassword } = newUserInfo;
         axios({
           method: 'PUT',
-          url: URL + '/user',
+          url: 'https://www.cloudi.shop/user',
           data: { userPassword: currPassword, newPassword },
           headers: {
             Authorization: userinfo.token
@@ -207,12 +205,13 @@ const Myinfo = ({ visible, setVisible }) => {
           })
           .catch((err) => {
             if (err.response.status === 400) {
-              // 비번다름
               setClearColor(0);
               setErrorMessage(err.response.data);
+              console.log(err);
             } else if (err.response.status === 401) {
               setClearColor(0);
               setErrorMessage('다시 로그인 해주세요');
+              console.log(err);
             }
           });
       }

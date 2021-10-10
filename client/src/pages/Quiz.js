@@ -7,8 +7,6 @@ import QuizPageFourth from '../components/quiz_components/QuizPageFourth';
 import QuizPageResult from '../components/quiz_components/QuizPageResult';
 import { SEQUENCE } from '../components/quiz_components/quizItem';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { userinfoSelector } from '../app/modules/hooks';
 
 const QuizContainer = styled.div`
   font-family: 'Roboto', sans-serif;
@@ -91,8 +89,6 @@ const ContentWrapper = styled.div`
   align-items: center;
 `;
 
-const URL = 'https://www.cloudi.shop';
-
 const Quiz = () => {
   const [visible, setVisible] = useState(SEQUENCE);
   const [sequence, setSequence] = useState(SEQUENCE);
@@ -109,10 +105,8 @@ const Quiz = () => {
     fourthScore: 0
   });
   const progress = ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'];
-  const { userinfo } = useSelector(userinfoSelector);
-  console.log('퀴즈페이지 유저인포', userinfo);
+  
   const submitBtnHandler = () => {
-    // * true
     setLoadingOpen(1);
     const num =
       answer.firstScore +
@@ -129,7 +123,7 @@ const Quiz = () => {
     setResultVisible(true);
     axios({
       method: 'GET',
-      url: `${URL}/incense`
+      url: `https://www.cloudi.shop/incense`
     })
       .then((res) => {
         const DATA = res.data.filter((el) => el.stickGrade === num);
@@ -139,7 +133,7 @@ const Quiz = () => {
         }, 3000);
       })
       .catch((err) => {
-        console.log('퀴즈 실패', err);
+        console.log(err);
       });
   };
 
@@ -231,7 +225,7 @@ const Quiz = () => {
           setAnswer={setAnswer}
         />
         <QuizPageThird
-          secondPageVisible={visible.firstPage}
+          firstPageVisible={visible.firstPage}
           visible={visible.thirdPage}
           setImageClick={setImageClick}
           answer={answer}

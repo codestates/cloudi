@@ -4,7 +4,7 @@ import MainFooter from './MainFooter';
 import { Link } from 'react-router-dom';
 
 const OtherPagesContainer = styled.section`
-  background-color: rgba(229, 232, 225, 1);
+  background-color: rgba(229, 232, 225, 0.8);
 `;
 
 const PageContainer = styled.section`
@@ -14,7 +14,7 @@ const PageContainer = styled.section`
   scroll-snap-align: start;
   padding-top: 95px;
   :nth-child(2n-1) {
-    background-color: rgba(214, 204, 195, 0.3);
+    background-color: #F5F5F5;
   };
   @media screen and (max-width: 1023px) {
     display: block;
@@ -33,13 +33,13 @@ const VideoContainer = styled.article`
   };
 `;
 
-const Video = styled.video`
+const Video = styled.img`
   position: relative;
   width: 80%;
   height: auto;
   border: 2px solid;
   box-shadow: 5px 5px 5px 5px gray;
-  top: 33%;
+  top: 20%;
   :hover{
     z-index: 1000;
     transition: 0.5s;
@@ -47,10 +47,20 @@ const Video = styled.video`
     border: 3px solid rgb(45, 109, 22);
     border-radius: 10px;
   };
+  @media screen and (max-width: 1300px) {
+    top: 25%;
+  }
   @media screen and (max-height: 800px) {
-    height: 30vh;
+    height: 60%;
+    width: auto;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 60%;
+    @media screen and (max-height: 800px) {
+    height: 26vh;
     width: auto;
   };
+  }
 `;
 
 const DescContainerRight = styled.article`
@@ -94,8 +104,8 @@ const Desc = styled.p`
     font-size: 2.3vh;
   };
   @media screen and (max-width: 1023px) {
-      text-align: left;
-      font-size: 2vw;
+      text-align: center;
+      font-size: 2.5vw;
   };
 `;
 
@@ -130,7 +140,7 @@ const Button = styled.button`
     width: 40vw;
     margin: 2vh auto;
   };
-  @media screen and (max-height: 800px) {
+  @media screen and (max-height: 1050px) {
     font-size: 3vh;
     height: 7vh;
     width: 30vh;
@@ -144,9 +154,9 @@ const NumberLeft = styled.p`
   font-size: 4vw;
   z-index: 10;
   color: green;
-  top: 26.8%;
+  top: 14%;
   left: 9%;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1300px) {
     display: none;
   };
 `;
@@ -178,7 +188,7 @@ const LastPagePictureContainer = styled.article`
   padding-top: 10vh;
   @media screen and (max-width: 1023px) {
     padding-top: 0;
-    flex: 2;
+    flex: 1.7;
   };
 `;
 
@@ -186,6 +196,7 @@ const LastPageDescContainer = styled.article`
   flex: 2;
   margin-top: 13vh;
   @media screen and (max-width: 1023px) {
+    flex: 2.5;
     text-align: center;
     margin: 2vw 0;
   };
@@ -230,12 +241,11 @@ const NavContainer = styled.section`
 `;
 
 const NavBox = styled.div`
+  height: 16vw;
   width: 50%;
-  border: 3px inset;
+  border: 3px outset;
   border-radius: 10px;
   margin: 0 auto;
-  height: 16vw;
-  box-shadow: inset 5px 5px 10px gray;
 `;
 
 const PageLink = styled.a`
@@ -243,9 +253,10 @@ const PageLink = styled.a`
   font-size: 1.5vw;
   margin-top: 2vw;
   text-decoration: none;
-  color: black;
-  :hover {
-    font-weight: bold;
+  color: rgb(100, 74, 26);
+  font-weight: bold;
+  :hover{
+    text-decoration: underline overline rgb(8, 102, 0) 7px;
   }
 `;
 
@@ -255,16 +266,14 @@ const OtherPages = () => {
       <PageContainer id='quiz'>
         <NumberLeft>01</NumberLeft>
         <VideoContainer>
-          <Video autoPlay muted loop>
-            <source src='/videos/sample.mp4' type='video/mp4' />
-          </Video>
+          <Video src='/videos/quiz.gif'/>
         </VideoContainer>
         <DescContainerRight>
           <Title>
             여러분의 인센스 취향을 알아보세요
             <Desc>
               지금 나의 기분에 맞는 향은 무엇일까요? 인센스 스틱<br />
-              퀴즈를 풀면서 여러분의 취향을 알아 갈 수 있습니다. <br />
+              퀴즈를 풀면서 여러분의 취향을 알아 갈 수 있습니다.<br />
               다양한 인센스 스틱중에서 오직 여러분을 위한 인센스<br />
               스틱을 찾아보세요.
             </Desc>
@@ -277,11 +286,29 @@ const OtherPages = () => {
       <SecondPageContiner id='customize'>
         <NumberRight>02</NumberRight>
         <VideoContainer>
-          <Video autoPlay muted loop>
-            <source src='/videos/sample.mp4' type='video/mp4' />
-          </Video>
+          <Video src='/videos/incense.gif'/>
         </VideoContainer>
         <DescContainerLeft>
+          <Title>
+            다양한 인센스를 구경하고 주문하세요
+            <Desc>
+              퀴즈를 통해서 찾으신 인센스를 주문하시고 싶으신가요?<br />
+              퀴즈를 풀기 전 어떤 인센스들이 있는지 궁금하신가요?<br />
+              인센스 페이지에 정말 다양한 향들이 준비되어 있습니다. <br />
+              나만의 공간을 힐링장소로 바꿔보세요.
+            </Desc>
+            <Link to='/incense'>
+              <Button>인센스보러가기</Button>
+            </Link>
+          </Title>
+        </DescContainerLeft>
+      </SecondPageContiner>
+      <PageContainer id='order'>
+        <NumberLeft>03</NumberLeft>
+        <VideoContainer>
+          <Video src='/videos/customize.gif' />
+        </VideoContainer>
+        <DescContainerRight>
           <Title>
             여러분만의 홀더를 커스텀 해보세요
             <Desc>
@@ -292,28 +319,6 @@ const OtherPages = () => {
             </Desc>
             <Link to='/customize'>
               <Button>커스텀하러가기</Button>
-            </Link>
-          </Title>
-        </DescContainerLeft>
-      </SecondPageContiner>
-      <PageContainer id='order'>
-        <NumberLeft>03</NumberLeft>
-        <VideoContainer>
-          <Video autoPlay muted loop>
-            <source src='/videos/sample.mp4' type='video/mp4' />
-          </Video>
-        </VideoContainer>
-        <DescContainerRight>
-          <Title>
-            자신이 선택한 제품을 직접 즐겨보세요
-            <Desc>
-              주문을 통해서 취향에 맞는 인센스 스틱과 직접 제작하신<br />
-              홀더를 가정에서 만나 보실 수 있습니다. 커스텀 주문시<br />
-              수작업으로 제작한 홀더는 디테일한 컷팅으로 인테리어로<br />
-              활용 가능합니다.
-            </Desc>
-            <Link to='/order'>
-              <Button>주문하러가기</Button>
             </Link>
           </Title>
         </DescContainerRight>

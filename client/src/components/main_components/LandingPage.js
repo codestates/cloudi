@@ -42,19 +42,18 @@ const MainSaying = styled.h3`
 `;
 
 const Arrow = styled.img`
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   animation-name: arrow;
   animation-iteration-count: infinite;
-  animation-direction : alternate;
   animation-duration: 2s;
   @keyframes arrow{
-    from {transform: translateY(15px);}
-    to {transform: translateY(25px);}
+    from {transform: translateY(0px);}
+    to {transform: translateY(7px);}
   };
   @media screen and (max-height: 800px) {
-    height: 2vh;
-    width: 1.6vw;
+    height: 1.7vh;
+    width: 1.7vh;
   };
 `;
 
