@@ -81,7 +81,7 @@ Cloudi 퀴즈를 통해 나에게 맞는 Incense stick을 추천해 드립니다
 
 |Name|Position|Github|
 |--|--|--|
-|**강성진**|Full-Stack|[<img src="https://img.shields.io/badge/github-spirited%20hunger-teal?style=for-the-badge&logo=github" />](https://github.com/spirited-hunger)
+|**강성진**|Full-Stack|[<img src="https://img.shields.io/badge/github-spirited--hunger-teal?style=for-the-badge&logo=github" />](https://github.com/spirited-hunger)
 |**김민찬**|Front-End|[<img src="https://img.shields.io/badge/github-KimMinchan95-yellow?style=for-the-badge&logo=github" />](https://github.com/KimMinchan95)|
 |**심상국**|Back-End|[<img src="https://img.shields.io/badge/github-dankhan102-purple?style=for-the-badge&logo=github" />](https://github.com/dankhan102)|
 |**이덕원**|Front-End|[<img src="https://img.shields.io/badge/github-Lee%20Duckwon-red?style=for-the-badge&logo=github" />](https://github.com/Lee-Duckwon)|
