@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Delete from './Delete';
 import axios from 'axios';
@@ -129,6 +129,30 @@ const MyinfoBtn = styled.div`
   }
 `;
 
+const DescMessage = styled.div`
+  position: absolute;
+  font-size: 12px;
+  bottom: 220px;
+  right: 150px;
+  color: #787878;
+  @media screen and (max-width: 468px) {
+    bottom: 155px;
+    right: 70px;
+  }
+`;
+
+const Test = styled.div`
+  position: absolute;
+  font-size: 17px;
+  color: rgba(0, 0, 0, 0.9);
+  bottom: 340px;
+  right: 25px;
+  @media screen and (max-width: 468px) {
+    bottom: 280px;
+    right: 0px;
+  }
+`;
+
 const ProfileData = styled.div`
   width: 137px;
   margin-top: 27px;
@@ -146,7 +170,7 @@ const ErrMessage = styled.div`
   left: 10px;
   top: 20px;
   text-align: center;
-  color: ${(props) => (props.color ? '#302f2f' : '#ff0000')};
+  color: ${(props) => (props.color ? '#4383d1' : '#ff0000')};
   @media screen and (max-width: 468px) {
     top: 10px;
     font-size: 11px;
@@ -156,6 +180,8 @@ const ErrMessage = styled.div`
 const Myinfo = ({ visible, setVisible }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [emailSecond, setEmailSecond] = useState('');
+  const [email, setEmail] = useState(null);
   const [clearColor, setClearColor] = useState(0);
   const { userinfo } = useSelector(userinfoSelector);
   const [newUserInfo, setNewUserInfo] = useState({
@@ -163,7 +189,29 @@ const Myinfo = ({ visible, setVisible }) => {
     newPassword: '',
     newPasswordMatch: ''
   });
+  useEffect(() => {
+    const { newPassword } = newUserInfo;
+    if (newPassword.length === 17) {
+      setNewUserInfo({ ...newUserInfo, newPassword: newPassword.slice(0, -1) });
+    } else if (newPassword.length === 16) {
+      setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
+    }
+  }, [newUserInfo.newPassword]);
 
+  useEffect(() => {
+    const { userEmail } = userinfo;
+    if (userEmail?.length > 25) {
+      const newEmail = userEmail.slice(0, 23);
+      const newEmailTwo = userEmail.slice(23, userEmail.length);
+      setEmail(newEmail);
+      setEmailSecond(newEmailTwo);
+    } else {
+      setEmailSecond('');
+      setEmail(userEmail);
+    }
+  }, [userinfo.userEmail]);
+
+  const MSG = '비밀번호는 8~15자로 입력해 주세요';
   const handleInputValue = (key) => (e) => {
     if (key === 'currPassword') {
       setNewUserInfo({ ...newUserInfo, [key]: e.target.value });
@@ -189,6 +237,8 @@ const Myinfo = ({ visible, setVisible }) => {
         !newUserInfo.newPasswordMatch
       ) {
         setErrorMessage('모든 항목을 기입해주세요');
+      } else if (newUserInfo.newPassword.length < 8) {
+        setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
       } else {
         const { currPassword, newPassword } = newUserInfo;
         axios({
@@ -248,13 +298,15 @@ const Myinfo = ({ visible, setVisible }) => {
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>User email</InputTitle>
-            <ProfileData>{userinfo.userEmail}</ProfileData>
+            <ProfileData>{email ? email : userinfo.userEmail}</ProfileData>
+            <Test>{emailSecond}</Test>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle>Password</InputTitle>
             <InputBox
               className='input'
               type='password'
+              maxLength={16}
               value={newUserInfo.currPassword}
               onChange={handleInputValue('currPassword')}
               placeholder='Password'
@@ -265,10 +317,12 @@ const Myinfo = ({ visible, setVisible }) => {
             <InputBox
               className='input'
               type='password'
+              maxLength={16}
               value={newUserInfo.newPassword}
               onChange={handleInputValue('newPassword')}
               placeholder='New Password'
             />
+            <DescMessage>{MSG}</DescMessage>
           </ProfileContainer>
           <ProfileContainer>
             <InputTitle margin={21}>
@@ -279,6 +333,7 @@ const Myinfo = ({ visible, setVisible }) => {
             <InputBox
               className='input'
               type='password'
+              maxLength={16}
               value={newUserInfo.newPasswordMatch}
               onChange={handleInputValue('newPasswordMatch')}
               placeholder='New Password'

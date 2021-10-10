@@ -190,6 +190,8 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
       setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
     } else if (userName.length > 7) {
       setNameMessage('글자수는 최대 7자입니다');
+    } else if (userEmail.length > 45) {
+      setErrorMessage('이메일은 45자 이하로 입력해 주세요');
     } else {
       axios({
         method: 'POST',
@@ -240,6 +242,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
           <InputBox
             type='email'
             value={userInfo.userEmail}
+            maxLength={46}
             onChange={handleInputValue('userEmail')}
             placeholder='User email'
           />
