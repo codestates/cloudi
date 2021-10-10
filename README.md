@@ -51,9 +51,7 @@ Cloudi 퀴즈를 통해 나에게 맞는 Incense stick을 추천해 드립니다
 <img src="https://img.shields.io/badge/gsap-green?style=for-the-badge&logo=&logoColor=white">
 
 ### Backend Stack
-<img src="https://img.shields.io/badge/JWT-8A2BE2?style=for-the-badge&logo=json%20web%20tokens&logoColor=white">
-<img src="https://img.shields.io/badge/Bcrypt-08304f?style=for-the-badge&logo=&logoColor=white">
-<img src="https://img.shields.io/badge/Ouath2.0-191818?style=for-the-badge&logo=&logoColor=white">
+<img src="https://img.shields.io/badge/JWT-8A2BE2?style=for-the-badge&logo=json%20web%20tokens&logoColor=white"><img src="https://img.shields.io/badge/Bcrypt-08304f?style=for-the-badge&logo=&logoColor=white"><img src="https://img.shields.io/badge/Ouath2.0-191818?style=for-the-badge&logo=&logoColor=white">
 <br />
 <img src="https://img.shields.io/badge/sequelize%20ORM-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white">
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
