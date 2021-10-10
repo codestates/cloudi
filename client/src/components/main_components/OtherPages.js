@@ -49,18 +49,18 @@ const Video = styled.img`
   };
   @media screen and (max-width: 1300px) {
     top: 25%;
-  }
+  };
   @media screen and (max-height: 800px) {
     height: 60%;
     width: auto;
-  }
+  };
   @media screen and (max-width: 1023px) {
     width: 60%;
     @media screen and (max-height: 800px) {
-    height: 26vh;
-    width: auto;
+      height: 26vh;
+      width: auto;
+    };
   };
-  }
 `;
 
 const DescContainerRight = styled.article`
@@ -266,7 +266,7 @@ const OtherPages = () => {
       <PageContainer id='quiz'>
         <NumberLeft>01</NumberLeft>
         <VideoContainer>
-          <Video src='/videos/quiz.gif'/>
+          <Video src='/videos/quiz.gif' />
         </VideoContainer>
         <DescContainerRight>
           <Title>
@@ -286,7 +286,7 @@ const OtherPages = () => {
       <SecondPageContiner id='customize'>
         <NumberRight>02</NumberRight>
         <VideoContainer>
-          <Video src='/videos/incense.gif'/>
+          <Video src='/videos/incense.gif' />
         </VideoContainer>
         <DescContainerLeft>
           <Title>

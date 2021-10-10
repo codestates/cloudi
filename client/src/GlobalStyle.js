@@ -16,13 +16,13 @@ const GlobalStyle = createGlobalStyle`
     @media screen and (max-width: 1023px) {
       ::-webkit-scrollbar {
         display: none;
-      }
-    }
+      };
+    };
 
   }
   body {
     font-family: 'Gowun Batang', serif;
-  }
+  };
 `;
 
 export default GlobalStyle;
