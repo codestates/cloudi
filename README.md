@@ -27,7 +27,7 @@ Cloudi 퀴즈를 통해 나에게 맞는 Incense stick을 추천해 드립니다
 <br />
 <br />
 
-### Notion Link
+### 프로젝트 상세설명 페이지
 [<img src="https://user-images.githubusercontent.com/83770790/136688261-14e2659c-28be-4795-9a67-d4f2b0170db0.jpg" width="470" height="150"/>](https://www.notion.so/1-Team-Challengers-cloudi-b54a437059824f9fbec3c219b3e14206)
 
  ⬆ 사진을 클릭하시면 더욱 상세한 설명을 보실 수 있습니다.
