@@ -266,7 +266,7 @@ const OtherPages = () => {
       <PageContainer id='quiz'>
         <NumberLeft>01</NumberLeft>
         <VideoContainer>
-          <Video src='/videos/quiz.gif'/>
+          <Video src='/videos/quiz.gif' />
         </VideoContainer>
         <DescContainerRight>
           <Title>
@@ -286,7 +286,7 @@ const OtherPages = () => {
       <SecondPageContiner id='customize'>
         <NumberRight>02</NumberRight>
         <VideoContainer>
-          <Video src='/videos/incense.gif'/>
+          <Video src='/videos/incense.gif' />
         </VideoContainer>
         <DescContainerLeft>
           <Title>
