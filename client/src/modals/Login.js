@@ -128,9 +128,6 @@ const BorderBottom = styled.div`
     line-height: 0px;
     margin: 0px 16px;
   }
-  @media screen and (max-width: 310px) {
-    top: 255px;
-  }
 `;
 
 const SocialLoginBtn = styled.div`
@@ -154,7 +151,8 @@ const SocialLoginBtn = styled.div`
 const SocialImage = styled.img`
   width: 15px;
   height: 18px;
-  margin-right: 2px;
+  position: absolute;
+  margin-right: 250px;
 `;
 
 const ErrMessage = styled.div`
@@ -213,6 +211,7 @@ const Login = ({ visible, setVisible }) => {
   }, [loginInfo.password]);
 
   const loginClickHandler = () => {
+    // 일반 로그인 버튼 클릭 함수
     const { email, password } = loginInfo;
     const pattern = /[<>"'()=\s]/;
     if (pattern.test(email) || pattern.test(password)) {
@@ -273,6 +272,14 @@ const Login = ({ visible, setVisible }) => {
     );
   };
 
+  const closeClickHandler = () => {
+    setVisible(false);
+    setErrorMessage('');
+    setLoginInfo({
+      email: '',
+      password: ''
+    });
+  };
   return (
     <LoginContainer visible={visible}>
       <LoginContent>
@@ -284,7 +291,7 @@ const Login = ({ visible, setVisible }) => {
         ) : (
           <>
             <LoginTitle>LOG IN</LoginTitle>
-            <CloseModal onClick={() => setVisible(false)}>&times;</CloseModal>
+            <CloseModal onClick={closeClickHandler}>&times;</CloseModal>
             <InputContainer>
               <InputTitle>User email</InputTitle>
               <InputBox
@@ -310,11 +317,11 @@ const Login = ({ visible, setVisible }) => {
             <LoginBtn onClick={loginClickHandler}>로그인</LoginBtn>
             <BorderBottom>또는</BorderBottom>
             <SocialLoginBtn color='#f7e600' onClick={kakaoLoginHandler}>
-              <SocialImage src='/images/kakao.png' alt='소셜로그인 이미지' />
+              <SocialImage src='/images/kakao.png' alt='카카오톡 이미지' />
               카카오 로그인
             </SocialLoginBtn>
             <SocialLoginBtn color='#e6e6e6' onClick={googleLoginHandler}>
-              <SocialImage src='/images/google.png' alt='소셜로그인 이미지' />
+              <SocialImage src='/images/google.png' alt='구글 이미지' />
               구글 로그인
             </SocialLoginBtn>
           </>
