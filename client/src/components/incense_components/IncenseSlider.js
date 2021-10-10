@@ -67,13 +67,13 @@ const IncenseSlider = ({
       return scope[item] / 2;
     });
     setNum(dividedNum);
-  }, [data]); // eslint-disable-line
+  }, [data]);
 
   useEffect(() => {
     if (clickCount === 0) {
       setClick(CONSTANT_DATA);
     }
-  }, [clickCount]); // eslint-disable-line
+  }, [clickCount]);
 
   const changeToStr = (score) => {
     const circles = [];

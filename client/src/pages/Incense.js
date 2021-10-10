@@ -213,14 +213,14 @@ const Incense = () => {
     if (stickCount) {
       if (userinfo.token) {
         setClickCount(0);
+        setInCartItem(0);
+        setCartModalOpen(1);
         axios({
           method: 'POST',
           url: `https://www.cloudi.shop/incense`,
           data: { stickId: stickData.id, userId: userinfo.id }
         })
           .then((res) => {
-            setInCartItem(0);
-            setCartModalOpen(1);
             dispatch(insertStick({ ...newStick, id: res.data.id }));
           })
           .catch((err) => {
