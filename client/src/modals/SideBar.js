@@ -122,35 +122,27 @@ const TimerIncense = styled.div`
 `;
 
 const SideBar = () => {
-  const [btn, setBtn] = useState(0);
+  const [btn, setBtn] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(false);
   const [min, setMin] = useState(parseInt(0));
   const [sec, setSec] = useState(parseInt(0));
 
   const handleBtn = () => {
     setBtn(prevState => {
-      if (prevState === 0) {
-        return 1;
-      } else {
-        return 0;
-      }
+      return !prevState;
     });
   };
 
   const handleTimer = () => {
     setTimer(prevState => {
-      if (prevState === 0) {
-        return 1;
-      } else {
-        return 0;
-      }
+      return !prevState;
     });
-    if (timer === 0) {
-      setMin(parseInt(10));
+    if (timer) {
+      setMin(parseInt(0));
       setSec(parseInt(0));
     } else {
-      setMin(parseInt(0));
+      setMin(parseInt(10));
       setSec(parseInt(0));
     }
   };
@@ -184,7 +176,7 @@ const SideBar = () => {
   };
 
   useEffect(() => {
-    if (timer === 1) {
+    if (timer) {
       sec < 10 ? document.title = `${min} : 0${sec} - cloudi` : document.title = `${min} : ${sec} - cloudi`;
     } else {
       document.title = 'cloudi';
@@ -211,7 +203,7 @@ const SideBar = () => {
           {min} : {sec < 10 ? `0${sec}` : sec}
         </Timer>
         <Reset src='images/reset.png' onClick={handleReset} />
-        {min === 0 && sec === 0 && timer === 1 ? <audio src='/audios/alarm.mp3' autoPlay> <source type='audio/mpeg' /> </audio> : null}
+        {min === 0 && sec === 0 && timer ? <audio src='/audios/alarm.mp3' autoPlay> <source type='audio/mpeg' /> </audio> : null}
         <TimerIncense />
       </TimerContainer>
     </>
