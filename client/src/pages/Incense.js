@@ -120,6 +120,10 @@ const CartBtn = styled.div`
   :hover {
     opacity: 1;
   }
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    bottom: 150px;
+  }
 `;
 
 const Sequence = styled.div`
