@@ -29,7 +29,7 @@ const NavBar = styled.nav`
   :hover {
     background-color: white;
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
     align-items: flex-start;
     height: 64px;
@@ -44,7 +44,7 @@ const NavLogo = styled.div`
 const NavMenu = styled.ul`
   display: flex;
   height: 93px;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -52,7 +52,7 @@ const NavMenu = styled.ul`
     display: ${(props) => (props.menu ? 'block' : 'none')};
     border-top: ${(props) => (props.menu ? '2px solid' : 'none')};
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     height: 50px;
   } ;
 `;
@@ -79,7 +79,7 @@ const MenuList = styled.li`
     cursor: pointer;
     background-position: 100% 50%;
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     width: 100%;
     text-align: center;
     background-color: white;
@@ -89,7 +89,7 @@ const MenuList = styled.li`
 `;
 
 const MobileMenuList = styled(MenuList)`
-  @media screen and (min-width: 1023px) {
+  @media screen and (min-width: 1024px) {
     display: none;
   }
 `;
@@ -103,7 +103,7 @@ const CloudiLogo = styled.img`
     transition: all 0.8s;
     filter: opacity(0.5) drop-shadow(0 0 0 rgba(99, 84, 58, 1));
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     height: 40px;
     width: 105px;
     margin: 10px 0 10px 20px;
@@ -123,7 +123,7 @@ const Icon = styled.img`
     transition: all 0.7s;
     filter: opacity(0.5) drop-shadow(0 0 0 rgba(99, 84, 58, 1));
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: none;
   }
 `;
@@ -140,7 +140,7 @@ const MenuIcon = styled.img`
     transition: all 0.7s;
     filter: opacity(0.5) drop-shadow(0 0 0 rgba(99, 84, 58, 1));
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: block;
     height: 45px;
     width: 45px;
@@ -166,7 +166,7 @@ const CartCount = styled.div`
   font-weight: bold;
   color: black;
   border: 1px solid black;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: none;
   }
 `;

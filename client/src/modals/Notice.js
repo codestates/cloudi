@@ -17,7 +17,7 @@ const ModalContainer = styled.section`
   transform: ${props =>
     props.btn ? 'translate3d(0px, 0, 0)' : 'translate3d(300px, 0, 0)'
   };
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     top: 64px;
   }
   div {

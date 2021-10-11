@@ -18,7 +18,7 @@ const Icon = styled(SidebarIcon)`
   :hover{
     transform: scale(1.3);
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     transform: scale(0.6);
     top: 60px;
     left: -9px;
@@ -42,7 +42,7 @@ const Aside = styled.aside`
   transform: ${props =>
     props.btn ? 'translate3d(0px, 0, 0)' : 'translate3d(-100px, 0, 0)'
   };
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     top: 62px;
   }
 `;
@@ -94,7 +94,7 @@ const TimerContainer = styled.section`
     props.min ? 'gray' : 'red'
   };
   text-align: center;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     top: 80px;
   }
 `;

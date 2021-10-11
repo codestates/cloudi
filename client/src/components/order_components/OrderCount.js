@@ -9,7 +9,7 @@ const OrderCountContainer = styled.section`
   height: 100px;
   line-height: 100px;
   text-align: center;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     text-align: center;
     height: 100px;
     line-height: 100px;
@@ -20,7 +20,7 @@ const OrderNumber = styled.h2`
   font-size: 30px;
   font-weight: bold;
   letter-spacing: 10px;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     margin: 0 auto;
     width: 90%;
     font-size: 25px;
