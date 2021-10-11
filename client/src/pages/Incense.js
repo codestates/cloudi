@@ -162,7 +162,7 @@ const Incense = () => {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: `http://localhost:8000/incense`
+      url: `https://www.cloudi.shop/incense`
     })
       .then((res) => {
         setIncenseData(res.data);
@@ -215,7 +215,7 @@ const Incense = () => {
         setCartModalOpen(1);
         axios({
           method: 'POST',
-          url: `http://localhost:8000/incense`,
+          url: `https://www.cloudi.shop/incense`,
           data: { stickId: stickData.id, userId: userinfo.id }
         })
           .then((res) => {
