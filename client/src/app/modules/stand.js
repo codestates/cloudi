@@ -1,12 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// 초기 상태
 const initialState = {
   curStandImg: '',
   stands: []
 };
-
-let id = initialState.stands.length + 1;
 
 export const standSlice = createSlice({
   name: 'stand',
@@ -26,7 +23,7 @@ export const standSlice = createSlice({
     },
     insertStand: (state, action) => {
       const stand = {
-        id: id++,
+        id: action.payload.id,
         standPlate: action.payload.plate,
         standHolder: action.payload.holder,
         standText: action.payload.text,
@@ -42,6 +39,13 @@ export const standSlice = createSlice({
     removeStand: (state, { payload: id }) => {
       const index = state.stands.findIndex(stand => stand.id === id);
       state.stands.splice(index, 1);
+    },
+    removeAllStands: (state) => {
+      state.curStandImg = '';
+      state.stands = [];
+    },
+    insertAllStands: (state, action) => {
+      state.stands = action.payload;
     }
   }
 });
@@ -51,7 +55,9 @@ export const {
   decreaseStandQuantity,
   changeCurStandImg,
   insertStand,
-  removeStand
+  removeStand,
+  removeAllStands,
+  insertAllStands
 } = standSlice.actions;
 
 export default standSlice.reducer;

@@ -2,20 +2,23 @@ import React, { useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { changeCurStandImg } from '../../../app/modules/stand';
 import styled from 'styled-components';
-
-import { plateImg, holderImg } from './standImages'; // eslint-disable-line
+import { motion } from 'framer-motion';
 
 const StyledCanvas = styled.canvas`
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -65%);
+  transform: translate(-50%, -55%);
 
   width: 500px;
   height: 500px;
-  justify-content: space-between;
-  align-items: center;
   background-color: none;
+  
+  @media screen and (max-height: 850px) {
+    transform: translate(-50%, -70%);
+    width: 330px;
+    height: 330px;
+  };
 `;
 
 const writeText = (ctx, text, material) => {
@@ -39,11 +42,35 @@ const writeText = (ctx, text, material) => {
   }
 };
 
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    x: '-5vw'
+  },
+  in: {
+    opacity: 1,
+    x: 0
+  },
+  out: {
+    opacity: 0,
+    x: '5vw'
+  }
+};
+
+const pageTransitions = {
+  duration: 0.5
+};
+
 const Canvas = ({
-  selectedOps
+  selectedOps,
+  standImages
 }) => {
   const canvas = useRef();
+
+  const { plateImg, holderImg } = standImages;
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     const ctx = canvas.current.getContext('2d');
     const { plate, holder, text } = selectedOps;
@@ -56,10 +83,19 @@ const Canvas = ({
       // 선택했다면, 선택한 이미지 그리기
       const plateImage = new Image(); // eslint-disable-line
 
-      plateImage.src = plateImg[plate.toLowerCase()];
+      plateImage.src = plateImg[plate];
 
       plateImage.onload = function () {
         ctx.drawImage(plateImage, -30, 0);
+
+        // 텍스트 선택했다면 그리고 이미지 생성
+        if (!!text && text !== '-- NO TEXT --' && holder === 'NONE') { // eslint-disable-line
+          writeText(ctx, text, plate);
+        }
+
+        // ! 이미지 생성
+        const curStandImg = canvas.current.toDataURL();
+        dispatch(changeCurStandImg(curStandImg));
       };
       plateImage.onerror = function () {
         console.log('plate image loading error');
@@ -83,13 +119,13 @@ const Canvas = ({
     if (!!plate && !!holder && holder !== 'NONE') {
       const holderImage = new Image(); // eslint-disable-line
 
-      holderImage.src = holderImg[plate.toLowerCase()][holder.toLowerCase()];
+      holderImage.src = holderImg[plate][holder];
 
       holderImage.onload = function () {
         ctx.drawImage(holderImage, -30, 0);
 
         // 텍스트 선택했다면 그리고 이미지 생성
-        if (!!text && text !== 'empty input!') { // eslint-disable-line
+        if (!!text && text !== '-- NO TEXT --') { // eslint-disable-line
           writeText(ctx, text, plate);
         }
 
@@ -103,11 +139,17 @@ const Canvas = ({
     }
   }, [ selectedOps.plate, selectedOps.holder, selectedOps.text ]); // eslint-disable-line
   return (
-    <>
-      <StyledCanvas ref={canvas} width='650' height='650'>
+    <motion.div
+      initial='initial'
+      animate='in'
+      exit='out'
+      variants={pageVariants}
+      transition={pageTransitions}
+    >
+      <StyledCanvas ref={canvas} width='700' height='700'>
         Sorry, your browser dosen't support canvas tags.
       </StyledCanvas>
-    </>
+    </motion.div>
   );
 };
 

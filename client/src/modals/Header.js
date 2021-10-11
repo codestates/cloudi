@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { standsSelector, sticksSelector } from '../app/modules/hooks';
-import { useSelector } from 'react-redux';
-
+import { standsSelector, sticksSelector, userinfoSelector } from '../app/modules/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUserinfo } from '../app/modules/userinfo';
+import { removeAllSticks } from '../app/modules/stick';
+import { removeAllStands } from '../app/modules/stand';
 import { Link, NavLink } from 'react-router-dom';
+
 import Modal from './Modal';
 import Login from './Login';
 import Signup from './Signup';
+import Myinfo from './Myinfo';
+import SignupClear from './SignupClear';
 
 const NavBar = styled.nav`
   position: fixed;
@@ -171,46 +176,100 @@ const Header = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
+  const [myinfoOpen, setMyinfoOpen] = useState(false);
+  const [clearOpen, setClearOpen] = useState(false);
+
+  const dispatch = useDispatch();
   const stand = useSelector(standsSelector);
   const stick = useSelector(sticksSelector);
+  const { userinfo } = useSelector(userinfoSelector);
 
-  const totalStandQuantity = stand.stands.reduce((acc, cur) => acc + cur.standQuantity, 0);
-  const totalStickQuantity = stick.sticks.reduce((acc, cur) => acc + cur.stickQuantity, 0);
+  useEffect(() => {
+    if (menu) {
+      setModalOpen(false);
+    }
+  }, [menu]);
+
+  const totalStandQuantity = stand.stands.reduce(
+    (acc, cur) => acc + cur.standQuantity,
+    0
+  );
+  const totalStickQuantity = stick.sticks.reduce(
+    (acc, cur) => acc + cur.stickQuantity,
+    0
+  );
   const totalQuantity = totalStandQuantity + totalStickQuantity;
 
   const handleClickMenu = () => {
     setMenu(!menu);
   };
+
   const clickHandler = () => {
     setModalOpen(!modalOpen);
   };
+
+  const loginHandler = () => {
+    setLoginModal(true);
+    setMenu(false);
+  };
+
+  const signupHandler = () => {
+    setSignupOpen(true);
+    setMenu(false);
+  };
+
+  const myinfoHandler = () => {
+    setMyinfoOpen(true);
+    setMenu(false);
+  };
+  const logoutHandler = () => {
+    dispatch(removeUserinfo());
+    dispatch(removeAllSticks());
+    dispatch(removeAllStands());
+    setMenu(false);
+  };
+
   return (
     <NavBar menu={menu}>
       <NavLogo>
         <Link to='/'>
-          <CloudiLogo src='/images/cloudi.png' />
+          <CloudiLogo
+            src='/images/cloudi.png'
+            onClick={() => setModalOpen(false)}
+          />
         </Link>
       </NavLogo>
-      <NavMenu menu={menu}>
-        <MobileMenuList>SIGN UP</MobileMenuList>
-        <MobileMenuList>LOG IN</MobileMenuList>
+      <NavMenu menu={menu} onClick={() => setModalOpen(false)}>
+        {userinfo.token === ''
+          ? <>
+            <MobileMenuList onClick={signupHandler}>SIGN UP</MobileMenuList>
+            <MobileMenuList onClick={loginHandler}>LOG IN</MobileMenuList>
+            </>
+          : <>
+            <MobileMenuList visible={myinfoOpen} onClick={myinfoHandler}>MY INFO</MobileMenuList>
+            <MobileMenuList onClick={logoutHandler}>LOG OUT</MobileMenuList>
+            </>}
         <LinkElem to='/order'>
-          <MobileMenuList>ORDER</MobileMenuList>
-        </LinkElem>
-        <LinkElem to='/incense'>
-          <MenuList>INCENSE</MenuList>
+          <MobileMenuList onClick={handleClickMenu}>ORDER</MobileMenuList>
         </LinkElem>
         <LinkElem to='/quiz'>
-          <MenuList>QUIZ</MenuList>
+          <MenuList onClick={handleClickMenu}>QUIZ</MenuList>
+        </LinkElem>
+        <LinkElem to='/incense'>
+          <MenuList onClick={handleClickMenu}>INCENSE</MenuList>
         </LinkElem>
         <LinkElem to='/customize'>
-          <MenuList>CUSTOMIZE</MenuList>
+          <MenuList onClick={handleClickMenu}>CUSTOMIZE</MenuList>
         </LinkElem>
       </NavMenu>
       <IconContainer>
         <Link to='/order'>
-          <Icon src='/images/cart.png' />
-          {totalQuantity >= 1 ? <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount> : null}
+          <Icon src='/images/cart.png' onClick={() => setModalOpen(false)} />
+          {totalQuantity >= 1
+            ? (
+              <CartCount>{totalQuantity > 99 ? '99+' : totalQuantity}</CartCount>
+              )
+            : null}
         </Link>
         <Icon src='/images/user.png' onClick={clickHandler} />
       </IconContainer>
@@ -220,9 +279,15 @@ const Header = () => {
         setVisible={setModalOpen}
         setLoginModal={setLoginModal}
         setSignupOpen={setSignupOpen}
+        setMyinfoOpen={setMyinfoOpen}
       />
       <Login visible={loginModal} setVisible={setLoginModal} />
-      <Signup visible={signupOpen} setVisible={setSignupOpen} />
+      <Signup visible={signupOpen} setVisible={setSignupOpen} setClearOpen={setClearOpen} />
+      <Myinfo
+        visible={myinfoOpen}
+        setVisible={setMyinfoOpen}
+      />
+      <SignupClear visible={clearOpen} setVisible={setClearOpen} setLoginModal={setLoginModal} />
     </NavBar>
   );
 };

@@ -1,8 +1,16 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { userinfoSelector } from '../app/modules/hooks';
+import { removeUserinfo } from '../app/modules/userinfo';
+import { removeAllSticks } from '../app/modules/stick';
+import { removeAllStands } from '../app/modules/stand';
 
 const DeleteContainer = styled.div`
   display: ${(props) => (props.isvisible ? 'flex' : 'none')};
+  font-family: 'Roboto', sans-serif;
   justify-content: center;
   align-items: center;
   top: 0;
@@ -39,9 +47,9 @@ const DeleteTitle = styled.div`
   width: 100%;
   height: 25%;
   background-color: rgba(0, 0, 0, 0.15);
+  color: rgba(255, 255, 255, 0.8);
   border-top-left-radius: 0.8rem;
   border-top-right-radius: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
 `;
 
 const CloseBtn = styled.div`
@@ -106,9 +114,12 @@ const BorderBottom = styled.div`
   border-bottom: 2px solid black;
 `;
 
-const Delete = ({ visible, setDeleteModalVisible }) => {
+const Delete = ({ visible, setVisible }) => {
   const [InputCheck, setInputCheck] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { userinfo } = useSelector(userinfoSelector);
 
   const handleInputValue = (e) => {
     setInputCheck(e.target.value);
@@ -118,15 +129,31 @@ const Delete = ({ visible, setDeleteModalVisible }) => {
   };
 
   const handleCloseModal = () => {
-    setDeleteModalVisible(false);
+    setVisible(false);
     setErrorMessage('');
     setInputCheck('');
   };
 
   const checkDeleteValue = () => {
     if (InputCheck === '회원탈퇴') {
-      setDeleteModalVisible(false);
-      setInputCheck('');
+      axios({
+        method: 'DELETE',
+        url: `https://www.cloudi.shop/user`,
+        headers: { Authorization: userinfo.token }
+      })
+        .then(() => {
+          setVisible(false);
+          setInputCheck('');
+          setErrorMessage('');
+          alert('회원탈퇴가 완료되었습니다');
+          history.push('/');
+          dispatch(removeUserinfo());
+          dispatch(removeAllSticks());
+          dispatch(removeAllStands());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       setErrorMessage('`회원탈퇴` 입력을 다시 확인해주세요');
     }
@@ -147,6 +174,7 @@ const Delete = ({ visible, setDeleteModalVisible }) => {
             type='text'
             name='deleteInputBox'
             value={InputCheck}
+            maxLength={10}
             onChange={(e) => handleInputValue(e)}
             placeholder='회원탈퇴'
           />

@@ -4,14 +4,16 @@ import styled from 'styled-components';
 const MainFooterContainer = styled.footer`
   flex: 1;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   display: flex;
   width: 100vw;
   justify-content: center;
   background-color: rgb(183, 197, 139);
   @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+    flex: 1.4;
     padding: 10px;
     justify-content: space-between;
+    padding-top: 5px;
   };
 `;
 
@@ -72,8 +74,7 @@ const Content = styled.a`
 `;
 
 const NameContent = styled(Content)`
-  font-family: 'Nanum Pen Script', cursive;
-  font-size: 25px;
+  font-size: 19px;
   display: block;
   @media screen and (max-height: 600px) {
     display: inline-flex;
@@ -111,8 +112,8 @@ const Stack = styled.span`
 `;
 
 const CloudiLogo = styled.img`
-  height: 50px;
-  width: 157px;
+  height: 45px;
+  width: 140px;
   @media screen and (max-height: 600px) {
     height: 21px;
     width: 50px;

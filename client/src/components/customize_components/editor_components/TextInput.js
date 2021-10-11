@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const StyledTextInput = styled.section`
   display: flex;
   flex-direction: row;
+  z-index: 999;
 
   .apply {
     display: flex;
@@ -164,7 +165,7 @@ const TextInput = ({ handleBtnClick }) => {
             onClick={() => {
               handleBtnClick({
                 type: 'text',
-                option: 'empty input!',
+                option: '-- NO TEXT --',
                 price: 0
               })
               setIsDisabled(!isDisabled)

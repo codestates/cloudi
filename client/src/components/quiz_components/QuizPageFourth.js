@@ -21,6 +21,7 @@ const QuizContainer = styled.div`
     }
   }
 `;
+
 const QuizContent = styled.div`
   background-color: ${(props) => !props.image && '#666669'};
   background-image: url(${(props) => props.url});
@@ -33,6 +34,11 @@ const QuizContent = styled.div`
   transition: background-color 0.3s;
   box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    width: 350px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
 `;
 
 const QuizPageFourth = ({ visible, setImageClick, answer, setAnswer }) => {
@@ -44,9 +50,9 @@ const QuizPageFourth = ({ visible, setImageClick, answer, setAnswer }) => {
   });
   const score = {
     rainy: -1,
-    snow: -1,
+    snow: 1,
     sunny: 1,
-    cloudy: 1
+    cloudy: 0
   };
 
   const WEATHER = ['rainy', 'snow', 'sunny', 'cloudy'];

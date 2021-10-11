@@ -15,6 +15,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       stickQuantity: {
+        defaultValue : 1,
         type: Sequelize.INTEGER
       },
       createdAt: {
