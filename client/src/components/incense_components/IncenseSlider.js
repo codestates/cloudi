@@ -46,7 +46,6 @@ const TextContainer = styled.div`
 const IncenseData = styled.div`
   color: #636363;
   text-align: center;
-  font-size: 20px;
   line-height: 30px;
 `;
 
