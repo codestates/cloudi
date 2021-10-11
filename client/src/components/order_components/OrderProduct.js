@@ -313,7 +313,6 @@ const OrderProduct = () => {
   };
 
   const handleDecreaseStickQuantity = (stick) => {
-    console.log(stick);
     dispatch(decreaseStickQuantity(stick.id));
     axios({
       method: 'PUT',
