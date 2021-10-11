@@ -103,9 +103,9 @@ const MainButton = ({
     // 장바구니 안에 없음
     if (noMatching || stand.stands.length === 0) {
       setInCartItem(false);
-
+      
       const newStand = {
-        id: null,
+        id: 1,
         plate: selectedOps.plate,
         holder: selectedOps.holder,
         text: selectedOps.text,
@@ -133,6 +133,9 @@ const MainButton = ({
           })
           .catch(e => console.log(e));
       } else {
+        if (stand.stands.length !== 0) {
+          newStand.id = stand.stands[stand.stands.length - 1].id + 1;
+        }
         dispatch(insertStand(newStand));
       }
     } else {

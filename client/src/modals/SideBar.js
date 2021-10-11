@@ -122,27 +122,35 @@ const TimerIncense = styled.div`
 `;
 
 const SideBar = () => {
-  const [btn, setBtn] = useState(false);
+  const [btn, setBtn] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [timer, setTimer] = useState(false);
+  const [timer, setTimer] = useState(0);
   const [min, setMin] = useState(parseInt(0));
   const [sec, setSec] = useState(parseInt(0));
 
   const handleBtn = () => {
     setBtn(prevState => {
-      return !prevState;
+      if (prevState === 0) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
   };
 
   const handleTimer = () => {
     setTimer(prevState => {
-      return !prevState;
+      if (prevState === 0) {
+        return 1;
+      } else {
+        return 0;
+      }
     });
-    if (timer) {
-      setMin(parseInt(0));
+    if (timer === 0) {
+      setMin(parseInt(10));
       setSec(parseInt(0));
     } else {
-      setMin(parseInt(10));
+      setMin(parseInt(0));
       setSec(parseInt(0));
     }
   };
@@ -203,7 +211,7 @@ const SideBar = () => {
           {min} : {sec < 10 ? `0${sec}` : sec}
         </Timer>
         <Reset src='images/reset.png' onClick={handleReset} />
-        {min === 0 && sec === 0 && timer ? <audio src='/audios/alarm.mp3' autoPlay> <source type='audio/mpeg' /> </audio> : null}
+        {min === 0 && sec === 0 && timer === 1 ? <audio src='/audios/alarm.mp3' autoPlay> <source type='audio/mpeg' /> </audio> : null}
         <TimerIncense />
       </TimerContainer>
     </>
