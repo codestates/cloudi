@@ -75,6 +75,8 @@ const IncenseSlider = ({
     }
   }, [clickCount]);
 
+  const money = (int) => int.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
   const changeToStr = (score) => {
     const circles = [];
     const isHalf = score % 1 !== 0;
@@ -110,7 +112,7 @@ const IncenseSlider = ({
       <TextContainer>
         <IncenseData>{data.stickName}</IncenseData>
         <IncenseData>{data.stickDesc}</IncenseData>
-        <IncenseData>{data.stickPrice} 원</IncenseData>
+        <IncenseData>{money(data.stickPrice)} 원</IncenseData>
         {SCOPE_DATA.map((el, idx) => {
           return (
             <IncenseData key={el}>
