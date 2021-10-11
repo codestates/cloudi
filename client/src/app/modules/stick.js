@@ -37,7 +37,6 @@ export const stickSlice = createSlice({
         stickImage: action.payload.stickImage
       };
       state.sticks.push(stick);
-      console.log('리덕스 sticks', state.sticks);
     },
     removeStick: (state, { payload: id }) => {
       const index = state.sticks.findIndex((stick) => stick.id === id);
