@@ -166,9 +166,7 @@ const Incense = () => {
     })
       .then((res) => {
         setIncenseData(res.data);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 350);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
