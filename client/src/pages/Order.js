@@ -7,7 +7,7 @@ const OrderContainer = styled.main`
   padding-top: 95px;
   height: 100vh;
   overflow-x: hidden;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     padding-top: 64px;
   };
 `;
