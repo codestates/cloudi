@@ -171,7 +171,6 @@ const Incense = () => {
       .catch((err) => {
         console.log(err);
       });
-      return () => setIsLoading(false);
   }, []);
 
   const data = incenseData;

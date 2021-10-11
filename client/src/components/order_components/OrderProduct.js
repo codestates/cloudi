@@ -20,7 +20,7 @@ const ProductExplanation = styled.article`
   width: 100%;
   height: 50px;
   line-height: 50px;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: none;
   };
 `;
@@ -54,7 +54,7 @@ const Input = styled.button`
     cursor: pointer;
     background-color: #97a371;
   };
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     margin-top: 30px;
     width: 100%;
   };
@@ -72,7 +72,7 @@ const CalDesc = styled.div`
   flex: 5;
   text-align: right;
   font-weight: bold;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     flex: 1;
     text-align: left;
     margin-left: 20px;
@@ -82,7 +82,7 @@ const CalDesc = styled.div`
 const Price = styled.div`
   flex: 1;
   text-align: center;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     text-align: right;
     margin-right: 20px;
   };
@@ -94,7 +94,7 @@ const ShippingFeeCal = styled(ProductCal)`
   margin-top: 0;
   border-top: none;
   border-bottom: 2px solid;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     width: 100%;
   };
 `;
@@ -121,7 +121,7 @@ const Sum = styled(Price)`
 
 const ShoppingBasket = styled.section`
   display: flex;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
   }
 `;
@@ -135,7 +135,7 @@ const ShippingFeeContainer = styled.div`
   flex: 1;
   text-align: center;
   display:table;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     margin-top: 0;
     margin-bottom: 25px;
   }
@@ -145,7 +145,7 @@ const Fee = styled.section`
   display:table-cell;
   vertical-align:middle;
   border-top: 2px solid;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: block;
     border-top: none;
   }
@@ -160,7 +160,7 @@ const ShippingContainer = styled.div`
   display: none;
   text-align: left;
   border-top: 2px solid;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: block;
   }
 `;
@@ -175,7 +175,7 @@ const SingleStick = styled.article`
   width: 100%;
   height: 200px;
   border-top: 2px solid;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
     height: auto;
   }
@@ -188,7 +188,7 @@ const ContainerOne = styled.div`
   flex: 1;
   line-height: 200px;
   text-align: center;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     line-height: 50px;
     text-align: left;
   }
@@ -196,7 +196,7 @@ const ContainerOne = styled.div`
 
 const ContainerTwo = styled.div`
   flex: 1.5;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     font-weight: bold;
   }
 `;
@@ -212,14 +212,14 @@ const StickImg = styled.img`
 
 const StandImg = styled.img`
   height: 180px;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     height: 160px;
   }
 `;
 
 const SingleDesc = styled.p`
   margin-top: 80px;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     margin-top: 0;
   }
 `;
@@ -229,7 +229,7 @@ const Delete = styled.p`
   display: inline-block;
   font-weight: bold;
   cursor: pointer;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: none;
   }
 `;
@@ -238,7 +238,7 @@ const MobileDesc = styled.article`
   margin-top: 20px;
   display: none;
   font-weight: bold;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: block;
   }
 `;
@@ -259,7 +259,7 @@ const QuantityContainer = styled.button`
   border: 1px solid;
   background-color: white;
   display: inline-block;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     margin-top: 20px;
   }
 `;
@@ -313,7 +313,6 @@ const OrderProduct = () => {
   };
 
   const handleDecreaseStickQuantity = (stick) => {
-    console.log(stick);
     dispatch(decreaseStickQuantity(stick.id));
     axios({
       method: 'PUT',
