@@ -5,8 +5,6 @@ const initialState = {
   stands: []
 };
 
-let id = initialState.stands.length + 1;
-
 export const standSlice = createSlice({
   name: 'stand',
   initialState,
@@ -24,14 +22,8 @@ export const standSlice = createSlice({
       }
     },
     insertStand: (state, action) => {
-      if (action.payload.id) {
-        id = action.payload.id;
-      } else {
-        id++;
-      }
-
       const stand = {
-        id: id,
+        id: action.payload.id,
         standPlate: action.payload.plate,
         standHolder: action.payload.holder,
         standText: action.payload.text,
