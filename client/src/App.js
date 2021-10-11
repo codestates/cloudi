@@ -63,7 +63,6 @@ const App = () => {
           data: { orders, code: authorizationCode }
         })
           .then((res) => {
-            console.log('Kakao Login OK', res.data.token);
             dispatch(
               insertUserinfo({
                 id: res.data.id,
