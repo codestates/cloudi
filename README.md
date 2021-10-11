@@ -63,7 +63,7 @@ Cloudi 퀴즈를 통해 나에게 맞는 Incense stick을 추천해 드립니다
 
 ## Stack Architecture
 
-<img src="https://user-images.githubusercontent.com/83770790/136695567-d346ed44-f549-4037-897a-2d5f24a3c84b.png" />
+<img src="https://user-images.githubusercontent.com/83770790/136697627-696391ff-b2ad-46da-8fa2-98a231d0986f.png" />
 
 ## 기능 Flow (Client-Side)
 

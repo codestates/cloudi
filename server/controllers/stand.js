@@ -82,6 +82,9 @@ module.exports = {
     res.status(200).json(response);
   },
   post: async (req, res) => {
+    if (req.body.standText.length > 10) {
+      return res.status(400).send('텍스트 길이 제한은 10자 입니다.');
+    }
     await db.stand.findAll({
       where: {
         userId: req.body.userId,

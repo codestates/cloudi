@@ -94,6 +94,14 @@ const SignupTitle = styled.div`
   border-top-right-radius: 0.8rem;
 `;
 
+const DescMessage = styled.div`
+  position: absolute;
+  font-size: 12px;
+  color: #787878;
+  bottom: 180px;
+  right: 80px;
+`;
+
 const SignupBtn = styled.div`
   font-size: 18px;
   color: white;
@@ -182,6 +190,8 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
       setErrorMessage('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
     } else if (userName.length > 7) {
       setNameMessage('글자수는 최대 7자입니다');
+    } else if (userEmail.length > 45) {
+      setErrorMessage('이메일은 45자 이하로 입력해 주세요');
     } else {
       axios({
         method: 'POST',
@@ -232,6 +242,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
           <InputBox
             type='email'
             value={userInfo.userEmail}
+            maxLength={46}
             onChange={handleInputValue('userEmail')}
             placeholder='User email'
           />
@@ -246,6 +257,7 @@ const Signup = ({ visible, setVisible, setClearOpen }) => {
             placeholder='Password'
           />
         </InputContainer>
+        <DescMessage>비밀번호는 8~15자로 입력해 주세요</DescMessage>
         <InputContainer>
           <InputTitle margin={21}>
             Confirm

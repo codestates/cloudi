@@ -121,8 +121,8 @@ const CartBtn = styled.div`
     opacity: 1;
   }
   @media screen and (max-width: 768px) {
-    position: absolute;
-    bottom: 150px;
+    position: relative;
+    bottom: 90px;
   }
 `;
 
@@ -131,10 +131,10 @@ const Sequence = styled.div`
   display: flex;
   justify-content: end;
   position: relative;
-  right: 35px;
+  left: 530px;
   top: 23px;
   @media screen and (max-width: 768px) {
-    right: 45px;
+    left: 320px;
   }
 `;
 
@@ -166,13 +166,12 @@ const Incense = () => {
     })
       .then((res) => {
         setIncenseData(res.data);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 350);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
+      return () => setIsLoading(false);
   }, []);
 
   const data = incenseData;
@@ -204,7 +203,7 @@ const Incense = () => {
       stick.sticks.filter((el) => el.stickId === stickData.id).length === 0;
 
     const newStick = {
-      id: null,
+      id: 1,
       stickId: stickData.id,
       stickName: stickData.stickName,
       stickImage: stickData.stickImage
@@ -213,14 +212,14 @@ const Incense = () => {
     if (stickCount) {
       if (userinfo.token) {
         setClickCount(0);
+        setInCartItem(0);
+        setCartModalOpen(1);
         axios({
           method: 'POST',
           url: `https://www.cloudi.shop/incense`,
           data: { stickId: stickData.id, userId: userinfo.id }
         })
           .then((res) => {
-            setInCartItem(0);
-            setCartModalOpen(1);
             dispatch(insertStick({ ...newStick, id: res.data.id }));
           })
           .catch((err) => {
@@ -229,6 +228,9 @@ const Incense = () => {
       } else {
         setInCartItem(0);
         setCartModalOpen(1);
+        if (stick.sticks.length !== 0) {
+          newStick.id = stick.sticks[stick.sticks.length - 1].id + 1;
+        }
         dispatch(insertStick(newStick));
         setClickCount(0);
       }

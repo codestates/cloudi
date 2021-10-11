@@ -3,11 +3,13 @@ const db = require("../models")
 const qs = require('qs');
 const axios = require("axios");
 const { sign, verify } = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 //! create user
 
 // db.user.create({
-//   userName: '상국'
+//   userName: '상국',
+//   userEmail: 'skshim2002@gmail.com'
 // })
 // .then(data => {
 //   console.log(data)
@@ -30,11 +32,13 @@ const { sign, verify } = require('jsonwebtoken');
 
 // db.user.findAll({
 //   where: {
-//     googleId: '106477660792720416229'
+//     userEmail: 'skshim2002@gmail.com',
+//     googleId: null,
+//     kakaoId: null
 //   }
 // })
 // .then(data => {
-//   console.log(data[0].dataValues)
+//   console.log(data.length)
 // })
 
 //! join M : N find query
@@ -139,3 +143,28 @@ const { sign, verify } = require('jsonwebtoken');
 //     console.log('ddd')
 //   }
 // }
+
+//! bcrypt
+// let a;
+// console.log(a);
+// bcrypt.hash('1234', 10, (err, hash) => {
+//   // console.log(hash);
+//   a = hash;
+// })
+// console.log(a)
+
+// bcrypt.compare('12345', '$2b$10$bhgMcax/7f2IJunJEtaPceXKikougbYj1P4qHknaCUEtajveGH92u', (err, result) => {
+//   if(err){
+//     console.log(err);
+//   }else{
+//     console.log(result);
+//   }
+// });
+
+// let a;
+// console.log(a);
+// a = bcrypt.hashSync('12341234', 10) // sync
+// console.log(typeof a,a)
+
+// const same = bcrypt.compareSync('1234', '$2b$10$dAewVoibVXihdcyRjQI5meTjf8YK6HQ.8Fu.CCQSq74rUnMT5YwSm') // sync
+// console.log(same)

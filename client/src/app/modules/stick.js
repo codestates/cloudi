@@ -4,8 +4,6 @@ const initialState = {
   sticks: []
 };
 
-let id = initialState.sticks.length + 1;
-
 export const stickSlice = createSlice({
   name: 'stick',
   initialState,
@@ -23,13 +21,9 @@ export const stickSlice = createSlice({
       }
     },
     insertStick: (state, action) => {
-      if (action.payload.id) {
-        id = action.payload.id;
-      } else {
-        id++;
-      }
+      
       const stick = {
-        id: id,
+        id: action.payload.id,
         stickId: action.payload.stickId,
         stickName: action.payload.stickName,
         stickPrice: 2000,
@@ -37,7 +31,6 @@ export const stickSlice = createSlice({
         stickImage: action.payload.stickImage
       };
       state.sticks.push(stick);
-      console.log('리덕스 sticks', state.sticks);
     },
     removeStick: (state, { payload: id }) => {
       const index = state.sticks.findIndex((stick) => stick.id === id);

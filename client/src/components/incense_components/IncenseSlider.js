@@ -67,13 +67,15 @@ const IncenseSlider = ({
       return scope[item] / 2;
     });
     setNum(dividedNum);
-  }, [data]); // eslint-disable-line
+  }, [data]);
 
   useEffect(() => {
     if (clickCount === 0) {
       setClick(CONSTANT_DATA);
     }
-  }, [clickCount]); // eslint-disable-line
+  }, [clickCount]);
+
+  const money = (int) => int.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   const changeToStr = (score) => {
     const circles = [];
@@ -110,7 +112,7 @@ const IncenseSlider = ({
       <TextContainer>
         <IncenseData>{data.stickName}</IncenseData>
         <IncenseData>{data.stickDesc}</IncenseData>
-        <IncenseData>{data.stickPrice} 원</IncenseData>
+        <IncenseData>{money(data.stickPrice)} 원</IncenseData>
         {SCOPE_DATA.map((el, idx) => {
           return (
             <IncenseData key={el}>

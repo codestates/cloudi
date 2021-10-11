@@ -309,12 +309,10 @@ const OrderProduct = () => {
     axios({
       method: 'DELETE',
       url: `${URL}/order?stickOrderId=${stick.id}`
-    }).then(res => console.log(res))
-      .catch(err => console.log(err));
+    }).catch(err => console.log(err));
   };
 
   const handleDecreaseStickQuantity = (stick) => {
-    console.log(stick);
     dispatch(decreaseStickQuantity(stick.id));
     axios({
       method: 'PUT',
@@ -343,8 +341,7 @@ const OrderProduct = () => {
     axios({
       method: 'DELETE',
       url: `${URL}/order?standOrderId=${stand.id}`
-    }).then(res => console.log(res))
-      .catch(err => console.log(err));
+    }).catch(err => console.log(err));
   };
 
   const handleDecreaseStandQuantity = (stand) => {

@@ -184,7 +184,7 @@ const SideBar = () => {
   };
 
   useEffect(() => {
-    if (timer === 1) {
+    if (timer) {
       sec < 10 ? document.title = `${min} : 0${sec} - cloudi` : document.title = `${min} : ${sec} - cloudi`;
     } else {
       document.title = 'cloudi';
