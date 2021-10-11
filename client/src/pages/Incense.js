@@ -9,7 +9,6 @@ import Cart from '../modals/Cart';
 import axios from 'axios';
 
 const IncenseWrapper = styled.div`
-  font-family: 'Roboto', sans-serif;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -107,6 +106,7 @@ const SliderBtnRight = styled.div`
 
 const CartBtn = styled.div`
   background-color: ${(props) => (props.count ? '#b7c58b' : '#636363')};
+  font-family: 'Roboto';
   padding: 20px;
   opacity: 0.7;
   display: flex;
