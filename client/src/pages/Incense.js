@@ -9,7 +9,6 @@ import Cart from '../modals/Cart';
 import axios from 'axios';
 
 const IncenseWrapper = styled.div`
-  font-family: 'Roboto', sans-serif;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -107,6 +106,7 @@ const SliderBtnRight = styled.div`
 
 const CartBtn = styled.div`
   background-color: ${(props) => (props.count ? '#b7c58b' : '#636363')};
+  font-family: 'Roboto';
   padding: 20px;
   opacity: 0.7;
   display: flex;
@@ -162,7 +162,7 @@ const Incense = () => {
   useEffect(() => {
     axios({
       method: 'GET',
-      url: `https://www.cloudi.shop/incense`
+      url: `http://localhost:8000/incense`
     })
       .then((res) => {
         setIncenseData(res.data);
@@ -216,7 +216,7 @@ const Incense = () => {
         setCartModalOpen(1);
         axios({
           method: 'POST',
-          url: `https://www.cloudi.shop/incense`,
+          url: `http://localhost:8000/incense`,
           data: { stickId: stickData.id, userId: userinfo.id }
         })
           .then((res) => {

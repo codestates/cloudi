@@ -59,11 +59,10 @@ const App = () => {
       } else {
         axios({
           method: 'POST',
-          url: 'https://www.cloudi.shop/user/kakao',
+          url: 'http://localhost:8000/user/kakao',
           data: { orders, code: authorizationCode }
         })
           .then((res) => {
-            console.log('Kakao Login OK', res.data.token);
             dispatch(
               insertUserinfo({
                 id: res.data.id,
