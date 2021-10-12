@@ -2,12 +2,23 @@ require('dotenv').config();
 const db = require('../../models');
 const axios = require("axios");
 const { verify } = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const secret = process.env.ACCESS_SECRET;
 
 module.exports = {
   put: (req, res) => {
     const token = req.headers.authorization;
+    const {userPassword, newPassword} = req.body;
+
+    const pattern = /[<>"'()=\s]/;
+    if(pattern.test(userPassword) || pattern.test(newPassword)){
+      return res.status(400).send('특수문자 < > ( ) " \' = 과 공백은 불가능합니다');
+    }
+    if(userPassword.length < 8 || userPassword.length > 15 || newPassword.length < 8 || newPassword.length > 15){
+      return res.status(400).send('비밀번호는 8자 이상 15자 이하로 입력해 주세요');
+    }
+
     if(token.split(' ')[0] !== 'jwt'){//jwt가 아닌 경우
       return res.status(400).send('소셜로그인 회원은 이용할 수 없습니다');
     }
@@ -27,11 +38,13 @@ module.exports = {
     })
     .then(data => {
       let userInfo = data[0].dataValues;
-      if(userInfo.userPassword !== req.body.userPassword){//비밀번호 불일치
+      const checkPW = bcrypt.compareSync(userPassword, userInfo.userPassword);
+      if(!checkPW){//비밀번호 불일치
         res.status(400).send('기존 비밀번호가 일치하지 않습니다');
       }else{//비밀번호 일치
+        const hashPassword = bcrypt.hashSync(newPassword, 10);
         db.user.update({
-          userPassword: req.body.newPassword
+          userPassword: hashPassword
         },{
           where: {
             id: userInfo.id

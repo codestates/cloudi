@@ -16,7 +16,7 @@ const PageContainer = styled.section`
   :nth-child(2n-1) {
     background-color: #F5F5F5;
   };
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: block;
   };
 `;
@@ -25,7 +25,7 @@ const VideoContainer = styled.article`
   flex: 1.4;
   text-align: center;
   padding: 0 2%;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     padding-top: 10vh;
     @media screen and (max-height: 800px) {
       padding-top: 10vh;
@@ -54,7 +54,7 @@ const Video = styled.img`
     height: 60%;
     width: auto;
   };
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     width: 60%;
     @media screen and (max-height: 800px) {
       height: 26vh;
@@ -68,7 +68,7 @@ const DescContainerRight = styled.article`
   display: table;
   padding: 0 2%;
   text-align: left;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: block;
     padding: 7vh 0 0 0;
   };
@@ -87,7 +87,7 @@ const Title = styled.h2`
   @media screen and (max-height: 800px) {
     font-size: 3.5vh;
   };
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     font-size: 3vw;
     text-align: center;
     display: grid;
@@ -103,7 +103,7 @@ const Desc = styled.p`
   @media screen and (max-height: 800px) {
     font-size: 2.3vh;
   };
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
       text-align: center;
       font-size: 2.5vw;
   };
@@ -111,7 +111,7 @@ const Desc = styled.p`
 
 const SecondPageContiner = styled(PageContainer)`
   flex-direction: row-reverse;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: block;
   };
 `;
@@ -134,7 +134,7 @@ const Button = styled.button`
   :active {
     box-shadow: inset 5px 5px 5px rgb(150, 160, 120);
   };
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     margin: 40px;
     font-size: 2.5vh;
     width: 40vw;
@@ -169,7 +169,7 @@ const LastPageContainer = styled(PageContainer)`
   margin-top: 95px;
   flex-direction: column;
   scroll-snap-align: end;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: flex;
   };
 `;
@@ -177,7 +177,7 @@ const LastPageContainer = styled(PageContainer)`
 const LastPageContent = styled.article`
   display: flex;
   flex: 15;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
   };
 `;
@@ -186,7 +186,7 @@ const LastPagePictureContainer = styled.article`
   flex: 3;
   text-align: center;
   padding-top: 10vh;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     padding-top: 0;
     flex: 1.7;
   };
@@ -195,7 +195,7 @@ const LastPagePictureContainer = styled.article`
 const LastPageDescContainer = styled.article`
   flex: 2;
   margin-top: 13vh;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     flex: 2.5;
     text-align: center;
     margin: 2vw 0;
@@ -205,7 +205,7 @@ const LastPageDescContainer = styled.article`
 const IncenseGrass = styled.img`
   width: 70%;
   height: auto;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     height: 30vh;
     width: auto;
   };
@@ -215,7 +215,7 @@ const CloudiSaying = styled.h2`
   font-weight: bold;
   font-size: 1.3vw;
   line-height: 20px;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     font-size: 3vh;
     line-height: 4vh;
   };
@@ -225,7 +225,7 @@ const CloudiDesc = styled.p`
   padding: 1vw 0;
   font-size: 1vw;
   line-height: 1.5vw;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     font-size: 2vh;
     line-height: 2.5vh;
   };
@@ -235,7 +235,7 @@ const NavContainer = styled.section`
   flex: 2;
   text-align: center;
   padding-top: 13vh;
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
     display: none;
   };
 `;

@@ -12,9 +12,9 @@ import {
   sticksSelector,
   userinfoSelector
 } from './app/modules/hooks';
-import { insertAllStands } from './app/modules/stand';
-import { insertAllSticks } from './app/modules/stick';
-import { insertUserinfo } from '../src/app/modules/userinfo';
+import { insertAllStands, removeAllStands } from './app/modules/stand';
+import { insertAllSticks, removeAllSticks } from './app/modules/stick';
+import { insertUserinfo, removeUserinfo } from '../src/app/modules/userinfo';
 import Quiz from './pages/Quiz';
 import SideBar from './modals/SideBar';
 import Incense from './pages/Incense';
@@ -63,7 +63,6 @@ const App = () => {
           data: { orders, code: authorizationCode }
         })
           .then((res) => {
-            console.log('Kakao Login OK', res.data.token);
             dispatch(
               insertUserinfo({
                 id: res.data.id,
@@ -98,6 +97,10 @@ const App = () => {
         })
         .catch((err) => {
           console.log(err);
+          dispatch(removeUserinfo());
+          dispatch(removeAllSticks());
+          dispatch(removeAllStands());
+          setIsLoading(false);
         });
     } else {
       setIsLoading(false);

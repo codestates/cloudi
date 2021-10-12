@@ -61,7 +61,7 @@ const BtnContent = styled.div`
     border-color: ${(props) => (props.disable ? '#787887' : '#b7c58b')};
     cursor: pointer;
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1024px) {
   }
 `;
 

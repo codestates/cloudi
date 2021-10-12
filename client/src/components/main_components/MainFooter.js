@@ -9,7 +9,7 @@ const MainFooterContainer = styled.footer`
   width: 100vw;
   justify-content: center;
   background-color: rgb(183, 197, 139);
-  @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+  @media screen and (max-width: 1024px), screen and (max-height: 800px) {
     flex: 1.4;
     padding: 10px;
     justify-content: space-between;
@@ -20,7 +20,7 @@ const MainFooterContainer = styled.footer`
 const ContentContainer = styled.div`
   margin: 15px 70px 0 70px;
   text-align: center;
-  @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+  @media screen and (max-width: 1024px), screen and (max-height: 800px) {
     margin: 0;
     padding: 0 20px;
   };
@@ -39,7 +39,7 @@ const ContentTitle = styled.h3`
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: bold;
-  @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+  @media screen and (max-width: 1024px), screen and (max-height: 800px) {
     display: none;
   };
   @media screen and (max-height: 600px) {
@@ -48,7 +48,7 @@ const ContentTitle = styled.h3`
 `;
 
 const LogoTitle = styled(ContentTitle)`
-  @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+  @media screen and (max-width: 1024px), screen and (max-height: 800px) {
     font-size: 20px;
     display: block;
   };
@@ -91,7 +91,7 @@ const WikiLink = styled(Content)`
   :hover {
     color: black;
   }
-  @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+  @media screen and (max-width: 1024px), screen and (max-height: 800px) {
     display: none;
   };
 `;
@@ -101,7 +101,7 @@ const Stack = styled.span`
   font-weight: bold;
   margin-right: 10px;
   font-family: 'Gowun Batang', serif;
-  @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+  @media screen and (max-width: 1024px), screen and (max-height: 800px) {
     font-size: 15px;
   };
   @media screen and (max-height: 600px) {
@@ -123,7 +123,7 @@ const CloudiLogo = styled.img`
 const CloudiI = styled.img`
   height: 15px;
   width: 10px;
-  @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+  @media screen and (max-width: 1024px), screen and (max-height: 800px) {
     height: 15px;
     width: 9px;
   };
@@ -136,7 +136,7 @@ const ProfileImg = styled.img`
   margin: 0 6px;
   box-shadow: 1.3px 1.3px grey;
   border-color: rgb(102, 47, 13);
-  @media screen and (max-width: 1023px), screen and (max-height: 800px) {
+  @media screen and (max-width: 1024px), screen and (max-height: 800px) {
     margin: 0 3px 0 1px;
   };
 `;

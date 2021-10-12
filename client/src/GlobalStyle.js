@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
       border-radius: 5px;
       background-color: rgba(15, 117, 1, 0.5);
     };
-    @media screen and (max-width: 1023px) {
+    @media screen and (max-width: 1024px) {
       ::-webkit-scrollbar {
         display: none;
       };

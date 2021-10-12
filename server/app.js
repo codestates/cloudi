@@ -19,11 +19,10 @@ const orderRouter = require('./routes/order');
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 app.use(
-  cors(/*{
-    origin: ['https://localhost:3000'],
-    credentials: true,
-    methods: ['GET', 'POST', 'OPTIONS']
-  }*/)
+  cors({
+    origin: ['https://cloudi.shop'],
+    credentials: true
+  })
 );
 app.use(cookieParser());
 
