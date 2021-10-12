@@ -130,11 +130,11 @@ const Sequence = styled.div`
   color: #999999;
   display: flex;
   justify-content: end;
-  position: relative;
-  left: 530px;
-  top: 23px;
+  position: fixed;
+  left: 535px;
+  top: 10px;
   @media screen and (max-width: 768px) {
-    left: 320px;
+    left: 330px;
   }
 `;
 
